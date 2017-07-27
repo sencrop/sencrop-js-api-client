@@ -21,7 +21,7 @@ const {
 
 flattenSwagger(require('../src/swagger.api.json'))
 .then((API) => {
-
+  const operations = getSwaggerOperations(API);
   const content = `
 'use strict';
 
@@ -32,80 +32,103 @@ const {
   sortMultipleQuery, // eslint-disable-line
 } = require('./lib');
 
+/**
+ * ${ API.info.description }
+ * @module API
+ * @version ${ API.info.version }
+ */
 const API = {
-  ${ getSwaggerOperations(API).map((operation) => {
-    const { path, method, operationId, parameters } = operation;
-
-    return `${
-      operationId
-    }: ({
-      _,${ (parameters || []).map((parameter) => {
-        const variableName = camelCase(parameter.name);
-        return `
-        ${ variableName },`;
-      }).join('') }
-  }, options) => {
-    const method = '${ method }';
-    let urlParts = [${
-      path.split('/')
-      .filter(identity => identity)
-      .map((part) => {
-        const result = (/^{([a-z0-9]+)}$/ig).exec(part);
-
-        if(result) {
-          return `
-      ${ camelCase(result[1]) },`;
-        }
-        return `
-      '${ part }',`;
-      }).join('')}
-    ];
-    let headers = {${
-    (parameters || [])
-    .filter(p => 'header' === p.in)
-    .map(parameter => `
-      ${ parameter.name }: ${ camelCase(parameter.name) },`
-    ).join('')}
-    };
-    let qs = cleanQuery({${
-    (parameters || [])
-    .filter(p => 'query' === p.in)
-    .map(parameter => `
-      ${ parameter.name }: ${ camelCase(parameter.name)}${
-        parameter.ordered ?
-        '.sort(sortMultipleQuery)' :
-        ''
-      },`
-    ).join('')}
-    });
-    let data = ${
-      // TODO: Naive approach to setting up the
-      // body since it assume only JSON may be
-      // sent. Generalize it.
-      (parameters || [])
-      .filter(p => 'body' === p.in)[0] ?
-      camelCase(
-        (parameters || [])
-        .filter(p => 'body' === p.in)[0].name
-      ) :
-      '{}.undef'
-    };
-
-    return axios(Object.assign({
-      baseURL: '${ API.schemes[0] || 'https'}://${
-        API.host + (API.basePath || '')
-      }/',
-      paramsSerializer: querystring.stringify.bind(querystring),
-      validateStatus: status => 200 <= status && 300 > status,
-      method: method,
-      url: urlParts.join('/'),
-      headers,
-      params: qs,
-      data,
-    }, options || {}));
-  },`;
-  }).join('\n  ') }
+  ${ operations.map(({ operationId }) => operationId).join(',\n  ') },
 };
+
+${ operations.map((operation) => {
+  const { path, method, operationId, parameters } = operation;
+
+  return `
+/**
+ * ${operation.summary}
+ * @param {Object} parameters
+ * The parameters to provide (destructured)${
+   (parameters || []).map(parameter => `
+ * @param {${
+   parameter.schema ?
+   parameter.schema.type :
+   parameter.type
+ }} parameters.${camelCase(parameter.name)}
+ * ${ parameter.description }`)
+ }
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function ${ operationId }({
+  _,${ (parameters || []).map((parameter) => {
+    const variableName = camelCase(parameter.name);
+
+    return `\n  ${ variableName },`;
+  }).join('') }
+}, options) {
+  const method = '${ method }';
+  let urlParts = [${
+    path.split('/')
+    .filter(identity => identity)
+    .map((part) => {
+      const result = (/^{([a-z0-9]+)}$/ig).exec(part);
+
+      if(result) {
+        return `
+    ${ camelCase(result[1]) },`;
+      }
+      return `
+    '${ part }',`;
+    }).join('')}
+  ];
+  let headers = {${
+  (parameters || [])
+  .filter(p => 'header' === p.in)
+  .map(parameter => `
+    ${ parameter.name }: ${ camelCase(parameter.name) },`
+  ).join('')}
+  };
+  let qs = cleanQuery({${
+  (parameters || [])
+  .filter(p => 'query' === p.in)
+  .map(parameter => `
+    ${ parameter.name }: ${ camelCase(parameter.name)}${
+      parameter.ordered ?
+      '.sort(sortMultipleQuery)' :
+      ''
+    },`
+  ).join('')}
+  });
+  let data = ${
+    // TODO: Naive approach to setting up the
+    // body since it assume only JSON may be
+    // sent. Generalize it.
+    (parameters || [])
+    .filter(p => 'body' === p.in)[0] ?
+    camelCase(
+      (parameters || [])
+      .filter(p => 'body' === p.in)[0].name
+    ) :
+    '{}.undef'
+  };
+
+  return axios(Object.assign({
+    baseURL: '${ API.schemes[0] || 'https'}://${
+      API.host + (API.basePath || '')
+    }/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}`;
+}).join('\n') }
 
 module.exports = API;
 `;

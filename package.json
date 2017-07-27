@@ -8,7 +8,8 @@
       "main",
       "tests",
       "readme",
-      "jsarch"
+      "jsarch",
+      "jsdocs"
     ],
     "data": {
       "files": "src/**/*.js bin/*.js",
@@ -22,6 +23,7 @@
     "cli": "env NODE_ENV=${NODE_ENV:-cli}",
     "cover": "jest --coverage",
     "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
+    "doc": "mkdir -p .readme; echo \"# API\" > .readme/API.md; jsdoc2md src/**/*.js bin/*.js >> .readme/API.md",
     "lint": "eslint src/**/*.js bin/*.js",
     "metapak": "metapak || exit 0",
     "postinstall": "npm run metapak --silent",
@@ -56,6 +58,7 @@
     "istanbul": "0.4.5",
     "jest": "20.0.4",
     "jsarch": "1.2.1",
+    "jsdoc-to-markdown": "^3.0.0",
     "metapak": "0.0.21",
     "metapak-sencrop": "1.1.1",
     "nock": "^9.0.14",

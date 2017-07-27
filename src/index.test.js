@@ -45,8 +45,8 @@ describe('API', () => {
       })
       .get('/v1/users/902/devices/1B28C5/statistics')
       .query({
-        startTime: '1404172800000',
-        endTime: '1500595200000',
+        startDate: '1404172800000',
+        endDate: '1500595200000',
         measures: ['RH_AIR_H1', 'TEMP_AIR_H1'],
       })
       .reply(200, {
@@ -110,9 +110,9 @@ describe('API', () => {
       return API.getUserDeviceStatistics({
         userId: 902,
         deviceId: '1B28C5',
-        startTime: new Date('2014-07-01T00:00:00.000Z').getTime(),
-        endTime: new Date('2017-07-21T00:00:00.000Z').getTime(),
-        authenticationToken: '902-771',
+        startDate: new Date('2014-07-01T00:00:00.000Z').getTime(),
+        endDate: new Date('2017-07-21T00:00:00.000Z').getTime(),
+        authorization: 'Bearer 902-771',
         measures: ['RH_AIR_H1', 'TEMP_AIR_H1'],
       })
       .then(response => expect({
@@ -164,7 +164,7 @@ describe('API', () => {
       return API.putUserDevice({
         userId: 902,
         deviceId: '1B28C5',
-        authenticationToken: '902-771',
+        authorization: 'Bearer 902-771',
         body: {
           contents: {
             serial: '1B28C5',
