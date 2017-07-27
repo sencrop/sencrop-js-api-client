@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API for simple URI should work 1`] = `
+Object {
+  "body": Object {
+    "pong": "pong",
+  },
+  "headers": Object {
+    "connection": "close",
+    "content-type": "application/json",
+    "date": "Thu, 27 Jul 2017 14:23:57 GMT",
+    "transaction-id": "11",
+    "transfer-encoding": "chunked",
+  },
+  "status": 200,
+}
+`;
+
+exports[`API with Token/URI params and query strings should work 1`] = `
+Object {
+  "body": Object {
+    "devices": Object {
+      "1B28C5": Object {
+        "contents": Object {
+          "date_start": 1494799200,
+          "date_stop": 2147483647,
+          "identification": "RC000117",
+          "name": "RC000117",
+          "role": "owner",
+          "serial": "1B28C5",
+        },
+        "id": "1B28C5",
+      },
+    },
+    "entry": "1B28C5",
+    "measures": Object {
+      "data": Array [
+        Object {
+          "RH_AIR_H1": Object {},
+          "doc_count": 0,
+          "key": 1404165600000,
+          "key_as_string": "1404165600000",
+        },
+        Object {
+          "RH_AIR_H1": Object {},
+          "doc_count": 0,
+          "key": 1406844000000,
+          "key_as_string": "1406844000000",
+        },
+      ],
+      "interval": "month",
+    },
+    "models": Object {
+      "7": Object {
+        "contents": Object {
+          "calibration": "Ok",
+          "conception": "France - Lille",
+          "externalDiameter": 0.206,
+          "manufacturing": "Europe-France",
+          "name": "Raincrop",
+          "weight": 3.5,
+        },
+        "id": 7,
+      },
+    },
+  },
+  "headers": Object {
+    "connection": "close",
+    "content-type": "application/json",
+    "date": "Thu, 27 Jul 2017 14:23:57 GMT",
+    "transaction-id": "12",
+    "transfer-encoding": "chunked",
+  },
+  "status": 200,
+}
+`;
+
+exports[`API with a body should work 1`] = `
+Object {
+  "body": Object {
+    "contents": Object {
+      "date_start": 1494799200,
+      "date_stop": 2147483647,
+      "identification": "RC000117",
+      "name": "RC000117",
+      "role": "owner",
+      "serial": "1B28C5",
+    },
+    "id": "1B28C5",
+  },
+  "headers": Object {
+    "connection": "close",
+    "content-type": "application/json",
+    "date": "Thu, 27 Jul 2017 14:23:57 GMT",
+    "transaction-id": "13",
+    "transfer-encoding": "chunked",
+  },
+  "status": 201,
+}
+`;

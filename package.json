@@ -1,0 +1,73 @@
+{
+  "name": "sencrop-js-api-client",
+  "version": "0.0.0",
+  "description": "The Sencrop JavaScript API client",
+  "main": "dist/index.js",
+  "metapak": {
+    "configs": [
+      "main",
+      "tests",
+      "readme",
+      "jsarch"
+    ],
+    "data": {
+      "files": "src/**/*.js bin/*.js",
+      "ignore": []
+    }
+  },
+  "scripts": {
+    "architecture": "jsarch src/**/*.js bin/*.js > ARCHITECTURE.md",
+    "build": "node bin/build.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "cli": "env NODE_ENV=${NODE_ENV:-cli}",
+    "cover": "jest --coverage",
+    "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
+    "lint": "eslint src/**/*.js bin/*.js",
+    "metapak": "metapak || exit 0",
+    "postinstall": "npm run metapak --silent",
+    "preversion": "npm run lint && npm t",
+    "test": "jest",
+    "version": "npm run changelog && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sencrop/sencrop-js-api-client.git"
+  },
+  "keywords": [
+    "API",
+    "Sencrop"
+  ],
+  "author": "Nicolas Froidure (Sencrop)",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/sencrop/sencrop-js-api-client/issues"
+  },
+  "homepage": "https://github.com/sencrop/sencrop-js-api-client#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "camel-case": "^3.0.0"
+  },
+  "devDependencies": {
+    "commitizen": "^2.9.6",
+    "conventional-changelog-cli": "^1.2.0",
+    "cz-conventional-changelog": "^2.0.0",
+    "eslint": "3.16.0",
+    "eslint-config-simplifield": "4.1.1",
+    "istanbul": "0.4.5",
+    "jest": "20.0.4",
+    "jsarch": "1.2.1",
+    "metapak": "0.0.21",
+    "metapak-sencrop": "1.1.1",
+    "nock": "^9.0.14",
+    "sinon": "2.3.8",
+    "swagger-http-router": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=6.10.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
