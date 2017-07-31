@@ -6,7 +6,6 @@
   "metapak": {
     "configs": [
       "main",
-      "tests",
       "readme",
       "jsarch",
       "jsdocs"
@@ -28,7 +27,7 @@
     "metapak": "metapak || exit 0",
     "postinstall": "npm run metapak --silent",
     "preversion": "npm run lint && npm t",
-    "test": "jest",
+    "test": "jest && karma start karma.conf.js",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
   "repository": {
@@ -50,20 +49,29 @@
     "camel-case": "^3.0.0"
   },
   "devDependencies": {
+    "browserify": "^14.4.0",
     "commitizen": "^2.9.6",
     "conventional-changelog-cli": "^1.2.0",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "3.16.0",
     "eslint-config-simplifield": "4.1.1",
     "istanbul": "0.4.5",
+    "jasmine-core": "^2.7.0",
     "jest": "20.0.4",
     "jsarch": "1.2.1",
     "jsdoc-to-markdown": "^3.0.0",
+    "karma": "^1.7.0",
+    "karma-browserify": "^5.1.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
     "metapak": "0.0.21",
     "metapak-sencrop": "1.1.1",
+    "moxios": "^0.4.0",
     "nock": "^9.0.14",
     "sinon": "2.3.8",
-    "swagger-http-router": "^0.1.0"
+    "swagger-http-router": "^0.1.0",
+    "watchify": "^3.9.0"
   },
   "engines": {
     "node": ">=6.10.0"

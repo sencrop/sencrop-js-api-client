@@ -7,12 +7,10 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+      - image: circleci/node:7.10-browsers
+        env:
+          - DISPLAY=:99
+          - CHROME_BIN=/usr/bin/google-chrome
 
     working_directory: ~/repo
 
@@ -37,4 +35,4 @@ jobs:
       - run: yarn run build
 
       # run tests!
-      - run: yarn test
+      - run: npm t
