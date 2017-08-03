@@ -1995,11 +1995,11 @@
       "type": "object",
       "patternProperties": {
         "^[0-9A-Z]+$": {
-          "$ref": "#/definitions/DeviceDegreeDays"
+          "$ref": "#/definitions/DeviceDegreeDay"
         }
       }
     },
-    "DeviceDegreeDays": {
+    "DeviceDegreeDay": {
       "type": "array",
       "items": {
         "type": "object",
