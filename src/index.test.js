@@ -29,7 +29,7 @@ describe('API', () => {
         'chunked',
       ]);
 
-      return API.getPing({})
+      return API.getPing()
       .then(response => expect({
         status: response.status,
         headers: response.headers,
