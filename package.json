@@ -2,7 +2,7 @@
   "name": "sencrop-js-api-client",
   "version": "0.0.0",
   "description": "The Sencrop JavaScript API client",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "metapak": {
     "configs": [
       "main",
