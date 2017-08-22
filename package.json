@@ -29,7 +29,7 @@
     "metapak": "metapak || exit 0",
     "postinstall": "npm run metapak --silent",
     "preversion": "npm run compile && npm run lint && npm t",
-    "test": "npm run compile && jest && karma start karma.conf.js",
+    "test": "npm run compile && jest --config=.jest.config.js && karma start karma.conf.js",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
   "repository": {
