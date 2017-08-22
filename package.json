@@ -11,21 +11,21 @@
       "jsdocs"
     ],
     "data": {
-      "files": "src/**/*.js bin/*.js",
+      "files": "src/**/*.js bin/*.js test/*.js",
       "ignore": []
     }
   },
   "scripts": {
-    "architecture": "jsarch src/**/*.js bin/*.js > ARCHITECTURE.md",
+    "architecture": "jsarch src/**/*.js bin/*.js test/*.js > ARCHITECTURE.md",
     "build": "node bin/build.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "cli": "env NODE_ENV=${NODE_ENV:-cli}",
     "compile": "babel src/*.js --out-dir dist",
     "cover": "jest --coverage",
     "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
-    "doc": "mkdir -p .readme; echo \"# API\" > .readme/API.md; jsdoc2md src/**/*.js bin/*.js >> .readme/API.md",
+    "doc": "mkdir -p .readme; echo \"# API\" > .readme/API.md; jsdoc2md src/**/*.js bin/*.js test/*.js >> .readme/API.md",
     "import": "node bin/import.js",
-    "lint": "eslint src/**/*.js bin/*.js",
+    "lint": "eslint src/**/*.js bin/*.js test/*.js",
     "metapak": "metapak || exit 0",
     "postinstall": "npm run metapak --silent",
     "preversion": "npm run compile && npm run lint && npm t",

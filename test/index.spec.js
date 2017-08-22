@@ -1,6 +1,6 @@
 'use strict';
 
-const API = require('../src/index');
+const API = require('../dist/src/index');
 const moxios = require('moxios');
 
 describe('API', () => {
@@ -38,7 +38,7 @@ describe('API', () => {
             response: {
               pong: 'pong',
             },
-          })
+          }),
         ])
         .then(done)
         .catch(done.fail);

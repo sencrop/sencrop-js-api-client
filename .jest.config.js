@@ -7,4 +7,8 @@
 
 module.exports = {
   coverageReporters: ['lcov'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/'
+  ]
 };
