@@ -37,10 +37,11 @@ API.getUserDeviceStatistics({
 ```
 
 # Development
-To rebuild the API, erase the swagger file
- with a newer one and run:
+To rebuild the API, import the swagger file
+ and build the project again:
 ```js
 npm run build
+npm run compile
 ```
 
 # API
