@@ -19,6 +19,7 @@ const {
 const API = {
   getPing,
   getCrops,
+  postSignupCheck,
   postLostPassword,
   putPassword,
   postLogin,
@@ -53,6 +54,8 @@ const API = {
   getUserPreferences,
   putUserPreferences,
   getOrganisationOperations,
+  getOrganisationOperation,
+  putOrganisationOperation,
   getUserAlerts,
   postUserAlert,
   putUserAlert,
@@ -116,6 +119,48 @@ function getCrops({
   let qs = cleanQuery({
   });
   let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Hit the server to check the email can be used to signup.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {object} parameters.body
+ * The email to check
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postSignupCheck({
+  _,
+  authorization,
+  body,
+} = {}, options) {
+  const method = 'post';
+  let urlParts = [
+    'utils',
+    'checkSignup',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
 
   return axios(Object.assign({
     baseURL: 'http://localhost:1337/v1/',
@@ -1682,6 +1727,103 @@ function getOrganisationOperations({
   let qs = cleanQuery({
   });
   let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Retrieve an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationOperation({
+  _,
+  organisationId,
+  operationId,
+  authorization,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'operations',
+    operationId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Update an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {object} parameters.body
+ * The operation to update
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putOrganisationOperation({
+  _,
+  organisationId,
+  operationId,
+  authorization,
+  body,
+} = {}, options) {
+  const method = 'put';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'operations',
+    operationId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
 
   return axios(Object.assign({
     baseURL: 'http://localhost:1337/v1/',

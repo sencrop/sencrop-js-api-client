@@ -62,6 +62,50 @@
         }
       }
     },
+    "/utils/checkSignup": {
+      "post": {
+        "operationId": "postSignupCheck",
+        "summary": "Hit the server to check the email can be used to signup.",
+        "tags": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "description": "The email to check",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email can be used."
+          }
+        }
+      }
+    },
     "/password/lost": {
       "post": {
         "operationId": "postLostPassword",
@@ -117,9 +161,10 @@
             "schema": {
               "type": "object",
               "required": [
-                "lost_token",
-                "new_password"
+                "lostToken",
+                "newPassword"
               ],
+              "additionalProperties": false,
               "properties": {
                 "lostToken": {
                   "type": "string"
@@ -1664,6 +1709,163 @@
               "$ref": "#/definitions/Error"
             }
           }
+        },
+        "post": {
+          "operationId": "postOrganisationOperation",
+          "summary": "Create an organisation's operation.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "required": true,
+              "description": "The organisation id",
+              "name": "organisationId",
+              "pattern": "^[0-9]+$",
+              "type": "number"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Authorization with Bearer mecanism",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "The operation to add",
+              "schema": {
+                "$ref": "#/definitions/OperationItem"
+              },
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The newly created organisation's operation",
+              "schema": {
+                "$ref": "#/definitions/OperationItem"
+              }
+            },
+            "404": {
+              "description": "Organisation does not exists",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/operations/{operationId}": {
+      "get": {
+        "operationId": "getOrganisationOperation",
+        "summary": "Retrieve an organisation's operation.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Operation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putOrganisationOperation",
+        "summary": "Update an organisation's operation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to update",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The modified organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
         }
       }
     },
@@ -1865,7 +2067,7 @@
                 "lastname",
                 "password",
                 "email",
-                "cellphone",
+                "phone",
                 "address",
                 "zipcode",
                 "city",
@@ -1890,7 +2092,7 @@
                   "type": "string",
                   "format": "email"
                 },
-                "cellphone": {
+                "phone": {
                   "type": "string"
                 },
                 "address": {
@@ -2043,9 +2245,6 @@
         "phone": {
           "type": "string"
         },
-        "cellphone": {
-          "type": "string"
-        },
         "firstname": {
           "type": "string"
         },
@@ -2185,7 +2384,9 @@
           "type": "string",
           "enum": [
             "en",
-            "fr"
+            "fr",
+            "nl",
+            "cz"
           ]
         },
         "precipitationsUnit": {
@@ -3192,7 +3393,13 @@
     "Operation": {
       "type": "object",
       "required": [
-        "name"
+        "name",
+        "type",
+        "displaysIds",
+        "devicesIds",
+        "startDate",
+        "endDate",
+        "details"
       ],
       "properties": {
         "name": {
@@ -3212,6 +3419,14 @@
           "items": {
             "type": "number",
             "pattern": "^[0-9]+$"
+          }
+        },
+        "devicesIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]+$"
           }
         },
         "startDate": {

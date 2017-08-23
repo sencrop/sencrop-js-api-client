@@ -9,6 +9,7 @@ API to consume Sencrop data
 * [API](#module_API)
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
+    * [~postSignupCheck(parameters, options)](#module_API..postSignupCheck) ⇒ <code>Object</code>
     * [~postLostPassword(parameters, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~putPassword(parameters, options)](#module_API..putPassword) ⇒ <code>Object</code>
     * [~postLogin(parameters, options)](#module_API..postLogin) ⇒ <code>Object</code>
@@ -43,6 +44,8 @@ API to consume Sencrop data
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
     * [~putUserPreferences(parameters, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
     * [~getOrganisationOperations(parameters, options)](#module_API..getOrganisationOperations) ⇒ <code>Object</code>
+    * [~getOrganisationOperation(parameters, options)](#module_API..getOrganisationOperation) ⇒ <code>Object</code>
+    * [~putOrganisationOperation(parameters, options)](#module_API..putOrganisationOperation) ⇒ <code>Object</code>
     * [~getUserAlerts(parameters, options)](#module_API..getUserAlerts) ⇒ <code>Object</code>
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
@@ -73,6 +76,21 @@ Get the crops
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postSignupCheck"></a>
+
+### API~postSignupCheck(parameters, options) ⇒ <code>Object</code>
+Hit the server to check the email can be used to signup.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.body | <code>object</code> | The email to check |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postLostPassword"></a>
@@ -613,6 +631,39 @@ Get a organisation's operations.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationOperation"></a>
+
+### API~getOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Retrieve an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisationOperation"></a>
+
+### API~putOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Update an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.body | <code>object</code> | The operation to update |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserAlerts"></a>
