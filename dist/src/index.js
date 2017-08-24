@@ -53,11 +53,14 @@ var API = {
   getUserDeviceDegreeDays: getUserDeviceDegreeDays,
   getUserDeviceStatus: getUserDeviceStatus,
   getUserDeviceForecasts: getUserDeviceForecasts,
+  getUserForecasts: getUserForecasts,
   getUserPreferences: getUserPreferences,
   putUserPreferences: putUserPreferences,
   getOrganisationOperations: getOrganisationOperations,
+  postOrganisationOperation: postOrganisationOperation,
   getOrganisationOperation: getOrganisationOperation,
   putOrganisationOperation: putOrganisationOperation,
+  deleteOrganisationOperation: deleteOrganisationOperation,
   getUserAlerts: getUserAlerts,
   postUserAlert: postUserAlert,
   putUserAlert: putUserAlert,
@@ -1602,6 +1605,58 @@ function getUserDeviceForecasts() {
 }
 
 /**
+ * Get a user's forecasts.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.latitude
+ * The latitude of the forecasts,
+ * @param {number} parameters.longitude
+ * The longitude of the forecasts,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserForecasts() {
+  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref35._,
+      userId = _ref35.userId,
+      latitude = _ref35.latitude,
+      longitude = _ref35.longitude,
+      authorization = _ref35.authorization;
+
+  var options = arguments[1];
+
+  var method = 'get';
+  var urlParts = ['users', userId, 'forecasts'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude
+  });
+  var data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
  * Get a user's preferences.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -1615,10 +1670,10 @@ function getUserDeviceForecasts() {
  * The HTTP response
  */
 function getUserPreferences() {
-  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref35._,
-      userId = _ref35.userId,
-      authorization = _ref35.authorization;
+  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref36._,
+      userId = _ref36.userId,
+      authorization = _ref36.authorization;
 
   var options = arguments[1];
 
@@ -1660,11 +1715,11 @@ function getUserPreferences() {
  * The HTTP response
  */
 function putUserPreferences() {
-  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref36._,
-      userId = _ref36.userId,
-      authorization = _ref36.authorization,
-      body = _ref36.body;
+  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref37._,
+      userId = _ref37.userId,
+      authorization = _ref37.authorization,
+      body = _ref37.body;
 
   var options = arguments[1];
 
@@ -1704,10 +1759,10 @@ function putUserPreferences() {
  * The HTTP response
  */
 function getOrganisationOperations() {
-  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref37._,
-      organisationId = _ref37.organisationId,
-      authorization = _ref37.authorization;
+  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref38._,
+      organisationId = _ref38.organisationId,
+      authorization = _ref38.authorization;
 
   var options = arguments[1];
 
@@ -1718,6 +1773,52 @@ function getOrganisationOperations() {
   };
   var qs = cleanQuery({});
   var data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Create an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {object} parameters.body
+ * The operation to add
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationOperation() {
+  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref39._,
+      organisationId = _ref39.organisationId,
+      authorization = _ref39.authorization,
+      body = _ref39.body;
+
+  var options = arguments[1];
+
+  var method = 'post';
+  var urlParts = ['organisations', organisationId, 'operations'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({});
+  var data = body;
 
   return axios(Object.assign({
     baseURL: 'http://localhost:1337/v1/',
@@ -1749,11 +1850,11 @@ function getOrganisationOperations() {
  * The HTTP response
  */
 function getOrganisationOperation() {
-  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref38._,
-      organisationId = _ref38.organisationId,
-      operationId = _ref38.operationId,
-      authorization = _ref38.authorization;
+  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref40._,
+      organisationId = _ref40.organisationId,
+      operationId = _ref40.operationId,
+      authorization = _ref40.authorization;
 
   var options = arguments[1];
 
@@ -1797,12 +1898,12 @@ function getOrganisationOperation() {
  * The HTTP response
  */
 function putOrganisationOperation() {
-  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref39._,
-      organisationId = _ref39.organisationId,
-      operationId = _ref39.operationId,
-      authorization = _ref39.authorization,
-      body = _ref39.body;
+  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref41._,
+      organisationId = _ref41.organisationId,
+      operationId = _ref41.operationId,
+      authorization = _ref41.authorization,
+      body = _ref41.body;
 
   var options = arguments[1];
 
@@ -1813,6 +1914,52 @@ function putOrganisationOperation() {
   };
   var qs = cleanQuery({});
   var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Delete an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteOrganisationOperation() {
+  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref42._,
+      organisationId = _ref42.organisationId,
+      operationId = _ref42.operationId,
+      authorization = _ref42.authorization;
+
+  var options = arguments[1];
+
+  var method = 'delete';
+  var urlParts = ['organisations', organisationId, 'operations', operationId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({});
+  var data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'http://localhost:1337/v1/',
@@ -1842,10 +1989,10 @@ function putOrganisationOperation() {
  * The HTTP response
  */
 function getUserAlerts() {
-  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref40._,
-      userId = _ref40.userId,
-      authorization = _ref40.authorization;
+  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref43._,
+      userId = _ref43.userId,
+      authorization = _ref43.authorization;
 
   var options = arguments[1];
 
@@ -1887,11 +2034,11 @@ function getUserAlerts() {
  * The HTTP response
  */
 function postUserAlert() {
-  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref41._,
-      userId = _ref41.userId,
-      authorization = _ref41.authorization,
-      body = _ref41.body;
+  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref44._,
+      userId = _ref44.userId,
+      authorization = _ref44.authorization,
+      body = _ref44.body;
 
   var options = arguments[1];
 
@@ -1935,12 +2082,12 @@ function postUserAlert() {
  * The HTTP response
  */
 function putUserAlert() {
-  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref42._,
-      userId = _ref42.userId,
-      alertId = _ref42.alertId,
-      authorization = _ref42.authorization,
-      body = _ref42.body;
+  var _ref45 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref45._,
+      userId = _ref45.userId,
+      alertId = _ref45.alertId,
+      authorization = _ref45.authorization,
+      body = _ref45.body;
 
   var options = arguments[1];
 
@@ -1982,11 +2129,11 @@ function putUserAlert() {
  * The HTTP response
  */
 function deleteUserAlert() {
-  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref43._,
-      userId = _ref43.userId,
-      alertId = _ref43.alertId,
-      authorization = _ref43.authorization;
+  var _ref46 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref46._,
+      userId = _ref46.userId,
+      alertId = _ref46.alertId,
+      authorization = _ref46.authorization;
 
   var options = arguments[1];
 
@@ -2024,9 +2171,9 @@ function deleteUserAlert() {
  * The HTTP response
  */
 function postOrganisation() {
-  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ = _ref44._,
-      body = _ref44.body;
+  var _ref47 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ = _ref47._,
+      body = _ref47.body;
 
   var options = arguments[1];
 

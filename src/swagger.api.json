@@ -1586,6 +1586,67 @@
         }
       }
     },
+    "/users/{userId}/forecasts": {
+      "get": {
+        "operationId": "getUserForecasts",
+        "summary": "Get a user's forecasts.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the forecasts",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the forecasts",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's forecasts",
+            "schema": {
+              "$ref": "#/definitions/DeviceForecasts"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/users/{userId}/preferences": {
       "get": {
         "operationId": "getUserPreferences",
@@ -1709,54 +1770,54 @@
               "$ref": "#/definitions/Error"
             }
           }
-        },
-        "post": {
-          "operationId": "postOrganisationOperation",
-          "summary": "Create an organisation's operation.",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "required": true,
-              "description": "The organisation id",
-              "name": "organisationId",
-              "pattern": "^[0-9]+$",
-              "type": "number"
+        }
+      },
+      "post": {
+        "operationId": "postOrganisationOperation",
+        "summary": "Create an organisation's operation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to add",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
             },
-            {
-              "in": "header",
-              "name": "Authorization",
-              "description": "Authorization with Bearer mecanism",
-              "type": "string",
-              "required": true
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "The operation to add",
-              "schema": {
-                "$ref": "#/definitions/OperationItem"
-              },
-              "required": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "The newly created organisation's operation",
-              "schema": {
-                "$ref": "#/definitions/OperationItem"
-              }
-            },
-            "404": {
-              "description": "Organisation does not exists",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -1799,7 +1860,7 @@
           "200": {
             "description": "The organisation's operation",
             "schema": {
-              "$ref": "#/definitions/OperationItem"
+              "$ref": "#/definitions/OperationEntry"
             }
           },
           "404": {
@@ -1865,6 +1926,44 @@
             "schema": {
               "$ref": "#/definitions/Error"
             }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteOrganisationOperation",
+        "summary": "Delete an organisation's operation.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The organisation's operation does not exist anymore"
           }
         }
       }
@@ -3230,11 +3329,11 @@
     "Measure": {
       "type": "object",
       "required": [
-        "device_serial",
+        "deviceSerial",
         "measures"
       ],
       "properties": {
-        "device_serial": {
+        "deviceSerial": {
           "type": "string"
         },
         "startDate": {
@@ -3689,7 +3788,7 @@
           "type": "string",
           "enum": [
             "RAIN_TIC",
-            "TEMP_AIR_H1"
+            "TEMP_AIR"
           ]
         },
         "name": {

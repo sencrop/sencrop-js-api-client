@@ -51,11 +51,14 @@ const API = {
   getUserDeviceDegreeDays,
   getUserDeviceStatus,
   getUserDeviceForecasts,
+  getUserForecasts,
   getUserPreferences,
   putUserPreferences,
   getOrganisationOperations,
+  postOrganisationOperation,
   getOrganisationOperation,
   putOrganisationOperation,
+  deleteOrganisationOperation,
   getUserAlerts,
   postUserAlert,
   putUserAlert,
@@ -1609,6 +1612,57 @@ function getUserDeviceForecasts({
 }
 
 /**
+ * Get a user's forecasts.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.latitude
+ * The latitude of the forecasts,
+ * @param {number} parameters.longitude
+ * The longitude of the forecasts,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserForecasts({
+  _,
+  userId,
+  latitude,
+  longitude,
+  authorization,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'forecasts',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
  * Get a user's preferences.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -1741,6 +1795,52 @@ function getOrganisationOperations({
 }
 
 /**
+ * Create an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {object} parameters.body
+ * The operation to add
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationOperation({
+  _,
+  organisationId,
+  authorization,
+  body,
+} = {}, options) {
+  const method = 'post';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'operations',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
  * Retrieve an organisation's operation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -1824,6 +1924,53 @@ function putOrganisationOperation({
   let qs = cleanQuery({
   });
   let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Delete an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteOrganisationOperation({
+  _,
+  organisationId,
+  operationId,
+  authorization,
+} = {}, options) {
+  const method = 'delete';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'operations',
+    operationId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'http://localhost:1337/v1/',
