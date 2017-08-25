@@ -39,7 +39,7 @@ API to consume Sencrop data
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
-    * [~getUserDeviceStatus(parameters, options)](#module_API..getUserDeviceStatus) ⇒ <code>Object</code>
+    * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
     * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
@@ -483,7 +483,9 @@ Get a user's devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.date | <code>string</code> | The status date, |
+| parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDevice"></a>
@@ -556,10 +558,10 @@ Get a user's device's degree days.
 | parameters.endDate | <code>string</code> | The statistics end date |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDeviceStatus"></a>
+<a name="module_API..getUserDeviceSummary"></a>
 
-### API~getUserDeviceStatus(parameters, options) ⇒ <code>Object</code>
-Get a user's device's status at a given date.
+### API~getUserDeviceSummary(parameters, options) ⇒ <code>Object</code>
+Get a user's device's summary at a given date.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -570,7 +572,7 @@ Get a user's device's status at a given date.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>string</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.date | <code>string</code> | The status date, |
+| parameters.date | <code>string</code> | The summary date, |
 | parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 

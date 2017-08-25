@@ -1193,6 +1193,31 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "description": "The status date",
+            "name": "date",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "TEMP_AIR_H1",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "RAIN_TIC",
+                "MOVE"
+              ]
+            }
           }
         ],
         "responses": {
@@ -1461,10 +1486,10 @@
         }
       }
     },
-    "/users/{userId}/devices/{deviceId}/statuses/{date}": {
+    "/users/{userId}/devices/{deviceId}/summaries/{date}": {
       "get": {
-        "operationId": "getUserDeviceStatus",
-        "summary": "Get a user's device's status at a given date.",
+        "operationId": "getUserDeviceSummary",
+        "summary": "Get a user's device's summary at a given date.",
         "consumes": [],
         "produces": [
           "application/json"
@@ -1496,10 +1521,11 @@
           {
             "in": "path",
             "required": true,
-            "description": "The status date",
+            "description": "The summary date",
             "name": "date",
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z"
           },
           {
             "in": "query",
@@ -1523,9 +1549,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested device's status",
+            "description": "The requested device's summary",
             "schema": {
-              "$ref": "#/definitions/Status"
+              "$ref": "#/definitions/DeviceSummaryEntry"
             }
           },
           "404": {
@@ -1864,7 +1890,7 @@
             }
           },
           "404": {
-            "description": "Operation does not exists",
+            "description": "Organisation or operation does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -2538,7 +2564,8 @@
         "items",
         "models",
         "devices",
-        "devicesStatuses"
+        "devicesStatuses",
+        "devicesSummaries"
       ],
       "properties": {
         "models": {
@@ -2546,6 +2573,9 @@
         },
         "devicesStatuses": {
           "$ref": "#/definitions/DeviceStatusesItemsHash"
+        },
+        "devicesSummaries": {
+          "$ref": "#/definitions/SummariesItemsHash"
         },
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
@@ -2604,33 +2634,8 @@
         },
         "contents": {
           "$ref": "#/definitions/Device"
-        }
-      }
-    },
-    "Device": {
-      "type": "object",
-      "required": [
-        "startDate"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
         },
-        "userId": {
-          "type": "number"
-        },
-        "organisationId": {
-          "type": "number"
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "endDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "device": {
+        "identification": {
           "type": "string"
         },
         "role": {
@@ -2638,6 +2643,26 @@
           "enum": [
             "owner"
           ]
+        },
+        "modelId": {
+          "type": "number"
+        },
+        "userId": {
+          "type": "number"
+        },
+        "organisationId": {
+          "type": "number"
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -2760,13 +2785,13 @@
         }
       }
     },
-    "Status": {
+    "DeviceSummaryEntry": {
       "type": "object",
       "required": [
         "entry",
         "models",
         "devices",
-        "status"
+        "devicesSummaries"
       ],
       "properties": {
         "models": {
@@ -2775,39 +2800,50 @@
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
         },
+        "devicesSummaries": {
+          "$ref": "#/definitions/SummariesItemsHash"
+        },
         "entry": {
           "type": "string",
           "pattern": "^[0-9A-Z]+$"
-        },
-        "status": {
+        }
+      }
+    },
+    "SummariesItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceSummaryItem"
+        }
+      }
+    },
+    "DeviceSummaryItem": {
+      "type": "object",
+      "patternProperties": {
+        "^(RH_AIR_H1|TEMP_AIR_H1|WIND_MEAN|WIND_MAX|RAIN_TIC|MOVE)$": {
           "type": "object",
-          "patternProperties": {
-            "^(RH_AIR_H1|TEMP_AIR_H1|WIND_MEAN|WIND_MAX|RAIN_TIC|MOVE)$": {
-              "type": "object",
-              "required": [
-                "lastMeasure",
-                "lastHour",
-                "last3Hour",
-                "lastDay",
-                "lastWeek"
-              ],
-              "properties": {
-                "lastMeasure": {
-                  "type": "number"
-                },
-                "lastHour": {
-                  "type": "number"
-                },
-                "last3Hour": {
-                  "type": "number"
-                },
-                "lastDay": {
-                  "type": "number"
-                },
-                "lastWeek": {
-                  "type": "number"
-                }
-              }
+          "required": [
+            "lastMeasure",
+            "lastHour",
+            "last3Hour",
+            "lastDay",
+            "lastWeek"
+          ],
+          "properties": {
+            "lastMeasure": {
+              "type": "number"
+            },
+            "lastHour": {
+              "type": "number"
+            },
+            "last3Hours": {
+              "type": "number"
+            },
+            "lastDay": {
+              "type": "number"
+            },
+            "lastWeek": {
+              "type": "number"
             }
           }
         }
@@ -2921,6 +2957,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "manufacturedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
         "lastStatusUpdateDate": {
           "type": "string",
           "format": "date-time"
@@ -2928,7 +2968,7 @@
         "signalNR": {
           "type": "number"
         },
-        "batt": {
+        "battery": {
           "type": "string"
         },
         "lastDataTime": {
@@ -3001,6 +3041,9 @@
         },
         "calibration": {
           "type": "string"
+        },
+        "height": {
+          "type": "number"
         },
         "weight": {
           "type": "number"
@@ -3497,7 +3540,6 @@
         "displaysIds",
         "devicesIds",
         "startDate",
-        "endDate",
         "details"
       ],
       "properties": {
@@ -3530,11 +3572,11 @@
         },
         "startDate": {
           "type": "string",
-          "format": "date"
+          "format": "date-time"
         },
         "endDate": {
           "type": "string",
-          "format": "date"
+          "format": "date-time"
         },
         "details": {
           "type": "object",
@@ -3801,6 +3843,9 @@
           "type": "integer"
         },
         "span": {
+          "type": "integer"
+        },
+        "base": {
           "type": "integer"
         },
         "devicesIds": {

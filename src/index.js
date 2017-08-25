@@ -49,7 +49,7 @@ const API = {
   putUserDevice,
   getUserDeviceStatistics,
   getUserDeviceDegreeDays,
-  getUserDeviceStatus,
+  getUserDeviceSummary,
   getUserDeviceForecasts,
   getUserForecasts,
   getUserPreferences,
@@ -1258,7 +1258,11 @@ function deleteUserDisplay({
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.date
+ * The status date,
+ * @param {array} parameters.measures
+ * The measures to read
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1268,6 +1272,8 @@ function getUserDevices({
   _,
   userId,
   authorization,
+  date,
+  measures,
 } = {}, options) {
   const method = 'get';
   let urlParts = [
@@ -1279,6 +1285,8 @@ function getUserDevices({
     Authorization: authorization,
   };
   let qs = cleanQuery({
+    date: date,
+    measures: measures,
   });
   let data = {}.undef;
 
@@ -1508,7 +1516,7 @@ function getUserDeviceDegreeDays({
 }
 
 /**
- * Get a user's device's status at a given date.
+ * Get a user's device's summary at a given date.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
@@ -1518,7 +1526,7 @@ function getUserDeviceDegreeDays({
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {string} parameters.date
- * The status date,
+ * The summary date,
  * @param {array} parameters.measures
  * The measures to read
  * @param {Object} options
@@ -1526,7 +1534,7 @@ function getUserDeviceDegreeDays({
  * @return {Object}
  * The HTTP response
  */
-function getUserDeviceStatus({
+function getUserDeviceSummary({
   _,
   userId,
   deviceId,
@@ -1540,7 +1548,7 @@ function getUserDeviceStatus({
     userId,
     'devices',
     deviceId,
-    'statuses',
+    'summaries',
     date,
   ];
   let headers = {

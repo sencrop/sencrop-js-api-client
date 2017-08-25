@@ -84,13 +84,16 @@ API to consume Sencrop data
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
-    * [~getUserDeviceStatus(parameters, options)](#module_API..getUserDeviceStatus) ⇒ <code>Object</code>
+    * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
+    * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
     * [~putUserPreferences(parameters, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
     * [~getOrganisationOperations(parameters, options)](#module_API..getOrganisationOperations) ⇒ <code>Object</code>
+    * [~postOrganisationOperation(parameters, options)](#module_API..postOrganisationOperation) ⇒ <code>Object</code>
     * [~getOrganisationOperation(parameters, options)](#module_API..getOrganisationOperation) ⇒ <code>Object</code>
     * [~putOrganisationOperation(parameters, options)](#module_API..putOrganisationOperation) ⇒ <code>Object</code>
+    * [~deleteOrganisationOperation(parameters, options)](#module_API..deleteOrganisationOperation) ⇒ <code>Object</code>
     * [~getUserAlerts(parameters, options)](#module_API..getUserAlerts) ⇒ <code>Object</code>
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
@@ -525,7 +528,9 @@ Get a user's devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.date | <code>string</code> | The status date, |
+| parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDevice"></a>
@@ -598,10 +603,10 @@ Get a user's device's degree days.
 | parameters.endDate | <code>string</code> | The statistics end date |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDeviceStatus"></a>
+<a name="module_API..getUserDeviceSummary"></a>
 
-### API~getUserDeviceStatus(parameters, options) ⇒ <code>Object</code>
-Get a user's device's status at a given date.
+### API~getUserDeviceSummary(parameters, options) ⇒ <code>Object</code>
+Get a user's device's summary at a given date.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -612,7 +617,7 @@ Get a user's device's status at a given date.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>string</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.date | <code>string</code> | The status date, |
+| parameters.date | <code>string</code> | The summary date, |
 | parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -629,6 +634,23 @@ Get a user's device's forecasts.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>string</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserForecasts"></a>
+
+### API~getUserForecasts(parameters, options) ⇒ <code>Object</code>
+Get a user's forecasts.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.latitude | <code>number</code> | The latitude of the forecasts, |
+| parameters.longitude | <code>number</code> | The longitude of the forecasts, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -678,6 +700,22 @@ Get a organisation's operations.
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postOrganisationOperation"></a>
+
+### API~postOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Create an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.body | <code>object</code> | The operation to add |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getOrganisationOperation"></a>
 
 ### API~getOrganisationOperation(parameters, options) ⇒ <code>Object</code>
@@ -709,6 +747,22 @@ Update an organisation's operation.
 | parameters.operationId | <code>number</code> | The operation id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The operation to update |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteOrganisationOperation"></a>
+
+### API~deleteOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Delete an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserAlerts"></a>
