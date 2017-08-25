@@ -51,7 +51,7 @@ var API = {
   putUserDevice: putUserDevice,
   getUserDeviceStatistics: getUserDeviceStatistics,
   getUserDeviceDegreeDays: getUserDeviceDegreeDays,
-  getUserDeviceStatus: getUserDeviceStatus,
+  getUserDeviceSummary: getUserDeviceSummary,
   getUserDeviceForecasts: getUserDeviceForecasts,
   getUserForecasts: getUserForecasts,
   getUserPreferences: getUserPreferences,
@@ -1259,7 +1259,11 @@ function deleteUserDisplay() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.date
+ * The status date,
+ * @param {array} parameters.measures
+ * The measures to read
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1269,7 +1273,9 @@ function getUserDevices() {
   var _ref28 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ = _ref28._,
       userId = _ref28.userId,
-      authorization = _ref28.authorization;
+      authorization = _ref28.authorization,
+      date = _ref28.date,
+      measures = _ref28.measures;
 
   var options = arguments[1];
 
@@ -1278,7 +1284,10 @@ function getUserDevices() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    date: date,
+    measures: measures
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1505,7 +1514,7 @@ function getUserDeviceDegreeDays() {
 }
 
 /**
- * Get a user's device's status at a given date.
+ * Get a user's device's summary at a given date.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
@@ -1515,7 +1524,7 @@ function getUserDeviceDegreeDays() {
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {string} parameters.date
- * The status date,
+ * The summary date,
  * @param {array} parameters.measures
  * The measures to read
  * @param {Object} options
@@ -1523,7 +1532,7 @@ function getUserDeviceDegreeDays() {
  * @return {Object}
  * The HTTP response
  */
-function getUserDeviceStatus() {
+function getUserDeviceSummary() {
   var _ref33 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ = _ref33._,
       userId = _ref33.userId,
@@ -1535,7 +1544,7 @@ function getUserDeviceStatus() {
   var options = arguments[1];
 
   var method = 'get';
-  var urlParts = ['users', userId, 'devices', deviceId, 'statuses', date];
+  var urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   var headers = {
     Authorization: authorization
   };
