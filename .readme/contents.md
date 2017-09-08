@@ -25,10 +25,11 @@ API.getUserDeviceStatistics({
 });
 
 ```
-
 # Development
 To rebuild the API, erase the swagger file
- with a newer one and run:
+ with a newer one and build the SDK again:
 ```js
+npm run import -- ../infrastructure-sencrop/src/swagger.api.json
 npm run build
+npm run compile
 ```
