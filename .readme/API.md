@@ -37,6 +37,7 @@ API to consume Sencrop data
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
+    * [~putUserDeviceShares(parameters, options)](#module_API..putUserDeviceShares) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
     * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
@@ -164,7 +165,7 @@ Create a user.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>object</code> | The new user to create |
+| parameters.body | <code>undefined</code> | The new user to create |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUser"></a>
@@ -226,7 +227,7 @@ Create a user's guest.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>object</code> | The user's guest |
+| parameters.body | <code>undefined</code> | The user's guest |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserGuest"></a>
@@ -290,7 +291,7 @@ Create a user's collaborator.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>object</code> | The user's collaborator |
+| parameters.body | <code>undefined</code> | The user's collaborator |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserCollaborator"></a>
@@ -519,6 +520,24 @@ Update a user's device.
 | parameters.deviceId | <code>string</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user device |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putUserDeviceShares"></a>
+
+### API~putUserDeviceShares(parameters, options) ⇒ <code>Object</code>
+Update a user's device shares.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.sharesType | <code>string</code> | The shares type, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.body | <code>array</code> | The users concerned by the user's device share |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceStatistics"></a>

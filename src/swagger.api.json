@@ -292,7 +292,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/LeakyUserInput"
+              "$ref": "#/definitions/MaybeIncompleteUser"
             }
           }
         ],
@@ -462,15 +462,22 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GuestItem"
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/GuestItem"
+                },
+                {
+                  "$ref": "#/definitions/GuestInvite"
+                }
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "The created user's collaborator",
+            "description": "The created user's guest",
             "schema": {
-              "$ref": "#/definitions/GuestEntry"
+              "$ref": "#/definitions/GuestItem"
             }
           },
           "404": {
@@ -643,7 +650,14 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CollaboratorItem"
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/CollaboratorItem"
+                },
+                {
+                  "$ref": "#/definitions/CollaboratorInvite"
+                }
+              ]
             }
           }
         ],
@@ -1214,6 +1228,7 @@
                 "TEMP_AIR_H1",
                 "WIND_MEAN",
                 "WIND_MAX",
+                "WIND_DIRECTION",
                 "RAIN_TIC",
                 "MOVE"
               ]
@@ -1337,6 +1352,74 @@
         }
       }
     },
+    "/users/{userId}/devices/{deviceId}/shares/{sharesType}": {
+      "put": {
+        "operationId": "putUserDeviceShares",
+        "summary": "Update a user's device shares.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The shares type",
+            "name": "sharesType",
+            "pattern": "^(guests|collaborators)$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The users concerned by the user's device share",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User's device shares updated",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{userId}/devices/{deviceId}/statistics": {
       "get": {
         "operationId": "getUserDeviceStatistics",
@@ -1399,6 +1482,7 @@
                 "TEMP_AIR_H1",
                 "WIND_MEAN",
                 "WIND_MAX",
+                "WIND_DIRECTION",
                 "RAIN_TIC",
                 "MOVE"
               ]
@@ -1541,6 +1625,7 @@
                 "TEMP_AIR_H1",
                 "WIND_MEAN",
                 "WIND_MAX",
+                "WIND_DIRECTION",
                 "RAIN_TIC",
                 "MOVE"
               ]
@@ -2313,35 +2398,6 @@
         }
       }
     },
-    "LeakyUserInput": {
-      "type": "object",
-      "description": "A user input that allow setting up only an email",
-      "additionalProperties": true,
-      "required": [
-        "contents"
-      ],
-      "properties": {
-        "contents": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/User"
-            },
-            {
-              "type": "object",
-              "required": [
-                "email"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "format": "email"
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
     "UsersItemsHash": {
       "type": "object",
       "patternProperties": {
@@ -2414,6 +2470,26 @@
           "minimum": 1
         }
       }
+    },
+    "MaybeIncompleteUser": {
+      "description": "A user that may only have an email",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/User"
+        },
+        {
+          "type": "object",
+          "required": [
+            "email"
+          ],
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        }
+      ]
     },
     "OrganisationsItemsHash": {
       "type": "object",
@@ -2496,13 +2572,6 @@
           "enum": [
             "HA",
             "A"
-          ]
-        },
-        "datesFormat": {
-          "type": "string",
-          "enum": [
-            "DD/MM/YYYY",
-            "MM/DD/YYYY"
           ]
         },
         "locale": {
@@ -3235,6 +3304,27 @@
         }
       }
     },
+    "CollaboratorInvite": {
+      "type": "object",
+      "required": [
+        "sharedDevicesIds",
+        "user"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/MaybeIncompleteUser"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "callbackPath": {
+          "type": "string"
+        }
+      }
+    },
     "Collaborator": {
       "type": "object",
       "required": [
@@ -3328,6 +3418,27 @@
         }
       }
     },
+    "GuestInvite": {
+      "type": "object",
+      "required": [
+        "sharedDevicesIds",
+        "user"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/MaybeIncompleteUser"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "callbackPath": {
+          "type": "string"
+        }
+      }
+    },
     "Guest": {
       "type": "object",
       "required": [
@@ -3394,7 +3505,9 @@
             "enum": [
               "TEMP_AIR_H1",
               "RAIN_TIC",
-              "RH_AIR_H1"
+              "RH_AIR_H1",
+              "WIND_MEAN",
+              "WIND_DIRECTION"
             ]
           }
         }
@@ -3721,14 +3834,14 @@
                 "type": "string",
                 "enum": [
                   "pluviometry",
-                  "pluviometry_aggregate",
+                  "pluviometryAggregate",
                   "hygrometry",
                   "temperature",
-                  "temperature_aggregate",
-                  "temperature_degree_day",
-                  "wind_mean_speed",
-                  "wind_gusts_speed",
-                  "wet_temperature"
+                  "temperatureAggregate",
+                  "temperatureDegreeDay",
+                  "windMeanSpeed",
+                  "windGustsSpeed",
+                  "wetTemperature"
                 ]
               },
               "invitedUsersEmails": {
@@ -3837,13 +3950,16 @@
           "type": "string"
         },
         "from": {
-          "type": "integer"
+          "type": "string",
+          "format": "date-time"
         },
         "to": {
-          "type": "integer"
+          "type": "string",
+          "format": "date-time"
         },
         "span": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 1
         },
         "base": {
           "type": "integer"

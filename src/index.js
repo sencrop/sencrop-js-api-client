@@ -47,6 +47,7 @@ const API = {
   getUserDevices,
   getUserDevice,
   putUserDevice,
+  putUserDeviceShares,
   getUserDeviceStatistics,
   getUserDeviceDegreeDays,
   getUserDeviceSummary,
@@ -334,7 +335,7 @@ function postVerify({
  * The parameters to provide (destructured)
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
+ * @param {undefined} parameters.body
  * The new user to create
  * @param {Object} options
  * Options to override Axios request configuration
@@ -507,7 +508,7 @@ function getUserGuests({
  * The user id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
+ * @param {undefined} parameters.body
  * The user's guest
  * @param {Object} options
  * Options to override Axios request configuration
@@ -693,7 +694,7 @@ function getUserCollaborators({
  * The user id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
+ * @param {undefined} parameters.body
  * The user's collaborator
  * @param {Object} options
  * Options to override Axios request configuration
@@ -1379,6 +1380,61 @@ function putUserDevice({
     userId,
     'devices',
     deviceId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Update a user's device shares.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.sharesType
+ * The shares type,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {array} parameters.body
+ * The users concerned by the user's device share
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserDeviceShares({
+  _,
+  userId,
+  deviceId,
+  sharesType,
+  authorization,
+  body,
+} = {}, options) {
+  const method = 'put';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'shares',
+    sharesType,
   ];
   let headers = {
     Authorization: authorization,
