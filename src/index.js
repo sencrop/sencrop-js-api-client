@@ -49,6 +49,7 @@ const API = {
   putUserDevice,
   putUserDeviceShares,
   getUserDeviceStatistics,
+  getUserDeviceContinuousStatistics,
   getUserDeviceDegreeDays,
   getUserDeviceSummary,
   getUserDeviceForecasts,
@@ -1492,6 +1493,66 @@ function getUserDeviceStatistics({
     'devices',
     deviceId,
     'statistics',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    startDate: startDate,
+    endDate: endDate,
+    measures: measures,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get a user's device's continuous device's statistics.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.startDate
+ * The statistics start date,
+ * @param {string} parameters.endDate
+ * The statistics end date,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDeviceContinuousStatistics({
+  _,
+  userId,
+  deviceId,
+  authorization,
+  startDate,
+  endDate,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'countinuousStatistics',
   ];
   let headers = {
     Authorization: authorization,

@@ -85,6 +85,7 @@ API to consume Sencrop data
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~putUserDeviceShares(parameters, options)](#module_API..putUserDeviceShares) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
+    * [~getUserDeviceContinuousStatistics(parameters, options)](#module_API..getUserDeviceContinuousStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
     * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
@@ -590,6 +591,25 @@ Update a user's device shares.
 
 ### API~getUserDeviceStatistics(parameters, options) ⇒ <code>Object</code>
 Get a user's device's device's statistics.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.startDate | <code>string</code> | The statistics start date, |
+| parameters.endDate | <code>string</code> | The statistics end date, |
+| parameters.measures | <code>array</code> | The measures to read |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDeviceContinuousStatistics"></a>
+
+### API~getUserDeviceContinuousStatistics(parameters, options) ⇒ <code>Object</code>
+Get a user's device's continuous device's statistics.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  

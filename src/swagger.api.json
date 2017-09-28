@@ -123,12 +123,18 @@
             "schema": {
               "type": "object",
               "required": [
-                "email"
+                "email",
+                "locale"
               ],
               "properties": {
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "locale": {
+                  "type": "string",
+                  "pattern": "^[a-z]{2}-[A-Z]{2}$",
+                  "maxLength": 5
                 },
                 "callbackPath": {
                   "type": "string"
@@ -1230,7 +1236,8 @@
                 "WIND_MAX",
                 "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE"
+                "MOVE",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -1479,7 +1486,100 @@
               "type": "string",
               "enum": [
                 "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
                 "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "WIND_DIRECTION",
+                "RAIN_TIC",
+                "MOVE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/countinuousStatistics": {
+      "get": {
+        "operationId": "getUserDeviceContinuousStatistics",
+        "summary": "Get a user's device's continuous device's statistics.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics start date",
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics end date",
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX",
                 "WIND_MEAN",
                 "WIND_MAX",
                 "WIND_DIRECTION",
@@ -2282,7 +2382,8 @@
                 "zipcode",
                 "city",
                 "country",
-                "company"
+                "company",
+                "locale"
               ],
               "properties": {
                 "firstname": {
@@ -2301,6 +2402,15 @@
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "locale": {
+                  "type": "string",
+                  "pattern": "^[a-z]{2}-[A-Z]{2}$",
+                  "maxLength": 5
+                },
+                "timeZone": {
+                  "type": "string",
+                  "maxLength": 50
                 },
                 "phone": {
                   "type": "string"
@@ -2423,6 +2533,15 @@
           "type": "string",
           "format": "email"
         },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "maxLength": 5
+        },
+        "timeZone": {
+          "type": "string",
+          "maxLength": 50
+        },
         "phone": {
           "type": "string"
         },
@@ -2472,7 +2591,7 @@
       }
     },
     "MaybeIncompleteUser": {
-      "description": "A user that may only have an email",
+      "description": "A user that may only have an email and a locale",
       "oneOf": [
         {
           "$ref": "#/definitions/User"
@@ -2486,6 +2605,15 @@
             "email": {
               "type": "string",
               "format": "email"
+            },
+            "locale": {
+              "type": "string",
+              "pattern": "^[a-z]{2}-[A-Z]{2}$",
+              "maxLength": 5
+            },
+            "timeZone": {
+              "type": "string",
+              "maxLength": 50
             }
           }
         }
@@ -2527,6 +2655,15 @@
         "name": {
           "type": "string"
         },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "maxLength": 5
+        },
+        "timeZone": {
+          "type": "string",
+          "maxLength": 50
+        },
         "isSencrop": {
           "type": "number"
         },
@@ -2557,7 +2694,6 @@
       "type": "object",
       "required": [
         "areasUnit",
-        "datesFormat",
         "locale",
         "precipitationsUnit",
         "smallVolumesUnit",
@@ -2704,14 +2840,38 @@
         "contents": {
           "$ref": "#/definitions/Device"
         },
+        "accessPeriods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "role",
+              "startDate",
+              "endDate"
+            ],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "owner",
+                  "user",
+                  "guest",
+                  "collaborator"
+                ]
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
         "identification": {
           "type": "string"
-        },
-        "role": {
-          "type": "string",
-          "enum": [
-            "owner"
-          ]
         },
         "modelId": {
           "type": "number"
@@ -3825,7 +3985,12 @@
                 "type": "number"
               },
               "from": {
-                "type": "number"
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "type": "string",
+                "format": "date-time"
               },
               "base": {
                 "type": "number"
@@ -3943,7 +4108,8 @@
           "type": "string",
           "enum": [
             "RAIN_TIC",
-            "TEMP_AIR"
+            "TEMP_AIR",
+            "DEGREE_DAY"
           ]
         },
         "name": {
