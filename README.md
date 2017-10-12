@@ -85,11 +85,16 @@ API to consume Sencrop data
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~putUserDeviceShares(parameters, options)](#module_API..putUserDeviceShares) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
+    * [~getUserDeviceRawData(parameters, options)](#module_API..getUserDeviceRawData) ⇒ <code>Object</code>
+    * [~getUserDeviceHourlyData(parameters, options)](#module_API..getUserDeviceHourlyData) ⇒ <code>Object</code>
+    * [~getUserDeviceDailyData(parameters, options)](#module_API..getUserDeviceDailyData) ⇒ <code>Object</code>
     * [~getUserDeviceContinuousStatistics(parameters, options)](#module_API..getUserDeviceContinuousStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
     * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
     * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
+    * [~getUserDailyData(parameters, options)](#module_API..getUserDailyData) ⇒ <code>Object</code>
+    * [~getUserHourlyData(parameters, options)](#module_API..getUserHourlyData) ⇒ <code>Object</code>
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
     * [~putUserPreferences(parameters, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
     * [~getOrganisationOperations(parameters, options)](#module_API..getOrganisationOperations) ⇒ <code>Object</code>
@@ -606,6 +611,63 @@ Get a user's device's device's statistics.
 | parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..getUserDeviceRawData"></a>
+
+### API~getUserDeviceRawData(parameters, options) ⇒ <code>Object</code>
+Get a user's device's raw data.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| parameters.size | <code>number</code> | The number of measures to retrieve, |
+| parameters.measures | <code>array</code> | The measures to read |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDeviceHourlyData"></a>
+
+### API~getUserDeviceHourlyData(parameters, options) ⇒ <code>Object</code>
+Get a user's device's hourly data.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| parameters.days | <code>number</code> | The number of days to retrieve, |
+| parameters.measures | <code>array</code> | The measures to read |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDeviceDailyData"></a>
+
+### API~getUserDeviceDailyData(parameters, options) ⇒ <code>Object</code>
+Get a user's device's daily data.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| parameters.days | <code>number</code> | The number of days to retrieve, |
+| parameters.measures | <code>array</code> | The measures to read |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getUserDeviceContinuousStatistics"></a>
 
 ### API~getUserDeviceContinuousStatistics(parameters, options) ⇒ <code>Object</code>
@@ -692,6 +754,46 @@ Get a user's forecasts.
 | parameters.latitude | <code>number</code> | The latitude of the forecasts, |
 | parameters.longitude | <code>number</code> | The longitude of the forecasts, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDailyData"></a>
+
+### API~getUserDailyData(parameters, options) ⇒ <code>Object</code>
+Get a user's daily data for a given geo location.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.latitude | <code>number</code> | The latitude of the data, |
+| parameters.longitude | <code>number</code> | The longitude of the data, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| parameters.days | <code>number</code> | The number of days to retrieve, |
+| parameters.measures | <code>array</code> | The measures to read |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserHourlyData"></a>
+
+### API~getUserHourlyData(parameters, options) ⇒ <code>Object</code>
+Get a user's hourly data for a given geo location.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.latitude | <code>number</code> | The latitude of the data, |
+| parameters.longitude | <code>number</code> | The longitude of the data, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| parameters.days | <code>number</code> | The number of days to retrieve, |
+| parameters.measures | <code>array</code> | The measures to read |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserPreferences"></a>

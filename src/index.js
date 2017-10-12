@@ -49,11 +49,16 @@ const API = {
   putUserDevice,
   putUserDeviceShares,
   getUserDeviceStatistics,
+  getUserDeviceRawData,
+  getUserDeviceHourlyData,
+  getUserDeviceDailyData,
   getUserDeviceContinuousStatistics,
   getUserDeviceDegreeDays,
   getUserDeviceSummary,
   getUserDeviceForecasts,
   getUserForecasts,
+  getUserDailyData,
+  getUserHourlyData,
   getUserPreferences,
   putUserPreferences,
   getOrganisationOperations,
@@ -1517,6 +1522,189 @@ function getUserDeviceStatistics({
 }
 
 /**
+ * Get a user's device's raw data.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.beforeDate
+ * The date before which the data starts being retrieved,
+ * @param {number} parameters.size
+ * The number of measures to retrieve,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDeviceRawData({
+  _,
+  userId,
+  deviceId,
+  authorization,
+  beforeDate,
+  size,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'data',
+    'raw',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    beforeDate: beforeDate,
+    size: size,
+    measures: measures,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get a user's device's hourly data.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.beforeDate
+ * The date before which the data starts being retrieved,
+ * @param {number} parameters.days
+ * The number of days to retrieve,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDeviceHourlyData({
+  _,
+  userId,
+  deviceId,
+  authorization,
+  beforeDate,
+  days,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'data',
+    'hourly',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    beforeDate: beforeDate,
+    days: days,
+    measures: measures,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get a user's device's daily data.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.beforeDate
+ * The date before which the data starts being retrieved,
+ * @param {number} parameters.days
+ * The number of days to retrieve,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDeviceDailyData({
+  _,
+  userId,
+  deviceId,
+  authorization,
+  beforeDate,
+  days,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'data',
+    'daily',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    beforeDate: beforeDate,
+    days: days,
+    measures: measures,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
  * Get a user's device's continuous device's statistics.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -1772,6 +1960,134 @@ function getUserForecasts({
   let qs = cleanQuery({
     latitude: latitude,
     longitude: longitude,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get a user's daily data for a given geo location.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.latitude
+ * The latitude of the data,
+ * @param {number} parameters.longitude
+ * The longitude of the data,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.beforeDate
+ * The date before which the data starts being retrieved,
+ * @param {number} parameters.days
+ * The number of days to retrieve,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDailyData({
+  _,
+  userId,
+  latitude,
+  longitude,
+  authorization,
+  beforeDate,
+  days,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'data',
+    'daily',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude,
+    beforeDate: beforeDate,
+    days: days,
+    measures: measures,
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'http://localhost:1337/v1/',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get a user's hourly data for a given geo location.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.latitude
+ * The latitude of the data,
+ * @param {number} parameters.longitude
+ * The longitude of the data,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} parameters.beforeDate
+ * The date before which the data starts being retrieved,
+ * @param {number} parameters.days
+ * The number of days to retrieve,
+ * @param {array} parameters.measures
+ * The measures to read
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserHourlyData({
+  _,
+  userId,
+  latitude,
+  longitude,
+  authorization,
+  beforeDate,
+  days,
+  measures,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'data',
+    'hourly',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude,
+    beforeDate: beforeDate,
+    days: days,
+    measures: measures,
   });
   let data = {}.undef;
 
