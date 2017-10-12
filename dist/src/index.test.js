@@ -10,7 +10,7 @@ axios.defaults.adapter = httpAdapter;
 describe('API', function () {
   describe('for simple URI', function () {
     test('should work', function () {
-      nock('http://localhost:1337', {
+      nock('https://api.sencrop.com', {
         encodedQueryParams: true
       }).get('/v1/ping').reply(200, {
         pong: 'pong'
@@ -28,7 +28,7 @@ describe('API', function () {
 
   describe('with Token/URI params and query strings', function () {
     test('should work', function () {
-      nock('http://localhost:1337', {
+      nock('https://api.sencrop.com', {
         encodedQueryParams: true
       }).get('/v1/users/902/devices/1B28C5/statistics').query({
         startDate: '1404172800000',
@@ -97,7 +97,7 @@ describe('API', function () {
 
   describe('with a body', function () {
     test('should work', function () {
-      nock('http://localhost:1337', {
+      nock('https://api.sencrop.com', {
         encodedQueryParams: true
       }).put('/v1/users/902/devices/1B28C5', {
         contents: {

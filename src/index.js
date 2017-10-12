@@ -97,7 +97,7 @@ function getPing({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -131,7 +131,7 @@ function getCrops({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -173,7 +173,7 @@ function postSignupCheck({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -211,7 +211,7 @@ function postLostPassword({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -248,7 +248,7 @@ function putPassword({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -286,7 +286,7 @@ function postLogin({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -324,7 +324,7 @@ function postVerify({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -365,7 +365,7 @@ function postUser({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -407,7 +407,7 @@ function getUser({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -452,7 +452,7 @@ function putUser({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -495,7 +495,7 @@ function getUserGuests({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -541,7 +541,7 @@ function postUserGuest({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -591,7 +591,7 @@ function putUserGuest({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -638,7 +638,7 @@ function deleteUserGuest({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -681,7 +681,7 @@ function getUserCollaborators({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -727,7 +727,7 @@ function postUserCollaborator({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -777,7 +777,7 @@ function putUserCollaborator({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -824,7 +824,7 @@ function deleteUserCollaborator({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -871,7 +871,7 @@ function getUserAggregations({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -917,7 +917,7 @@ function postUserAggregation({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -967,7 +967,7 @@ function putUserAggregation({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1014,7 +1014,7 @@ function deleteUserAggregation({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1057,7 +1057,7 @@ function getUserDisplays({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1103,7 +1103,7 @@ function postUserDisplay({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1150,7 +1150,7 @@ function getUserDisplay({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1200,7 +1200,7 @@ function putUserDisplay({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1247,7 +1247,7 @@ function deleteUserDisplay({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1298,7 +1298,7 @@ function getUserDevices({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1345,7 +1345,7 @@ function getUserDevice({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1395,7 +1395,7 @@ function putUserDevice({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1450,7 +1450,7 @@ function putUserDeviceShares({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1510,7 +1510,7 @@ function getUserDeviceStatistics({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1571,7 +1571,7 @@ function getUserDeviceRawData({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1632,7 +1632,7 @@ function getUserDeviceHourlyData({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1693,7 +1693,7 @@ function getUserDeviceDailyData({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1753,7 +1753,7 @@ function getUserDeviceContinuousStatistics({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1809,7 +1809,7 @@ function getUserDeviceDegreeDays({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1865,7 +1865,7 @@ function getUserDeviceSummary({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1913,7 +1913,7 @@ function getUserDeviceForecasts({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -1964,7 +1964,7 @@ function getUserForecasts({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2028,7 +2028,7 @@ function getUserDailyData({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2092,7 +2092,7 @@ function getUserHourlyData({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2135,7 +2135,7 @@ function getUserPreferences({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2181,7 +2181,7 @@ function putUserPreferences({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2224,7 +2224,7 @@ function getOrganisationOperations({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2270,7 +2270,7 @@ function postOrganisationOperation({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2317,7 +2317,7 @@ function getOrganisationOperation({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2367,7 +2367,7 @@ function putOrganisationOperation({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2414,7 +2414,7 @@ function deleteOrganisationOperation({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2457,7 +2457,7 @@ function getUserAlerts({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2503,7 +2503,7 @@ function postUserAlert({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2553,7 +2553,7 @@ function putUserAlert({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2600,7 +2600,7 @@ function deleteUserAlert({
   let data = {}.undef;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -2637,7 +2637,7 @@ function postOrganisation({
   let data = body;
 
   return axios(Object.assign({
-    baseURL: 'http://localhost:1337/v1/',
+    baseURL: 'https://api.sencrop.com/v1',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,

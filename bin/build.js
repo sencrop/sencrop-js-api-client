@@ -121,7 +121,7 @@ function ${ operationId }({
   return axios(Object.assign({
     baseURL: '${ API.schemes[0] || 'https'}://${
       API.host + (API.basePath || '')
-    }/',
+    }',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
