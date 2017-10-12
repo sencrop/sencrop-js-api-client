@@ -987,4 +987,4 @@ Creates a new organisation.
 
 
 # License
-[SEE LICENSE IN LICENSE.md](https://github.com/nfroidure/sencrop-js-api-client/blob/master/LICENSE.md)
+[MIT](https://github.com/sencrop/sencrop-js-api-client/blob/master/LICENSE.md)

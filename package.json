@@ -8,7 +8,8 @@
       "main",
       "readme",
       "jsarch",
-      "jsdocs"
+      "jsdocs",
+      "oss"
     ],
     "data": {
       "files": "src/**/*.js bin/*.js test/*.js",
@@ -41,7 +42,7 @@
     "Sencrop"
   ],
   "author": "Nicolas Froidure (Sencrop)",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sencrop/sencrop-js-api-client/issues"
   },
@@ -70,7 +71,7 @@
     "karma-firefox-launcher": "^1.0.1",
     "karma-jasmine": "^1.1.0",
     "metapak": "0.0.21",
-    "metapak-sencrop": "1.1.1",
+    "metapak-sencrop": "2.0.0",
     "moxios": "^0.4.0",
     "nock": "^9.0.14",
     "sinon": "2.3.8",
