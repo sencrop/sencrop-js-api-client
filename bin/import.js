@@ -16,6 +16,10 @@ API.paths = operations.reduce((paths, operation) => {
   if(operation.tags && operation.tags.includes('private')) {
     return paths;
   }
+
+  API.paths[operation.path][operation.method].tags =
+    (operation.tags || []).filter(t => !(t.startsWith('memx') || t.startsWith('tx')));
+
   paths[operation.path] = paths[operation.path] || {};
   paths[operation.path][operation.method] =
     API.paths[operation.path][operation.method];
