@@ -507,7 +507,7 @@ Get a user's device.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -523,7 +523,7 @@ Update a user's device.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user device |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -540,7 +540,7 @@ Update a user's device shares.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.sharesType | <code>string</code> | The shares type, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>array</code> | The users concerned by the user's device share |
@@ -558,7 +558,7 @@ Get a user's device's device's statistics.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
@@ -577,7 +577,7 @@ Get a user's device's raw data.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.size | <code>number</code> | The number of measures to retrieve, |
@@ -596,7 +596,7 @@ Get a user's device's hourly data.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
@@ -615,7 +615,7 @@ Get a user's device's daily data.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
@@ -634,7 +634,7 @@ Get a user's device's continuous device's statistics.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
@@ -653,7 +653,7 @@ Get a user's device's degree days.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date |
@@ -671,7 +671,7 @@ Get a user's device's summary at a given date.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.date | <code>string</code> | The summary date, |
 | parameters.measures | <code>array</code> | The measures to read |
@@ -689,7 +689,8 @@ Get a user's device's forecasts.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>string</code> | The device id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.date | <code>string</code> | Date of the forecasts, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -707,6 +708,7 @@ Get a user's forecasts.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.latitude | <code>number</code> | The latitude of the forecasts, |
 | parameters.longitude | <code>number</code> | The longitude of the forecasts, |
+| parameters.date | <code>string</code> | Date of the forecasts, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 

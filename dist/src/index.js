@@ -1317,7 +1317,7 @@ function getUserDevices() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
@@ -1363,7 +1363,7 @@ function getUserDevice() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1412,7 +1412,7 @@ function putUserDevice() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.sharesType
  * The shares type,
@@ -1464,7 +1464,7 @@ function putUserDeviceShares() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1523,7 +1523,7 @@ function getUserDeviceStatistics() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1582,7 +1582,7 @@ function getUserDeviceRawData() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1641,7 +1641,7 @@ function getUserDeviceHourlyData() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1700,7 +1700,7 @@ function getUserDeviceDailyData() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1759,7 +1759,7 @@ function getUserDeviceContinuousStatistics() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1814,7 +1814,7 @@ function getUserDeviceDegreeDays() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -1868,8 +1868,10 @@ function getUserDeviceSummary() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceId
+ * @param {number} parameters.deviceId
  * The device id,
+ * @param {string} parameters.date
+ * Date of the forecasts,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1882,6 +1884,7 @@ function getUserDeviceForecasts() {
       _ = _ref39._,
       userId = _ref39.userId,
       deviceId = _ref39.deviceId,
+      date = _ref39.date,
       authorization = _ref39.authorization;
 
   var options = arguments[1];
@@ -1891,7 +1894,9 @@ function getUserDeviceForecasts() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    date: date
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1918,6 +1923,8 @@ function getUserDeviceForecasts() {
  * The latitude of the forecasts,
  * @param {number} parameters.longitude
  * The longitude of the forecasts,
+ * @param {string} parameters.date
+ * Date of the forecasts,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1931,6 +1938,7 @@ function getUserForecasts() {
       userId = _ref40.userId,
       latitude = _ref40.latitude,
       longitude = _ref40.longitude,
+      date = _ref40.date,
       authorization = _ref40.authorization;
 
   var options = arguments[1];
@@ -1942,7 +1950,8 @@ function getUserForecasts() {
   };
   var qs = cleanQuery({
     latitude: latitude,
-    longitude: longitude
+    longitude: longitude,
+    date: date
   });
   var data = {}.undef;
 
