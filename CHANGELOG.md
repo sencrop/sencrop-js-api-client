@@ -1,3 +1,19 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.0.0...v1.1.0) (2017-11-30)
+
+
+### Features
+
+* **swagger:** Update to the last version ([0681a65](https://github.com/sencrop/sencrop-js-api-client/commit/0681a65))
+* **Swagger:** Import the last Swagger file ([8ceb5eb](https://github.com/sencrop/sencrop-js-api-client/commit/8ceb5eb))
+
+
+### BREAKING CHANGES
+
+* **swagger:** You wont be able to hit the device forecast endpoint without a date param
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2017-10-12)
 
