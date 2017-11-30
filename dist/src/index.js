@@ -348,11 +348,11 @@ function postVerify() {
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {number} parameters.partnerId
- * undefined,
+ * The partner organisation id,
  * @param {number} parameters.limit
- * undefined,
+ * The number of items to retrieve,
  * @param {number} parameters.start
- * undefined
+ * The index in results
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}

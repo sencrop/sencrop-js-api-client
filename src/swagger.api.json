@@ -302,6 +302,7 @@
             "name": "partnerId",
             "in": "path",
             "type": "number",
+            "description": "The partner organisation id",
             "pattern": "^[0-9]+$",
             "required": true
           },
@@ -309,6 +310,7 @@
             "name": "limit",
             "in": "query",
             "type": "number",
+            "description": "The number of items to retrieve",
             "pattern": "^[0-9]+$",
             "enum": [
               10,
@@ -321,6 +323,7 @@
             "name": "start",
             "in": "query",
             "type": "number",
+            "description": "The index in results",
             "pattern": "^[0-9]+$",
             "min": 0,
             "multipleOf": 10,

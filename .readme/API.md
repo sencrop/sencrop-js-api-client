@@ -172,9 +172,9 @@ Retrieves the devices a partner has access to.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.partnerId | <code>number</code> | undefined, |
-| parameters.limit | <code>number</code> | undefined, |
-| parameters.start | <code>number</code> | undefined |
+| parameters.partnerId | <code>number</code> | The partner organisation id, |
+| parameters.limit | <code>number</code> | The number of items to retrieve, |
+| parameters.start | <code>number</code> | The index in results |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postUser"></a>
