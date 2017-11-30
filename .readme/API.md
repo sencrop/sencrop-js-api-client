@@ -14,6 +14,7 @@ API to consume Sencrop data
     * [~putPassword(parameters, options)](#module_API..putPassword) ⇒ <code>Object</code>
     * [~postLogin(parameters, options)](#module_API..postLogin) ⇒ <code>Object</code>
     * [~postVerify(parameters, options)](#module_API..postVerify) ⇒ <code>Object</code>
+    * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~postUser(parameters, options)](#module_API..postUser) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, options)](#module_API..putUser) ⇒ <code>Object</code>
@@ -157,6 +158,23 @@ Verify a user
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.body | <code>object</code> | Verify the user |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getPartnerDevices"></a>
+
+### API~getPartnerDevices(parameters, options) ⇒ <code>Object</code>
+Retrieves the devices a partner has access to.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.partnerId | <code>number</code> | undefined, |
+| parameters.limit | <code>number</code> | undefined, |
+| parameters.start | <code>number</code> | undefined |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postUser"></a>

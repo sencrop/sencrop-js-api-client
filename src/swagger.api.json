@@ -274,6 +274,69 @@
         "tags": []
       }
     },
+    "/partners/{partnerId}/devices": {
+      "get": {
+        "operationId": "getPartnerDevices",
+        "summary": "Retrieves the devices a partner has access to.",
+        "security": {
+          "token": [
+            "ROLE_PARTNER"
+          ]
+        },
+        "tags": [
+          "partner"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "partnerId",
+            "in": "path",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "enum": [
+              10,
+              50,
+              100
+            ],
+            "required": true
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "min": 0,
+            "multipleOf": 10,
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The devices collection",
+            "schema": {
+              "$ref": "#/definitions/PartnerDevicesCollection"
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "post": {
         "operationId": "postUser",
@@ -2350,8 +2413,7 @@
             "name": "date",
             "description": "Date of the forecasts",
             "type": "string",
-            "format": "date-time",
-            "required": true
+            "format": "date-time"
           },
           {
             "in": "header",
@@ -3496,6 +3558,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "identification": {
+          "type": "string"
         }
       }
     },
@@ -3569,6 +3634,46 @@
             "T",
             "SH_TN"
           ]
+        }
+      }
+    },
+    "PartnerDevicesCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "models",
+        "devices",
+        "devicesStatuses",
+        "organisations",
+        "users"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devicesStatuses": {
+          "$ref": "#/definitions/DeviceStatusesItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "organisations": {
+          "$ref": "#/definitions/OrganisationsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        },
+        "total": {
+          "type": "number",
+          "min": 0
         }
       }
     },
@@ -3665,6 +3770,9 @@
               "userId": {
                 "type": "number"
               },
+              "delegatorId": {
+                "type": "number"
+              },
               "name": {
                 "type": "string"
               },
@@ -3691,7 +3799,7 @@
         },
         "identification": {
           "type": "string",
-          "pattern": "^(WC|RC|SC|UMO)[0-9]+$"
+          "pattern": "^(WCP?|RC|SC|UMO)[0-9]{6}$"
         },
         "serial": {
           "type": "string",
@@ -3952,6 +4060,9 @@
         "id": {
           "type": "number",
           "pattern": "^[0-9]+$"
+        },
+        "measuresCount": {
+          "type": "number"
         },
         "contents": {
           "$ref": "#/definitions/DeviceStatus"
@@ -4730,6 +4841,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "activationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
         "contents": {
           "$ref": "#/definitions/Alert"
         }
@@ -4739,19 +4854,15 @@
       "type": "object",
       "required": [
         "name",
+        "active",
         "devicesIds"
       ],
       "properties": {
         "name": {
           "type": "string"
         },
-        "type": {
-          "type": "string",
-          "enum": [
-            "irrigation",
-            "spraying",
-            "seeding"
-          ]
+        "active": {
+          "type": "boolean"
         },
         "devicesIds": {
           "type": "array",

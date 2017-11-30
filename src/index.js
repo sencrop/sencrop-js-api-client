@@ -24,6 +24,7 @@ const API = {
   putPassword,
   postLogin,
   postVerify,
+  getPartnerDevices,
   postUser,
   getUser,
   putUser,
@@ -322,6 +323,57 @@ function postVerify({
   let qs = cleanQuery({
   });
   let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Retrieves the devices a partner has access to.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {number} parameters.partnerId
+ * undefined,
+ * @param {number} parameters.limit
+ * undefined,
+ * @param {number} parameters.start
+ * undefined
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getPartnerDevices({
+  _,
+  authorization,
+  partnerId,
+  limit,
+  start,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'partners',
+    partnerId,
+    'devices',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    limit: limit,
+    start: start,
+  });
+  let data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'https://api.sencrop.com/v1',
