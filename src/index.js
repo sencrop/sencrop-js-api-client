@@ -1528,7 +1528,9 @@ function putUserDeviceShares({
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1542,6 +1544,7 @@ function getUserDeviceStatistics({
   startDate,
   endDate,
   measures,
+  patched,
 } = {}, options) {
   const method = 'get';
   let urlParts = [
@@ -1558,6 +1561,7 @@ function getUserDeviceStatistics({
     startDate: startDate,
     endDate: endDate,
     measures: measures,
+    patched: patched,
   });
   let data = {}.undef;
 
@@ -1771,7 +1775,9 @@ function getUserDeviceDailyData({
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1785,6 +1791,7 @@ function getUserDeviceContinuousStatistics({
   startDate,
   endDate,
   measures,
+  patched,
 } = {}, options) {
   const method = 'get';
   let urlParts = [
@@ -1801,6 +1808,7 @@ function getUserDeviceContinuousStatistics({
     startDate: startDate,
     endDate: endDate,
     measures: measures,
+    patched: patched,
   });
   let data = {}.undef;
 

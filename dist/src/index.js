@@ -1526,7 +1526,9 @@ function putUserDeviceShares() {
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1540,7 +1542,8 @@ function getUserDeviceStatistics() {
       authorization = _ref33.authorization,
       startDate = _ref33.startDate,
       endDate = _ref33.endDate,
-      measures = _ref33.measures;
+      measures = _ref33.measures,
+      patched = _ref33.patched;
 
   var options = arguments[1];
 
@@ -1552,7 +1555,8 @@ function getUserDeviceStatistics() {
   var qs = cleanQuery({
     startDate: startDate,
     endDate: endDate,
-    measures: measures
+    measures: measures,
+    patched: patched
   });
   var data = {}.undef;
 
@@ -1762,7 +1766,9 @@ function getUserDeviceDailyData() {
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1776,7 +1782,8 @@ function getUserDeviceContinuousStatistics() {
       authorization = _ref37.authorization,
       startDate = _ref37.startDate,
       endDate = _ref37.endDate,
-      measures = _ref37.measures;
+      measures = _ref37.measures,
+      patched = _ref37.patched;
 
   var options = arguments[1];
 
@@ -1788,7 +1795,8 @@ function getUserDeviceContinuousStatistics() {
   var qs = cleanQuery({
     startDate: startDate,
     endDate: endDate,
-    measures: measures
+    measures: measures,
+    patched: patched
   });
   var data = {}.undef;
 

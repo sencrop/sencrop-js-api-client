@@ -580,7 +580,8 @@ Get a user's device's device's statistics.
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceRawData"></a>
@@ -656,7 +657,8 @@ Get a user's device's continuous device's statistics.
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceDegreeDays"></a>
