@@ -14,6 +14,8 @@ API to consume Sencrop data
     * [~putPassword(parameters, options)](#module_API..putPassword) ⇒ <code>Object</code>
     * [~postLogin(parameters, options)](#module_API..postLogin) ⇒ <code>Object</code>
     * [~postVerify(parameters, options)](#module_API..postVerify) ⇒ <code>Object</code>
+    * [~postPartnerTokenRequest(parameters, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
+    * [~postPartnerToken(parameters, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~postUser(parameters, options)](#module_API..postUser) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
@@ -158,6 +160,38 @@ Verify a user
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.body | <code>object</code> | Verify the user |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postPartnerTokenRequest"></a>
+
+### API~postPartnerTokenRequest(parameters, options) ⇒ <code>Object</code>
+Request a user token
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.authorization | <code>undefined</code> | Basic auth with API Client id and API Client Secret, |
+| parameters.partnerId | <code>number</code> | The partner organisation id, |
+| parameters.body | <code>object</code> | Request a user token |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postPartnerToken"></a>
+
+### API~postPartnerToken(parameters, options) ⇒ <code>Object</code>
+Create a user token
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.authorization | <code>undefined</code> | Basic auth with API Client id and API Client Secret, |
+| parameters.partnerId | <code>number</code> | The partner organisation id, |
+| parameters.body | <code>object</code> | Create a user token |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getPartnerDevices"></a>

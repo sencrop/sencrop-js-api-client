@@ -276,6 +276,129 @@
         "tags": []
       }
     },
+    "/partners/{partnerId}/tokenRequests": {
+      "post": {
+        "operationId": "postPartnerTokenRequest",
+        "summary": "Request a user token",
+        "tags": [
+          "partners"
+        ],
+        "security": {
+          "basicAuth": [
+            "ROLE_PARTNER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "description": "Basic auth with API Client id and API Client Secret",
+            "required": true,
+            "name": "Authorization"
+          },
+          {
+            "name": "partnerId",
+            "in": "path",
+            "type": "number",
+            "description": "The partner organisation id",
+            "pattern": "^[0-9]+$",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "Request a user token",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User token requested"
+          }
+        }
+      }
+    },
+    "/partners/{partnerId}/tokens": {
+      "post": {
+        "operationId": "postPartnerToken",
+        "summary": "Create a user token",
+        "tags": [
+          "partners"
+        ],
+        "security": {
+          "basicAuth": [
+            "ROLE_PARTNER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "description": "Basic auth with API Client id and API Client Secret",
+            "required": true,
+            "name": "Authorization"
+          },
+          {
+            "name": "partnerId",
+            "in": "path",
+            "type": "number",
+            "description": "The partner organisation id",
+            "pattern": "^[0-9]+$",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "Create a user token",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "code"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User token created",
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          }
+        }
+      }
+    },
     "/partners/{partnerId}/devices": {
       "get": {
         "operationId": "getPartnerDevices",
@@ -286,7 +409,7 @@
           ]
         },
         "tags": [
-          "partner"
+          "partners"
         ],
         "consumes": [],
         "produces": [
@@ -3353,6 +3476,11 @@
       }
     }
   },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
   "definitions": {
     "Error": {
       "type": "object",
@@ -5176,6 +5304,109 @@
         },
         "organisationId": {
           "type": "number"
+        }
+      }
+    },
+    "ApplicationsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "applications"
+      ],
+      "properties": {
+        "applications": {
+          "$ref": "#/definitions/ApplicationsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]{8}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{12}$"
+          }
+        }
+      }
+    },
+    "ApplicationEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "applications"
+      ],
+      "properties": {
+        "applications": {
+          "$ref": "#/definitions/ApplicationsItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9]{8}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{12}$"
+        }
+      }
+    },
+    "ApplicationsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/ApplicationItem"
+        }
+      }
+    },
+    "ApplicationItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9]{8}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{12}$"
+        },
+        "userId": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "organisationId": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "truncatedSecret": {
+          "type": "string",
+          "description": "The API secret of the application truncated."
+        },
+        "secret": {
+          "type": "string",
+          "description": "The API secret of the application (provided only at its creation)."
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modificationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contents": {
+          "$ref": "#/definitions/Application"
+        }
+      }
+    },
+    "Application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "isActive"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
         }
       }
     }

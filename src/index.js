@@ -24,6 +24,8 @@ const API = {
   putPassword,
   postLogin,
   postVerify,
+  postPartnerTokenRequest,
+  postPartnerToken,
   getPartnerDevices,
   postUser,
   getUser,
@@ -319,6 +321,98 @@ function postVerify({
     'verify',
   ];
   let headers = {
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Request a user token
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {undefined} parameters.authorization
+ * Basic auth with API Client id and API Client Secret,
+ * @param {number} parameters.partnerId
+ * The partner organisation id,
+ * @param {object} parameters.body
+ * Request a user token
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postPartnerTokenRequest({
+  _,
+  authorization,
+  partnerId,
+  body,
+} = {}, options) {
+  const method = 'post';
+  let urlParts = [
+    'partners',
+    partnerId,
+    'tokenRequests',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Create a user token
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {undefined} parameters.authorization
+ * Basic auth with API Client id and API Client Secret,
+ * @param {number} parameters.partnerId
+ * The partner organisation id,
+ * @param {object} parameters.body
+ * Create a user token
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postPartnerToken({
+  _,
+  authorization,
+  partnerId,
+  body,
+} = {}, options) {
+  const method = 'post';
+  let urlParts = [
+    'partners',
+    partnerId,
+    'tokens',
+  ];
+  let headers = {
+    Authorization: authorization,
   };
   let qs = cleanQuery({
   });
