@@ -19,6 +19,7 @@ const {
 const API = {
   getPing,
   getCrops,
+  getModules,
   postSignupCheck,
   postLostPassword,
   putPassword,
@@ -50,6 +51,9 @@ const API = {
   getUserDevices,
   getUserDevice,
   putUserDevice,
+  getUserDeviceModules,
+  putUserDeviceModule,
+  deleteUserDeviceModule,
   putUserDeviceShares,
   getUserDeviceStatistics,
   getUserDeviceRawData,
@@ -126,6 +130,40 @@ function getCrops({
   const method = 'get';
   let urlParts = [
     'crops',
+  ];
+  let headers = {
+  };
+  let qs = cleanQuery({
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get the modules
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getModules({
+  _,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'modules',
   ];
   let headers = {
   };
@@ -1539,6 +1577,161 @@ function putUserDevice({
   let qs = cleanQuery({
   });
   let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Get the modules a user activated on its device
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDeviceModules({
+  _,
+  userId,
+  deviceId,
+  authorization,
+} = {}, options) {
+  const method = 'get';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'modules',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Add a module to a user's device
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {number} parameters.moduleId
+ * The module id,
+ * @param {object} parameters.body
+ * The module settings,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserDeviceModule({
+  _,
+  userId,
+  deviceId,
+  moduleId,
+  body,
+  authorization,
+} = {}, options) {
+  const method = 'put';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'modules',
+    moduleId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: status => 200 <= status && 300 > status,
+    method: method,
+    url: urlParts.join('/'),
+    headers,
+    params: qs,
+    data,
+  }, options || {}));
+}
+
+/**
+ * Disable a module for a user's device
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {number} parameters.moduleId
+ * The module id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteUserDeviceModule({
+  _,
+  userId,
+  deviceId,
+  moduleId,
+  authorization,
+} = {}, options) {
+  const method = 'delete';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'modules',
+    moduleId,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+  });
+  let data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'https://api.sencrop.com/v1',

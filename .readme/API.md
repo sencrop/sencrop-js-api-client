@@ -9,6 +9,7 @@ API to consume Sencrop data
 * [API](#module_API)
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
+    * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
     * [~postSignupCheck(parameters, options)](#module_API..postSignupCheck) ⇒ <code>Object</code>
     * [~postLostPassword(parameters, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~putPassword(parameters, options)](#module_API..putPassword) ⇒ <code>Object</code>
@@ -40,6 +41,9 @@ API to consume Sencrop data
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
+    * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
+    * [~putUserDeviceModule(parameters, options)](#module_API..putUserDeviceModule) ⇒ <code>Object</code>
+    * [~deleteUserDeviceModule(parameters, options)](#module_API..deleteUserDeviceModule) ⇒ <code>Object</code>
     * [~putUserDeviceShares(parameters, options)](#module_API..putUserDeviceShares) ⇒ <code>Object</code>
     * [~getUserDeviceStatistics(parameters, options)](#module_API..getUserDeviceStatistics) ⇒ <code>Object</code>
     * [~getUserDeviceRawData(parameters, options)](#module_API..getUserDeviceRawData) ⇒ <code>Object</code>
@@ -82,6 +86,19 @@ Checks API's availability.
 
 ### API~getCrops(parameters, options) ⇒ <code>Object</code>
 Get the crops
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getModules"></a>
+
+### API~getModules(parameters, options) ⇒ <code>Object</code>
+Get the modules
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -578,6 +595,57 @@ Update a user's device.
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user device |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDeviceModules"></a>
+
+### API~getUserDeviceModules(parameters, options) ⇒ <code>Object</code>
+Get the modules a user activated on its device
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putUserDeviceModule"></a>
+
+### API~putUserDeviceModule(parameters, options) ⇒ <code>Object</code>
+Add a module to a user's device
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.moduleId | <code>number</code> | The module id, |
+| parameters.body | <code>object</code> | The module settings, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteUserDeviceModule"></a>
+
+### API~deleteUserDeviceModule(parameters, options) ⇒ <code>Object</code>
+Disable a module for a user's device
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.moduleId | <code>number</code> | The module id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserDeviceShares"></a>
