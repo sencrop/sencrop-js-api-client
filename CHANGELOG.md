@@ -1,3 +1,14 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.2.0...v1.3.0) (2018-01-24)
+
+
+### Features
+
+* **Swagger:** Add partner modules endpoints ([9c2df84](https://github.com/sencrop/sencrop-js-api-client/commit/9c2df84))
+* **Swagger:** Add the partners API endpoints ([9a826e5](https://github.com/sencrop/sencrop-js-api-client/commit/9a826e5))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.1.1...v1.2.0) (2018-01-17)
 
