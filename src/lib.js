@@ -8,7 +8,7 @@ module.exports = {
 function cleanQuery(query) {
   return Object.keys(query)
     .filter(key => 'undefined' !== typeof query[key])
-    .filter(key => (!(query[key] instanceof Array)) || 0 !== query[key].length)
+    .filter(key => !(query[key] instanceof Array) || 0 !== query[key].length)
     .reduce((newQuery, key) => {
       newQuery[key] = query[key];
       return newQuery;

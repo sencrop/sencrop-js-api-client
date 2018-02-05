@@ -3,19 +3,23 @@
 // `metapak` module. Do NOT change it in
 // place, your changes would be overriden.
 
-'use strict';
-
 module.exports = {
-  extends: 'eslint-config-simplifield/lib/backend',
+  extends: 'eslint:recommended',
   parserOptions: {
-    sourceType: 'script',
-    modules: true,
+    sourceType: 'module',
+    ecmaVersion: 8,
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+    },
   },
-  globals: {
-    expect: true,
+  env: {
+    es6: true,
+    node: true,
     jest: true,
+    mocha: true,
   },
+  plugins: ['prettier'],
   rules: {
-    'no-magic-numbers': 0,
+    'prettier/prettier': 'error',
   },
 };
