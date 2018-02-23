@@ -1,5 +1,5 @@
 {
-  "host": "api.sencrop.com",
+  "host": "localhost:1337",
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
@@ -1079,6 +1079,12 @@
             "type": "boolean"
           },
           {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mecanism",
@@ -1542,13 +1548,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "description": "The status date",
             "name": "date",
@@ -1574,6 +1573,40 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "description": "The number of items to retrieve",
+            "pattern": "^[0-9]+$",
+            "enum": [
+              10,
+              50,
+              100
+            ]
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "type": "number",
+            "description": "The index in results",
+            "pattern": "^[0-9]+$",
+            "min": 0,
+            "multipleOf": 10
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -1587,6 +1620,66 @@
             "description": "User does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": []
+      },
+      "post": {
+        "operationId": "postUserDevice",
+        "summary": "Setup a user's device.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user device activation couple",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identification": {
+                  "type": "string",
+                  "pattern": "^(WCP?|RC|SC|UMO)[0-9]{6}$"
+                },
+                "activationCode": {
+                  "type": "string",
+                  "pattern": "^[A-F0-9]{4}$"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's device created",
+            "schema": {
+              "$ref": "#/definitions/DeviceItem"
             }
           }
         },
@@ -2007,7 +2100,8 @@
                 "WIND_MAX",
                 "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE"
+                "MOVE",
+                "WET_TEMPERATURE"
               ]
             }
           },
@@ -2217,6 +2311,7 @@
               1,
               2,
               7,
+              20,
               31
             ]
           },
@@ -2239,7 +2334,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -2338,7 +2434,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -2433,7 +2530,8 @@
                 "WIND_MAX",
                 "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE"
+                "MOVE",
+                "WET_TEMPERATURE"
               ]
             }
           },
@@ -2842,7 +2940,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -2931,6 +3030,7 @@
               1,
               2,
               7,
+              20,
               31
             ]
           },
@@ -2953,7 +3053,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -3647,6 +3748,58 @@
           }
         }
       }
+    },
+    "/organisations/{organisationId}": {
+      "put": {
+        "operationId": "putOrganisation",
+        "summary": "Update an organisation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "description": "The modified organisation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganisationItem"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The organisation were sucessfully updated",
+            "schema": {
+              "$ref": "#/definitions/OrganisationItem"
+            }
+          }
+        },
+        "tags": []
+      }
     }
   },
   "securityDefinitions": {
@@ -3826,6 +3979,17 @@
         "id": {
           "type": "number"
         },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "customer",
+              "partner",
+              "admin"
+            ]
+          }
+        },
         "contents": {
           "$ref": "#/definitions/Organisation"
         }
@@ -3837,11 +4001,29 @@
       "required": [
         "name",
         "city",
+        "country",
         "address",
-        "zipcode"
+        "zipcode",
+        "locale",
+        "timeZone"
       ],
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "identification": {
           "type": "string"
         },
         "locale": {
@@ -3852,33 +4034,6 @@
         "timeZone": {
           "type": "string",
           "maxLength": 50
-        },
-        "isSencrop": {
-          "type": "number"
-        },
-        "city": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        },
-        "area": {
-          "type": "number"
-        },
-        "irrigation": {
-          "type": "boolean"
-        },
-        "crops": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "identification": {
-          "type": "string"
         }
       }
     },
@@ -4029,6 +4184,10 @@
             "type": "number",
             "pattern": "^[0-9]+$"
           }
+        },
+        "total": {
+          "type": "number",
+          "min": 0
         }
       }
     },
@@ -4099,6 +4258,10 @@
               "delegatorId": {
                 "type": "number"
               },
+              "parameters": {
+                "type": "object",
+                "additionalProperties": true
+              },
               "name": {
                 "type": "string"
               },
@@ -4117,6 +4280,10 @@
                 "format": "date-time"
               },
               "endDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "deletionDate": {
                 "type": "string",
                 "format": "date-time"
               }
