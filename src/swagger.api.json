@@ -1,5 +1,5 @@
 {
-  "host": "localhost:1337",
+  "host": "api.sencrop.com",
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",

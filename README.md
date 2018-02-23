@@ -85,6 +85,7 @@ API to consume Sencrop data
     * [~putUserDisplay(parameters, options)](#module_API..putUserDisplay) ⇒ <code>Object</code>
     * [~deleteUserDisplay(parameters, options)](#module_API..deleteUserDisplay) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
+    * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
@@ -114,6 +115,7 @@ API to consume Sencrop data
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
     * [~deleteUserAlert(parameters, options)](#module_API..deleteUserAlert) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
+    * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
 
 <a name="module_API..getPing"></a>
 
@@ -461,6 +463,7 @@ Get a user's aggregations.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.compute | <code>boolean</code> | Wether the aggregations should be computed, |
+| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -605,9 +608,28 @@ Get a user's devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.date | <code>string</code> | The status date, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| parameters.limit | <code>number</code> | The number of items to retrieve, |
+| parameters.start | <code>number</code> | The index in results, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postUserDevice"></a>
+
+### API~postUserDevice(parameters, options) ⇒ <code>Object</code>
+Setup a user's device.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.body | <code>object</code> | The user device activation couple |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDevice"></a>
@@ -1107,6 +1129,22 @@ Creates a new organisation.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.body | <code>object</code> | The necessary contents to create a new organisation |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisation"></a>
+
+### API~putOrganisation(parameters, options) ⇒ <code>Object</code>
+Update an organisation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.body | <code>object</code> | The modified organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 
