@@ -1,3 +1,18 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.3.0...v1.3.1) (2018-02-23)
+
+
+### Bug Fixes
+
+* **Swagger:** Fix the base url ([95f2eb9](https://github.com/sencrop/sencrop-js-api-client/commit/95f2eb9))
+
+
+### Features
+
+* **Swagger:** Update the Swagger file to the latest API version ([26a90b3](https://github.com/sencrop/sencrop-js-api-client/commit/26a90b3))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.2.0...v1.3.0) (2018-01-24)
 
