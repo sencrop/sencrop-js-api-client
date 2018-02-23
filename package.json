@@ -29,7 +29,6 @@
     "import": "node bin/import.js",
     "lint": "eslint src/**/*.js bin/*.js test/*.js",
     "metapak": "metapak",
-    "postinstall": "npm run metapak --silent",
     "prettier": "prettier --write src/**/*.js bin/*.js test/*.js",
     "preversion": "npm run compile && npm run lint && npm t",
     "test": "npm run compile && jest --config=.jest.config.js && karma start karma.conf.js",
