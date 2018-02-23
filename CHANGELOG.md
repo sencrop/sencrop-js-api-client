@@ -1,3 +1,13 @@
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/sencrop/sencrop-js-api-client/compare/v1.3.1...v1.3.2) (2018-02-23)
+
+
+### Bug Fixes
+
+* **Metapak:** Remove old forgotten install hook ([319d64d](https://github.com/sencrop/sencrop-js-api-client/commit/319d64d))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.3.0...v1.3.1) (2018-02-23)
 
