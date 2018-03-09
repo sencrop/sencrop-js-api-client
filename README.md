@@ -64,7 +64,6 @@ API to consume Sencrop data
     * [~postPartnerTokenRequest(parameters, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
     * [~postPartnerToken(parameters, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
-    * [~postUser(parameters, options)](#module_API..postUser) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, options)](#module_API..putUser) ⇒ <code>Object</code>
     * [~getUserGuests(parameters, options)](#module_API..getUserGuests) ⇒ <code>Object</code>
@@ -79,11 +78,11 @@ API to consume Sencrop data
     * [~postUserAggregation(parameters, options)](#module_API..postUserAggregation) ⇒ <code>Object</code>
     * [~putUserAggregation(parameters, options)](#module_API..putUserAggregation) ⇒ <code>Object</code>
     * [~deleteUserAggregation(parameters, options)](#module_API..deleteUserAggregation) ⇒ <code>Object</code>
-    * [~getUserDisplays(parameters, options)](#module_API..getUserDisplays) ⇒ <code>Object</code>
-    * [~postUserDisplay(parameters, options)](#module_API..postUserDisplay) ⇒ <code>Object</code>
-    * [~getUserDisplay(parameters, options)](#module_API..getUserDisplay) ⇒ <code>Object</code>
-    * [~putUserDisplay(parameters, options)](#module_API..putUserDisplay) ⇒ <code>Object</code>
-    * [~deleteUserDisplay(parameters, options)](#module_API..deleteUserDisplay) ⇒ <code>Object</code>
+    * [~getUserDeviceGroups(parameters, options)](#module_API..getUserDeviceGroups) ⇒ <code>Object</code>
+    * [~postUserDeviceGroup(parameters, options)](#module_API..postUserDeviceGroup) ⇒ <code>Object</code>
+    * [~getUserDeviceGroup(parameters, options)](#module_API..getUserDeviceGroup) ⇒ <code>Object</code>
+    * [~putUserDeviceGroup(parameters, options)](#module_API..putUserDeviceGroup) ⇒ <code>Object</code>
+    * [~deleteUserDeviceGroup(parameters, options)](#module_API..deleteUserDeviceGroup) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
@@ -274,21 +273,6 @@ Retrieves the devices a partner has access to.
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
 | parameters.limit | <code>number</code> | The number of items to retrieve, |
 | parameters.start | <code>number</code> | The index in results |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..postUser"></a>
-
-### API~postUser(parameters, options) ⇒ <code>Object</code>
-Create a user.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>undefined</code> | The new user to create |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUser"></a>
@@ -516,10 +500,10 @@ Delete a user's aggregation.
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDisplays"></a>
+<a name="module_API..getUserDeviceGroups"></a>
 
-### API~getUserDisplays(parameters, options) ⇒ <code>Object</code>
-Get a user's displays.
+### API~getUserDeviceGroups(parameters, options) ⇒ <code>Object</code>
+Get a user's devices groups.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -531,10 +515,10 @@ Get a user's displays.
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..postUserDisplay"></a>
+<a name="module_API..postUserDeviceGroup"></a>
 
-### API~postUserDisplay(parameters, options) ⇒ <code>Object</code>
-Create a user's display.
+### API~postUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
+Create a user's device group.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -544,13 +528,13 @@ Create a user's display.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>object</code> | The user's display |
+| parameters.body | <code>object</code> | The user's device group |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDisplay"></a>
+<a name="module_API..getUserDeviceGroup"></a>
 
-### API~getUserDisplay(parameters, options) ⇒ <code>Object</code>
-Get a user's display.
+### API~getUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
+Get a user's devices group.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -559,14 +543,14 @@ Get a user's display.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.displayId | <code>number</code> | The display id, |
+| parameters.deviceGroupId | <code>number</code> | The device group id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..putUserDisplay"></a>
+<a name="module_API..putUserDeviceGroup"></a>
 
-### API~putUserDisplay(parameters, options) ⇒ <code>Object</code>
-Update a user's display.
+### API~putUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
+Update a user's device group.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -575,15 +559,15 @@ Update a user's display.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.displayId | <code>string</code> | The display id, |
+| parameters.deviceGroupId | <code>string</code> | The deviceGroup id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>object</code> | The user's display |
+| parameters.body | <code>object</code> | The user's device group |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..deleteUserDisplay"></a>
+<a name="module_API..deleteUserDeviceGroup"></a>
 
-### API~deleteUserDisplay(parameters, options) ⇒ <code>Object</code>
-Delete a user's display.
+### API~deleteUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
+Delete a user's device group.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -592,7 +576,7 @@ Delete a user's display.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.displayId | <code>number</code> | The display id, |
+| parameters.deviceGroupId | <code>number</code> | The device group id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -767,10 +751,10 @@ Get a user's device's raw data.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.size | <code>number</code> | The number of measures to retrieve, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceHourlyData"></a>
@@ -786,10 +770,10 @@ Get a user's device's hourly data.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceDailyData"></a>
@@ -805,10 +789,10 @@ Get a user's device's daily data.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
-| parameters.measures | <code>array</code> | The measures to read |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceContinuousStatistics"></a>
@@ -844,9 +828,9 @@ Get a user's device's degree days.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.startDate | <code>string</code> | The statistics start date, |
-| parameters.endDate | <code>string</code> | The statistics end date |
+| parameters.endDate | <code>string</code> | The statistics end date, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceSummary"></a>

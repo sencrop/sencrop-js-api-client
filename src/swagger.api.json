@@ -484,49 +484,6 @@
         }
       }
     },
-    "/users": {
-      "post": {
-        "operationId": "postUser",
-        "summary": "Create a user.",
-        "security": {
-          "token": [
-            "ROLE_ADMIN"
-          ]
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "The new user to create",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MaybeIncompleteUser"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "The user were created",
-            "schema": {
-              "$ref": "#/definitions/UserItem"
-            }
-          }
-        },
-        "tags": []
-      }
-    },
     "/users/{userId}": {
       "get": {
         "operationId": "getUser",
@@ -1267,10 +1224,10 @@
         "tags": []
       }
     },
-    "/users/{userId}/displays": {
+    "/users/{userId}/deviceGroups": {
       "get": {
-        "operationId": "getUserDisplays",
-        "summary": "Get a user's displays.",
+        "operationId": "getUserDeviceGroups",
+        "summary": "Get a user's devices groups.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1299,9 +1256,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested user's displays",
+            "description": "The requested user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplaysCollection"
+              "$ref": "#/definitions/DeviceGroupsCollection"
             }
           },
           "404": {
@@ -1314,8 +1271,8 @@
         "tags": []
       },
       "post": {
-        "operationId": "postUserDisplay",
-        "summary": "Create a user's display.",
+        "operationId": "postUserDeviceGroup",
+        "summary": "Create a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1345,19 +1302,19 @@
           },
           {
             "in": "body",
-            "description": "The user's display",
+            "description": "The user's device group",
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DisplayInput"
+              "$ref": "#/definitions/DeviceGroupInput"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "The created user's display",
+            "description": "The created user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           },
           "404": {
@@ -1370,10 +1327,10 @@
         "tags": []
       }
     },
-    "/users/{userId}/displays/{displayId}": {
+    "/users/{userId}/deviceGroups/{deviceGroupId}": {
       "get": {
-        "operationId": "getUserDisplay",
-        "summary": "Get a user's display.",
+        "operationId": "getUserDeviceGroup",
+        "summary": "Get a user's devices group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1395,8 +1352,8 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
-            "name": "displayId",
+            "description": "The device group id",
+            "name": "deviceGroupId",
             "pattern": "^[0-9]+$",
             "type": "number"
           },
@@ -1410,9 +1367,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested user's display",
+            "description": "The requested user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           },
           "404": {
@@ -1425,8 +1382,8 @@
         "tags": []
       },
       "put": {
-        "operationId": "putUserDisplay",
-        "summary": "Update a user's display.",
+        "operationId": "putUserDeviceGroup",
+        "summary": "Update a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1450,9 +1407,9 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
+            "description": "The deviceGroup id",
             "pattern": "^[0-9]+$",
-            "name": "displayId",
+            "name": "deviceGroupId",
             "type": "string"
           },
           {
@@ -1464,27 +1421,27 @@
           },
           {
             "in": "body",
-            "description": "The user's display",
+            "description": "The user's device group",
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DisplayInput"
+              "$ref": "#/definitions/DeviceGroupInput"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "The user's display updated",
+            "description": "The user's device group updated",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           }
         },
         "tags": []
       },
       "delete": {
-        "operationId": "deleteUserDisplay",
-        "summary": "Delete a user's display.",
+        "operationId": "deleteUserDeviceGroup",
+        "summary": "Delete a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1504,8 +1461,8 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
-            "name": "displayId",
+            "description": "The device group id",
+            "name": "deviceGroupId",
             "pattern": "^[0-9]+$",
             "type": "number"
           },
@@ -1519,7 +1476,7 @@
         ],
         "responses": {
           "404": {
-            "description": "The user's display were successfully deleted."
+            "description": "The user's device group were successfully deleted."
           }
         },
         "tags": []
@@ -2160,13 +2117,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2210,6 +2160,13 @@
                 "ALT"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2287,13 +2244,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2338,6 +2288,13 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2388,13 +2345,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2438,6 +2388,13 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2590,13 +2547,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The statistics start date",
@@ -2611,6 +2561,13 @@
             "name": "endDate",
             "type": "string",
             "format": "date-time"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2781,6 +2738,7 @@
       "get": {
         "operationId": "getUserForecasts",
         "summary": "Get a user's forecasts.",
+        "tags": [],
         "security": {
           "token": [
             "ROLE_USER"
@@ -2847,8 +2805,7 @@
               "$ref": "#/definitions/Error"
             }
           }
-        },
-        "tags": []
+        }
       }
     },
     "/users/{userId}/data/daily": {
@@ -4690,23 +4647,15 @@
         }
       }
     },
-    "DisplaysCollection": {
+    "DeviceGroupsCollection": {
       "type": "object",
       "required": [
         "items",
-        "displays",
-        "devices",
-        "measures"
+        "deviceGroups"
       ],
       "properties": {
-        "measures": {
-          "$ref": "#/definitions/MeasuresItemsHash"
-        },
-        "displays": {
-          "$ref": "#/definitions/DisplaysItemsHash"
-        },
-        "devices": {
-          "$ref": "#/definitions/DevicesItemsHash"
+        "deviceGroups": {
+          "$ref": "#/definitions/DeviceGroupsItemsHash"
         },
         "items": {
           "type": "array",
@@ -4718,23 +4667,15 @@
         }
       }
     },
-    "DisplayEntry": {
+    "DeviceGroupEntry": {
       "type": "object",
       "required": [
         "entry",
-        "displays",
-        "devices",
-        "measures"
+        "deviceGroups"
       ],
       "properties": {
-        "measures": {
-          "$ref": "#/definitions/MeasuresItemsHash"
-        },
-        "displays": {
-          "$ref": "#/definitions/DisplaysItemsHash"
-        },
-        "devices": {
-          "$ref": "#/definitions/DevicesItemsHash"
+        "deviceGroups": {
+          "$ref": "#/definitions/DeviceGroupsItemsHash"
         },
         "entry": {
           "type": "number",
@@ -4742,15 +4683,15 @@
         }
       }
     },
-    "DisplaysItemsHash": {
+    "DeviceGroupsItemsHash": {
       "type": "object",
       "patternProperties": {
         "^[0-9]+$": {
-          "$ref": "#/definitions/DisplayItem"
+          "$ref": "#/definitions/DeviceGroupItem"
         }
       }
     },
-    "DisplayItem": {
+    "DeviceGroupItem": {
       "type": "object",
       "required": [
         "contents"
@@ -4761,41 +4702,40 @@
           "pattern": "^[0-9]+$"
         },
         "contents": {
-          "$ref": "#/definitions/Display"
+          "$ref": "#/definitions/DeviceGroup"
         }
       }
     },
-    "DisplayInput": {
+    "DeviceGroupInput": {
       "type": "object",
       "required": [
         "contents"
       ],
       "properties": {
-        "measures": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Measure"
-          }
-        },
         "contents": {
-          "$ref": "#/definitions/Display"
+          "$ref": "#/definitions/DeviceGroup"
         }
       }
     },
-    "Display": {
+    "DeviceGroup": {
       "type": "object",
       "required": [
         "name",
-        "measuresIds"
+        "devicesIds"
       ],
       "properties": {
         "name": {
           "type": "string"
         },
-        "measuresIds": {
+        "description": {
+          "type": "string"
+        },
+        "devicesIds": {
           "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -5316,7 +5256,6 @@
       "required": [
         "name",
         "type",
-        "displaysIds",
         "devicesIds",
         "startDate",
         "details"
@@ -5336,6 +5275,7 @@
         "displaysIds": {
           "type": "array",
           "uniqueItems": true,
+          "description": "Deprecated. Won't be used, here for backward compatibility.",
           "items": {
             "type": "number",
             "pattern": "^[0-9]+$"

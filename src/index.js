@@ -27,7 +27,6 @@ const API = {
   postPartnerTokenRequest,
   postPartnerToken,
   getPartnerDevices,
-  postUser,
   getUser,
   putUser,
   getUserGuests,
@@ -42,11 +41,11 @@ const API = {
   postUserAggregation,
   putUserAggregation,
   deleteUserAggregation,
-  getUserDisplays,
-  postUserDisplay,
-  getUserDisplay,
-  putUserDisplay,
-  deleteUserDisplay,
+  getUserDeviceGroups,
+  postUserDeviceGroup,
+  getUserDeviceGroup,
+  putUserDeviceGroup,
+  deleteUserDeviceGroup,
   getUserDevices,
   postUserDevice,
   getUserDevice,
@@ -475,45 +474,6 @@ function getPartnerDevices(
     start: start,
   });
   let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Create a user.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {undefined} parameters.body
- * The new user to create
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postUser({ authorization, body } = {}, options) {
-  const method = 'post';
-  let urlParts = ['users'];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({});
-  let data = body;
 
   return axios(
     Object.assign(
@@ -1127,7 +1087,7 @@ function deleteUserAggregation(
 }
 
 /**
- * Get a user's displays.
+ * Get a user's devices groups.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
@@ -1139,9 +1099,9 @@ function deleteUserAggregation(
  * @return {Object}
  * The HTTP response
  */
-function getUserDisplays({ userId, authorization } = {}, options) {
+function getUserDeviceGroups({ userId, authorization } = {}, options) {
   const method = 'get';
-  let urlParts = ['users', userId, 'displays'];
+  let urlParts = ['users', userId, 'deviceGroups'];
   let headers = {
     Authorization: authorization,
   };
@@ -1166,7 +1126,7 @@ function getUserDisplays({ userId, authorization } = {}, options) {
 }
 
 /**
- * Create a user's display.
+ * Create a user's device group.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
@@ -1174,15 +1134,15 @@ function getUserDisplays({ userId, authorization } = {}, options) {
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {object} parameters.body
- * The user's display
+ * The user's device group
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserDisplay({ userId, authorization, body } = {}, options) {
+function postUserDeviceGroup({ userId, authorization, body } = {}, options) {
   const method = 'post';
-  let urlParts = ['users', userId, 'displays'];
+  let urlParts = ['users', userId, 'deviceGroups'];
   let headers = {
     Authorization: authorization,
   };
@@ -1207,13 +1167,13 @@ function postUserDisplay({ userId, authorization, body } = {}, options) {
 }
 
 /**
- * Get a user's display.
+ * Get a user's devices group.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.displayId
- * The display id,
+ * @param {number} parameters.deviceGroupId
+ * The device group id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1221,9 +1181,12 @@ function postUserDisplay({ userId, authorization, body } = {}, options) {
  * @return {Object}
  * The HTTP response
  */
-function getUserDisplay({ userId, displayId, authorization } = {}, options) {
+function getUserDeviceGroup(
+  { userId, deviceGroupId, authorization } = {},
+  options
+) {
   const method = 'get';
-  let urlParts = ['users', userId, 'displays', displayId];
+  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
     Authorization: authorization,
   };
@@ -1248,28 +1211,28 @@ function getUserDisplay({ userId, displayId, authorization } = {}, options) {
 }
 
 /**
- * Update a user's display.
+ * Update a user's device group.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.displayId
- * The display id,
+ * @param {string} parameters.deviceGroupId
+ * The deviceGroup id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {object} parameters.body
- * The user's display
+ * The user's device group
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putUserDisplay(
-  { userId, displayId, authorization, body } = {},
+function putUserDeviceGroup(
+  { userId, deviceGroupId, authorization, body } = {},
   options
 ) {
   const method = 'put';
-  let urlParts = ['users', userId, 'displays', displayId];
+  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
     Authorization: authorization,
   };
@@ -1294,13 +1257,13 @@ function putUserDisplay(
 }
 
 /**
- * Delete a user's display.
+ * Delete a user's device group.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.displayId
- * The display id,
+ * @param {number} parameters.deviceGroupId
+ * The device group id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1308,9 +1271,12 @@ function putUserDisplay(
  * @return {Object}
  * The HTTP response
  */
-function deleteUserDisplay({ userId, displayId, authorization } = {}, options) {
+function deleteUserDeviceGroup(
+  { userId, deviceGroupId, authorization } = {},
+  options
+) {
   const method = 'delete';
-  let urlParts = ['users', userId, 'displays', displayId];
+  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
     Authorization: authorization,
   };
@@ -1779,21 +1745,21 @@ function getUserDeviceStatistics(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.size
  * The number of measures to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceRawData(
-  { userId, deviceId, authorization, beforeDate, size, measures } = {},
+  { userId, deviceId, beforeDate, size, measures, authorization } = {},
   options
 ) {
   const method = 'get';
@@ -1833,21 +1799,21 @@ function getUserDeviceRawData(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceHourlyData(
-  { userId, deviceId, authorization, beforeDate, days, measures } = {},
+  { userId, deviceId, beforeDate, days, measures, authorization } = {},
   options
 ) {
   const method = 'get';
@@ -1887,21 +1853,21 @@ function getUserDeviceHourlyData(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceDailyData(
-  { userId, deviceId, authorization, beforeDate, days, measures } = {},
+  { userId, deviceId, beforeDate, days, measures, authorization } = {},
   options
 ) {
   const method = 'get';
@@ -2012,19 +1978,19 @@ function getUserDeviceContinuousStatistics(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.startDate
  * The statistics start date,
  * @param {string} parameters.endDate
- * The statistics end date
+ * The statistics end date,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceDegreeDays(
-  { userId, deviceId, authorization, startDate, endDate } = {},
+  { userId, deviceId, startDate, endDate, authorization } = {},
   options
 ) {
   const method = 'get';
