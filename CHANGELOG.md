@@ -1,3 +1,13 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.4.0...v1.5.0) (2018-04-03)
+
+
+### Features
+
+* **Swagger:** Add new Swagger definitions ([965af9a](https://github.com/sencrop/sencrop-js-api-client/commit/965af9a))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.3.2...v1.4.0) (2018-03-09)
 
