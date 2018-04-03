@@ -340,7 +340,8 @@
               ],
               "properties": {
                 "email": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "email"
                 }
               }
             }
@@ -1841,8 +1842,97 @@
             "name": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "additionalProperties": true
+              "oneOf": [
+                {
+                  "description": "Arvalis Mileos parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "mileos"
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    }
+                  }
+                },
+                {
+                  "description": "Syngenta Avisio parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "avisio"
+                      ]
+                    },
+                    "siret": {
+                      "type": "string"
+                    },
+                    "organisationName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "description": "Bayer Movida parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "movida"
+                      ]
+                    },
+                    "administrator": {
+                      "type": "string"
+                    },
+                    "organisationName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "description": "BASF Atlas parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "atlas"
+                      ]
+                    },
+                    "siret": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "description": "ScanBean parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "scanbean"
+                      ]
+                    },
+                    "siret": {
+                      "type": "string"
+                    },
+                    "organisationName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
             }
           },
           {

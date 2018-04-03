@@ -288,7 +288,7 @@ Create a user's guest.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>undefined</code> | The user's guest |
+| parameters.body | <code>object</code> | The user's guest |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserGuest"></a>
@@ -352,7 +352,7 @@ Create a user's collaborator.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| parameters.body | <code>undefined</code> | The user's collaborator |
+| parameters.body | <code>object</code> | The user's collaborator |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserCollaborator"></a>

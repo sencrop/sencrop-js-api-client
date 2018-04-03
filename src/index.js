@@ -619,7 +619,7 @@ function getUserGuests({ userId, authorization } = {}, options) {
  * The user id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {undefined} parameters.body
+ * @param {object} parameters.body
  * The user's guest
  * @param {Object} options
  * Options to override Axios request configuration
@@ -783,7 +783,7 @@ function getUserCollaborators({ userId, authorization } = {}, options) {
  * The user id,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {undefined} parameters.body
+ * @param {object} parameters.body
  * The user's collaborator
  * @param {Object} options
  * Options to override Axios request configuration

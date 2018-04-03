@@ -55,7 +55,11 @@ ${operations
  * The parameters to provide (destructured)${(parameters || []).map(
    parameter => `
  * @param {${
-   parameter.schema ? parameter.schema.type : parameter.type
+   parameter.schema
+     ? parameter.schema.oneOf
+       ? [...new Set(parameter.schema.oneOf.map(s => s.type))].join('|')
+       : parameter.schema.type
+     : parameter.type
  }} parameters.${camelCase(parameter.name)}
  * ${parameter.description}`
  )}
