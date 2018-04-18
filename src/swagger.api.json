@@ -485,6 +485,87 @@
         }
       }
     },
+    "/partners/{partnerId}/users/{userId}/devices/{deviceId}/modules/{moduleId}/parameters": {
+      "put": {
+        "operationId": "putPartnerModuleParameters",
+        "summary": "Update an partner module parameters",
+        "security": {
+          "token": [
+            "ROLE_PARTNER"
+          ]
+        },
+        "tags": [
+          "partners"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "description": "The partner organisation id",
+            "pattern": "^[0-9]+$",
+            "name": "partnerId",
+            "required": true
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9]+$",
+            "name": "deviceId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The module id",
+            "pattern": "^[0-9]+$",
+            "name": "moduleId",
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "description": "The module parameters",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Module sucessfully updated on the user device"
+          }
+        }
+      }
+    },
     "/users/{userId}": {
       "get": {
         "operationId": "getUser",
@@ -1124,6 +1205,69 @@
       }
     },
     "/users/{userId}/aggregations/{aggregationId}": {
+      "get": {
+        "operationId": "getUserAggregation",
+        "summary": "Get a single user aggregation with statistics for graphs",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The aggregation id",
+            "pattern": "^[0-9]+$",
+            "name": "aggregationId",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "description": "The interval of data",
+            "name": "interval",
+            "type": "string",
+            "enum": [
+              "auto",
+              "hour",
+              "6h",
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
+            "default": "auto"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's aggregation updated",
+            "schema": {
+              "$ref": "#/definitions/AggregationEntry"
+            }
+          }
+        },
+        "tags": []
+      },
       "put": {
         "operationId": "putUserAggregation",
         "summary": "Update a user's aggregation.",
@@ -5645,7 +5789,8 @@
           "enum": [
             "RAIN_TIC",
             "TEMP_AIR",
-            "DEGREE_DAY"
+            "DEGREE_DAY",
+            "TEMP_COLD_HOURS"
           ]
         },
         "name": {
@@ -5664,7 +5809,7 @@
           "minimum": 1
         },
         "base": {
-          "type": "integer"
+          "type": "number"
         },
         "devicesIds": {
           "type": "array",
@@ -5694,7 +5839,8 @@
           "type": "string",
           "enum": [
             "RAIN_TIC",
-            "TEMP_AIR_H1"
+            "TEMP_AIR_H1",
+            "TEMP_COLD_HOURS"
           ]
         },
         "RAIN_TIC": {
@@ -5706,6 +5852,14 @@
           }
         },
         "TEMP_AIR": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        "TEMP_COLD_HOURS": {
           "type": "object",
           "properties": {
             "value": {

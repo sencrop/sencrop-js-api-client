@@ -18,6 +18,7 @@ API to consume Sencrop data
     * [~postPartnerTokenRequest(parameters, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
     * [~postPartnerToken(parameters, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
+    * [~putPartnerModuleParameters(parameters, options)](#module_API..putPartnerModuleParameters) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, options)](#module_API..putUser) ⇒ <code>Object</code>
     * [~getUserGuests(parameters, options)](#module_API..getUserGuests) ⇒ <code>Object</code>
@@ -30,6 +31,7 @@ API to consume Sencrop data
     * [~deleteUserCollaborator(parameters, options)](#module_API..deleteUserCollaborator) ⇒ <code>Object</code>
     * [~getUserAggregations(parameters, options)](#module_API..getUserAggregations) ⇒ <code>Object</code>
     * [~postUserAggregation(parameters, options)](#module_API..postUserAggregation) ⇒ <code>Object</code>
+    * [~getUserAggregation(parameters, options)](#module_API..getUserAggregation) ⇒ <code>Object</code>
     * [~putUserAggregation(parameters, options)](#module_API..putUserAggregation) ⇒ <code>Object</code>
     * [~deleteUserAggregation(parameters, options)](#module_API..deleteUserAggregation) ⇒ <code>Object</code>
     * [~getUserDeviceGroups(parameters, options)](#module_API..getUserDeviceGroups) ⇒ <code>Object</code>
@@ -229,6 +231,25 @@ Retrieves the devices a partner has access to.
 | parameters.start | <code>number</code> | The index in results |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..putPartnerModuleParameters"></a>
+
+### API~putPartnerModuleParameters(parameters, options) ⇒ <code>Object</code>
+Update an partner module parameters
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.partnerId | <code>number</code> | The partner organisation id, |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.moduleId | <code>number</code> | The module id, |
+| parameters.body | <code>object</code> | The module parameters, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getUser"></a>
 
 ### API~getUser(parameters, options) ⇒ <code>Object</code>
@@ -419,6 +440,23 @@ Create a user's aggregation.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user's aggregation |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserAggregation"></a>
+
+### API~getUserAggregation(parameters, options) ⇒ <code>Object</code>
+Get a single user aggregation with statistics for graphs
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.aggregationId | <code>string</code> | The aggregation id, |
+| parameters.interval | <code>string</code> | The interval of data, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserAggregation"></a>

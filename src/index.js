@@ -27,6 +27,7 @@ const API = {
   postPartnerTokenRequest,
   postPartnerToken,
   getPartnerDevices,
+  putPartnerModuleParameters,
   getUser,
   putUser,
   getUserGuests,
@@ -39,6 +40,7 @@ const API = {
   deleteUserCollaborator,
   getUserAggregations,
   postUserAggregation,
+  getUserAggregation,
   putUserAggregation,
   deleteUserAggregation,
   getUserDeviceGroups,
@@ -474,6 +476,66 @@ function getPartnerDevices(
     start: start,
   });
   let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Update an partner module parameters
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.partnerId
+ * The partner organisation id,
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {number} parameters.moduleId
+ * The module id,
+ * @param {object} parameters.body
+ * The module parameters,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putPartnerModuleParameters(
+  { partnerId, userId, deviceId, moduleId, body, authorization } = {},
+  options
+) {
+  const method = 'put';
+  let urlParts = [
+    'partners',
+    partnerId,
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'modules',
+    moduleId,
+    'parameters',
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({});
+  let data = body;
 
   return axios(
     Object.assign(
@@ -978,6 +1040,54 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
   };
   let qs = cleanQuery({});
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Get a single user aggregation with statistics for graphs
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.aggregationId
+ * The aggregation id,
+ * @param {string} parameters.interval
+ * The interval of data,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserAggregation(
+  { userId, aggregationId, interval, authorization } = {},
+  options
+) {
+  const method = 'get';
+  let urlParts = ['users', userId, 'aggregations', aggregationId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    interval: interval,
+  });
+  let data = {}.undef;
 
   return axios(
     Object.assign(
