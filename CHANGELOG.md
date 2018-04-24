@@ -1,3 +1,15 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.5.0...v1.6.0) (2018-04-24)
+
+
+### Features
+
+* **Build:** Flag default parameters for docs ([a1205c6](https://github.com/sencrop/sencrop-js-api-client/commit/a1205c6)), closes [#6](https://github.com/sencrop/sencrop-js-api-client/issues/6)
+* **Swagger:** Set the right host at Swagger import ([33c901f](https://github.com/sencrop/sencrop-js-api-client/commit/33c901f))
+* **Swagger:** Update the Swagger file to the latest API version ([5b3cf27](https://github.com/sencrop/sencrop-js-api-client/commit/5b3cf27))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.4.0...v1.5.0) (2018-04-03)
 
