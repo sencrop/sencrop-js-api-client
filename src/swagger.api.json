@@ -1251,6 +1251,12 @@
             "default": "auto"
           },
           {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mecanism",

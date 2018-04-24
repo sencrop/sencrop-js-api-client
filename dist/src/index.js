@@ -1112,6 +1112,8 @@ function postUserAggregation() {
  * The aggregation id,
  * @param {string} parameters.interval
  * The interval of data,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1124,6 +1126,7 @@ function getUserAggregation() {
       userId = _ref22.userId,
       aggregationId = _ref22.aggregationId,
       interval = _ref22.interval,
+      patched = _ref22.patched,
       authorization = _ref22.authorization;
 
   var options = arguments[1];
@@ -1134,7 +1137,8 @@ function getUserAggregation() {
     Authorization: authorization
   };
   var qs = cleanQuery({
-    interval: interval
+    interval: interval,
+    patched: patched
   });
   var data = {}.undef;
 

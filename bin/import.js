@@ -12,6 +12,8 @@ API.paths = operations.reduce((paths, operation) => {
     return paths;
   }
 
+  API.host = 'api.sencrop.com';
+
   API.paths[operation.path][operation.method].tags = (
     operation.tags || []
   ).filter(t => !(t.startsWith('memx') || t.startsWith('tx')));

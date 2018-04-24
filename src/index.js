@@ -1068,6 +1068,8 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The aggregation id,
  * @param {string} parameters.interval
  * The interval of data,
+ * @param {boolean} parameters.patched
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
  * @param {Object} options
@@ -1076,7 +1078,7 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function getUserAggregation(
-  { userId, aggregationId, interval, authorization } = {},
+  { userId, aggregationId, interval, patched, authorization } = {},
   options
 ) {
   const method = 'get';
@@ -1086,6 +1088,7 @@ function getUserAggregation(
   };
   let qs = cleanQuery({
     interval: interval,
+    patched: patched,
   });
   let data = {}.undef;
 

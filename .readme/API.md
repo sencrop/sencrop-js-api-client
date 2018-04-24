@@ -456,6 +456,7 @@ Get a single user aggregation with statistics for graphs
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>string</code> | The aggregation id, |
 | parameters.interval | <code>string</code> | The interval of data, |
+| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
