@@ -185,7 +185,7 @@ function getModules(_, options) {
  * Hit the server to check the email can be used to signup.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} parameters.authorization
+ * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {object} parameters.body
  * The email to check
@@ -974,9 +974,9 @@ function deleteUserCollaborator(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {boolean} parameters.compute
+ * @param {boolean} [parameters.compute]
  * Wether the aggregations should be computed,
- * @param {boolean} parameters.patched
+ * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
@@ -1066,9 +1066,9 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The user id,
  * @param {string} parameters.aggregationId
  * The aggregation id,
- * @param {string} parameters.interval
+ * @param {string} [parameters.interval]
  * The interval of data,
- * @param {boolean} parameters.patched
+ * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
@@ -1419,15 +1419,15 @@ function deleteUserDeviceGroup(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.date
+ * @param {string} [parameters.date]
  * The status date,
- * @param {array} parameters.measures
+ * @param {array} [parameters.measures]
  * The measures to read,
- * @param {boolean} parameters.patched
+ * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
- * @param {number} parameters.limit
+ * @param {number} [parameters.limit]
  * The number of items to retrieve,
- * @param {number} parameters.start
+ * @param {number} [parameters.start]
  * The index in results,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism
@@ -1801,7 +1801,7 @@ function putUserDeviceShares(
  * The statistics end date,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {boolean} parameters.patched
+ * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
@@ -2028,7 +2028,7 @@ function getUserDeviceDailyData(
  * The statistics end date,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {boolean} parameters.patched
+ * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.
  * @param {Object} options
  * Options to override Axios request configuration
@@ -2242,7 +2242,7 @@ function getUserDeviceForecasts(
  * The latitude of the forecasts,
  * @param {number} parameters.longitude
  * The longitude of the forecasts,
- * @param {string} parameters.date
+ * @param {string} [parameters.date]
  * Date of the forecasts,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism

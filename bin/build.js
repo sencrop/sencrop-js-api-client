@@ -60,7 +60,9 @@ ${operations
        ? [...new Set(parameter.schema.oneOf.map(s => s.type))].join('|')
        : parameter.schema.type
      : parameter.type
- }} parameters.${camelCase(parameter.name)}
+ }} ${parameter.required ? `` : `[`}parameters.${camelCase(parameter.name)}${
+     parameter.required ? `` : `]`
+   }
  * ${parameter.description}`
  )}
  * @param {Object} options

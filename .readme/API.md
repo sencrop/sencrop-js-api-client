@@ -122,7 +122,7 @@ Hit the server to check the email can be used to signup.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The email to check |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -421,8 +421,8 @@ Get a user's aggregations.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.compute | <code>boolean</code> | Wether the aggregations should be computed, |
-| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.compute] | <code>boolean</code> | Wether the aggregations should be computed, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -455,8 +455,8 @@ Get a single user aggregation with statistics for graphs
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>string</code> | The aggregation id, |
-| parameters.interval | <code>string</code> | The interval of data, |
-| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.interval] | <code>string</code> | The interval of data, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -585,11 +585,11 @@ Get a user's devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.date | <code>string</code> | The status date, |
-| parameters.measures | <code>array</code> | The measures to read, |
-| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
-| parameters.limit | <code>number</code> | The number of items to retrieve, |
-| parameters.start | <code>number</code> | The index in results, |
+| [parameters.date] | <code>string</code> | The status date, |
+| [parameters.measures] | <code>array</code> | The measures to read, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.limit] | <code>number</code> | The number of items to retrieve, |
+| [parameters.start] | <code>number</code> | The index in results, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -728,7 +728,7 @@ Get a user's device's device's statistics.
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceRawData"></a>
@@ -805,7 +805,7 @@ Get a user's device's continuous device's statistics.
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.patched | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes. |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceDegreeDays"></a>
@@ -875,7 +875,7 @@ Get a user's forecasts.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.latitude | <code>number</code> | The latitude of the forecasts, |
 | parameters.longitude | <code>number</code> | The longitude of the forecasts, |
-| parameters.date | <code>string</code> | Date of the forecasts, |
+| [parameters.date] | <code>string</code> | Date of the forecasts, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
