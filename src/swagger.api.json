@@ -1794,6 +1794,79 @@
         "tags": []
       }
     },
+    "/users/{userId}/devices/{deviceId}/positions": {
+      "get": {
+        "operationId": "getUserDevicePositions",
+        "summary": "Get a user's device geographic positions historic.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's device positions history",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "altitude": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": []
+      }
+    },
     "/users/{userId}/devices/{deviceId}": {
       "get": {
         "operationId": "getUserDevice",

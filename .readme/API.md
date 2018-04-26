@@ -41,6 +41,7 @@ API to consume Sencrop data
     * [~deleteUserDeviceGroup(parameters, options)](#module_API..deleteUserDeviceGroup) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
+    * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
@@ -607,6 +608,22 @@ Setup a user's device.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user device activation couple |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserDevicePositions"></a>
+
+### API~getUserDevicePositions(parameters, options) ⇒ <code>Object</code>
+Get a user's device geographic positions historic.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDevice"></a>

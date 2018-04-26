@@ -50,6 +50,7 @@ const API = {
   deleteUserDeviceGroup,
   getUserDevices,
   postUserDevice,
+  getUserDevicePositions,
   getUserDevice,
   putUserDevice,
   getUserDeviceModules,
@@ -1494,6 +1495,50 @@ function postUserDevice({ userId, authorization, body } = {}, options) {
   };
   let qs = cleanQuery({});
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Get a user's device geographic positions historic.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDevicePositions(
+  { userId, deviceId, authorization } = {},
+  options
+) {
+  const method = 'get';
+  let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({});
+  let data = {}.undef;
 
   return axios(
     Object.assign(
