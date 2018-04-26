@@ -1,3 +1,13 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.6.0...v1.7.0) (2018-04-26)
+
+
+### Features
+
+* **Swagger:** Update the swagger definition ([aced0fe](https://github.com/sencrop/sencrop-js-api-client/commit/aced0fe))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.5.0...v1.6.0) (2018-04-24)
 
