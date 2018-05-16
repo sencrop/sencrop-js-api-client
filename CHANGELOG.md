@@ -1,3 +1,13 @@
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.7.0...v1.8.0) (2018-05-16)
+
+
+### Features
+
+* **deleteUserDevice:** Allow to delete an user access + minor fixes ([f3bd586](https://github.com/sencrop/sencrop-js-api-client/commit/f3bd586))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.6.0...v1.7.0) (2018-04-26)
 
