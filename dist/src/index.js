@@ -55,6 +55,7 @@ var API = {
   getUserDevicePositions: getUserDevicePositions,
   getUserDevice: getUserDevice,
   putUserDevice: putUserDevice,
+  deleteUserDevice: deleteUserDevice,
   getUserDeviceModules: getUserDeviceModules,
   putUserDeviceModule: putUserDeviceModule,
   deleteUserDeviceModule: deleteUserDeviceModule,
@@ -512,7 +513,7 @@ function getPartnerDevices() {
  * The parameters to provide (destructured)
  * @param {number} parameters.partnerId
  * The partner organisation id,
- * @param {number} parameters.userId
+ * @param {number} parameters.partnerUserId
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
@@ -530,7 +531,7 @@ function getPartnerDevices() {
 function putPartnerModuleParameters() {
   var _ref9 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       partnerId = _ref9.partnerId,
-      userId = _ref9.userId,
+      partnerUserId = _ref9.partnerUserId,
       deviceId = _ref9.deviceId,
       moduleId = _ref9.moduleId,
       body = _ref9.body,
@@ -539,7 +540,7 @@ function putPartnerModuleParameters() {
   var options = arguments[1];
 
   var method = 'put';
-  var urlParts = ['partners', partnerId, 'users', userId, 'devices', deviceId, 'modules', moduleId, 'parameters'];
+  var urlParts = ['partners', partnerId, 'users', partnerUserId, 'devices', deviceId, 'modules', moduleId, 'parameters'];
   var headers = {
     Authorization: authorization
   };
@@ -1111,8 +1112,6 @@ function postUserAggregation() {
  * The user id,
  * @param {string} parameters.aggregationId
  * The aggregation id,
- * @param {string} [parameters.interval]
- * The interval of data,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
@@ -1126,7 +1125,6 @@ function getUserAggregation() {
   var _ref22 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref22.userId,
       aggregationId = _ref22.aggregationId,
-      interval = _ref22.interval,
       patched = _ref22.patched,
       authorization = _ref22.authorization;
 
@@ -1138,7 +1136,6 @@ function getUserAggregation() {
     Authorization: authorization
   };
   var qs = cleanQuery({
-    interval: interval,
     patched: patched
   });
   var data = {}.undef;
@@ -1722,6 +1719,51 @@ function putUserDevice() {
 }
 
 /**
+ * Delete a user's device access.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteUserDevice() {
+  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref35.userId,
+      deviceId = _ref35.deviceId,
+      authorization = _ref35.authorization;
+
+  var options = arguments[1];
+
+  var method = 'delete';
+  var urlParts = ['users', userId, 'devices', deviceId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({});
+  var data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
  * Get the modules a user activated on its device
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -1737,10 +1779,10 @@ function putUserDevice() {
  * The HTTP response
  */
 function getUserDeviceModules() {
-  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref35.userId,
-      deviceId = _ref35.deviceId,
-      authorization = _ref35.authorization;
+  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref36.userId,
+      deviceId = _ref36.deviceId,
+      authorization = _ref36.authorization;
 
   var options = arguments[1];
 
@@ -1786,12 +1828,12 @@ function getUserDeviceModules() {
  * The HTTP response
  */
 function putUserDeviceModule() {
-  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref36.userId,
-      deviceId = _ref36.deviceId,
-      moduleId = _ref36.moduleId,
-      body = _ref36.body,
-      authorization = _ref36.authorization;
+  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref37.userId,
+      deviceId = _ref37.deviceId,
+      moduleId = _ref37.moduleId,
+      body = _ref37.body,
+      authorization = _ref37.authorization;
 
   var options = arguments[1];
 
@@ -1835,11 +1877,11 @@ function putUserDeviceModule() {
  * The HTTP response
  */
 function deleteUserDeviceModule() {
-  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref37.userId,
-      deviceId = _ref37.deviceId,
-      moduleId = _ref37.moduleId,
-      authorization = _ref37.authorization;
+  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref38.userId,
+      deviceId = _ref38.deviceId,
+      moduleId = _ref38.moduleId,
+      authorization = _ref38.authorization;
 
   var options = arguments[1];
 
@@ -1885,12 +1927,12 @@ function deleteUserDeviceModule() {
  * The HTTP response
  */
 function putUserDeviceShares() {
-  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref38.userId,
-      deviceId = _ref38.deviceId,
-      sharesType = _ref38.sharesType,
-      authorization = _ref38.authorization,
-      body = _ref38.body;
+  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref39.userId,
+      deviceId = _ref39.deviceId,
+      sharesType = _ref39.sharesType,
+      authorization = _ref39.authorization,
+      body = _ref39.body;
 
   var options = arguments[1];
 
@@ -1940,14 +1982,14 @@ function putUserDeviceShares() {
  * The HTTP response
  */
 function getUserDeviceStatistics() {
-  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref39.userId,
-      deviceId = _ref39.deviceId,
-      authorization = _ref39.authorization,
-      startDate = _ref39.startDate,
-      endDate = _ref39.endDate,
-      measures = _ref39.measures,
-      patched = _ref39.patched;
+  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref40.userId,
+      deviceId = _ref40.deviceId,
+      authorization = _ref40.authorization,
+      startDate = _ref40.startDate,
+      endDate = _ref40.endDate,
+      measures = _ref40.measures,
+      patched = _ref40.patched;
 
   var options = arguments[1];
 
@@ -2000,13 +2042,13 @@ function getUserDeviceStatistics() {
  * The HTTP response
  */
 function getUserDeviceRawData() {
-  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref40.userId,
-      deviceId = _ref40.deviceId,
-      beforeDate = _ref40.beforeDate,
-      size = _ref40.size,
-      measures = _ref40.measures,
-      authorization = _ref40.authorization;
+  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref41.userId,
+      deviceId = _ref41.deviceId,
+      beforeDate = _ref41.beforeDate,
+      size = _ref41.size,
+      measures = _ref41.measures,
+      authorization = _ref41.authorization;
 
   var options = arguments[1];
 
@@ -2058,13 +2100,13 @@ function getUserDeviceRawData() {
  * The HTTP response
  */
 function getUserDeviceHourlyData() {
-  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref41.userId,
-      deviceId = _ref41.deviceId,
-      beforeDate = _ref41.beforeDate,
-      days = _ref41.days,
-      measures = _ref41.measures,
-      authorization = _ref41.authorization;
+  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref42.userId,
+      deviceId = _ref42.deviceId,
+      beforeDate = _ref42.beforeDate,
+      days = _ref42.days,
+      measures = _ref42.measures,
+      authorization = _ref42.authorization;
 
   var options = arguments[1];
 
@@ -2116,13 +2158,13 @@ function getUserDeviceHourlyData() {
  * The HTTP response
  */
 function getUserDeviceDailyData() {
-  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref42.userId,
-      deviceId = _ref42.deviceId,
-      beforeDate = _ref42.beforeDate,
-      days = _ref42.days,
-      measures = _ref42.measures,
-      authorization = _ref42.authorization;
+  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref43.userId,
+      deviceId = _ref43.deviceId,
+      beforeDate = _ref43.beforeDate,
+      days = _ref43.days,
+      measures = _ref43.measures,
+      authorization = _ref43.authorization;
 
   var options = arguments[1];
 
@@ -2176,14 +2218,14 @@ function getUserDeviceDailyData() {
  * The HTTP response
  */
 function getUserDeviceContinuousStatistics() {
-  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref43.userId,
-      deviceId = _ref43.deviceId,
-      authorization = _ref43.authorization,
-      startDate = _ref43.startDate,
-      endDate = _ref43.endDate,
-      measures = _ref43.measures,
-      patched = _ref43.patched;
+  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref44.userId,
+      deviceId = _ref44.deviceId,
+      authorization = _ref44.authorization,
+      startDate = _ref44.startDate,
+      endDate = _ref44.endDate,
+      measures = _ref44.measures,
+      patched = _ref44.patched;
 
   var options = arguments[1];
 
@@ -2234,12 +2276,12 @@ function getUserDeviceContinuousStatistics() {
  * The HTTP response
  */
 function getUserDeviceDegreeDays() {
-  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref44.userId,
-      deviceId = _ref44.deviceId,
-      startDate = _ref44.startDate,
-      endDate = _ref44.endDate,
-      authorization = _ref44.authorization;
+  var _ref45 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref45.userId,
+      deviceId = _ref45.deviceId,
+      startDate = _ref45.startDate,
+      endDate = _ref45.endDate,
+      authorization = _ref45.authorization;
 
   var options = arguments[1];
 
@@ -2288,12 +2330,12 @@ function getUserDeviceDegreeDays() {
  * The HTTP response
  */
 function getUserDeviceSummary() {
-  var _ref45 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref45.userId,
-      deviceId = _ref45.deviceId,
-      authorization = _ref45.authorization,
-      date = _ref45.date,
-      measures = _ref45.measures;
+  var _ref46 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref46.userId,
+      deviceId = _ref46.deviceId,
+      authorization = _ref46.authorization,
+      date = _ref46.date,
+      measures = _ref46.measures;
 
   var options = arguments[1];
 
@@ -2339,11 +2381,11 @@ function getUserDeviceSummary() {
  * The HTTP response
  */
 function getUserDeviceForecasts() {
-  var _ref46 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref46.userId,
-      deviceId = _ref46.deviceId,
-      date = _ref46.date,
-      authorization = _ref46.authorization;
+  var _ref47 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref47.userId,
+      deviceId = _ref47.deviceId,
+      date = _ref47.date,
+      authorization = _ref47.authorization;
 
   var options = arguments[1];
 
@@ -2391,12 +2433,12 @@ function getUserDeviceForecasts() {
  * The HTTP response
  */
 function getUserForecasts() {
-  var _ref47 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref47.userId,
-      latitude = _ref47.latitude,
-      longitude = _ref47.longitude,
-      date = _ref47.date,
-      authorization = _ref47.authorization;
+  var _ref48 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref48.userId,
+      latitude = _ref48.latitude,
+      longitude = _ref48.longitude,
+      date = _ref48.date,
+      authorization = _ref48.authorization;
 
   var options = arguments[1];
 
@@ -2450,14 +2492,14 @@ function getUserForecasts() {
  * The HTTP response
  */
 function getUserDailyData() {
-  var _ref48 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref48.userId,
-      latitude = _ref48.latitude,
-      longitude = _ref48.longitude,
-      authorization = _ref48.authorization,
-      beforeDate = _ref48.beforeDate,
-      days = _ref48.days,
-      measures = _ref48.measures;
+  var _ref49 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref49.userId,
+      latitude = _ref49.latitude,
+      longitude = _ref49.longitude,
+      authorization = _ref49.authorization,
+      beforeDate = _ref49.beforeDate,
+      days = _ref49.days,
+      measures = _ref49.measures;
 
   var options = arguments[1];
 
@@ -2513,14 +2555,14 @@ function getUserDailyData() {
  * The HTTP response
  */
 function getUserHourlyData() {
-  var _ref49 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref49.userId,
-      latitude = _ref49.latitude,
-      longitude = _ref49.longitude,
-      authorization = _ref49.authorization,
-      beforeDate = _ref49.beforeDate,
-      days = _ref49.days,
-      measures = _ref49.measures;
+  var _ref50 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref50.userId,
+      latitude = _ref50.latitude,
+      longitude = _ref50.longitude,
+      authorization = _ref50.authorization,
+      beforeDate = _ref50.beforeDate,
+      days = _ref50.days,
+      measures = _ref50.measures;
 
   var options = arguments[1];
 
@@ -2566,9 +2608,9 @@ function getUserHourlyData() {
  * The HTTP response
  */
 function getUserPreferences() {
-  var _ref50 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref50.userId,
-      authorization = _ref50.authorization;
+  var _ref51 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref51.userId,
+      authorization = _ref51.authorization;
 
   var options = arguments[1];
 
@@ -2610,10 +2652,10 @@ function getUserPreferences() {
  * The HTTP response
  */
 function putUserPreferences() {
-  var _ref51 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref51.userId,
-      authorization = _ref51.authorization,
-      body = _ref51.body;
+  var _ref52 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref52.userId,
+      authorization = _ref52.authorization,
+      body = _ref52.body;
 
   var options = arguments[1];
 
@@ -2653,9 +2695,9 @@ function putUserPreferences() {
  * The HTTP response
  */
 function getOrganisationOperations() {
-  var _ref52 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref52.organisationId,
-      authorization = _ref52.authorization;
+  var _ref53 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref53.organisationId,
+      authorization = _ref53.authorization;
 
   var options = arguments[1];
 
@@ -2697,10 +2739,10 @@ function getOrganisationOperations() {
  * The HTTP response
  */
 function postOrganisationOperation() {
-  var _ref53 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref53.organisationId,
-      authorization = _ref53.authorization,
-      body = _ref53.body;
+  var _ref54 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref54.organisationId,
+      authorization = _ref54.authorization,
+      body = _ref54.body;
 
   var options = arguments[1];
 
@@ -2742,10 +2784,10 @@ function postOrganisationOperation() {
  * The HTTP response
  */
 function getOrganisationOperation() {
-  var _ref54 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref54.organisationId,
-      operationId = _ref54.operationId,
-      authorization = _ref54.authorization;
+  var _ref55 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref55.organisationId,
+      operationId = _ref55.operationId,
+      authorization = _ref55.authorization;
 
   var options = arguments[1];
 
@@ -2789,11 +2831,11 @@ function getOrganisationOperation() {
  * The HTTP response
  */
 function putOrganisationOperation() {
-  var _ref55 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref55.organisationId,
-      operationId = _ref55.operationId,
-      authorization = _ref55.authorization,
-      body = _ref55.body;
+  var _ref56 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref56.organisationId,
+      operationId = _ref56.operationId,
+      authorization = _ref56.authorization,
+      body = _ref56.body;
 
   var options = arguments[1];
 
@@ -2835,10 +2877,10 @@ function putOrganisationOperation() {
  * The HTTP response
  */
 function deleteOrganisationOperation() {
-  var _ref56 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref56.organisationId,
-      operationId = _ref56.operationId,
-      authorization = _ref56.authorization;
+  var _ref57 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref57.organisationId,
+      operationId = _ref57.operationId,
+      authorization = _ref57.authorization;
 
   var options = arguments[1];
 
@@ -2878,9 +2920,9 @@ function deleteOrganisationOperation() {
  * The HTTP response
  */
 function getUserAlerts() {
-  var _ref57 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref57.userId,
-      authorization = _ref57.authorization;
+  var _ref58 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref58.userId,
+      authorization = _ref58.authorization;
 
   var options = arguments[1];
 
@@ -2922,10 +2964,10 @@ function getUserAlerts() {
  * The HTTP response
  */
 function postUserAlert() {
-  var _ref58 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref58.userId,
-      authorization = _ref58.authorization,
-      body = _ref58.body;
+  var _ref59 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref59.userId,
+      authorization = _ref59.authorization,
+      body = _ref59.body;
 
   var options = arguments[1];
 
@@ -2969,11 +3011,11 @@ function postUserAlert() {
  * The HTTP response
  */
 function putUserAlert() {
-  var _ref59 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref59.userId,
-      alertId = _ref59.alertId,
-      authorization = _ref59.authorization,
-      body = _ref59.body;
+  var _ref60 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref60.userId,
+      alertId = _ref60.alertId,
+      authorization = _ref60.authorization,
+      body = _ref60.body;
 
   var options = arguments[1];
 
@@ -3015,10 +3057,10 @@ function putUserAlert() {
  * The HTTP response
  */
 function deleteUserAlert() {
-  var _ref60 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref60.userId,
-      alertId = _ref60.alertId,
-      authorization = _ref60.authorization;
+  var _ref61 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref61.userId,
+      alertId = _ref61.alertId,
+      authorization = _ref61.authorization;
 
   var options = arguments[1];
 
@@ -3056,8 +3098,8 @@ function deleteUserAlert() {
  * The HTTP response
  */
 function postOrganisation() {
-  var _ref61 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      body = _ref61.body;
+  var _ref62 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      body = _ref62.body;
 
   var options = arguments[1];
 
@@ -3097,10 +3139,10 @@ function postOrganisation() {
  * The HTTP response
  */
 function putOrganisation() {
-  var _ref62 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref62.organisationId,
-      body = _ref62.body,
-      authorization = _ref62.authorization;
+  var _ref63 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref63.organisationId,
+      body = _ref63.body,
+      authorization = _ref63.authorization;
 
   var options = arguments[1];
 

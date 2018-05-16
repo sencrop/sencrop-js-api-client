@@ -485,7 +485,7 @@
         }
       }
     },
-    "/partners/{partnerId}/users/{userId}/devices/{deviceId}/modules/{moduleId}/parameters": {
+    "/partners/{partnerId}/users/{partnerUserId}/devices/{deviceId}/modules/{moduleId}/parameters": {
       "put": {
         "operationId": "putPartnerModuleParameters",
         "summary": "Update an partner module parameters",
@@ -517,7 +517,7 @@
             "required": true,
             "description": "The user id",
             "pattern": "^[0-9]+$",
-            "name": "userId",
+            "name": "partnerUserId",
             "type": "number"
           },
           {
@@ -868,7 +868,7 @@
           }
         ],
         "responses": {
-          "404": {
+          "204": {
             "description": "The user's guest were successfully deleted."
           }
         },
@@ -1080,7 +1080,7 @@
           }
         ],
         "responses": {
-          "404": {
+          "204": {
             "description": "The user's collaborator were successfully deleted."
           }
         },
@@ -1208,6 +1208,9 @@
       "get": {
         "operationId": "getUserAggregation",
         "summary": "Get a single user aggregation with statistics for graphs",
+        "tags": [
+          "cache"
+        ],
         "security": {
           "token": [
             "ROLE_USER"
@@ -1236,22 +1239,6 @@
           },
           {
             "in": "query",
-            "description": "The interval of data",
-            "name": "interval",
-            "type": "string",
-            "enum": [
-              "auto",
-              "hour",
-              "6h",
-              "day",
-              "week",
-              "month",
-              "year"
-            ],
-            "default": "auto"
-          },
-          {
-            "in": "query",
             "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
             "name": "patched",
             "type": "boolean"
@@ -1271,8 +1258,7 @@
               "$ref": "#/definitions/AggregationEntry"
             }
           }
-        },
-        "tags": []
+        }
       },
       "put": {
         "operationId": "putUserAggregation",
@@ -1368,7 +1354,7 @@
           }
         ],
         "responses": {
-          "404": {
+          "204": {
             "description": "The user's aggregation were successfully deleted."
           }
         },
@@ -1626,7 +1612,7 @@
           }
         ],
         "responses": {
-          "404": {
+          "204": {
             "description": "The user's device group were successfully deleted."
           }
         },
@@ -1777,7 +1763,7 @@
                 },
                 "activationCode": {
                   "type": "string",
-                  "pattern": "^[A-F0-9]{4}$"
+                  "pattern": "^[A-F0-9]{4,}$"
                 }
               }
             }
@@ -1978,6 +1964,48 @@
           }
         },
         "tags": []
+      },
+      "delete": {
+        "operationId": "deleteUserDevice",
+        "summary": "Delete a user's device access.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9]+$",
+            "name": "deviceId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The user's device access was successfully deleted."
+          }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/modules": {
@@ -1988,6 +2016,11 @@
         "produces": [
           "application/json"
         ],
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "parameters": [
           {
             "in": "path",
@@ -2034,6 +2067,11 @@
         "produces": [
           "application/json"
         ],
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "parameters": [
           {
             "in": "path",
@@ -2182,6 +2220,11 @@
         "produces": [
           "application/json"
         ],
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "parameters": [
           {
             "in": "path",
@@ -3901,7 +3944,7 @@
           }
         ],
         "responses": {
-          "404": {
+          "204": {
             "description": "The user's alert were successfully deleted."
           }
         },
@@ -4379,7 +4422,8 @@
           "items": {
             "type": "string",
             "enum": [
-              "WET_TEMPERATURE"
+              "WET_TEMPERATURE",
+              "DEW_POINT"
             ]
           }
         }

@@ -53,6 +53,7 @@ const API = {
   getUserDevicePositions,
   getUserDevice,
   putUserDevice,
+  deleteUserDevice,
   getUserDeviceModules,
   putUserDeviceModule,
   deleteUserDeviceModule,
@@ -501,7 +502,7 @@ function getPartnerDevices(
  * The parameters to provide (destructured)
  * @param {number} parameters.partnerId
  * The partner organisation id,
- * @param {number} parameters.userId
+ * @param {number} parameters.partnerUserId
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
@@ -517,7 +518,7 @@ function getPartnerDevices(
  * The HTTP response
  */
 function putPartnerModuleParameters(
-  { partnerId, userId, deviceId, moduleId, body, authorization } = {},
+  { partnerId, partnerUserId, deviceId, moduleId, body, authorization } = {},
   options
 ) {
   const method = 'put';
@@ -525,7 +526,7 @@ function putPartnerModuleParameters(
     'partners',
     partnerId,
     'users',
-    userId,
+    partnerUserId,
     'devices',
     deviceId,
     'modules',
@@ -1067,8 +1068,6 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The user id,
  * @param {string} parameters.aggregationId
  * The aggregation id,
- * @param {string} [parameters.interval]
- * The interval of data,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
@@ -1079,7 +1078,7 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function getUserAggregation(
-  { userId, aggregationId, interval, patched, authorization } = {},
+  { userId, aggregationId, patched, authorization } = {},
   options
 ) {
   const method = 'get';
@@ -1088,7 +1087,6 @@ function getUserAggregation(
     Authorization: authorization,
   };
   let qs = cleanQuery({
-    interval: interval,
     patched: patched,
   });
   let data = {}.undef;
@@ -1626,6 +1624,47 @@ function putUserDevice(
   };
   let qs = cleanQuery({});
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Delete a user's device access.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteUserDevice({ userId, deviceId, authorization } = {}, options) {
+  const method = 'delete';
+  let urlParts = ['users', userId, 'devices', deviceId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({});
+  let data = {}.undef;
 
   return axios(
     Object.assign(

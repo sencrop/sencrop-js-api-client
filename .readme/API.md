@@ -44,6 +44,7 @@ API to consume Sencrop data
     * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
+    * [~deleteUserDevice(parameters, options)](#module_API..deleteUserDevice) ⇒ <code>Object</code>
     * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
     * [~putUserDeviceModule(parameters, options)](#module_API..putUserDeviceModule) ⇒ <code>Object</code>
     * [~deleteUserDeviceModule(parameters, options)](#module_API..deleteUserDeviceModule) ⇒ <code>Object</code>
@@ -244,7 +245,7 @@ Update an partner module parameters
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
-| parameters.userId | <code>number</code> | The user id, |
+| parameters.partnerUserId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.moduleId | <code>number</code> | The module id, |
 | parameters.body | <code>object</code> | The module parameters, |
@@ -456,7 +457,6 @@ Get a single user aggregation with statistics for graphs
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>string</code> | The aggregation id, |
-| [parameters.interval] | <code>string</code> | The interval of data, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -657,6 +657,22 @@ Update a user's device.
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | parameters.body | <code>object</code> | The user device |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteUserDevice"></a>
+
+### API~deleteUserDevice(parameters, options) ⇒ <code>Object</code>
+Delete a user's device access.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDeviceModules"></a>
