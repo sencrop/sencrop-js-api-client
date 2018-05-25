@@ -302,11 +302,6 @@
         "tags": [
           "partners"
         ],
-        "security": {
-          "basicAuth": [
-            "ROLE_PARTNER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -315,17 +310,12 @@
         ],
         "parameters": [
           {
-            "in": "header",
-            "description": "Basic auth with API Client id and API Client Secret",
-            "required": true,
-            "name": "Authorization"
-          },
-          {
-            "name": "partnerId",
             "in": "path",
-            "type": "number",
             "description": "The partner organisation id",
+            "name": "partnerId",
+            "type": "number",
             "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -345,13 +335,27 @@
                 }
               }
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Basic mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "User token requested"
           }
-        }
+        },
+        "security": [
+          {
+            "basicAuth": [
+              "ROLE_PARTNER"
+            ]
+          }
+        ]
       }
     },
     "/partners/{partnerId}/tokens": {
@@ -361,11 +365,6 @@
         "tags": [
           "partners"
         ],
-        "security": {
-          "basicAuth": [
-            "ROLE_PARTNER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -374,17 +373,12 @@
         ],
         "parameters": [
           {
-            "in": "header",
-            "description": "Basic auth with API Client id and API Client Secret",
-            "required": true,
-            "name": "Authorization"
-          },
-          {
-            "name": "partnerId",
             "in": "path",
-            "type": "number",
             "description": "The partner organisation id",
+            "name": "partnerId",
+            "type": "number",
             "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -407,6 +401,13 @@
                 }
               }
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Basic mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -416,18 +417,20 @@
               "$ref": "#/definitions/Session"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "basicAuth": [
+              "ROLE_PARTNER"
+            ]
+          }
+        ]
       }
     },
     "/partners/{partnerId}/devices": {
       "get": {
         "operationId": "getPartnerDevices",
         "summary": "Retrieves the devices a partner has access to.",
-        "security": {
-          "token": [
-            "ROLE_PARTNER"
-          ]
-        },
         "tags": [
           "partners"
         ],
@@ -437,18 +440,12 @@
         ],
         "parameters": [
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "partnerId",
             "in": "path",
-            "type": "number",
             "description": "The partner organisation id",
+            "name": "partnerId",
+            "type": "number",
             "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -473,6 +470,19 @@
             "min": 0,
             "multipleOf": 10,
             "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -482,18 +492,20 @@
               "$ref": "#/definitions/PartnerDevicesCollection"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_PARTNER"
+            ]
+          }
+        ]
       }
     },
     "/partners/{partnerId}/users/{partnerUserId}/devices/{deviceId}/modules/{moduleId}/parameters": {
       "put": {
         "operationId": "putPartnerModuleParameters",
         "summary": "Update an partner module parameters",
-        "security": {
-          "token": [
-            "ROLE_PARTNER"
-          ]
-        },
         "tags": [
           "partners"
         ],
@@ -506,35 +518,39 @@
         "parameters": [
           {
             "in": "path",
-            "type": "number",
             "description": "The partner organisation id",
-            "pattern": "^[0-9]+$",
             "name": "partnerId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "partnerUserId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The module id",
-            "pattern": "^[0-9]+$",
             "name": "moduleId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "body",
@@ -557,24 +573,32 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
           "201": {
             "description": "Module sucessfully updated on the user device"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_PARTNER"
+            ]
+          }
+        ]
       }
     },
     "/users/{userId}": {
       "get": {
         "operationId": "getUser",
         "summary": "Get a user's profile.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -582,11 +606,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -594,6 +619,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -610,16 +641,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "put": {
         "operationId": "putUser",
         "summary": "Update a user's profile.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -629,11 +662,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The new user",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserItem"
+            }
           },
           {
             "in": "header",
@@ -643,13 +686,10 @@
             "required": true
           },
           {
-            "in": "body",
-            "description": "The new user",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserInput"
-            }
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -660,6 +700,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -667,11 +714,6 @@
       "get": {
         "operationId": "getUserGuests",
         "summary": "Get a user's guests.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -679,11 +721,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -691,6 +734,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -707,17 +756,19 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postUserGuest",
         "summary": "Create a user's guest.",
         "tags": [],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -727,17 +778,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -755,6 +800,19 @@
                 }
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -770,7 +828,14 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       }
     },
     "/users/{userId}/guests/{guestId}": {
@@ -778,11 +843,6 @@
         "operationId": "putUserGuest",
         "summary": "Update a user's guest.",
         "tags": [],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -792,26 +852,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The guest id",
-            "pattern": "^[0-9]+$",
             "name": "guestId",
-            "type": "string"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "body",
@@ -821,6 +876,19 @@
             "schema": {
               "$ref": "#/definitions/GuestItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -830,26 +898,29 @@
               "$ref": "#/definitions/GuestEntry"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       },
       "delete": {
         "operationId": "deleteUserGuest",
         "summary": "Delete a user's guest.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -865,6 +936,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -872,6 +949,13 @@
             "description": "The user's guest were successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -879,11 +963,6 @@
       "get": {
         "operationId": "getUserCollaborators",
         "summary": "Get a user's collaborators.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "tags": [],
         "consumes": [],
         "produces": [
@@ -892,11 +971,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -904,6 +984,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -919,17 +1005,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       },
       "post": {
         "operationId": "postUserCollaborator",
         "summary": "Create a user's collaborator.",
         "tags": [],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -939,17 +1027,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -967,6 +1049,19 @@
                 }
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -982,7 +1077,14 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       }
     },
     "/users/{userId}/collaborators/{collaboratorId}": {
@@ -990,11 +1092,6 @@
         "operationId": "putUserCollaborator",
         "summary": "Update a user's collaborator.",
         "tags": [],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1004,11 +1101,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -1019,13 +1117,6 @@
             "type": "string"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "body",
             "description": "The user's collaborator",
             "name": "body",
@@ -1033,6 +1124,19 @@
             "schema": {
               "$ref": "#/definitions/CollaboratorItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1042,26 +1146,29 @@
               "$ref": "#/definitions/CollaboratorEntry"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       },
       "delete": {
         "operationId": "deleteUserCollaborator",
         "summary": "Delete a user's collaborator.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -1077,6 +1184,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1084,6 +1197,13 @@
             "description": "The user's collaborator were successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1091,11 +1211,6 @@
       "get": {
         "operationId": "getUserAggregations",
         "summary": "Get a user's aggregations.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1103,11 +1218,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -1129,6 +1245,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1145,16 +1267,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postUserAggregation",
         "summary": "Create a user's aggregation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1164,17 +1288,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -1185,6 +1303,19 @@
             "schema": {
               "$ref": "#/definitions/AggregationItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1201,6 +1332,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1211,11 +1349,6 @@
         "tags": [
           "cache"
         ],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1223,19 +1356,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The aggregation id",
-            "pattern": "^[0-9]+$",
             "name": "aggregationId",
-            "type": "string"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "query",
@@ -1249,6 +1384,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1258,16 +1399,18 @@
               "$ref": "#/definitions/AggregationEntry"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
       },
       "put": {
         "operationId": "putUserAggregation",
         "summary": "Update a user's aggregation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1277,26 +1420,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The aggregation id",
-            "pattern": "^[0-9]+$",
             "name": "aggregationId",
-            "type": "string"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "body",
@@ -1306,6 +1444,19 @@
             "schema": {
               "$ref": "#/definitions/AggregationItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1316,34 +1467,38 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
         "operationId": "deleteUserAggregation",
         "summary": "Delete a user's aggregation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The aggregation id",
             "name": "aggregationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1
           },
           {
             "in": "header",
@@ -1351,6 +1506,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1358,6 +1519,13 @@
             "description": "The user's aggregation were successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1365,11 +1533,6 @@
       "get": {
         "operationId": "getUserDeviceGroups",
         "summary": "Get a user's devices groups.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1377,11 +1540,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -1389,6 +1553,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1405,16 +1575,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postUserDeviceGroup",
         "summary": "Create a user's device group.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1424,17 +1596,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -1445,6 +1611,19 @@
             "schema": {
               "$ref": "#/definitions/DeviceGroupInput"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1461,6 +1640,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1468,11 +1654,6 @@
       "get": {
         "operationId": "getUserDeviceGroup",
         "summary": "Get a user's devices group.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1480,11 +1661,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -1500,6 +1682,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1516,16 +1704,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "put": {
         "operationId": "putUserDeviceGroup",
         "summary": "Update a user's device group.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1535,11 +1725,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -1550,13 +1741,6 @@
             "type": "string"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "body",
             "description": "The user's device group",
             "name": "body",
@@ -1564,6 +1748,19 @@
             "schema": {
               "$ref": "#/definitions/DeviceGroupInput"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1574,26 +1771,29 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
         "operationId": "deleteUserDeviceGroup",
         "summary": "Delete a user's device group.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -1609,6 +1809,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1616,6 +1822,13 @@
             "description": "The user's device group were successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1623,11 +1836,6 @@
       "get": {
         "operationId": "getUserDevices",
         "summary": "Get a user's devices.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1635,11 +1843,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -1684,7 +1893,8 @@
               10,
               50,
               100
-            ]
+            ],
+            "required": false
           },
           {
             "name": "start",
@@ -1693,7 +1903,8 @@
             "description": "The index in results",
             "pattern": "^[0-9]+$",
             "min": 0,
-            "multipleOf": 10
+            "multipleOf": 10,
+            "required": false
           },
           {
             "in": "header",
@@ -1701,6 +1912,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1717,16 +1934,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postUserDevice",
         "summary": "Setup a user's device.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1736,17 +1955,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -1767,6 +1980,19 @@
                 }
               }
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1777,6 +2003,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1784,11 +2017,6 @@
       "get": {
         "operationId": "getUserDevicePositions",
         "summary": "Get a user's device geographic positions historic.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1796,19 +2024,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -1816,6 +2046,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1831,9 +2067,13 @@
                     "format": "date-time"
                   },
                   "latitude": {
+                    "minimum": -90,
+                    "maximum": 90,
                     "type": "number"
                   },
                   "longitude": {
+                    "minimum": -180,
+                    "maximum": 180,
                     "type": "number"
                   },
                   "altitude": {
@@ -1850,6 +2090,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -1857,11 +2104,6 @@
       "get": {
         "operationId": "getUserDevice",
         "summary": "Get a user's device.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1869,19 +2111,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -1889,6 +2133,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1905,16 +2155,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "put": {
         "operationId": "putUserDevice",
         "summary": "Update a user's device.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -1924,25 +2176,20 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -1953,6 +2200,19 @@
             "schema": {
               "$ref": "#/definitions/DeviceItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1963,34 +2223,38 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
         "operationId": "deleteUserDevice",
         "summary": "Delete a user's device access.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -1998,6 +2262,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2005,6 +2275,13 @@
             "description": "The user's device access was successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2016,27 +2293,24 @@
         "produces": [
           "application/json"
         ],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -2044,6 +2318,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2054,6 +2334,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2067,35 +2354,33 @@
         "produces": [
           "application/json"
         ],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The module id",
-            "pattern": "^[0-9]+$",
             "name": "moduleId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "body",
@@ -2202,6 +2487,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2209,6 +2500,13 @@
             "description": "Module sucessfully activated on the user device"
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
@@ -2220,35 +2518,33 @@
         "produces": [
           "application/json"
         ],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
-            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The module id",
-            "pattern": "^[0-9]+$",
             "name": "moduleId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "header",
@@ -2256,6 +2552,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2263,6 +2565,13 @@
             "description": "Module sucessfully disabled for the user device"
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2270,11 +2579,6 @@
       "put": {
         "operationId": "putUserDeviceShares",
         "summary": "Update a user's device shares.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -2284,19 +2588,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
@@ -2305,13 +2611,6 @@
             "name": "sharesType",
             "pattern": "^(guests|collaborators)$",
             "type": "string"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
           },
           {
             "in": "body",
@@ -2324,6 +2623,19 @@
                 "type": "number"
               }
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2337,6 +2649,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2344,11 +2663,6 @@
       "get": {
         "operationId": "getUserDeviceStatistics",
         "summary": "Get a user's device's device's statistics.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2356,25 +2670,20 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -2423,6 +2732,19 @@
             "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
             "name": "patched",
             "type": "boolean"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2439,6 +2761,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2446,11 +2775,6 @@
       "get": {
         "operationId": "getUserDeviceRawData",
         "summary": "Get a user's device's raw data.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2458,19 +2782,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -2523,6 +2849,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2566,6 +2898,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2573,11 +2912,6 @@
       "get": {
         "operationId": "getUserDeviceHourlyData",
         "summary": "Get a user's device's hourly data.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2585,19 +2919,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -2651,6 +2987,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2667,6 +3009,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2674,11 +3023,6 @@
       "get": {
         "operationId": "getUserDeviceDailyData",
         "summary": "Get a user's device's daily data.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2686,19 +3030,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -2751,6 +3097,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2767,6 +3119,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2774,11 +3133,6 @@
       "get": {
         "operationId": "getUserDeviceContinuousStatistics",
         "summary": "Get a user's device's continuous device's statistics.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2786,25 +3140,20 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -2853,6 +3202,19 @@
             "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
             "name": "patched",
             "type": "boolean"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2869,6 +3231,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2876,11 +3245,6 @@
       "get": {
         "operationId": "getUserDeviceDegreeDays",
         "summary": "Get a user's device's degree days.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2888,19 +3252,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -2924,6 +3290,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2940,6 +3312,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -2947,11 +3326,6 @@
       "get": {
         "operationId": "getUserDeviceSummary",
         "summary": "Get a user's device's summary at a given date.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2959,25 +3333,20 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -3008,6 +3377,19 @@
                 "MOVE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3024,6 +3406,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3031,11 +3420,6 @@
       "get": {
         "operationId": "getUserDeviceForecasts",
         "summary": "Get a user's device's forecasts.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3043,19 +3427,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
-            "required": true,
             "description": "The device id",
             "name": "deviceId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -3071,6 +3457,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3087,6 +3479,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3095,11 +3494,6 @@
         "operationId": "getUserForecasts",
         "summary": "Get a user's forecasts.",
         "tags": [],
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3107,84 +3501,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "query",
-            "required": true,
-            "description": "The latitude of the forecasts",
-            "name": "latitude",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -90,
-            "maximum": 90,
-            "type": "number"
-          },
-          {
-            "in": "query",
-            "required": true,
-            "description": "The longitude of the forecasts",
-            "name": "longitude",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -180,
-            "maximum": 180,
-            "type": "number"
-          },
-          {
-            "in": "query",
-            "name": "date",
-            "description": "Date of the forecasts",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The requested device's forecasts",
-            "schema": {
-              "$ref": "#/definitions/DeviceForecasts"
-            }
-          },
-          "404": {
-            "description": "User/device does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/users/{userId}/data/daily": {
-      "get": {
-        "operationId": "getUserDailyData",
-        "summary": "Get a user's daily data for a given geo location.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "required": true,
-            "description": "The user id",
-            "name": "userId",
-            "pattern": "^[0-9]+$",
-            "type": "number"
           },
           {
             "in": "query",
@@ -3207,11 +3529,86 @@
             "type": "number"
           },
           {
+            "in": "query",
+            "name": "date",
+            "description": "Date of the forecasts",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's forecasts",
+            "schema": {
+              "$ref": "#/definitions/DeviceForecasts"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/{userId}/data/daily": {
+      "get": {
+        "operationId": "getUserDailyData",
+        "summary": "Get a user's daily data for a given geo location.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the data",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the data",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
           },
           {
             "in": "query",
@@ -3257,6 +3654,19 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3273,6 +3683,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3280,11 +3697,6 @@
       "get": {
         "operationId": "getUserHourlyData",
         "summary": "Get a user's hourly data for a given geo location.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3292,11 +3704,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "query",
@@ -3317,13 +3730,6 @@
             "minimum": -180,
             "maximum": 180,
             "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
           },
           {
             "in": "query",
@@ -3370,6 +3776,19 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3386,6 +3805,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3393,11 +3819,6 @@
       "get": {
         "operationId": "getUserPreferences",
         "summary": "Get a user's preferences.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3405,11 +3826,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -3417,6 +3839,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3433,16 +3861,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "put": {
         "operationId": "putUserPreferences",
         "summary": "Update a user's preferences.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -3452,17 +3882,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -3473,6 +3897,19 @@
             "schema": {
               "$ref": "#/definitions/UserPreferences"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3483,6 +3920,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3490,11 +3934,6 @@
       "get": {
         "operationId": "getOrganisationOperations",
         "summary": "Get a organisation's operations.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3502,11 +3941,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -3514,6 +3954,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3530,16 +3976,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postOrganisationOperation",
         "summary": "Create an organisation's operation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -3549,17 +3997,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "minimum": 1,
             "required": true
           },
           {
@@ -3570,6 +4012,19 @@
               "$ref": "#/definitions/OperationItem"
             },
             "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3586,6 +4041,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3593,11 +4055,6 @@
       "get": {
         "operationId": "getOrganisationOperation",
         "summary": "Retrieve an organisation's operation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3605,19 +4062,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The operation id",
             "name": "operationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1
           },
           {
             "in": "header",
@@ -3625,6 +4084,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3641,16 +4106,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "put": {
         "operationId": "putOrganisationOperation",
         "summary": "Update an organisation's operation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -3660,26 +4127,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The operation id",
             "name": "operationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
+            "minimum": 1
           },
           {
             "in": "body",
@@ -3689,6 +4151,19 @@
               "$ref": "#/definitions/OperationItem"
             },
             "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3705,16 +4180,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
         "operationId": "deleteOrganisationOperation",
         "summary": "Delete an organisation's operation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3722,19 +4199,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The operation id",
             "name": "operationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1
           },
           {
             "in": "header",
@@ -3742,6 +4221,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3749,6 +4234,13 @@
             "description": "The organisation's operation does not exist anymore"
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3756,11 +4248,6 @@
       "get": {
         "operationId": "getUserAlerts",
         "summary": "Get a user's alerts.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -3768,11 +4255,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "header",
@@ -3780,6 +4268,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3796,16 +4290,18 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "post": {
         "operationId": "postUserAlert",
         "summary": "Create a user's alert.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -3815,17 +4311,11 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
             "required": true
           },
           {
@@ -3836,6 +4326,19 @@
             "schema": {
               "$ref": "#/definitions/AlertItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3846,6 +4349,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -3853,11 +4363,6 @@
       "put": {
         "operationId": "putUserAlert",
         "summary": "Update a user's alert.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -3867,26 +4372,21 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
-            "pattern": "^[0-9]+$",
             "name": "userId",
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The alert id",
-            "pattern": "^[0-9]+$",
             "name": "alertId",
-            "type": "string"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           },
           {
             "in": "body",
@@ -3896,6 +4396,19 @@
             "schema": {
               "$ref": "#/definitions/AlertItem"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3906,34 +4419,38 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       },
       "delete": {
         "operationId": "deleteUserAlert",
         "summary": "Delete a user's alert.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [],
         "produces": [],
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The user id",
             "name": "userId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "path",
             "required": true,
             "description": "The alert id",
             "name": "alertId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1
           },
           {
             "in": "header",
@@ -3941,6 +4458,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -3948,6 +4471,13 @@
             "description": "The user's alert were successfully deleted."
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     },
@@ -4003,11 +4533,12 @@
                 },
                 "locale": {
                   "type": "string",
-                  "pattern": "^[a-z]{2}-[A-Z]{2}$",
+                  "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
                   "maxLength": 5
                 },
                 "timeZone": {
                   "type": "string",
+                  "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
                   "maxLength": 50
                 },
                 "phone": {
@@ -4066,11 +4597,6 @@
       "put": {
         "operationId": "putOrganisation",
         "summary": "Update an organisation.",
-        "security": {
-          "token": [
-            "ROLE_USER"
-          ]
-        },
         "consumes": [
           "application/json"
         ],
@@ -4080,11 +4606,12 @@
         "parameters": [
           {
             "in": "path",
-            "required": true,
             "description": "The organisation id",
             "name": "organisationId",
+            "type": "number",
             "pattern": "^[0-9]+$",
-            "type": "number"
+            "minimum": 1,
+            "required": true
           },
           {
             "in": "body",
@@ -4101,6 +4628,12 @@
             "description": "Authorization with Bearer mecanism",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -4111,6 +4644,13 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
         "tags": []
       }
     }
@@ -4118,60 +4658,13 @@
   "securityDefinitions": {
     "basicAuth": {
       "type": "basic"
+    },
+    "bearerAuth": {
+      "type": "bearer"
     }
   },
   "definitions": {
-    "Error": {
-      "type": "object",
-      "properties": {
-        "transactionId": {
-          "type": "string"
-        },
-        "code": {
-          "type": "string",
-          "pattern": "^E_[a-zA-Z0-9_]+$"
-        }
-      }
-    },
-    "UserItem": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "contents"
-      ],
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "contents": {
-          "$ref": "#/definitions/User"
-        },
-        "unreadNotifications": {
-          "type": "number"
-        }
-      }
-    },
-    "UserInput": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "contents"
-      ],
-      "properties": {
-        "contents": {
-          "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "UsersItemsHash": {
-      "type": "object",
-      "patternProperties": {
-        "^[0-9]+$": {
-          "$ref": "#/definitions/UserItem"
-        }
-      }
-    },
-    "User": {
+    "UserContents": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -4190,11 +4683,12 @@
         },
         "locale": {
           "type": "string",
-          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
           "maxLength": 5
         },
         "timeZone": {
           "type": "string",
+          "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
           "maxLength": 50
         },
         "phone": {
@@ -4245,14 +4739,15 @@
         }
       }
     },
-    "MaybeIncompleteUser": {
-      "description": "A user that may only have an email and a locale",
+    "PartialUserContents": {
+      "description": "A user that may only have an email",
       "oneOf": [
         {
-          "$ref": "#/definitions/User"
+          "$ref": "#/definitions/UserContents"
         },
         {
           "type": "object",
+          "additionalProperties": false,
           "required": [
             "email"
           ],
@@ -4263,16 +4758,196 @@
             },
             "locale": {
               "type": "string",
-              "pattern": "^[a-z]{2}-[A-Z]{2}$",
+              "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
               "maxLength": 5
             },
             "timeZone": {
               "type": "string",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
               "maxLength": 50
+            },
+            "phone": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ROLE_USER",
+                  "ROLE_ADMIN"
+                ]
+              }
+            },
+            "birthDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "organisationId": {
+              "type": "number",
+              "pattern": "^[0-9]+$",
+              "minimum": 1
             }
           }
         }
       ]
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
+        },
+        "contents": {
+          "$ref": "#/definitions/PartialUserContents"
+        }
+      }
+    },
+    "UserHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "UserItem": {
+      "type": "object",
+      "required": [
+        "item",
+        "users"
+      ],
+      "properties": {
+        "item": {
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
+        },
+        "users": {
+          "$ref": "#/definitions/UserHash"
+        }
+      }
+    },
+    "UserPreferences": {
+      "type": "object",
+      "required": [
+        "areasUnit",
+        "locale",
+        "precipitationsUnit",
+        "smallVolumesUnit",
+        "speedsUnit",
+        "temperaturesUnit",
+        "volumesUnit",
+        "weightsUnit"
+      ],
+      "properties": {
+        "areasUnit": {
+          "type": "string",
+          "enum": [
+            "HA",
+            "A"
+          ]
+        },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
+          "maxLength": 5
+        },
+        "precipitationsUnit": {
+          "type": "string",
+          "enum": [
+            "MM",
+            "INCH"
+          ]
+        },
+        "smallVolumesUnit": {
+          "type": "string",
+          "enum": [
+            "L",
+            "GAL_US"
+          ]
+        },
+        "speedsUnit": {
+          "type": "string",
+          "enum": [
+            "KPH",
+            "MPH"
+          ]
+        },
+        "temperaturesUnit": {
+          "type": "string",
+          "enum": [
+            "C",
+            "F"
+          ]
+        },
+        "volumesUnit": {
+          "type": "string",
+          "enum": [
+            "M3",
+            "CU_YD"
+          ]
+        },
+        "weightsUnit": {
+          "type": "string",
+          "enum": [
+            "T",
+            "SH_TN"
+          ]
+        },
+        "optionalMeasures": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "enum": [
+              "WET_TEMPERATURE",
+              "DEW_POINT"
+            ]
+          }
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^E_[a-zA-Z0-9_]+$"
+        }
+      }
     },
     "OrganisationsItemsHash": {
       "type": "object",
@@ -4341,91 +5016,13 @@
         },
         "locale": {
           "type": "string",
-          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
           "maxLength": 5
         },
         "timeZone": {
           "type": "string",
+          "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
           "maxLength": 50
-        }
-      }
-    },
-    "UserPreferences": {
-      "type": "object",
-      "required": [
-        "areasUnit",
-        "locale",
-        "precipitationsUnit",
-        "smallVolumesUnit",
-        "speedsUnit",
-        "temperaturesUnit",
-        "volumesUnit",
-        "weightsUnit"
-      ],
-      "properties": {
-        "areasUnit": {
-          "type": "string",
-          "enum": [
-            "HA",
-            "A"
-          ]
-        },
-        "locale": {
-          "type": "string",
-          "pattern": "[a-z]{2,3}(-[A-Z]{2,3})?"
-        },
-        "precipitationsUnit": {
-          "type": "string",
-          "enum": [
-            "MM",
-            "INCH"
-          ]
-        },
-        "smallVolumesUnit": {
-          "type": "string",
-          "enum": [
-            "L",
-            "GAL_US"
-          ]
-        },
-        "speedsUnit": {
-          "type": "string",
-          "enum": [
-            "KPH",
-            "MPH"
-          ]
-        },
-        "temperaturesUnit": {
-          "type": "string",
-          "enum": [
-            "C",
-            "F"
-          ]
-        },
-        "volumesUnit": {
-          "type": "string",
-          "enum": [
-            "M3",
-            "CU_YD"
-          ]
-        },
-        "weightsUnit": {
-          "type": "string",
-          "enum": [
-            "T",
-            "SH_TN"
-          ]
-        },
-        "optionalMeasures": {
-          "type": "array",
-          "minItems": 0,
-          "items": {
-            "type": "string",
-            "enum": [
-              "WET_TEMPERATURE",
-              "DEW_POINT"
-            ]
-          }
         }
       }
     },
@@ -4450,7 +5047,7 @@
           "$ref": "#/definitions/DevicesItemsHash"
         },
         "users": {
-          "$ref": "#/definitions/UsersItemsHash"
+          "$ref": "#/definitions/UserHash"
         },
         "organisations": {
           "$ref": "#/definitions/OrganisationsItemsHash"
@@ -4561,16 +5158,24 @@
             ],
             "properties": {
               "deviceId": {
-                "type": "number"
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
               },
               "userId": {
-                "type": "number"
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
               },
               "moduleId": {
-                "type": "number"
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
               },
               "delegatorId": {
-                "type": "number"
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
               },
               "parameters": {
                 "type": "object",
@@ -4613,13 +5218,19 @@
           "pattern": "^[A-Z0-9]+$"
         },
         "modelId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "userId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "organisationId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         }
       }
     },
@@ -4904,9 +5515,13 @@
           "type": "number"
         },
         "latitude": {
+          "minimum": -90,
+          "maximum": 90,
           "type": "number"
         },
         "longitude": {
+          "minimum": -180,
+          "maximum": 180,
           "type": "number"
         },
         "altitude": {
@@ -5107,7 +5722,7 @@
       ],
       "properties": {
         "users": {
-          "$ref": "#/definitions/UsersItemsHash"
+          "$ref": "#/definitions/UserHash"
         },
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
@@ -5135,7 +5750,7 @@
       ],
       "properties": {
         "users": {
-          "$ref": "#/definitions/UsersItemsHash"
+          "$ref": "#/definitions/UserHash"
         },
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
@@ -5180,7 +5795,7 @@
       ],
       "properties": {
         "user": {
-          "$ref": "#/definitions/MaybeIncompleteUser"
+          "$ref": "#/definitions/PartialUserContents"
         },
         "sharedDevicesIds": {
           "type": "array",
@@ -5202,13 +5817,16 @@
       ],
       "properties": {
         "collaboratorUserId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "sharedDevicesIds": {
           "type": "array",
           "items": {
             "type": "number",
-            "pattern": "^[0-9]+$"
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           }
         }
       }
@@ -5223,7 +5841,7 @@
       ],
       "properties": {
         "users": {
-          "$ref": "#/definitions/UsersItemsHash"
+          "$ref": "#/definitions/UserHash"
         },
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
@@ -5251,7 +5869,7 @@
       ],
       "properties": {
         "users": {
-          "$ref": "#/definitions/UsersItemsHash"
+          "$ref": "#/definitions/UserHash"
         },
         "devices": {
           "$ref": "#/definitions/DevicesItemsHash"
@@ -5296,7 +5914,7 @@
       ],
       "properties": {
         "user": {
-          "$ref": "#/definitions/MaybeIncompleteUser"
+          "$ref": "#/definitions/PartialUserContents"
         },
         "sharedDevicesIds": {
           "type": "array",
@@ -5318,13 +5936,16 @@
       ],
       "properties": {
         "guestUserId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "sharedDevicesIds": {
           "type": "array",
           "items": {
             "type": "number",
-            "pattern": "^[0-9]+$"
+            "pattern": "^[0-9]+$",
+            "minimum": 1
           }
         }
       }
@@ -5360,7 +5981,9 @@
       ],
       "properties": {
         "deviceId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "startDate": {
           "type": "string",
@@ -5470,11 +6093,13 @@
         },
         "items": {
           "type": "array",
-          "uniqueItems": true,
           "items": {
             "type": "number",
-            "pattern": "^[0-9]+$"
-          }
+            "pattern": "^[0-9]+$",
+            "minimum": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
         }
       }
     },
@@ -5493,7 +6118,8 @@
         },
         "entry": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         }
       }
     },
@@ -5517,7 +6143,8 @@
         },
         "organisationId": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "contents": {
           "$ref": "#/definitions/Module"
@@ -5712,11 +6339,13 @@
       "properties": {
         "id": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "userId": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "lastTriggerDate": {
           "type": "string",
@@ -6041,10 +6670,14 @@
           "format": "date-time"
         },
         "userId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "organisationId": {
-          "type": "number"
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         }
       }
     },
@@ -6060,11 +6693,12 @@
         },
         "items": {
           "type": "array",
-          "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^[0-9]{8}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{4}\\-[0-9]{12}$"
-          }
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
         }
       }
     },
@@ -6104,11 +6738,13 @@
         },
         "userId": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "organisationId": {
           "type": "number",
-          "pattern": "^[0-9]+$"
+          "pattern": "^[0-9]+$",
+          "minimum": 1
         },
         "truncatedSecret": {
           "type": "string",

@@ -61,6 +61,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.16.0",
     "eslint-plugin-prettier": "^2.5.0",
+    "inquirer": "^5.2.0",
     "istanbul": "0.4.5",
     "jasmine-core": "^2.7.0",
     "jest": "20.0.4",

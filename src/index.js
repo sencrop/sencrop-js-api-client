@@ -386,26 +386,21 @@ function postVerify({ body } = {}, options) {
  * Request a user token
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {undefined} parameters.authorization
- * Basic auth with API Client id and API Client Secret,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {object} parameters.body
- * Request a user token
+ * Request a user token,
+ * @param {string} parameters.authorization
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function postPartnerTokenRequest(
-  { authorization, partnerId, body } = {},
+  { partnerId, body, authorization } = {},
   options
 ) {
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
   if (partnerId == null) {
     throw new Error(
       'Missing required parameter : partnerId. Value : ' + partnerId
@@ -413,6 +408,11 @@ function postPartnerTokenRequest(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
   }
 
   const method = 'post';
@@ -444,23 +444,18 @@ function postPartnerTokenRequest(
  * Create a user token
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {undefined} parameters.authorization
- * Basic auth with API Client id and API Client Secret,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {object} parameters.body
- * Create a user token
+ * Create a user token,
+ * @param {string} parameters.authorization
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postPartnerToken({ authorization, partnerId, body } = {}, options) {
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
+function postPartnerToken({ partnerId, body, authorization } = {}, options) {
   if (partnerId == null) {
     throw new Error(
       'Missing required parameter : partnerId. Value : ' + partnerId
@@ -468,6 +463,11 @@ function postPartnerToken({ authorization, partnerId, body } = {}, options) {
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
   }
 
   const method = 'post';
@@ -499,28 +499,25 @@ function postPartnerToken({ authorization, partnerId, body } = {}, options) {
  * Retrieves the devices a partner has access to.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {number} parameters.limit
  * The number of items to retrieve,
  * @param {number} parameters.start
- * The index in results
+ * The index in results,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getPartnerDevices(
-  { authorization, partnerId, limit, start } = {},
+  { partnerId, limit, start, authorization, accessToken } = {},
   options
 ) {
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
   if (partnerId == null) {
     throw new Error(
       'Missing required parameter : partnerId. Value : ' + partnerId
@@ -532,6 +529,11 @@ function getPartnerDevices(
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
 
   const method = 'get';
   let urlParts = ['partners', partnerId, 'devices'];
@@ -541,6 +543,7 @@ function getPartnerDevices(
   let qs = cleanQuery({
     limit: limit,
     start: start,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -576,14 +579,24 @@ function getPartnerDevices(
  * @param {object} parameters.body
  * The module parameters,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putPartnerModuleParameters(
-  { partnerId, partnerUserId, deviceId, moduleId, body, authorization } = {},
+  {
+    partnerId,
+    partnerUserId,
+    deviceId,
+    moduleId,
+    body,
+    authorization,
+    accessToken,
+  } = {},
   options
 ) {
   if (partnerId == null) {
@@ -630,7 +643,9 @@ function putPartnerModuleParameters(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -657,13 +672,15 @@ function putPartnerModuleParameters(
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUser({ userId, authorization } = {}, options) {
+function getUser({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -678,7 +695,9 @@ function getUser({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -704,26 +723,28 @@ function getUser({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The new user,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The new user
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putUser({ userId, authorization, body } = {}, options) {
+function putUser({ userId, body, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -731,7 +752,9 @@ function putUser({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -758,13 +781,15 @@ function putUser({ userId, authorization, body } = {}, options) {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserGuests({ userId, authorization } = {}, options) {
+function getUserGuests({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -779,7 +804,9 @@ function getUserGuests({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -805,26 +832,31 @@ function getUserGuests({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's guest,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's guest
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserGuest({ userId, authorization, body } = {}, options) {
+function postUserGuest(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -832,7 +864,9 @@ function postUserGuest({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -858,31 +892,36 @@ function postUserGuest({ userId, authorization, body } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.guestId
+ * @param {number} parameters.guestId
  * The guest id,
+ * @param {object} parameters.body
+ * The user's guest,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's guest
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putUserGuest({ userId, guestId, authorization, body } = {}, options) {
+function putUserGuest(
+  { userId, guestId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
   if (guestId == null) {
     throw new Error('Missing required parameter : guestId. Value : ' + guestId);
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -890,7 +929,9 @@ function putUserGuest({ userId, guestId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -919,13 +960,18 @@ function putUserGuest({ userId, guestId, authorization, body } = {}, options) {
  * @param {number} parameters.guestId
  * The guest id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function deleteUserGuest({ userId, guestId, authorization } = {}, options) {
+function deleteUserGuest(
+  { userId, guestId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -943,7 +989,9 @@ function deleteUserGuest({ userId, guestId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -970,13 +1018,18 @@ function deleteUserGuest({ userId, guestId, authorization } = {}, options) {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserCollaborators({ userId, authorization } = {}, options) {
+function getUserCollaborators(
+  { userId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -991,7 +1044,9 @@ function getUserCollaborators({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1017,26 +1072,31 @@ function getUserCollaborators({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's collaborator,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's collaborator
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserCollaborator({ userId, authorization, body } = {}, options) {
+function postUserCollaborator(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -1044,7 +1104,9 @@ function postUserCollaborator({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1072,17 +1134,19 @@ function postUserCollaborator({ userId, authorization, body } = {}, options) {
  * The user id,
  * @param {string} parameters.collaboratorId
  * The collaborator id,
+ * @param {object} parameters.body
+ * The user's collaborator,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's collaborator
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserCollaborator(
-  { userId, collaboratorId, authorization, body } = {},
+  { userId, collaboratorId, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1093,13 +1157,13 @@ function putUserCollaborator(
       'Missing required parameter : collaboratorId. Value : ' + collaboratorId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -1107,7 +1171,9 @@ function putUserCollaborator(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1136,14 +1202,16 @@ function putUserCollaborator(
  * @param {number} parameters.collaboratorId
  * The collaborator id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function deleteUserCollaborator(
-  { userId, collaboratorId, authorization } = {},
+  { userId, collaboratorId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1165,7 +1233,9 @@ function deleteUserCollaborator(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1196,14 +1266,16 @@ function deleteUserCollaborator(
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserAggregations(
-  { userId, compute, patched, authorization } = {},
+  { userId, compute, patched, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1223,6 +1295,7 @@ function getUserAggregations(
   let qs = cleanQuery({
     compute: compute,
     patched: patched,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -1249,26 +1322,31 @@ function getUserAggregations(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's aggregation,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's aggregation
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserAggregation({ userId, authorization, body } = {}, options) {
+function postUserAggregation(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -1276,7 +1354,9 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1302,19 +1382,21 @@ function postUserAggregation({ userId, authorization, body } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.aggregationId
+ * @param {number} parameters.aggregationId
  * The aggregation id,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserAggregation(
-  { userId, aggregationId, patched, authorization } = {},
+  { userId, aggregationId, patched, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1338,6 +1420,7 @@ function getUserAggregation(
   };
   let qs = cleanQuery({
     patched: patched,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -1364,19 +1447,21 @@ function getUserAggregation(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.aggregationId
+ * @param {number} parameters.aggregationId
  * The aggregation id,
+ * @param {object} parameters.body
+ * The user's aggregation,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's aggregation
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserAggregation(
-  { userId, aggregationId, authorization, body } = {},
+  { userId, aggregationId, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1387,13 +1472,13 @@ function putUserAggregation(
       'Missing required parameter : aggregationId. Value : ' + aggregationId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -1401,7 +1486,9 @@ function putUserAggregation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1430,14 +1517,16 @@ function putUserAggregation(
  * @param {number} parameters.aggregationId
  * The aggregation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function deleteUserAggregation(
-  { userId, aggregationId, authorization } = {},
+  { userId, aggregationId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1459,7 +1548,9 @@ function deleteUserAggregation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1486,13 +1577,18 @@ function deleteUserAggregation(
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserDeviceGroups({ userId, authorization } = {}, options) {
+function getUserDeviceGroups(
+  { userId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -1507,7 +1603,9 @@ function getUserDeviceGroups({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1533,26 +1631,31 @@ function getUserDeviceGroups({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's device group,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's device group
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserDeviceGroup({ userId, authorization, body } = {}, options) {
+function postUserDeviceGroup(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -1560,7 +1663,9 @@ function postUserDeviceGroup({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1589,14 +1694,16 @@ function postUserDeviceGroup({ userId, authorization, body } = {}, options) {
  * @param {number} parameters.deviceGroupId
  * The device group id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceGroup(
-  { userId, deviceGroupId, authorization } = {},
+  { userId, deviceGroupId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1618,7 +1725,9 @@ function getUserDeviceGroup(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1646,17 +1755,19 @@ function getUserDeviceGroup(
  * The user id,
  * @param {string} parameters.deviceGroupId
  * The deviceGroup id,
+ * @param {object} parameters.body
+ * The user's device group,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's device group
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserDeviceGroup(
-  { userId, deviceGroupId, authorization, body } = {},
+  { userId, deviceGroupId, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1667,13 +1778,13 @@ function putUserDeviceGroup(
       'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -1681,7 +1792,9 @@ function putUserDeviceGroup(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1710,14 +1823,16 @@ function putUserDeviceGroup(
  * @param {number} parameters.deviceGroupId
  * The device group id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function deleteUserDeviceGroup(
-  { userId, deviceGroupId, authorization } = {},
+  { userId, deviceGroupId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1739,7 +1854,9 @@ function deleteUserDeviceGroup(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1776,14 +1893,25 @@ function deleteUserDeviceGroup(
  * @param {number} [parameters.start]
  * The index in results,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDevices(
-  { userId, date, measures, patched, limit, start, authorization } = {},
+  {
+    userId,
+    date,
+    measures,
+    patched,
+    limit,
+    start,
+    authorization,
+    accessToken,
+  } = {},
   options
 ) {
   if (userId == null) {
@@ -1806,6 +1934,7 @@ function getUserDevices(
     patched: patched,
     limit: limit,
     start: start,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -1832,26 +1961,31 @@ function getUserDevices(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user device activation couple,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user device activation couple
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserDevice({ userId, authorization, body } = {}, options) {
+function postUserDevice(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -1859,7 +1993,9 @@ function postUserDevice({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -1888,14 +2024,16 @@ function postUserDevice({ userId, authorization, body } = {}, options) {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDevicePositions(
-  { userId, deviceId, authorization } = {},
+  { userId, deviceId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -1917,7 +2055,9 @@ function getUserDevicePositions(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -1946,13 +2086,18 @@ function getUserDevicePositions(
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserDevice({ userId, deviceId, authorization } = {}, options) {
+function getUserDevice(
+  { userId, deviceId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -1972,7 +2117,9 @@ function getUserDevice({ userId, deviceId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -2000,17 +2147,19 @@ function getUserDevice({ userId, deviceId, authorization } = {}, options) {
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
+ * @param {object} parameters.body
+ * The user device,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user device
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserDevice(
-  { userId, deviceId, authorization, body } = {},
+  { userId, deviceId, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2021,13 +2170,13 @@ function putUserDevice(
       'Missing required parameter : deviceId. Value : ' + deviceId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -2035,7 +2184,9 @@ function putUserDevice(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -2064,13 +2215,18 @@ function putUserDevice(
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function deleteUserDevice({ userId, deviceId, authorization } = {}, options) {
+function deleteUserDevice(
+  { userId, deviceId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -2090,7 +2246,9 @@ function deleteUserDevice({ userId, deviceId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -2119,14 +2277,16 @@ function deleteUserDevice({ userId, deviceId, authorization } = {}, options) {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceModules(
-  { userId, deviceId, authorization } = {},
+  { userId, deviceId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2148,7 +2308,9 @@ function getUserDeviceModules(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -2181,14 +2343,16 @@ function getUserDeviceModules(
  * @param {object} parameters.body
  * The module settings,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserDeviceModule(
-  { userId, deviceId, moduleId, body, authorization } = {},
+  { userId, deviceId, moduleId, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2218,7 +2382,9 @@ function putUserDeviceModule(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -2249,14 +2415,16 @@ function putUserDeviceModule(
  * @param {number} parameters.moduleId
  * The module id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function deleteUserDeviceModule(
-  { userId, deviceId, moduleId, authorization } = {},
+  { userId, deviceId, moduleId, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2283,7 +2451,9 @@ function deleteUserDeviceModule(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -2313,17 +2483,19 @@ function deleteUserDeviceModule(
  * The device id,
  * @param {string} parameters.sharesType
  * The shares type,
+ * @param {array} parameters.body
+ * The users concerned by the user's device share,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {array} parameters.body
- * The users concerned by the user's device share
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putUserDeviceShares(
-  { userId, deviceId, sharesType, authorization, body } = {},
+  { userId, deviceId, sharesType, body, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2339,13 +2511,13 @@ function putUserDeviceShares(
       'Missing required parameter : sharesType. Value : ' + sharesType
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -2353,7 +2525,9 @@ function putUserDeviceShares(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -2381,8 +2555,6 @@ function putUserDeviceShares(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.startDate
  * The statistics start date,
  * @param {string} parameters.endDate
@@ -2390,7 +2562,11 @@ function putUserDeviceShares(
  * @param {array} parameters.measures
  * The measures to read,
  * @param {boolean} [parameters.patched]
- * Wether you want to get only original data or eventually patched ones to avoid holes.
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2400,11 +2576,12 @@ function getUserDeviceStatistics(
   {
     userId,
     deviceId,
-    authorization,
     startDate,
     endDate,
     measures,
     patched,
+    authorization,
+    accessToken,
   } = {},
   options
 ) {
@@ -2414,11 +2591,6 @@ function getUserDeviceStatistics(
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
   if (startDate == null) {
@@ -2434,6 +2606,11 @@ function getUserDeviceStatistics(
       'Missing required parameter : measures. Value : ' + measures
     );
   }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
@@ -2445,6 +2622,7 @@ function getUserDeviceStatistics(
     endDate: endDate,
     measures: measures,
     patched: patched,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2480,14 +2658,24 @@ function getUserDeviceStatistics(
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceRawData(
-  { userId, deviceId, beforeDate, size, measures, authorization } = {},
+  {
+    userId,
+    deviceId,
+    beforeDate,
+    size,
+    measures,
+    authorization,
+    accessToken,
+  } = {},
   options
 ) {
   if (userId == null) {
@@ -2526,6 +2714,7 @@ function getUserDeviceRawData(
     beforeDate: beforeDate,
     size: size,
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2561,14 +2750,24 @@ function getUserDeviceRawData(
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceHourlyData(
-  { userId, deviceId, beforeDate, days, measures, authorization } = {},
+  {
+    userId,
+    deviceId,
+    beforeDate,
+    days,
+    measures,
+    authorization,
+    accessToken,
+  } = {},
   options
 ) {
   if (userId == null) {
@@ -2607,6 +2806,7 @@ function getUserDeviceHourlyData(
     beforeDate: beforeDate,
     days: days,
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2642,14 +2842,24 @@ function getUserDeviceHourlyData(
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceDailyData(
-  { userId, deviceId, beforeDate, days, measures, authorization } = {},
+  {
+    userId,
+    deviceId,
+    beforeDate,
+    days,
+    measures,
+    authorization,
+    accessToken,
+  } = {},
   options
 ) {
   if (userId == null) {
@@ -2688,6 +2898,7 @@ function getUserDeviceDailyData(
     beforeDate: beforeDate,
     days: days,
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2716,8 +2927,6 @@ function getUserDeviceDailyData(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.startDate
  * The statistics start date,
  * @param {string} parameters.endDate
@@ -2725,7 +2934,11 @@ function getUserDeviceDailyData(
  * @param {array} parameters.measures
  * The measures to read,
  * @param {boolean} [parameters.patched]
- * Wether you want to get only original data or eventually patched ones to avoid holes.
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2735,11 +2948,12 @@ function getUserDeviceContinuousStatistics(
   {
     userId,
     deviceId,
-    authorization,
     startDate,
     endDate,
     measures,
     patched,
+    authorization,
+    accessToken,
   } = {},
   options
 ) {
@@ -2749,11 +2963,6 @@ function getUserDeviceContinuousStatistics(
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
   if (startDate == null) {
@@ -2767,6 +2976,11 @@ function getUserDeviceContinuousStatistics(
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
 
@@ -2786,6 +3000,7 @@ function getUserDeviceContinuousStatistics(
     endDate: endDate,
     measures: measures,
     patched: patched,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2819,14 +3034,16 @@ function getUserDeviceContinuousStatistics(
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceDegreeDays(
-  { userId, deviceId, startDate, endDate, authorization } = {},
+  { userId, deviceId, startDate, endDate, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2859,6 +3076,7 @@ function getUserDeviceDegreeDays(
   let qs = cleanQuery({
     startDate: startDate,
     endDate: endDate,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2887,19 +3105,21 @@ function getUserDeviceDegreeDays(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.date
  * The summary date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceSummary(
-  { userId, deviceId, authorization, date, measures } = {},
+  { userId, deviceId, date, measures, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2910,17 +3130,17 @@ function getUserDeviceSummary(
       'Missing required parameter : deviceId. Value : ' + deviceId
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
   if (date == null) {
     throw new Error('Missing required parameter : date. Value : ' + date);
   }
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
 
@@ -2931,6 +3151,7 @@ function getUserDeviceSummary(
   };
   let qs = cleanQuery({
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -2962,14 +3183,16 @@ function getUserDeviceSummary(
  * @param {string} parameters.date
  * Date of the forecasts,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserDeviceForecasts(
-  { userId, deviceId, date, authorization } = {},
+  { userId, deviceId, date, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -2996,6 +3219,7 @@ function getUserDeviceForecasts(
   };
   let qs = cleanQuery({
     date: date,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -3023,20 +3247,22 @@ function getUserDeviceForecasts(
  * @param {number} parameters.userId
  * The user id,
  * @param {number} parameters.latitude
- * The latitude of the forecasts,
+ * The latitude of the data,
  * @param {number} parameters.longitude
- * The longitude of the forecasts,
+ * The longitude of the data,
  * @param {string} [parameters.date]
  * Date of the forecasts,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getUserForecasts(
-  { userId, latitude, longitude, date, authorization } = {},
+  { userId, latitude, longitude, date, authorization, accessToken } = {},
   options
 ) {
   if (userId == null) {
@@ -3067,6 +3293,7 @@ function getUserForecasts(
     latitude: latitude,
     longitude: longitude,
     date: date,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -3097,14 +3324,16 @@ function getUserForecasts(
  * The latitude of the data,
  * @param {number} parameters.longitude
  * The longitude of the data,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3115,10 +3344,11 @@ function getUserDailyData(
     userId,
     latitude,
     longitude,
-    authorization,
     beforeDate,
     days,
     measures,
+    authorization,
+    accessToken,
   } = {},
   options
 ) {
@@ -3135,11 +3365,6 @@ function getUserDailyData(
       'Missing required parameter : longitude. Value : ' + longitude
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate
@@ -3151,6 +3376,11 @@ function getUserDailyData(
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
 
@@ -3165,6 +3395,7 @@ function getUserDailyData(
     beforeDate: beforeDate,
     days: days,
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -3195,14 +3426,16 @@ function getUserDailyData(
  * The latitude of the data,
  * @param {number} parameters.longitude
  * The longitude of the data,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3213,10 +3446,11 @@ function getUserHourlyData(
     userId,
     latitude,
     longitude,
-    authorization,
     beforeDate,
     days,
     measures,
+    authorization,
+    accessToken,
   } = {},
   options
 ) {
@@ -3233,11 +3467,6 @@ function getUserHourlyData(
       'Missing required parameter : longitude. Value : ' + longitude
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate
@@ -3249,6 +3478,11 @@ function getUserHourlyData(
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
     );
   }
 
@@ -3263,6 +3497,7 @@ function getUserHourlyData(
     beforeDate: beforeDate,
     days: days,
     measures: measures,
+    access_token: accessToken,
   });
   let data = {}.undef;
 
@@ -3290,13 +3525,18 @@ function getUserHourlyData(
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserPreferences({ userId, authorization } = {}, options) {
+function getUserPreferences(
+  { userId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -3311,7 +3551,9 @@ function getUserPreferences({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3337,26 +3579,31 @@ function getUserPreferences({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The new user preferences,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The new user preferences
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putUserPreferences({ userId, authorization, body } = {}, options) {
+function putUserPreferences(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -3364,7 +3611,9 @@ function putUserPreferences({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -3391,14 +3640,16 @@ function putUserPreferences({ userId, authorization, body } = {}, options) {
  * @param {number} parameters.organisationId
  * The organisation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getOrganisationOperations(
-  { organisationId, authorization } = {},
+  { organisationId, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3417,7 +3668,9 @@ function getOrganisationOperations(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3443,17 +3696,19 @@ function getOrganisationOperations(
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
+ * @param {object} parameters.body
+ * The operation to add,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The operation to add
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function postOrganisationOperation(
-  { organisationId, authorization, body } = {},
+  { organisationId, body, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3461,13 +3716,13 @@ function postOrganisationOperation(
       'Missing required parameter : organisationId. Value : ' + organisationId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -3475,7 +3730,9 @@ function postOrganisationOperation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -3504,14 +3761,16 @@ function postOrganisationOperation(
  * @param {number} parameters.operationId
  * The operation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function getOrganisationOperation(
-  { organisationId, operationId, authorization } = {},
+  { organisationId, operationId, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3535,7 +3794,9 @@ function getOrganisationOperation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3563,17 +3824,19 @@ function getOrganisationOperation(
  * The organisation id,
  * @param {number} parameters.operationId
  * The operation id,
+ * @param {object} parameters.body
+ * The operation to update,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The operation to update
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putOrganisationOperation(
-  { organisationId, operationId, authorization, body } = {},
+  { organisationId, operationId, body, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3586,13 +3849,13 @@ function putOrganisationOperation(
       'Missing required parameter : operationId. Value : ' + operationId
     );
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -3600,7 +3863,9 @@ function putOrganisationOperation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -3629,14 +3894,16 @@ function putOrganisationOperation(
  * @param {number} parameters.operationId
  * The operation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function deleteOrganisationOperation(
-  { organisationId, operationId, authorization } = {},
+  { organisationId, operationId, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3660,7 +3927,9 @@ function deleteOrganisationOperation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3687,13 +3956,15 @@ function deleteOrganisationOperation(
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function getUserAlerts({ userId, authorization } = {}, options) {
+function getUserAlerts({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -3708,7 +3979,9 @@ function getUserAlerts({ userId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3734,26 +4007,31 @@ function getUserAlerts({ userId, authorization } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's alert,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's alert
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postUserAlert({ userId, authorization, body } = {}, options) {
+function postUserAlert(
+  { userId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
   }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'post';
@@ -3761,7 +4039,9 @@ function postUserAlert({ userId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -3787,31 +4067,36 @@ function postUserAlert({ userId, authorization, body } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.alertId
+ * @param {number} parameters.alertId
  * The alert id,
+ * @param {object} parameters.body
+ * The user's alert,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's alert
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putUserAlert({ userId, alertId, authorization, body } = {}, options) {
+function putUserAlert(
+  { userId, alertId, body, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
   if (authorization == null) {
     throw new Error(
       'Missing required parameter : authorization. Value : ' + authorization
     );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
   }
 
   const method = 'put';
@@ -3819,7 +4104,9 @@ function putUserAlert({ userId, alertId, authorization, body } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
@@ -3848,13 +4135,18 @@ function putUserAlert({ userId, alertId, authorization, body } = {}, options) {
  * @param {number} parameters.alertId
  * The alert id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function deleteUserAlert({ userId, alertId, authorization } = {}, options) {
+function deleteUserAlert(
+  { userId, alertId, authorization, accessToken } = {},
+  options
+) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -3872,7 +4164,9 @@ function deleteUserAlert({ userId, alertId, authorization } = {}, options) {
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = {}.undef;
 
   return axios(
@@ -3940,14 +4234,16 @@ function postOrganisation({ body } = {}, options) {
  * @param {object} parameters.body
  * The modified organisation,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function putOrganisation(
-  { organisationId, body, authorization } = {},
+  { organisationId, body, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -3969,7 +4265,9 @@ function putOrganisation(
   let headers = {
     Authorization: authorization,
   };
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
   let data = body;
 
   return axios(
