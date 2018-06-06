@@ -81,6 +81,20 @@ function ${operationId}(${
                 .join('')}} = {}`
             : '_'
         }, options) {
+
+  ${(parameters || [])
+    .map(parameter => {
+      if (parameter.required) {
+        return `if( ${camelCase(parameter.name)} == null) {
+        throw new Error('Missing required parameter : ${camelCase(
+          parameter.name
+        )}. Value : ' +  ${camelCase(parameter.name)});
+      }
+      `;
+      }
+    })
+    .join('')}
+
   const method = '${method}';
   let urlParts = [${path
     .split('/')

@@ -196,6 +196,10 @@ function postSignupCheck() {
 
   var options = arguments[1];
 
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['utils', 'checkSignup'];
   var headers = {
@@ -235,6 +239,10 @@ function postLostPassword() {
 
   var options = arguments[1];
 
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['password', 'lost'];
   var headers = {};
@@ -271,6 +279,10 @@ function putPassword() {
       body = _ref3.body;
 
   var options = arguments[1];
+
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'put';
   var urlParts = ['password'];
@@ -309,6 +321,10 @@ function postLogin() {
 
   var options = arguments[1];
 
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['users', 'sign_in'];
   var headers = {};
@@ -345,6 +361,10 @@ function postVerify() {
       body = _ref5.body;
 
   var options = arguments[1];
+
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['users', 'verify'];
@@ -388,6 +408,16 @@ function postPartnerTokenRequest() {
       body = _ref6.body;
 
   var options = arguments[1];
+
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (partnerId == null) {
+    throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['partners', partnerId, 'tokenRequests'];
@@ -433,6 +463,16 @@ function postPartnerToken() {
       body = _ref7.body;
 
   var options = arguments[1];
+
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (partnerId == null) {
+    throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['partners', partnerId, 'tokens'];
@@ -481,6 +521,19 @@ function getPartnerDevices() {
       start = _ref8.start;
 
   var options = arguments[1];
+
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (partnerId == null) {
+    throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
 
   var method = 'get';
   var urlParts = ['partners', partnerId, 'devices'];
@@ -539,6 +592,25 @@ function putPartnerModuleParameters() {
 
   var options = arguments[1];
 
+  if (partnerId == null) {
+    throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
+  }
+  if (partnerUserId == null) {
+    throw new Error('Missing required parameter : partnerUserId. Value : ' + partnerUserId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (moduleId == null) {
+    throw new Error('Missing required parameter : moduleId. Value : ' + moduleId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'put';
   var urlParts = ['partners', partnerId, 'users', partnerUserId, 'devices', deviceId, 'modules', moduleId, 'parameters'];
   var headers = {
@@ -580,6 +652,13 @@ function getUser() {
       authorization = _ref10.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId];
@@ -626,6 +705,16 @@ function putUser() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId];
   var headers = {
@@ -667,6 +756,13 @@ function getUserGuests() {
       authorization = _ref12.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'guests'];
@@ -712,6 +808,16 @@ function postUserGuest() {
       body = _ref13.body;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['users', userId, 'guests'];
@@ -761,6 +867,19 @@ function putUserGuest() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (guestId == null) {
+    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'guests', guestId];
   var headers = {
@@ -806,6 +925,16 @@ function deleteUserGuest() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (guestId == null) {
+    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'delete';
   var urlParts = ['users', userId, 'guests', guestId];
   var headers = {
@@ -847,6 +976,13 @@ function getUserCollaborators() {
       authorization = _ref16.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'collaborators'];
@@ -892,6 +1028,16 @@ function postUserCollaborator() {
       body = _ref17.body;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['users', userId, 'collaborators'];
@@ -941,6 +1087,19 @@ function putUserCollaborator() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (collaboratorId == null) {
+    throw new Error('Missing required parameter : collaboratorId. Value : ' + collaboratorId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'collaborators', collaboratorId];
   var headers = {
@@ -985,6 +1144,16 @@ function deleteUserCollaborator() {
       authorization = _ref19.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (collaboratorId == null) {
+    throw new Error('Missing required parameter : collaboratorId. Value : ' + collaboratorId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'delete';
   var urlParts = ['users', userId, 'collaborators', collaboratorId];
@@ -1034,6 +1203,13 @@ function getUserAggregations() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'aggregations'];
   var headers = {
@@ -1082,6 +1258,16 @@ function postUserAggregation() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['users', userId, 'aggregations'];
   var headers = {
@@ -1129,6 +1315,16 @@ function getUserAggregation() {
       authorization = _ref22.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error('Missing required parameter : aggregationId. Value : ' + aggregationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'aggregations', aggregationId];
@@ -1180,6 +1376,19 @@ function putUserAggregation() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error('Missing required parameter : aggregationId. Value : ' + aggregationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'aggregations', aggregationId];
   var headers = {
@@ -1225,6 +1434,16 @@ function deleteUserAggregation() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error('Missing required parameter : aggregationId. Value : ' + aggregationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'delete';
   var urlParts = ['users', userId, 'aggregations', aggregationId];
   var headers = {
@@ -1266,6 +1485,13 @@ function getUserDeviceGroups() {
       authorization = _ref25.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'deviceGroups'];
@@ -1312,6 +1538,16 @@ function postUserDeviceGroup() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['users', userId, 'deviceGroups'];
   var headers = {
@@ -1356,6 +1592,16 @@ function getUserDeviceGroup() {
       authorization = _ref27.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error('Missing required parameter : deviceGroupId. Value : ' + deviceGroupId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
@@ -1405,6 +1651,19 @@ function putUserDeviceGroup() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error('Missing required parameter : deviceGroupId. Value : ' + deviceGroupId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   var headers = {
@@ -1449,6 +1708,16 @@ function deleteUserDeviceGroup() {
       authorization = _ref29.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error('Missing required parameter : deviceGroupId. Value : ' + deviceGroupId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'delete';
   var urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
@@ -1507,6 +1776,13 @@ function getUserDevices() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices'];
   var headers = {
@@ -1558,6 +1834,16 @@ function postUserDevice() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['users', userId, 'devices'];
   var headers = {
@@ -1603,6 +1889,16 @@ function getUserDevicePositions() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   var headers = {
@@ -1647,6 +1943,16 @@ function getUserDevice() {
       authorization = _ref33.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId];
@@ -1696,6 +2002,19 @@ function putUserDevice() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'devices', deviceId];
   var headers = {
@@ -1741,6 +2060,16 @@ function deleteUserDevice() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'delete';
   var urlParts = ['users', userId, 'devices', deviceId];
   var headers = {
@@ -1785,6 +2114,16 @@ function getUserDeviceModules() {
       authorization = _ref36.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'modules'];
@@ -1837,6 +2176,22 @@ function putUserDeviceModule() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (moduleId == null) {
+    throw new Error('Missing required parameter : moduleId. Value : ' + moduleId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   var headers = {
@@ -1884,6 +2239,19 @@ function deleteUserDeviceModule() {
       authorization = _ref38.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (moduleId == null) {
+    throw new Error('Missing required parameter : moduleId. Value : ' + moduleId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'delete';
   var urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
@@ -1935,6 +2303,22 @@ function putUserDeviceShares() {
       body = _ref39.body;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (sharesType == null) {
+    throw new Error('Missing required parameter : sharesType. Value : ' + sharesType);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'put';
   var urlParts = ['users', userId, 'devices', deviceId, 'shares', sharesType];
@@ -1992,6 +2376,25 @@ function getUserDeviceStatistics() {
       patched = _ref40.patched;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (startDate == null) {
+    throw new Error('Missing required parameter : startDate. Value : ' + startDate);
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
@@ -2052,6 +2455,25 @@ function getUserDeviceRawData() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (beforeDate == null) {
+    throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
+  }
+  if (size == null) {
+    throw new Error('Missing required parameter : size. Value : ' + size);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   var headers = {
@@ -2110,6 +2532,25 @@ function getUserDeviceHourlyData() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (beforeDate == null) {
+    throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   var headers = {
@@ -2167,6 +2608,25 @@ function getUserDeviceDailyData() {
       authorization = _ref43.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (beforeDate == null) {
+    throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
@@ -2229,6 +2689,25 @@ function getUserDeviceContinuousStatistics() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (startDate == null) {
+    throw new Error('Missing required parameter : startDate. Value : ' + startDate);
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'countinuousStatistics'];
   var headers = {
@@ -2285,6 +2764,22 @@ function getUserDeviceDegreeDays() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (startDate == null) {
+    throw new Error('Missing required parameter : startDate. Value : ' + startDate);
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'degreeDays'];
   var headers = {
@@ -2339,6 +2834,22 @@ function getUserDeviceSummary() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (date == null) {
+    throw new Error('Missing required parameter : date. Value : ' + date);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   var headers = {
@@ -2388,6 +2899,19 @@ function getUserDeviceForecasts() {
       authorization = _ref47.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
+  }
+  if (date == null) {
+    throw new Error('Missing required parameter : date. Value : ' + date);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
@@ -2441,6 +2965,19 @@ function getUserForecasts() {
       authorization = _ref48.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error('Missing required parameter : latitude. Value : ' + latitude);
+  }
+  if (longitude == null) {
+    throw new Error('Missing required parameter : longitude. Value : ' + longitude);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'forecasts'];
@@ -2502,6 +3039,28 @@ function getUserDailyData() {
       measures = _ref49.measures;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error('Missing required parameter : latitude. Value : ' + latitude);
+  }
+  if (longitude == null) {
+    throw new Error('Missing required parameter : longitude. Value : ' + longitude);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (beforeDate == null) {
+    throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'data', 'daily'];
@@ -2566,6 +3125,28 @@ function getUserHourlyData() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error('Missing required parameter : latitude. Value : ' + latitude);
+  }
+  if (longitude == null) {
+    throw new Error('Missing required parameter : longitude. Value : ' + longitude);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (beforeDate == null) {
+    throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'data', 'hourly'];
   var headers = {
@@ -2614,6 +3195,13 @@ function getUserPreferences() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'get';
   var urlParts = ['users', userId, 'preferences'];
   var headers = {
@@ -2659,6 +3247,16 @@ function putUserPreferences() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'preferences'];
   var headers = {
@@ -2700,6 +3298,13 @@ function getOrganisationOperations() {
       authorization = _ref53.authorization;
 
   var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['organisations', organisationId, 'operations'];
@@ -2746,6 +3351,16 @@ function postOrganisationOperation() {
 
   var options = arguments[1];
 
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'post';
   var urlParts = ['organisations', organisationId, 'operations'];
   var headers = {
@@ -2790,6 +3405,16 @@ function getOrganisationOperation() {
       authorization = _ref55.authorization;
 
   var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (operationId == null) {
+    throw new Error('Missing required parameter : operationId. Value : ' + operationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['organisations', organisationId, 'operations', operationId];
@@ -2839,6 +3464,19 @@ function putOrganisationOperation() {
 
   var options = arguments[1];
 
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (operationId == null) {
+    throw new Error('Missing required parameter : operationId. Value : ' + operationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['organisations', organisationId, 'operations', operationId];
   var headers = {
@@ -2884,6 +3522,16 @@ function deleteOrganisationOperation() {
 
   var options = arguments[1];
 
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (operationId == null) {
+    throw new Error('Missing required parameter : operationId. Value : ' + operationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'delete';
   var urlParts = ['organisations', organisationId, 'operations', operationId];
   var headers = {
@@ -2925,6 +3573,13 @@ function getUserAlerts() {
       authorization = _ref58.authorization;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'get';
   var urlParts = ['users', userId, 'alerts'];
@@ -2970,6 +3625,16 @@ function postUserAlert() {
       body = _ref59.body;
 
   var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['users', userId, 'alerts'];
@@ -3019,6 +3684,19 @@ function putUserAlert() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (alertId == null) {
+    throw new Error('Missing required parameter : alertId. Value : ' + alertId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   var method = 'put';
   var urlParts = ['users', userId, 'alerts', alertId];
   var headers = {
@@ -3064,6 +3742,16 @@ function deleteUserAlert() {
 
   var options = arguments[1];
 
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (alertId == null) {
+    throw new Error('Missing required parameter : alertId. Value : ' + alertId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
   var method = 'delete';
   var urlParts = ['users', userId, 'alerts', alertId];
   var headers = {
@@ -3102,6 +3790,10 @@ function postOrganisation() {
       body = _ref62.body;
 
   var options = arguments[1];
+
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
 
   var method = 'post';
   var urlParts = ['organisations'];
@@ -3145,6 +3837,16 @@ function putOrganisation() {
       authorization = _ref63.authorization;
 
   var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
 
   var method = 'put';
   var urlParts = ['organisations', organisationId];
