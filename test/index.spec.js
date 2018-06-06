@@ -49,9 +49,9 @@ describe('API', () => {
       const promise = API.getUserDeviceStatistics({
         userId: 902,
         deviceId: '1B28C5',
-        startTime: new Date('2014-07-01T00:00:00.000Z').getTime(),
-        endTime: new Date('2017-07-21T00:00:00.000Z').getTime(),
-        authenticationToken: '902-771',
+        startDate: new Date('2014-07-01T00:00:00.000Z').getTime(),
+        endDate: new Date('2017-07-21T00:00:00.000Z').getTime(),
+        authorization: '902-771',
         measures: ['RH_AIR_H1', 'TEMP_AIR_H1'],
       }).then(response =>
         expect({
@@ -174,7 +174,7 @@ describe('API', () => {
       const promise = API.putUserDevice({
         userId: 902,
         deviceId: '1B28C5',
-        authenticationToken: '902-771',
+        authorization: '902-771',
         body: {
           contents: {
             serial: '1B28C5',

@@ -197,6 +197,10 @@ function getModules(_, options) {
  * The HTTP response
  */
 function postSignupCheck({ authorization, body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['utils', 'checkSignup'];
   let headers = {
@@ -234,6 +238,10 @@ function postSignupCheck({ authorization, body } = {}, options) {
  * The HTTP response
  */
 function postLostPassword({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['password', 'lost'];
   let headers = {};
@@ -269,6 +277,10 @@ function postLostPassword({ body } = {}, options) {
  * The HTTP response
  */
 function putPassword({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['password'];
   let headers = {};
@@ -304,6 +316,10 @@ function putPassword({ body } = {}, options) {
  * The HTTP response
  */
 function postLogin({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', 'sign_in'];
   let headers = {};
@@ -339,6 +355,10 @@ function postLogin({ body } = {}, options) {
  * The HTTP response
  */
 function postVerify({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', 'verify'];
   let headers = {};
@@ -381,6 +401,20 @@ function postPartnerTokenRequest(
   { authorization, partnerId, body } = {},
   options
 ) {
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (partnerId == null) {
+    throw new Error(
+      'Missing required parameter : partnerId. Value : ' + partnerId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = {
@@ -422,6 +456,20 @@ function postPartnerTokenRequest(
  * The HTTP response
  */
 function postPartnerToken({ authorization, partnerId, body } = {}, options) {
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (partnerId == null) {
+    throw new Error(
+      'Missing required parameter : partnerId. Value : ' + partnerId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = {
@@ -468,6 +516,23 @@ function getPartnerDevices(
   { authorization, partnerId, limit, start } = {},
   options
 ) {
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (partnerId == null) {
+    throw new Error(
+      'Missing required parameter : partnerId. Value : ' + partnerId
+    );
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+
   const method = 'get';
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = {
@@ -521,6 +586,35 @@ function putPartnerModuleParameters(
   { partnerId, partnerUserId, deviceId, moduleId, body, authorization } = {},
   options
 ) {
+  if (partnerId == null) {
+    throw new Error(
+      'Missing required parameter : partnerId. Value : ' + partnerId
+    );
+  }
+  if (partnerUserId == null) {
+    throw new Error(
+      'Missing required parameter : partnerUserId. Value : ' + partnerUserId
+    );
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (moduleId == null) {
+    throw new Error(
+      'Missing required parameter : moduleId. Value : ' + moduleId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'put';
   let urlParts = [
     'partners',
@@ -570,6 +664,15 @@ function putPartnerModuleParameters(
  * The HTTP response
  */
 function getUser({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId];
   let headers = {
@@ -611,6 +714,18 @@ function getUser({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function putUser({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId];
   let headers = {
@@ -650,6 +765,15 @@ function putUser({ userId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function getUserGuests({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'guests'];
   let headers = {
@@ -691,6 +815,18 @@ function getUserGuests({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function postUserGuest({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'guests'];
   let headers = {
@@ -734,6 +870,21 @@ function postUserGuest({ userId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function putUserGuest({ userId, guestId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (guestId == null) {
+    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = {
@@ -775,6 +926,18 @@ function putUserGuest({ userId, guestId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function deleteUserGuest({ userId, guestId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (guestId == null) {
+    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = {
@@ -814,6 +977,15 @@ function deleteUserGuest({ userId, guestId, authorization } = {}, options) {
  * The HTTP response
  */
 function getUserCollaborators({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'collaborators'];
   let headers = {
@@ -855,6 +1027,18 @@ function getUserCollaborators({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function postUserCollaborator({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'collaborators'];
   let headers = {
@@ -901,6 +1085,23 @@ function putUserCollaborator(
   { userId, collaboratorId, authorization, body } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (collaboratorId == null) {
+    throw new Error(
+      'Missing required parameter : collaboratorId. Value : ' + collaboratorId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = {
@@ -945,6 +1146,20 @@ function deleteUserCollaborator(
   { userId, collaboratorId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (collaboratorId == null) {
+    throw new Error(
+      'Missing required parameter : collaboratorId. Value : ' + collaboratorId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = {
@@ -991,6 +1206,15 @@ function getUserAggregations(
   { userId, compute, patched, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = {
@@ -1035,6 +1259,18 @@ function getUserAggregations(
  * The HTTP response
  */
 function postUserAggregation({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = {
@@ -1081,6 +1317,20 @@ function getUserAggregation(
   { userId, aggregationId, patched, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error(
+      'Missing required parameter : aggregationId. Value : ' + aggregationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = {
@@ -1129,6 +1379,23 @@ function putUserAggregation(
   { userId, aggregationId, authorization, body } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error(
+      'Missing required parameter : aggregationId. Value : ' + aggregationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = {
@@ -1173,6 +1440,20 @@ function deleteUserAggregation(
   { userId, aggregationId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregationId == null) {
+    throw new Error(
+      'Missing required parameter : aggregationId. Value : ' + aggregationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = {
@@ -1212,6 +1493,15 @@ function deleteUserAggregation(
  * The HTTP response
  */
 function getUserDeviceGroups({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'deviceGroups'];
   let headers = {
@@ -1253,6 +1543,18 @@ function getUserDeviceGroups({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function postUserDeviceGroup({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'deviceGroups'];
   let headers = {
@@ -1297,6 +1599,20 @@ function getUserDeviceGroup(
   { userId, deviceGroupId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error(
+      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
@@ -1343,6 +1659,23 @@ function putUserDeviceGroup(
   { userId, deviceGroupId, authorization, body } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error(
+      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
@@ -1387,6 +1720,20 @@ function deleteUserDeviceGroup(
   { userId, deviceGroupId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceGroupId == null) {
+    throw new Error(
+      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
@@ -1439,6 +1786,15 @@ function getUserDevices(
   { userId, date, measures, patched, limit, start, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices'];
   let headers = {
@@ -1486,6 +1842,18 @@ function getUserDevices(
  * The HTTP response
  */
 function postUserDevice({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'devices'];
   let headers = {
@@ -1530,6 +1898,20 @@ function getUserDevicePositions(
   { userId, deviceId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = {
@@ -1571,6 +1953,20 @@ function getUserDevicePositions(
  * The HTTP response
  */
 function getUserDevice({ userId, deviceId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = {
@@ -1617,6 +2013,23 @@ function putUserDevice(
   { userId, deviceId, authorization, body } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = {
@@ -1658,6 +2071,20 @@ function putUserDevice(
  * The HTTP response
  */
 function deleteUserDevice({ userId, deviceId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = {
@@ -1702,6 +2129,20 @@ function getUserDeviceModules(
   { userId, deviceId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = {
@@ -1750,6 +2191,28 @@ function putUserDeviceModule(
   { userId, deviceId, moduleId, body, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (moduleId == null) {
+    throw new Error(
+      'Missing required parameter : moduleId. Value : ' + moduleId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = {
@@ -1796,6 +2259,25 @@ function deleteUserDeviceModule(
   { userId, deviceId, moduleId, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (moduleId == null) {
+    throw new Error(
+      'Missing required parameter : moduleId. Value : ' + moduleId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = {
@@ -1844,6 +2326,28 @@ function putUserDeviceShares(
   { userId, deviceId, sharesType, authorization, body } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (sharesType == null) {
+    throw new Error(
+      'Missing required parameter : sharesType. Value : ' + sharesType
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId, 'shares', sharesType];
   let headers = {
@@ -1904,6 +2408,33 @@ function getUserDeviceStatistics(
   } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (startDate == null) {
+    throw new Error(
+      'Missing required parameter : startDate. Value : ' + startDate
+    );
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = {
@@ -1959,6 +2490,33 @@ function getUserDeviceRawData(
   { userId, deviceId, beforeDate, size, measures, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (beforeDate == null) {
+    throw new Error(
+      'Missing required parameter : beforeDate. Value : ' + beforeDate
+    );
+  }
+  if (size == null) {
+    throw new Error('Missing required parameter : size. Value : ' + size);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = {
@@ -2013,6 +2571,33 @@ function getUserDeviceHourlyData(
   { userId, deviceId, beforeDate, days, measures, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (beforeDate == null) {
+    throw new Error(
+      'Missing required parameter : beforeDate. Value : ' + beforeDate
+    );
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = {
@@ -2067,6 +2652,33 @@ function getUserDeviceDailyData(
   { userId, deviceId, beforeDate, days, measures, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (beforeDate == null) {
+    throw new Error(
+      'Missing required parameter : beforeDate. Value : ' + beforeDate
+    );
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = {
@@ -2131,6 +2743,33 @@ function getUserDeviceContinuousStatistics(
   } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (startDate == null) {
+    throw new Error(
+      'Missing required parameter : startDate. Value : ' + startDate
+    );
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+
   const method = 'get';
   let urlParts = [
     'users',
@@ -2190,6 +2829,28 @@ function getUserDeviceDegreeDays(
   { userId, deviceId, startDate, endDate, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (startDate == null) {
+    throw new Error(
+      'Missing required parameter : startDate. Value : ' + startDate
+    );
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'degreeDays'];
   let headers = {
@@ -2241,6 +2902,28 @@ function getUserDeviceSummary(
   { userId, deviceId, authorization, date, measures } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (date == null) {
+    throw new Error('Missing required parameter : date. Value : ' + date);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = {
@@ -2289,6 +2972,23 @@ function getUserDeviceForecasts(
   { userId, deviceId, date, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId
+    );
+  }
+  if (date == null) {
+    throw new Error('Missing required parameter : date. Value : ' + date);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = {
@@ -2339,6 +3039,25 @@ function getUserForecasts(
   { userId, latitude, longitude, date, authorization } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error(
+      'Missing required parameter : latitude. Value : ' + latitude
+    );
+  }
+  if (longitude == null) {
+    throw new Error(
+      'Missing required parameter : longitude. Value : ' + longitude
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'forecasts'];
   let headers = {
@@ -2403,6 +3122,38 @@ function getUserDailyData(
   } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error(
+      'Missing required parameter : latitude. Value : ' + latitude
+    );
+  }
+  if (longitude == null) {
+    throw new Error(
+      'Missing required parameter : longitude. Value : ' + longitude
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (beforeDate == null) {
+    throw new Error(
+      'Missing required parameter : beforeDate. Value : ' + beforeDate
+    );
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = {
@@ -2469,6 +3220,38 @@ function getUserHourlyData(
   } = {},
   options
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error(
+      'Missing required parameter : latitude. Value : ' + latitude
+    );
+  }
+  if (longitude == null) {
+    throw new Error(
+      'Missing required parameter : longitude. Value : ' + longitude
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (beforeDate == null) {
+    throw new Error(
+      'Missing required parameter : beforeDate. Value : ' + beforeDate
+    );
+  }
+  if (days == null) {
+    throw new Error('Missing required parameter : days. Value : ' + days);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = {
@@ -2514,6 +3297,15 @@ function getUserHourlyData(
  * The HTTP response
  */
 function getUserPreferences({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'preferences'];
   let headers = {
@@ -2555,6 +3347,18 @@ function getUserPreferences({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function putUserPreferences({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'preferences'];
   let headers = {
@@ -2597,6 +3401,17 @@ function getOrganisationOperations(
   { organisationId, authorization } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = {
@@ -2641,6 +3456,20 @@ function postOrganisationOperation(
   { organisationId, authorization, body } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = {
@@ -2685,6 +3514,22 @@ function getOrganisationOperation(
   { organisationId, operationId, authorization } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = {
@@ -2731,6 +3576,25 @@ function putOrganisationOperation(
   { organisationId, operationId, authorization, body } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = {
@@ -2775,6 +3639,22 @@ function deleteOrganisationOperation(
   { organisationId, operationId, authorization } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = {
@@ -2814,6 +3694,15 @@ function deleteOrganisationOperation(
  * The HTTP response
  */
 function getUserAlerts({ userId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'get';
   let urlParts = ['users', userId, 'alerts'];
   let headers = {
@@ -2855,6 +3744,18 @@ function getUserAlerts({ userId, authorization } = {}, options) {
  * The HTTP response
  */
 function postUserAlert({ userId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['users', userId, 'alerts'];
   let headers = {
@@ -2898,6 +3799,21 @@ function postUserAlert({ userId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function putUserAlert({ userId, alertId, authorization, body } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (alertId == null) {
+    throw new Error('Missing required parameter : alertId. Value : ' + alertId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'put';
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = {
@@ -2939,6 +3855,18 @@ function putUserAlert({ userId, alertId, authorization, body } = {}, options) {
  * The HTTP response
  */
 function deleteUserAlert({ userId, alertId, authorization } = {}, options) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (alertId == null) {
+    throw new Error('Missing required parameter : alertId. Value : ' + alertId);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'delete';
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = {
@@ -2976,6 +3904,10 @@ function deleteUserAlert({ userId, alertId, authorization } = {}, options) {
  * The HTTP response
  */
 function postOrganisation({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
   const method = 'post';
   let urlParts = ['organisations'];
   let headers = {};
@@ -3018,6 +3950,20 @@ function putOrganisation(
   { organisationId, body, authorization } = {},
   options
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
   const method = 'put';
   let urlParts = ['organisations', organisationId];
   let headers = {
