@@ -12,7 +12,7 @@ var questions = [
     type: 'input',
     name: 'url',
     message: "What's the api doc endpoint?",
-    default: 'http://localhost:1337/master/openAPI',
+    default: 'https://api.sencrop.com/master/openAPI',
   },
   {
     type: 'input',
