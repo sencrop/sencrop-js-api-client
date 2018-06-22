@@ -390,12 +390,12 @@ function postVerify() {
  * Request a user token
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {undefined} parameters.authorization
- * Basic auth with API Client id and API Client Secret,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {object} parameters.body
- * Request a user token
+ * Request a user token,
+ * @param {string} parameters.authorization
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -403,9 +403,9 @@ function postVerify() {
  */
 function postPartnerTokenRequest() {
   var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      authorization = _ref6.authorization,
       partnerId = _ref6.partnerId,
-      body = _ref6.body;
+      body = _ref6.body,
+      authorization = _ref6.authorization;
 
   var options = arguments[1];
 
@@ -445,12 +445,12 @@ function postPartnerTokenRequest() {
  * Create a user token
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {undefined} parameters.authorization
- * Basic auth with API Client id and API Client Secret,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {object} parameters.body
- * Create a user token
+ * Create a user token,
+ * @param {string} parameters.authorization
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -458,9 +458,9 @@ function postPartnerTokenRequest() {
  */
 function postPartnerToken() {
   var _ref7 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      authorization = _ref7.authorization,
       partnerId = _ref7.partnerId,
-      body = _ref7.body;
+      body = _ref7.body,
+      authorization = _ref7.authorization;
 
   var options = arguments[1];
 
@@ -500,14 +500,16 @@ function postPartnerToken() {
  * Retrieves the devices a partner has access to.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {number} parameters.limit
  * The number of items to retrieve,
  * @param {number} parameters.start
- * The index in results
+ * The index in results,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -515,10 +517,11 @@ function postPartnerToken() {
  */
 function getPartnerDevices() {
   var _ref8 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      authorization = _ref8.authorization,
       partnerId = _ref8.partnerId,
       limit = _ref8.limit,
-      start = _ref8.start;
+      start = _ref8.start,
+      authorization = _ref8.authorization,
+      accessToken = _ref8.accessToken;
 
   var options = arguments[1];
 
@@ -542,7 +545,8 @@ function getPartnerDevices() {
   };
   var qs = cleanQuery({
     limit: limit,
-    start: start
+    start: start,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -575,7 +579,9 @@ function getPartnerDevices() {
  * @param {object} parameters.body
  * The module parameters,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -588,7 +594,8 @@ function putPartnerModuleParameters() {
       deviceId = _ref9.deviceId,
       moduleId = _ref9.moduleId,
       body = _ref9.body,
-      authorization = _ref9.authorization;
+      authorization = _ref9.authorization,
+      accessToken = _ref9.accessToken;
 
   var options = arguments[1];
 
@@ -616,7 +623,9 @@ function putPartnerModuleParameters() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -640,7 +649,9 @@ function putPartnerModuleParameters() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -649,7 +660,8 @@ function putPartnerModuleParameters() {
 function getUser() {
   var _ref10 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref10.userId,
-      authorization = _ref10.authorization;
+      authorization = _ref10.authorization,
+      accessToken = _ref10.accessToken;
 
   var options = arguments[1];
 
@@ -665,7 +677,9 @@ function getUser() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -688,10 +702,12 @@ function getUser() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The new user,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The new user
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -700,8 +716,9 @@ function getUser() {
 function putUser() {
   var _ref11 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref11.userId,
+      body = _ref11.body,
       authorization = _ref11.authorization,
-      body = _ref11.body;
+      accessToken = _ref11.accessToken;
 
   var options = arguments[1];
 
@@ -720,7 +737,9 @@ function putUser() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -744,7 +763,9 @@ function putUser() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -753,7 +774,8 @@ function putUser() {
 function getUserGuests() {
   var _ref12 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref12.userId,
-      authorization = _ref12.authorization;
+      authorization = _ref12.authorization,
+      accessToken = _ref12.accessToken;
 
   var options = arguments[1];
 
@@ -769,7 +791,9 @@ function getUserGuests() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -792,10 +816,12 @@ function getUserGuests() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's guest,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's guest
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -804,8 +830,9 @@ function getUserGuests() {
 function postUserGuest() {
   var _ref13 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref13.userId,
+      body = _ref13.body,
       authorization = _ref13.authorization,
-      body = _ref13.body;
+      accessToken = _ref13.accessToken;
 
   var options = arguments[1];
 
@@ -824,7 +851,9 @@ function postUserGuest() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -847,12 +876,14 @@ function postUserGuest() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.guestId
+ * @param {number} parameters.guestId
  * The guest id,
+ * @param {object} parameters.body
+ * The user's guest,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's guest
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -862,8 +893,9 @@ function putUserGuest() {
   var _ref14 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref14.userId,
       guestId = _ref14.guestId,
+      body = _ref14.body,
       authorization = _ref14.authorization,
-      body = _ref14.body;
+      accessToken = _ref14.accessToken;
 
   var options = arguments[1];
 
@@ -885,7 +917,9 @@ function putUserGuest() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -911,7 +945,9 @@ function putUserGuest() {
  * @param {number} parameters.guestId
  * The guest id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -921,7 +957,8 @@ function deleteUserGuest() {
   var _ref15 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref15.userId,
       guestId = _ref15.guestId,
-      authorization = _ref15.authorization;
+      authorization = _ref15.authorization,
+      accessToken = _ref15.accessToken;
 
   var options = arguments[1];
 
@@ -940,7 +977,9 @@ function deleteUserGuest() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -964,7 +1003,9 @@ function deleteUserGuest() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -973,7 +1014,8 @@ function deleteUserGuest() {
 function getUserCollaborators() {
   var _ref16 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref16.userId,
-      authorization = _ref16.authorization;
+      authorization = _ref16.authorization,
+      accessToken = _ref16.accessToken;
 
   var options = arguments[1];
 
@@ -989,7 +1031,9 @@ function getUserCollaborators() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1012,10 +1056,12 @@ function getUserCollaborators() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's collaborator,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's collaborator
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1024,8 +1070,9 @@ function getUserCollaborators() {
 function postUserCollaborator() {
   var _ref17 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref17.userId,
+      body = _ref17.body,
       authorization = _ref17.authorization,
-      body = _ref17.body;
+      accessToken = _ref17.accessToken;
 
   var options = arguments[1];
 
@@ -1044,7 +1091,9 @@ function postUserCollaborator() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1069,10 +1118,12 @@ function postUserCollaborator() {
  * The user id,
  * @param {string} parameters.collaboratorId
  * The collaborator id,
+ * @param {object} parameters.body
+ * The user's collaborator,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's collaborator
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1082,8 +1133,9 @@ function putUserCollaborator() {
   var _ref18 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref18.userId,
       collaboratorId = _ref18.collaboratorId,
+      body = _ref18.body,
       authorization = _ref18.authorization,
-      body = _ref18.body;
+      accessToken = _ref18.accessToken;
 
   var options = arguments[1];
 
@@ -1105,7 +1157,9 @@ function putUserCollaborator() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1131,7 +1185,9 @@ function putUserCollaborator() {
  * @param {number} parameters.collaboratorId
  * The collaborator id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1141,7 +1197,8 @@ function deleteUserCollaborator() {
   var _ref19 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref19.userId,
       collaboratorId = _ref19.collaboratorId,
-      authorization = _ref19.authorization;
+      authorization = _ref19.authorization,
+      accessToken = _ref19.accessToken;
 
   var options = arguments[1];
 
@@ -1160,7 +1217,9 @@ function deleteUserCollaborator() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1188,7 +1247,9 @@ function deleteUserCollaborator() {
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1199,7 +1260,8 @@ function getUserAggregations() {
       userId = _ref20.userId,
       compute = _ref20.compute,
       patched = _ref20.patched,
-      authorization = _ref20.authorization;
+      authorization = _ref20.authorization,
+      accessToken = _ref20.accessToken;
 
   var options = arguments[1];
 
@@ -1217,7 +1279,8 @@ function getUserAggregations() {
   };
   var qs = cleanQuery({
     compute: compute,
-    patched: patched
+    patched: patched,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -1241,10 +1304,12 @@ function getUserAggregations() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's aggregation,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's aggregation
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1253,8 +1318,9 @@ function getUserAggregations() {
 function postUserAggregation() {
   var _ref21 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref21.userId,
+      body = _ref21.body,
       authorization = _ref21.authorization,
-      body = _ref21.body;
+      accessToken = _ref21.accessToken;
 
   var options = arguments[1];
 
@@ -1273,7 +1339,9 @@ function postUserAggregation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1296,12 +1364,14 @@ function postUserAggregation() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.aggregationId
+ * @param {number} parameters.aggregationId
  * The aggregation id,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1312,7 +1382,8 @@ function getUserAggregation() {
       userId = _ref22.userId,
       aggregationId = _ref22.aggregationId,
       patched = _ref22.patched,
-      authorization = _ref22.authorization;
+      authorization = _ref22.authorization,
+      accessToken = _ref22.accessToken;
 
   var options = arguments[1];
 
@@ -1332,7 +1403,8 @@ function getUserAggregation() {
     Authorization: authorization
   };
   var qs = cleanQuery({
-    patched: patched
+    patched: patched,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -1356,12 +1428,14 @@ function getUserAggregation() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.aggregationId
+ * @param {number} parameters.aggregationId
  * The aggregation id,
+ * @param {object} parameters.body
+ * The user's aggregation,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's aggregation
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1371,8 +1445,9 @@ function putUserAggregation() {
   var _ref23 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref23.userId,
       aggregationId = _ref23.aggregationId,
+      body = _ref23.body,
       authorization = _ref23.authorization,
-      body = _ref23.body;
+      accessToken = _ref23.accessToken;
 
   var options = arguments[1];
 
@@ -1394,7 +1469,9 @@ function putUserAggregation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1420,7 +1497,9 @@ function putUserAggregation() {
  * @param {number} parameters.aggregationId
  * The aggregation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1430,7 +1509,8 @@ function deleteUserAggregation() {
   var _ref24 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref24.userId,
       aggregationId = _ref24.aggregationId,
-      authorization = _ref24.authorization;
+      authorization = _ref24.authorization,
+      accessToken = _ref24.accessToken;
 
   var options = arguments[1];
 
@@ -1449,7 +1529,9 @@ function deleteUserAggregation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1473,7 +1555,9 @@ function deleteUserAggregation() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1482,7 +1566,8 @@ function deleteUserAggregation() {
 function getUserDeviceGroups() {
   var _ref25 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref25.userId,
-      authorization = _ref25.authorization;
+      authorization = _ref25.authorization,
+      accessToken = _ref25.accessToken;
 
   var options = arguments[1];
 
@@ -1498,7 +1583,9 @@ function getUserDeviceGroups() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1521,10 +1608,12 @@ function getUserDeviceGroups() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's device group,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's device group
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1533,8 +1622,9 @@ function getUserDeviceGroups() {
 function postUserDeviceGroup() {
   var _ref26 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref26.userId,
+      body = _ref26.body,
       authorization = _ref26.authorization,
-      body = _ref26.body;
+      accessToken = _ref26.accessToken;
 
   var options = arguments[1];
 
@@ -1553,7 +1643,9 @@ function postUserDeviceGroup() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1579,7 +1671,9 @@ function postUserDeviceGroup() {
  * @param {number} parameters.deviceGroupId
  * The device group id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1589,7 +1683,8 @@ function getUserDeviceGroup() {
   var _ref27 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref27.userId,
       deviceGroupId = _ref27.deviceGroupId,
-      authorization = _ref27.authorization;
+      authorization = _ref27.authorization,
+      accessToken = _ref27.accessToken;
 
   var options = arguments[1];
 
@@ -1608,7 +1703,9 @@ function getUserDeviceGroup() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1633,10 +1730,12 @@ function getUserDeviceGroup() {
  * The user id,
  * @param {string} parameters.deviceGroupId
  * The deviceGroup id,
+ * @param {object} parameters.body
+ * The user's device group,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's device group
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1646,8 +1745,9 @@ function putUserDeviceGroup() {
   var _ref28 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref28.userId,
       deviceGroupId = _ref28.deviceGroupId,
+      body = _ref28.body,
       authorization = _ref28.authorization,
-      body = _ref28.body;
+      accessToken = _ref28.accessToken;
 
   var options = arguments[1];
 
@@ -1669,7 +1769,9 @@ function putUserDeviceGroup() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1695,7 +1797,9 @@ function putUserDeviceGroup() {
  * @param {number} parameters.deviceGroupId
  * The device group id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1705,7 +1809,8 @@ function deleteUserDeviceGroup() {
   var _ref29 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref29.userId,
       deviceGroupId = _ref29.deviceGroupId,
-      authorization = _ref29.authorization;
+      authorization = _ref29.authorization,
+      accessToken = _ref29.accessToken;
 
   var options = arguments[1];
 
@@ -1724,7 +1829,9 @@ function deleteUserDeviceGroup() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1758,7 +1865,9 @@ function deleteUserDeviceGroup() {
  * @param {number} [parameters.start]
  * The index in results,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1772,7 +1881,8 @@ function getUserDevices() {
       patched = _ref30.patched,
       limit = _ref30.limit,
       start = _ref30.start,
-      authorization = _ref30.authorization;
+      authorization = _ref30.authorization,
+      accessToken = _ref30.accessToken;
 
   var options = arguments[1];
 
@@ -1793,7 +1903,8 @@ function getUserDevices() {
     measures: measures,
     patched: patched,
     limit: limit,
-    start: start
+    start: start,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -1817,10 +1928,12 @@ function getUserDevices() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user device activation couple,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user device activation couple
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1829,8 +1942,9 @@ function getUserDevices() {
 function postUserDevice() {
   var _ref31 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref31.userId,
+      body = _ref31.body,
       authorization = _ref31.authorization,
-      body = _ref31.body;
+      accessToken = _ref31.accessToken;
 
   var options = arguments[1];
 
@@ -1849,7 +1963,9 @@ function postUserDevice() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -1875,7 +1991,9 @@ function postUserDevice() {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1885,7 +2003,8 @@ function getUserDevicePositions() {
   var _ref32 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref32.userId,
       deviceId = _ref32.deviceId,
-      authorization = _ref32.authorization;
+      authorization = _ref32.authorization,
+      accessToken = _ref32.accessToken;
 
   var options = arguments[1];
 
@@ -1904,7 +2023,9 @@ function getUserDevicePositions() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1930,7 +2051,9 @@ function getUserDevicePositions() {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1940,7 +2063,8 @@ function getUserDevice() {
   var _ref33 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref33.userId,
       deviceId = _ref33.deviceId,
-      authorization = _ref33.authorization;
+      authorization = _ref33.authorization,
+      accessToken = _ref33.accessToken;
 
   var options = arguments[1];
 
@@ -1959,7 +2083,9 @@ function getUserDevice() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -1984,10 +2110,12 @@ function getUserDevice() {
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
+ * @param {object} parameters.body
+ * The user device,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user device
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -1997,8 +2125,9 @@ function putUserDevice() {
   var _ref34 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref34.userId,
       deviceId = _ref34.deviceId,
+      body = _ref34.body,
       authorization = _ref34.authorization,
-      body = _ref34.body;
+      accessToken = _ref34.accessToken;
 
   var options = arguments[1];
 
@@ -2020,7 +2149,9 @@ function putUserDevice() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -2046,7 +2177,9 @@ function putUserDevice() {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2056,7 +2189,8 @@ function deleteUserDevice() {
   var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref35.userId,
       deviceId = _ref35.deviceId,
-      authorization = _ref35.authorization;
+      authorization = _ref35.authorization,
+      accessToken = _ref35.accessToken;
 
   var options = arguments[1];
 
@@ -2075,7 +2209,9 @@ function deleteUserDevice() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -2101,7 +2237,9 @@ function deleteUserDevice() {
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2111,7 +2249,8 @@ function getUserDeviceModules() {
   var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref36.userId,
       deviceId = _ref36.deviceId,
-      authorization = _ref36.authorization;
+      authorization = _ref36.authorization,
+      accessToken = _ref36.accessToken;
 
   var options = arguments[1];
 
@@ -2130,7 +2269,9 @@ function getUserDeviceModules() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -2160,7 +2301,9 @@ function getUserDeviceModules() {
  * @param {object} parameters.body
  * The module settings,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2172,7 +2315,8 @@ function putUserDeviceModule() {
       deviceId = _ref37.deviceId,
       moduleId = _ref37.moduleId,
       body = _ref37.body,
-      authorization = _ref37.authorization;
+      authorization = _ref37.authorization,
+      accessToken = _ref37.accessToken;
 
   var options = arguments[1];
 
@@ -2197,7 +2341,9 @@ function putUserDeviceModule() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -2225,7 +2371,9 @@ function putUserDeviceModule() {
  * @param {number} parameters.moduleId
  * The module id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2236,7 +2384,8 @@ function deleteUserDeviceModule() {
       userId = _ref38.userId,
       deviceId = _ref38.deviceId,
       moduleId = _ref38.moduleId,
-      authorization = _ref38.authorization;
+      authorization = _ref38.authorization,
+      accessToken = _ref38.accessToken;
 
   var options = arguments[1];
 
@@ -2258,7 +2407,9 @@ function deleteUserDeviceModule() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -2285,10 +2436,12 @@ function deleteUserDeviceModule() {
  * The device id,
  * @param {string} parameters.sharesType
  * The shares type,
+ * @param {array} parameters.body
+ * The users concerned by the user's device share,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {array} parameters.body
- * The users concerned by the user's device share
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2299,8 +2452,9 @@ function putUserDeviceShares() {
       userId = _ref39.userId,
       deviceId = _ref39.deviceId,
       sharesType = _ref39.sharesType,
+      body = _ref39.body,
       authorization = _ref39.authorization,
-      body = _ref39.body;
+      accessToken = _ref39.accessToken;
 
   var options = arguments[1];
 
@@ -2325,7 +2479,9 @@ function putUserDeviceShares() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -2350,8 +2506,6 @@ function putUserDeviceShares() {
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.startDate
  * The statistics start date,
  * @param {string} parameters.endDate
@@ -2359,7 +2513,11 @@ function putUserDeviceShares() {
  * @param {array} parameters.measures
  * The measures to read,
  * @param {boolean} [parameters.patched]
- * Wether you want to get only original data or eventually patched ones to avoid holes.
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2369,11 +2527,12 @@ function getUserDeviceStatistics() {
   var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref40.userId,
       deviceId = _ref40.deviceId,
-      authorization = _ref40.authorization,
       startDate = _ref40.startDate,
       endDate = _ref40.endDate,
       measures = _ref40.measures,
-      patched = _ref40.patched;
+      patched = _ref40.patched,
+      authorization = _ref40.authorization,
+      accessToken = _ref40.accessToken;
 
   var options = arguments[1];
 
@@ -2405,7 +2564,8 @@ function getUserDeviceStatistics() {
     startDate: startDate,
     endDate: endDate,
     measures: measures,
-    patched: patched
+    patched: patched,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2438,7 +2598,9 @@ function getUserDeviceStatistics() {
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2451,7 +2613,8 @@ function getUserDeviceRawData() {
       beforeDate = _ref41.beforeDate,
       size = _ref41.size,
       measures = _ref41.measures,
-      authorization = _ref41.authorization;
+      authorization = _ref41.authorization,
+      accessToken = _ref41.accessToken;
 
   var options = arguments[1];
 
@@ -2482,7 +2645,8 @@ function getUserDeviceRawData() {
   var qs = cleanQuery({
     beforeDate: beforeDate,
     size: size,
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2515,7 +2679,9 @@ function getUserDeviceRawData() {
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2528,7 +2694,8 @@ function getUserDeviceHourlyData() {
       beforeDate = _ref42.beforeDate,
       days = _ref42.days,
       measures = _ref42.measures,
-      authorization = _ref42.authorization;
+      authorization = _ref42.authorization,
+      accessToken = _ref42.accessToken;
 
   var options = arguments[1];
 
@@ -2559,7 +2726,8 @@ function getUserDeviceHourlyData() {
   var qs = cleanQuery({
     beforeDate: beforeDate,
     days: days,
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2592,7 +2760,9 @@ function getUserDeviceHourlyData() {
  * @param {array} parameters.measures
  * The measures to read,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2605,7 +2775,8 @@ function getUserDeviceDailyData() {
       beforeDate = _ref43.beforeDate,
       days = _ref43.days,
       measures = _ref43.measures,
-      authorization = _ref43.authorization;
+      authorization = _ref43.authorization,
+      accessToken = _ref43.accessToken;
 
   var options = arguments[1];
 
@@ -2636,7 +2807,8 @@ function getUserDeviceDailyData() {
   var qs = cleanQuery({
     beforeDate: beforeDate,
     days: days,
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2662,8 +2834,6 @@ function getUserDeviceDailyData() {
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.startDate
  * The statistics start date,
  * @param {string} parameters.endDate
@@ -2671,7 +2841,11 @@ function getUserDeviceDailyData() {
  * @param {array} parameters.measures
  * The measures to read,
  * @param {boolean} [parameters.patched]
- * Wether you want to get only original data or eventually patched ones to avoid holes.
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2681,11 +2855,12 @@ function getUserDeviceContinuousStatistics() {
   var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref44.userId,
       deviceId = _ref44.deviceId,
-      authorization = _ref44.authorization,
       startDate = _ref44.startDate,
       endDate = _ref44.endDate,
       measures = _ref44.measures,
-      patched = _ref44.patched;
+      patched = _ref44.patched,
+      authorization = _ref44.authorization,
+      accessToken = _ref44.accessToken;
 
   var options = arguments[1];
 
@@ -2717,7 +2892,8 @@ function getUserDeviceContinuousStatistics() {
     startDate: startDate,
     endDate: endDate,
     measures: measures,
-    patched: patched
+    patched: patched,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2748,7 +2924,9 @@ function getUserDeviceContinuousStatistics() {
  * @param {string} parameters.endDate
  * The statistics end date,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2760,7 +2938,8 @@ function getUserDeviceDegreeDays() {
       deviceId = _ref45.deviceId,
       startDate = _ref45.startDate,
       endDate = _ref45.endDate,
-      authorization = _ref45.authorization;
+      authorization = _ref45.authorization,
+      accessToken = _ref45.accessToken;
 
   var options = arguments[1];
 
@@ -2787,7 +2966,8 @@ function getUserDeviceDegreeDays() {
   };
   var qs = cleanQuery({
     startDate: startDate,
-    endDate: endDate
+    endDate: endDate,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2813,12 +2993,14 @@ function getUserDeviceDegreeDays() {
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.date
  * The summary date,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2828,9 +3010,10 @@ function getUserDeviceSummary() {
   var _ref46 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref46.userId,
       deviceId = _ref46.deviceId,
-      authorization = _ref46.authorization,
       date = _ref46.date,
-      measures = _ref46.measures;
+      measures = _ref46.measures,
+      authorization = _ref46.authorization,
+      accessToken = _ref46.accessToken;
 
   var options = arguments[1];
 
@@ -2856,7 +3039,8 @@ function getUserDeviceSummary() {
     Authorization: authorization
   };
   var qs = cleanQuery({
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2885,7 +3069,9 @@ function getUserDeviceSummary() {
  * @param {string} parameters.date
  * Date of the forecasts,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2896,7 +3082,8 @@ function getUserDeviceForecasts() {
       userId = _ref47.userId,
       deviceId = _ref47.deviceId,
       date = _ref47.date,
-      authorization = _ref47.authorization;
+      authorization = _ref47.authorization,
+      accessToken = _ref47.accessToken;
 
   var options = arguments[1];
 
@@ -2919,7 +3106,8 @@ function getUserDeviceForecasts() {
     Authorization: authorization
   };
   var qs = cleanQuery({
-    date: date
+    date: date,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -2944,13 +3132,15 @@ function getUserDeviceForecasts() {
  * @param {number} parameters.userId
  * The user id,
  * @param {number} parameters.latitude
- * The latitude of the forecasts,
+ * The latitude of the data,
  * @param {number} parameters.longitude
- * The longitude of the forecasts,
+ * The longitude of the data,
  * @param {string} [parameters.date]
  * Date of the forecasts,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -2962,7 +3152,8 @@ function getUserForecasts() {
       latitude = _ref48.latitude,
       longitude = _ref48.longitude,
       date = _ref48.date,
-      authorization = _ref48.authorization;
+      authorization = _ref48.authorization,
+      accessToken = _ref48.accessToken;
 
   var options = arguments[1];
 
@@ -2987,7 +3178,8 @@ function getUserForecasts() {
   var qs = cleanQuery({
     latitude: latitude,
     longitude: longitude,
-    date: date
+    date: date,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -3015,14 +3207,16 @@ function getUserForecasts() {
  * The latitude of the data,
  * @param {number} parameters.longitude
  * The longitude of the data,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3033,10 +3227,11 @@ function getUserDailyData() {
       userId = _ref49.userId,
       latitude = _ref49.latitude,
       longitude = _ref49.longitude,
-      authorization = _ref49.authorization,
       beforeDate = _ref49.beforeDate,
       days = _ref49.days,
-      measures = _ref49.measures;
+      measures = _ref49.measures,
+      authorization = _ref49.authorization,
+      accessToken = _ref49.accessToken;
 
   var options = arguments[1];
 
@@ -3072,7 +3267,8 @@ function getUserDailyData() {
     longitude: longitude,
     beforeDate: beforeDate,
     days: days,
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -3100,14 +3296,16 @@ function getUserDailyData() {
  * The latitude of the data,
  * @param {number} parameters.longitude
  * The longitude of the data,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
- * The measures to read
+ * The measures to read,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3118,10 +3316,11 @@ function getUserHourlyData() {
       userId = _ref50.userId,
       latitude = _ref50.latitude,
       longitude = _ref50.longitude,
-      authorization = _ref50.authorization,
       beforeDate = _ref50.beforeDate,
       days = _ref50.days,
-      measures = _ref50.measures;
+      measures = _ref50.measures,
+      authorization = _ref50.authorization,
+      accessToken = _ref50.accessToken;
 
   var options = arguments[1];
 
@@ -3157,7 +3356,8 @@ function getUserHourlyData() {
     longitude: longitude,
     beforeDate: beforeDate,
     days: days,
-    measures: measures
+    measures: measures,
+    access_token: accessToken
   });
   var data = {}.undef;
 
@@ -3182,7 +3382,9 @@ function getUserHourlyData() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3191,7 +3393,8 @@ function getUserHourlyData() {
 function getUserPreferences() {
   var _ref51 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref51.userId,
-      authorization = _ref51.authorization;
+      authorization = _ref51.authorization,
+      accessToken = _ref51.accessToken;
 
   var options = arguments[1];
 
@@ -3207,7 +3410,9 @@ function getUserPreferences() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3230,10 +3435,12 @@ function getUserPreferences() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The new user preferences,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The new user preferences
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3242,8 +3449,9 @@ function getUserPreferences() {
 function putUserPreferences() {
   var _ref52 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref52.userId,
+      body = _ref52.body,
       authorization = _ref52.authorization,
-      body = _ref52.body;
+      accessToken = _ref52.accessToken;
 
   var options = arguments[1];
 
@@ -3262,7 +3470,9 @@ function putUserPreferences() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -3286,7 +3496,9 @@ function putUserPreferences() {
  * @param {number} parameters.organisationId
  * The organisation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3295,7 +3507,8 @@ function putUserPreferences() {
 function getOrganisationOperations() {
   var _ref53 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref53.organisationId,
-      authorization = _ref53.authorization;
+      authorization = _ref53.authorization,
+      accessToken = _ref53.accessToken;
 
   var options = arguments[1];
 
@@ -3311,7 +3524,9 @@ function getOrganisationOperations() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3334,10 +3549,12 @@ function getOrganisationOperations() {
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
+ * @param {object} parameters.body
+ * The operation to add,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The operation to add
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3346,8 +3563,9 @@ function getOrganisationOperations() {
 function postOrganisationOperation() {
   var _ref54 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref54.organisationId,
+      body = _ref54.body,
       authorization = _ref54.authorization,
-      body = _ref54.body;
+      accessToken = _ref54.accessToken;
 
   var options = arguments[1];
 
@@ -3366,7 +3584,9 @@ function postOrganisationOperation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -3392,7 +3612,9 @@ function postOrganisationOperation() {
  * @param {number} parameters.operationId
  * The operation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3402,7 +3624,8 @@ function getOrganisationOperation() {
   var _ref55 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref55.organisationId,
       operationId = _ref55.operationId,
-      authorization = _ref55.authorization;
+      authorization = _ref55.authorization,
+      accessToken = _ref55.accessToken;
 
   var options = arguments[1];
 
@@ -3421,7 +3644,9 @@ function getOrganisationOperation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3446,10 +3671,12 @@ function getOrganisationOperation() {
  * The organisation id,
  * @param {number} parameters.operationId
  * The operation id,
+ * @param {object} parameters.body
+ * The operation to update,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The operation to update
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3459,8 +3686,9 @@ function putOrganisationOperation() {
   var _ref56 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref56.organisationId,
       operationId = _ref56.operationId,
+      body = _ref56.body,
       authorization = _ref56.authorization,
-      body = _ref56.body;
+      accessToken = _ref56.accessToken;
 
   var options = arguments[1];
 
@@ -3482,7 +3710,9 @@ function putOrganisationOperation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -3508,7 +3738,9 @@ function putOrganisationOperation() {
  * @param {number} parameters.operationId
  * The operation id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3518,7 +3750,8 @@ function deleteOrganisationOperation() {
   var _ref57 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref57.organisationId,
       operationId = _ref57.operationId,
-      authorization = _ref57.authorization;
+      authorization = _ref57.authorization,
+      accessToken = _ref57.accessToken;
 
   var options = arguments[1];
 
@@ -3537,7 +3770,9 @@ function deleteOrganisationOperation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3561,7 +3796,9 @@ function deleteOrganisationOperation() {
  * @param {number} parameters.userId
  * The user id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3570,7 +3807,8 @@ function deleteOrganisationOperation() {
 function getUserAlerts() {
   var _ref58 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref58.userId,
-      authorization = _ref58.authorization;
+      authorization = _ref58.authorization,
+      accessToken = _ref58.accessToken;
 
   var options = arguments[1];
 
@@ -3586,7 +3824,9 @@ function getUserAlerts() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3609,10 +3849,12 @@ function getUserAlerts() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {object} parameters.body
+ * The user's alert,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's alert
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3621,8 +3863,9 @@ function getUserAlerts() {
 function postUserAlert() {
   var _ref59 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref59.userId,
+      body = _ref59.body,
       authorization = _ref59.authorization,
-      body = _ref59.body;
+      accessToken = _ref59.accessToken;
 
   var options = arguments[1];
 
@@ -3641,7 +3884,9 @@ function postUserAlert() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -3664,12 +3909,14 @@ function postUserAlert() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.alertId
+ * @param {number} parameters.alertId
  * The alert id,
+ * @param {object} parameters.body
+ * The user's alert,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
- * @param {object} parameters.body
- * The user's alert
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3679,8 +3926,9 @@ function putUserAlert() {
   var _ref60 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref60.userId,
       alertId = _ref60.alertId,
+      body = _ref60.body,
       authorization = _ref60.authorization,
-      body = _ref60.body;
+      accessToken = _ref60.accessToken;
 
   var options = arguments[1];
 
@@ -3702,7 +3950,9 @@ function putUserAlert() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
@@ -3728,7 +3978,9 @@ function putUserAlert() {
  * @param {number} parameters.alertId
  * The alert id,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3738,7 +3990,8 @@ function deleteUserAlert() {
   var _ref61 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref61.userId,
       alertId = _ref61.alertId,
-      authorization = _ref61.authorization;
+      authorization = _ref61.authorization,
+      accessToken = _ref61.accessToken;
 
   var options = arguments[1];
 
@@ -3757,7 +4010,9 @@ function deleteUserAlert() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = {}.undef;
 
   return axios(Object.assign({
@@ -3824,7 +4079,9 @@ function postOrganisation() {
  * @param {object} parameters.body
  * The modified organisation,
  * @param {string} parameters.authorization
- * Authorization with Bearer mecanism
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -3834,7 +4091,8 @@ function putOrganisation() {
   var _ref63 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       organisationId = _ref63.organisationId,
       body = _ref63.body,
-      authorization = _ref63.authorization;
+      authorization = _ref63.authorization,
+      accessToken = _ref63.accessToken;
 
   var options = arguments[1];
 
@@ -3853,7 +4111,9 @@ function putOrganisation() {
   var headers = {
     Authorization: authorization
   };
-  var qs = cleanQuery({});
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
   var data = body;
 
   return axios(Object.assign({
