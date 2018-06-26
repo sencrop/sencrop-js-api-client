@@ -4640,6 +4640,120 @@
         ]
       }
     },
+    "/organisations": {
+      "post": {
+        "operationId": "postOrganisationDeprecated",
+        "summary": "Creates a new organisation. Highly Deprecated, will be moved soon.",
+        "tags": [
+          "deprecated"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The necessary contents to create a new organisation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "firstname",
+                "lastname",
+                "password",
+                "email",
+                "phone",
+                "address",
+                "zipcode",
+                "city",
+                "country",
+                "company",
+                "locale"
+              ],
+              "properties": {
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "locale": {
+                  "type": "string",
+                  "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
+                  "maxLength": 5
+                },
+                "timeZone": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+                  "maxLength": 50
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "zipcode": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "company": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "area": {
+                      "type": "number"
+                    },
+                    "crops": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "irrigation": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "callbackPath": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The organisation were created",
+            "schema": {
+              "$ref": "#/definitions/Organisation"
+            }
+          }
+        }
+      }
+    },
     "/users/{userId}/organisations": {
       "post": {
         "operationId": "postOrganisation",
@@ -4703,10 +4817,10 @@
         ]
       }
     },
-    "/users/{userId}/organisations/{organisationId}": {
+    "/organisations/{organisationId}": {
       "get": {
         "operationId": "getOrganisation",
-        "summary": "Get the user's organisation.",
+        "summary": "Get the organisation.",
         "tags": [
           "organisations"
         ],
@@ -4715,15 +4829,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
           {
             "in": "path",
             "description": "The organisation id",
@@ -4749,13 +4854,13 @@
         ],
         "responses": {
           "201": {
-            "description": "The user's organisation",
+            "description": "The organisation",
             "schema": {
               "$ref": "#/definitions/OrganisationItem"
             }
           },
           "404": {
-            "description": "User or organisation does not exists",
+            "description": "Organisation does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -4782,15 +4887,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
           {
             "in": "path",
             "description": "The organisation id",
@@ -4831,7 +4927,7 @@
             }
           },
           "404": {
-            "description": "User or organisation does not exists",
+            "description": "Organisation does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -5240,34 +5336,24 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "type",
         "contents"
       ],
       "properties": {
         "id": {
           "type": "number"
         },
-        "types": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "customer",
-              "partner",
-              "admin"
-            ]
-          }
-        },
-        "area": {
-          "type": "number"
-        },
-        "crops": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "irrigation": {
-          "type": "boolean"
+        "type": {
+          "type": "string",
+          "enum": [
+            "farm",
+            "cooperative",
+            "interest_group",
+            "chamber_of_agriculture",
+            "company",
+            "personal",
+            "public_agency"
+          ]
         },
         "ownersIds": {
           "type": "array",
@@ -5325,6 +5411,19 @@
         },
         "identification": {
           "type": "string"
+        },
+        "typeFarm": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "agricultural",
+              "wine",
+              "arboreal",
+              "vegetable",
+              "apiarian"
+            ]
+          }
         }
       }
     },
@@ -7553,6 +7652,11 @@
           "format": "date-time"
         },
         "userId": {
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
+        },
+        "organisationId": {
           "type": "number",
           "pattern": "^[0-9]+$",
           "minimum": 1

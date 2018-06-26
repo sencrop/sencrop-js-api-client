@@ -80,6 +80,7 @@ const API = {
   postUserAlert,
   putUserAlert,
   deleteUserAlert,
+  postOrganisationDeprecated,
   postOrganisation,
   getOrganisation,
   putOrganisation,
@@ -4173,6 +4174,45 @@ function deleteUserAlert(
 }
 
 /**
+ * Creates a new organisation. Highly Deprecated, will be moved soon.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {object} parameters.body
+ * The necessary contents to create a new organisation
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationDeprecated({ body } = {}, options) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
+  const method = 'post';
+  let urlParts = ['organisations'];
+  let headers = {};
+  let qs = cleanQuery({});
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
  * Creates a new organisation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -4233,11 +4273,9 @@ function postOrganisation(
 }
 
 /**
- * Get the user's organisation.
+ * Get the organisation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
  * @param {number} parameters.organisationId
  * The organisation id,
  * @param {string} parameters.authorization
@@ -4250,12 +4288,9 @@ function postOrganisation(
  * The HTTP response
  */
 function getOrganisation(
-  { userId, organisationId, authorization, accessToken } = {},
+  { organisationId, authorization, accessToken } = {},
   options
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId
@@ -4268,7 +4303,7 @@ function getOrganisation(
   }
 
   const method = 'get';
-  let urlParts = ['users', userId, 'organisations', organisationId];
+  let urlParts = ['organisations', organisationId];
   let headers = {
     Authorization: authorization,
   };
@@ -4298,8 +4333,6 @@ function getOrganisation(
  * Update an organisation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
  * @param {number} parameters.organisationId
  * The organisation id,
  * @param {object} parameters.body
@@ -4314,12 +4347,9 @@ function getOrganisation(
  * The HTTP response
  */
 function putOrganisation(
-  { userId, organisationId, body, authorization, accessToken } = {},
+  { organisationId, body, authorization, accessToken } = {},
   options
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId
@@ -4335,7 +4365,7 @@ function putOrganisation(
   }
 
   const method = 'put';
-  let urlParts = ['users', userId, 'organisations', organisationId];
+  let urlParts = ['organisations', organisationId];
   let headers = {
     Authorization: authorization,
   };

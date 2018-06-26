@@ -71,6 +71,7 @@ API to consume Sencrop data
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
     * [~deleteUserAlert(parameters, options)](#module_API..deleteUserAlert) ⇒ <code>Object</code>
+    * [~postOrganisationDeprecated(parameters, options)](#module_API..postOrganisationDeprecated) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
@@ -1185,6 +1186,20 @@ Delete a user's alert.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postOrganisationDeprecated"></a>
+
+### API~postOrganisationDeprecated(parameters, options) ⇒ <code>Object</code>
+Creates a new organisation. Highly Deprecated, will be moved soon.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.body | <code>object</code> | The necessary contents to create a new organisation |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postOrganisation"></a>
 
 ### API~postOrganisation(parameters, options) ⇒ <code>Object</code>
@@ -1205,7 +1220,7 @@ Creates a new organisation.
 <a name="module_API..getOrganisation"></a>
 
 ### API~getOrganisation(parameters, options) ⇒ <code>Object</code>
-Get the user's organisation.
+Get the organisation.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -1213,7 +1228,6 @@ Get the user's organisation.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -1230,7 +1244,6 @@ Update an organisation.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The modified organisation, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
