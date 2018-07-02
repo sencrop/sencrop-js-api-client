@@ -4942,6 +4942,89 @@
         ]
       }
     },
+    "/organisations/{organisationId}/membersMigration": {
+      "post": {
+        "operationId": "postOrganisationMembersMigration",
+        "summary": "Endpoint for migration. Don't use it or use with caution !",
+        "tags": [
+          "organisations",
+          "deprecated"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The necessary contents to migrate users",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "collaborators",
+                "guests"
+              ],
+              "properties": {
+                "collaborators": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "number",
+                    "pattern": "^[0-9]+$"
+                  }
+                },
+                "guests": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "number",
+                    "pattern": "^[0-9]+$"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Members were migrated"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
     "/organisations/{organisationId}/users/{addedUserId}": {
       "put": {
         "operationId": "putOrganisationUser",

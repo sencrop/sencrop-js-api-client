@@ -84,6 +84,7 @@ const API = {
   postOrganisation,
   getOrganisation,
   putOrganisation,
+  postOrganisationMembersMigration,
   putOrganisationUser,
   deleteOrganisationUser,
   postOrganisationPlace,
@@ -4366,6 +4367,68 @@ function putOrganisation(
 
   const method = 'put';
   let urlParts = ['organisations', organisationId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Endpoint for migration. Don't use it or use with caution !
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {object} parameters.body
+ * The necessary contents to migrate users,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationMembersMigration(
+  { organisationId, body, authorization, accessToken } = {},
+  options
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
+  const method = 'post';
+  let urlParts = ['organisations', organisationId, 'membersMigration'];
   let headers = {
     Authorization: authorization,
   };

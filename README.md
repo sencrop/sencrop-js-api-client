@@ -65,6 +65,7 @@ API to consume Sencrop data
     * [~postPartnerToken(parameters, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~putPartnerModuleParameters(parameters, options)](#module_API..putPartnerModuleParameters) ⇒ <code>Object</code>
+    * [~postUser(parameters, options)](#module_API..postUser) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, options)](#module_API..putUser) ⇒ <code>Object</code>
     * [~getUserGuests(parameters, options)](#module_API..getUserGuests) ⇒ <code>Object</code>
@@ -100,7 +101,6 @@ API to consume Sencrop data
     * [~getUserDeviceHourlyData(parameters, options)](#module_API..getUserDeviceHourlyData) ⇒ <code>Object</code>
     * [~getUserDeviceDailyData(parameters, options)](#module_API..getUserDeviceDailyData) ⇒ <code>Object</code>
     * [~getUserDeviceContinuousStatistics(parameters, options)](#module_API..getUserDeviceContinuousStatistics) ⇒ <code>Object</code>
-    * [~getUserDeviceDegreeDays(parameters, options)](#module_API..getUserDeviceDegreeDays) ⇒ <code>Object</code>
     * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
     * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
@@ -117,8 +117,14 @@ API to consume Sencrop data
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
     * [~deleteUserAlert(parameters, options)](#module_API..deleteUserAlert) ⇒ <code>Object</code>
+    * [~postOrganisationDeprecated(parameters, options)](#module_API..postOrganisationDeprecated) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
+    * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
+    * [~putOrganisationUser(parameters, options)](#module_API..putOrganisationUser) ⇒ <code>Object</code>
+    * [~deleteOrganisationUser(parameters, options)](#module_API..deleteOrganisationUser) ⇒ <code>Object</code>
+    * [~postOrganisationPlace(parameters, options)](#module_API..postOrganisationPlace) ⇒ <code>Object</code>
+    * [~putOrganisationPlace(parameters, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
 
 <a name="module_API..getPing"></a>
 
@@ -292,12 +298,26 @@ Update an partner module parameters
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
-| parameters.partnerUserId | <code>number</code> | The user id, |
+| parameters.partnerUserId | <code>number</code> | The partner user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.moduleId | <code>number</code> | The module id, |
 | parameters.body | <code>object</code> | The module parameters, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postUser"></a>
+
+### API~postUser(parameters, options) ⇒ <code>Object</code>
+Create a new user.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.body | <code>object</code> | The new user |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUser"></a>
@@ -361,6 +381,7 @@ Create a user's guest.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
+| [parameters.organisationIdTarget] | <code>number</code> | The organisation id to add the collaborator to, |
 | parameters.body | <code>object</code> | The user's guest, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -396,6 +417,7 @@ Delete a user's guest.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
+| [parameters.organisationIdTarget] | <code>number</code> | The organisation id to remove the collaborator to, |
 | parameters.guestId | <code>number</code> | The guest id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -429,6 +451,7 @@ Create a user's collaborator.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
+| [parameters.organisationIdTarget] | <code>number</code> | The organisation id to add the collaborator to, |
 | parameters.body | <code>object</code> | The user's collaborator, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -464,6 +487,7 @@ Delete a user's collaborator.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
+| [parameters.organisationIdTarget] | <code>number</code> | The organisation id to remove the collaborator to, |
 | parameters.collaboratorId | <code>number</code> | The collaborator id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -619,7 +643,7 @@ Update a user's device group.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceGroupId | <code>string</code> | The deviceGroup id, |
+| parameters.deviceGroupId | <code>number</code> | The device group id, |
 | parameters.body | <code>object</code> | The user's device group, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -924,25 +948,6 @@ Get a user's device's continuous device's statistics.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDeviceDegreeDays"></a>
-
-### API~getUserDeviceDegreeDays(parameters, options) ⇒ <code>Object</code>
-Get a user's device's degree days.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceId | <code>number</code> | The device id, |
-| parameters.startDate | <code>string</code> | The statistics start date, |
-| parameters.endDate | <code>string</code> | The statistics end date, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
 <a name="module_API..getUserDeviceSummary"></a>
 
 ### API~getUserDeviceSummary(parameters, options) ⇒ <code>Object</code>
@@ -1227,6 +1232,20 @@ Delete a user's alert.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postOrganisationDeprecated"></a>
+
+### API~postOrganisationDeprecated(parameters, options) ⇒ <code>Object</code>
+Creates a new organisation. Highly Deprecated, will be moved soon.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.body | <code>object</code> | The necessary contents to create a new organisation |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postOrganisation"></a>
 
 ### API~postOrganisation(parameters, options) ⇒ <code>Object</code>
@@ -1238,7 +1257,26 @@ Creates a new organisation.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.body | <code>object</code> | The necessary contents to create a new organisation |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.body | <code>object</code> | The necessary contents to create a new organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisation"></a>
+
+### API~getOrganisation(parameters, options) ⇒ <code>Object</code>
+Get the organisation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putOrganisation"></a>
@@ -1254,6 +1292,76 @@ Update an organisation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The modified organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisationUser"></a>
+
+### API~putOrganisationUser(parameters, options) ⇒ <code>Object</code>
+Add an user to an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.addedUserId | <code>number</code> | The user id to add, |
+| parameters.body | <code>object</code> | The type of relation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteOrganisationUser"></a>
+
+### API~deleteOrganisationUser(parameters, options) ⇒ <code>Object</code>
+Delete an user from an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.addedUserId | <code>number</code> | The user id to remove, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationPlace"></a>
+
+### API~postOrganisationPlace(parameters, options) ⇒ <code>Object</code>
+Create a new place for an organisation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.body | <code>object</code> | The necessary contents to create a new place for an organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisationPlace"></a>
+
+### API~putOrganisationPlace(parameters, options) ⇒ <code>Object</code>
+Update a place for an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.placeId | <code>number</code> | The place id, |
+| parameters.body | <code>object</code> | The necessary contents to update a place for an organisation, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |

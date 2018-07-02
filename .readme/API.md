@@ -75,6 +75,7 @@ API to consume Sencrop data
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
+    * [~postOrganisationMembersMigration(parameters, options)](#module_API..postOrganisationMembersMigration) ⇒ <code>Object</code>
     * [~putOrganisationUser(parameters, options)](#module_API..putOrganisationUser) ⇒ <code>Object</code>
     * [~deleteOrganisationUser(parameters, options)](#module_API..deleteOrganisationUser) ⇒ <code>Object</code>
     * [~postOrganisationPlace(parameters, options)](#module_API..postOrganisationPlace) ⇒ <code>Object</code>
@@ -1246,6 +1247,23 @@ Update an organisation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The modified organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationMembersMigration"></a>
+
+### API~postOrganisationMembersMigration(parameters, options) ⇒ <code>Object</code>
+Endpoint for migration. Don't use it or use with caution !
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.body | <code>object</code> | The necessary contents to migrate users, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |

@@ -30,6 +30,7 @@ var API = {
   postPartnerToken: postPartnerToken,
   getPartnerDevices: getPartnerDevices,
   putPartnerModuleParameters: putPartnerModuleParameters,
+  postUser: postUser,
   getUser: getUser,
   putUser: putUser,
   getUserGuests: getUserGuests,
@@ -65,7 +66,6 @@ var API = {
   getUserDeviceHourlyData: getUserDeviceHourlyData,
   getUserDeviceDailyData: getUserDeviceDailyData,
   getUserDeviceContinuousStatistics: getUserDeviceContinuousStatistics,
-  getUserDeviceDegreeDays: getUserDeviceDegreeDays,
   getUserDeviceSummary: getUserDeviceSummary,
   getUserDeviceForecasts: getUserDeviceForecasts,
   getUserForecasts: getUserForecasts,
@@ -82,8 +82,15 @@ var API = {
   postUserAlert: postUserAlert,
   putUserAlert: putUserAlert,
   deleteUserAlert: deleteUserAlert,
+  postOrganisationDeprecated: postOrganisationDeprecated,
   postOrganisation: postOrganisation,
-  putOrganisation: putOrganisation
+  getOrganisation: getOrganisation,
+  putOrganisation: putOrganisation,
+  postOrganisationMembersMigration: postOrganisationMembersMigration,
+  putOrganisationUser: putOrganisationUser,
+  deleteOrganisationUser: deleteOrganisationUser,
+  postOrganisationPlace: postOrganisationPlace,
+  putOrganisationPlace: putOrganisationPlace
 };
 
 /**
@@ -409,14 +416,14 @@ function postPartnerTokenRequest() {
 
   var options = arguments[1];
 
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (partnerId == null) {
     throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -464,14 +471,14 @@ function postPartnerToken() {
 
   var options = arguments[1];
 
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (partnerId == null) {
     throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -525,9 +532,6 @@ function getPartnerDevices() {
 
   var options = arguments[1];
 
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (partnerId == null) {
     throw new Error('Missing required parameter : partnerId. Value : ' + partnerId);
   }
@@ -536,6 +540,9 @@ function getPartnerDevices() {
   }
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
@@ -571,7 +578,7 @@ function getPartnerDevices() {
  * @param {number} parameters.partnerId
  * The partner organisation id,
  * @param {number} parameters.partnerUserId
- * The user id,
+ * The partner user id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {number} parameters.moduleId
@@ -643,6 +650,47 @@ function putPartnerModuleParameters() {
 }
 
 /**
+ * Create a new user.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {object} parameters.body
+ * The new user
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postUser() {
+  var _ref10 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      body = _ref10.body;
+
+  var options = arguments[1];
+
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
+  var method = 'post';
+  var urlParts = ['users'];
+  var headers = {};
+  var qs = cleanQuery({});
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
  * Get a user's profile.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -658,10 +706,10 @@ function putPartnerModuleParameters() {
  * The HTTP response
  */
 function getUser() {
-  var _ref10 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref10.userId,
-      authorization = _ref10.authorization,
-      accessToken = _ref10.accessToken;
+  var _ref11 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref11.userId,
+      authorization = _ref11.authorization,
+      accessToken = _ref11.accessToken;
 
   var options = arguments[1];
 
@@ -714,22 +762,22 @@ function getUser() {
  * The HTTP response
  */
 function putUser() {
-  var _ref11 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref11.userId,
-      body = _ref11.body,
-      authorization = _ref11.authorization,
-      accessToken = _ref11.accessToken;
+  var _ref12 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref12.userId,
+      body = _ref12.body,
+      authorization = _ref12.authorization,
+      accessToken = _ref12.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -772,10 +820,10 @@ function putUser() {
  * The HTTP response
  */
 function getUserGuests() {
-  var _ref12 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref12.userId,
-      authorization = _ref12.authorization,
-      accessToken = _ref12.accessToken;
+  var _ref13 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref13.userId,
+      authorization = _ref13.authorization,
+      accessToken = _ref13.accessToken;
 
   var options = arguments[1];
 
@@ -816,6 +864,8 @@ function getUserGuests() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} [parameters.organisationIdTarget]
+ * The organisation id to add the collaborator to,
  * @param {object} parameters.body
  * The user's guest,
  * @param {string} parameters.authorization
@@ -828,22 +878,23 @@ function getUserGuests() {
  * The HTTP response
  */
 function postUserGuest() {
-  var _ref13 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref13.userId,
-      body = _ref13.body,
-      authorization = _ref13.authorization,
-      accessToken = _ref13.accessToken;
+  var _ref14 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref14.userId,
+      organisationIdTarget = _ref14.organisationIdTarget,
+      body = _ref14.body,
+      authorization = _ref14.authorization,
+      accessToken = _ref14.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -852,6 +903,7 @@ function postUserGuest() {
     Authorization: authorization
   };
   var qs = cleanQuery({
+    organisationIdTarget: organisationIdTarget,
     access_token: accessToken
   });
   var data = body;
@@ -890,12 +942,12 @@ function postUserGuest() {
  * The HTTP response
  */
 function putUserGuest() {
-  var _ref14 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref14.userId,
-      guestId = _ref14.guestId,
-      body = _ref14.body,
-      authorization = _ref14.authorization,
-      accessToken = _ref14.accessToken;
+  var _ref15 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref15.userId,
+      guestId = _ref15.guestId,
+      body = _ref15.body,
+      authorization = _ref15.authorization,
+      accessToken = _ref15.accessToken;
 
   var options = arguments[1];
 
@@ -905,11 +957,11 @@ function putUserGuest() {
   if (guestId == null) {
     throw new Error('Missing required parameter : guestId. Value : ' + guestId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -942,6 +994,8 @@ function putUserGuest() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} [parameters.organisationIdTarget]
+ * The organisation id to remove the collaborator to,
  * @param {number} parameters.guestId
  * The guest id,
  * @param {string} parameters.authorization
@@ -954,11 +1008,12 @@ function putUserGuest() {
  * The HTTP response
  */
 function deleteUserGuest() {
-  var _ref15 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref15.userId,
-      guestId = _ref15.guestId,
-      authorization = _ref15.authorization,
-      accessToken = _ref15.accessToken;
+  var _ref16 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref16.userId,
+      organisationIdTarget = _ref16.organisationIdTarget,
+      guestId = _ref16.guestId,
+      authorization = _ref16.authorization,
+      accessToken = _ref16.accessToken;
 
   var options = arguments[1];
 
@@ -978,6 +1033,7 @@ function deleteUserGuest() {
     Authorization: authorization
   };
   var qs = cleanQuery({
+    organisationIdTarget: organisationIdTarget,
     access_token: accessToken
   });
   var data = {}.undef;
@@ -1012,10 +1068,10 @@ function deleteUserGuest() {
  * The HTTP response
  */
 function getUserCollaborators() {
-  var _ref16 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref16.userId,
-      authorization = _ref16.authorization,
-      accessToken = _ref16.accessToken;
+  var _ref17 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref17.userId,
+      authorization = _ref17.authorization,
+      accessToken = _ref17.accessToken;
 
   var options = arguments[1];
 
@@ -1056,6 +1112,8 @@ function getUserCollaborators() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} [parameters.organisationIdTarget]
+ * The organisation id to add the collaborator to,
  * @param {object} parameters.body
  * The user's collaborator,
  * @param {string} parameters.authorization
@@ -1068,22 +1126,23 @@ function getUserCollaborators() {
  * The HTTP response
  */
 function postUserCollaborator() {
-  var _ref17 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref17.userId,
-      body = _ref17.body,
-      authorization = _ref17.authorization,
-      accessToken = _ref17.accessToken;
+  var _ref18 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref18.userId,
+      organisationIdTarget = _ref18.organisationIdTarget,
+      body = _ref18.body,
+      authorization = _ref18.authorization,
+      accessToken = _ref18.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -1092,6 +1151,7 @@ function postUserCollaborator() {
     Authorization: authorization
   };
   var qs = cleanQuery({
+    organisationIdTarget: organisationIdTarget,
     access_token: accessToken
   });
   var data = body;
@@ -1130,12 +1190,12 @@ function postUserCollaborator() {
  * The HTTP response
  */
 function putUserCollaborator() {
-  var _ref18 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref18.userId,
-      collaboratorId = _ref18.collaboratorId,
-      body = _ref18.body,
-      authorization = _ref18.authorization,
-      accessToken = _ref18.accessToken;
+  var _ref19 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref19.userId,
+      collaboratorId = _ref19.collaboratorId,
+      body = _ref19.body,
+      authorization = _ref19.authorization,
+      accessToken = _ref19.accessToken;
 
   var options = arguments[1];
 
@@ -1145,11 +1205,11 @@ function putUserCollaborator() {
   if (collaboratorId == null) {
     throw new Error('Missing required parameter : collaboratorId. Value : ' + collaboratorId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -1182,6 +1242,8 @@ function putUserCollaborator() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} [parameters.organisationIdTarget]
+ * The organisation id to remove the collaborator to,
  * @param {number} parameters.collaboratorId
  * The collaborator id,
  * @param {string} parameters.authorization
@@ -1194,11 +1256,12 @@ function putUserCollaborator() {
  * The HTTP response
  */
 function deleteUserCollaborator() {
-  var _ref19 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref19.userId,
-      collaboratorId = _ref19.collaboratorId,
-      authorization = _ref19.authorization,
-      accessToken = _ref19.accessToken;
+  var _ref20 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref20.userId,
+      organisationIdTarget = _ref20.organisationIdTarget,
+      collaboratorId = _ref20.collaboratorId,
+      authorization = _ref20.authorization,
+      accessToken = _ref20.accessToken;
 
   var options = arguments[1];
 
@@ -1218,6 +1281,7 @@ function deleteUserCollaborator() {
     Authorization: authorization
   };
   var qs = cleanQuery({
+    organisationIdTarget: organisationIdTarget,
     access_token: accessToken
   });
   var data = {}.undef;
@@ -1256,12 +1320,12 @@ function deleteUserCollaborator() {
  * The HTTP response
  */
 function getUserAggregations() {
-  var _ref20 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref20.userId,
-      compute = _ref20.compute,
-      patched = _ref20.patched,
-      authorization = _ref20.authorization,
-      accessToken = _ref20.accessToken;
+  var _ref21 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref21.userId,
+      compute = _ref21.compute,
+      patched = _ref21.patched,
+      authorization = _ref21.authorization,
+      accessToken = _ref21.accessToken;
 
   var options = arguments[1];
 
@@ -1316,22 +1380,22 @@ function getUserAggregations() {
  * The HTTP response
  */
 function postUserAggregation() {
-  var _ref21 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref21.userId,
-      body = _ref21.body,
-      authorization = _ref21.authorization,
-      accessToken = _ref21.accessToken;
+  var _ref22 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref22.userId,
+      body = _ref22.body,
+      authorization = _ref22.authorization,
+      accessToken = _ref22.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -1378,12 +1442,12 @@ function postUserAggregation() {
  * The HTTP response
  */
 function getUserAggregation() {
-  var _ref22 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref22.userId,
-      aggregationId = _ref22.aggregationId,
-      patched = _ref22.patched,
-      authorization = _ref22.authorization,
-      accessToken = _ref22.accessToken;
+  var _ref23 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref23.userId,
+      aggregationId = _ref23.aggregationId,
+      patched = _ref23.patched,
+      authorization = _ref23.authorization,
+      accessToken = _ref23.accessToken;
 
   var options = arguments[1];
 
@@ -1442,12 +1506,12 @@ function getUserAggregation() {
  * The HTTP response
  */
 function putUserAggregation() {
-  var _ref23 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref23.userId,
-      aggregationId = _ref23.aggregationId,
-      body = _ref23.body,
-      authorization = _ref23.authorization,
-      accessToken = _ref23.accessToken;
+  var _ref24 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref24.userId,
+      aggregationId = _ref24.aggregationId,
+      body = _ref24.body,
+      authorization = _ref24.authorization,
+      accessToken = _ref24.accessToken;
 
   var options = arguments[1];
 
@@ -1457,11 +1521,11 @@ function putUserAggregation() {
   if (aggregationId == null) {
     throw new Error('Missing required parameter : aggregationId. Value : ' + aggregationId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -1506,11 +1570,11 @@ function putUserAggregation() {
  * The HTTP response
  */
 function deleteUserAggregation() {
-  var _ref24 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref24.userId,
-      aggregationId = _ref24.aggregationId,
-      authorization = _ref24.authorization,
-      accessToken = _ref24.accessToken;
+  var _ref25 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref25.userId,
+      aggregationId = _ref25.aggregationId,
+      authorization = _ref25.authorization,
+      accessToken = _ref25.accessToken;
 
   var options = arguments[1];
 
@@ -1564,10 +1628,10 @@ function deleteUserAggregation() {
  * The HTTP response
  */
 function getUserDeviceGroups() {
-  var _ref25 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref25.userId,
-      authorization = _ref25.authorization,
-      accessToken = _ref25.accessToken;
+  var _ref26 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref26.userId,
+      authorization = _ref26.authorization,
+      accessToken = _ref26.accessToken;
 
   var options = arguments[1];
 
@@ -1620,22 +1684,22 @@ function getUserDeviceGroups() {
  * The HTTP response
  */
 function postUserDeviceGroup() {
-  var _ref26 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref26.userId,
-      body = _ref26.body,
-      authorization = _ref26.authorization,
-      accessToken = _ref26.accessToken;
+  var _ref27 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref27.userId,
+      body = _ref27.body,
+      authorization = _ref27.authorization,
+      accessToken = _ref27.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -1680,11 +1744,11 @@ function postUserDeviceGroup() {
  * The HTTP response
  */
 function getUserDeviceGroup() {
-  var _ref27 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref27.userId,
-      deviceGroupId = _ref27.deviceGroupId,
-      authorization = _ref27.authorization,
-      accessToken = _ref27.accessToken;
+  var _ref28 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref28.userId,
+      deviceGroupId = _ref28.deviceGroupId,
+      authorization = _ref28.authorization,
+      accessToken = _ref28.accessToken;
 
   var options = arguments[1];
 
@@ -1728,8 +1792,8 @@ function getUserDeviceGroup() {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.deviceGroupId
- * The deviceGroup id,
+ * @param {number} parameters.deviceGroupId
+ * The device group id,
  * @param {object} parameters.body
  * The user's device group,
  * @param {string} parameters.authorization
@@ -1742,12 +1806,12 @@ function getUserDeviceGroup() {
  * The HTTP response
  */
 function putUserDeviceGroup() {
-  var _ref28 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref28.userId,
-      deviceGroupId = _ref28.deviceGroupId,
-      body = _ref28.body,
-      authorization = _ref28.authorization,
-      accessToken = _ref28.accessToken;
+  var _ref29 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref29.userId,
+      deviceGroupId = _ref29.deviceGroupId,
+      body = _ref29.body,
+      authorization = _ref29.authorization,
+      accessToken = _ref29.accessToken;
 
   var options = arguments[1];
 
@@ -1757,11 +1821,11 @@ function putUserDeviceGroup() {
   if (deviceGroupId == null) {
     throw new Error('Missing required parameter : deviceGroupId. Value : ' + deviceGroupId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -1806,11 +1870,11 @@ function putUserDeviceGroup() {
  * The HTTP response
  */
 function deleteUserDeviceGroup() {
-  var _ref29 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref29.userId,
-      deviceGroupId = _ref29.deviceGroupId,
-      authorization = _ref29.authorization,
-      accessToken = _ref29.accessToken;
+  var _ref30 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref30.userId,
+      deviceGroupId = _ref30.deviceGroupId,
+      authorization = _ref30.authorization,
+      accessToken = _ref30.accessToken;
 
   var options = arguments[1];
 
@@ -1874,15 +1938,15 @@ function deleteUserDeviceGroup() {
  * The HTTP response
  */
 function getUserDevices() {
-  var _ref30 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref30.userId,
-      date = _ref30.date,
-      measures = _ref30.measures,
-      patched = _ref30.patched,
-      limit = _ref30.limit,
-      start = _ref30.start,
-      authorization = _ref30.authorization,
-      accessToken = _ref30.accessToken;
+  var _ref31 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref31.userId,
+      date = _ref31.date,
+      measures = _ref31.measures,
+      patched = _ref31.patched,
+      limit = _ref31.limit,
+      start = _ref31.start,
+      authorization = _ref31.authorization,
+      accessToken = _ref31.accessToken;
 
   var options = arguments[1];
 
@@ -1940,22 +2004,22 @@ function getUserDevices() {
  * The HTTP response
  */
 function postUserDevice() {
-  var _ref31 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref31.userId,
-      body = _ref31.body,
-      authorization = _ref31.authorization,
-      accessToken = _ref31.accessToken;
+  var _ref32 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref32.userId,
+      body = _ref32.body,
+      authorization = _ref32.authorization,
+      accessToken = _ref32.accessToken;
 
   var options = arguments[1];
 
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -2000,11 +2064,11 @@ function postUserDevice() {
  * The HTTP response
  */
 function getUserDevicePositions() {
-  var _ref32 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref32.userId,
-      deviceId = _ref32.deviceId,
-      authorization = _ref32.authorization,
-      accessToken = _ref32.accessToken;
+  var _ref33 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref33.userId,
+      deviceId = _ref33.deviceId,
+      authorization = _ref33.authorization,
+      accessToken = _ref33.accessToken;
 
   var options = arguments[1];
 
@@ -2060,11 +2124,11 @@ function getUserDevicePositions() {
  * The HTTP response
  */
 function getUserDevice() {
-  var _ref33 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref33.userId,
-      deviceId = _ref33.deviceId,
-      authorization = _ref33.authorization,
-      accessToken = _ref33.accessToken;
+  var _ref34 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref34.userId,
+      deviceId = _ref34.deviceId,
+      authorization = _ref34.authorization,
+      accessToken = _ref34.accessToken;
 
   var options = arguments[1];
 
@@ -2122,12 +2186,12 @@ function getUserDevice() {
  * The HTTP response
  */
 function putUserDevice() {
-  var _ref34 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref34.userId,
-      deviceId = _ref34.deviceId,
-      body = _ref34.body,
-      authorization = _ref34.authorization,
-      accessToken = _ref34.accessToken;
+  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref35.userId,
+      deviceId = _ref35.deviceId,
+      body = _ref35.body,
+      authorization = _ref35.authorization,
+      accessToken = _ref35.accessToken;
 
   var options = arguments[1];
 
@@ -2137,11 +2201,11 @@ function putUserDevice() {
   if (deviceId == null) {
     throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -2186,11 +2250,11 @@ function putUserDevice() {
  * The HTTP response
  */
 function deleteUserDevice() {
-  var _ref35 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref35.userId,
-      deviceId = _ref35.deviceId,
-      authorization = _ref35.authorization,
-      accessToken = _ref35.accessToken;
+  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref36.userId,
+      deviceId = _ref36.deviceId,
+      authorization = _ref36.authorization,
+      accessToken = _ref36.accessToken;
 
   var options = arguments[1];
 
@@ -2246,11 +2310,11 @@ function deleteUserDevice() {
  * The HTTP response
  */
 function getUserDeviceModules() {
-  var _ref36 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref36.userId,
-      deviceId = _ref36.deviceId,
-      authorization = _ref36.authorization,
-      accessToken = _ref36.accessToken;
+  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref37.userId,
+      deviceId = _ref37.deviceId,
+      authorization = _ref37.authorization,
+      accessToken = _ref37.accessToken;
 
   var options = arguments[1];
 
@@ -2310,13 +2374,13 @@ function getUserDeviceModules() {
  * The HTTP response
  */
 function putUserDeviceModule() {
-  var _ref37 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref37.userId,
-      deviceId = _ref37.deviceId,
-      moduleId = _ref37.moduleId,
-      body = _ref37.body,
-      authorization = _ref37.authorization,
-      accessToken = _ref37.accessToken;
+  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref38.userId,
+      deviceId = _ref38.deviceId,
+      moduleId = _ref38.moduleId,
+      body = _ref38.body,
+      authorization = _ref38.authorization,
+      accessToken = _ref38.accessToken;
 
   var options = arguments[1];
 
@@ -2380,12 +2444,12 @@ function putUserDeviceModule() {
  * The HTTP response
  */
 function deleteUserDeviceModule() {
-  var _ref38 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref38.userId,
-      deviceId = _ref38.deviceId,
-      moduleId = _ref38.moduleId,
-      authorization = _ref38.authorization,
-      accessToken = _ref38.accessToken;
+  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref39.userId,
+      deviceId = _ref39.deviceId,
+      moduleId = _ref39.moduleId,
+      authorization = _ref39.authorization,
+      accessToken = _ref39.accessToken;
 
   var options = arguments[1];
 
@@ -2448,13 +2512,13 @@ function deleteUserDeviceModule() {
  * The HTTP response
  */
 function putUserDeviceShares() {
-  var _ref39 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref39.userId,
-      deviceId = _ref39.deviceId,
-      sharesType = _ref39.sharesType,
-      body = _ref39.body,
-      authorization = _ref39.authorization,
-      accessToken = _ref39.accessToken;
+  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref40.userId,
+      deviceId = _ref40.deviceId,
+      sharesType = _ref40.sharesType,
+      body = _ref40.body,
+      authorization = _ref40.authorization,
+      accessToken = _ref40.accessToken;
 
   var options = arguments[1];
 
@@ -2467,11 +2531,11 @@ function putUserDeviceShares() {
   if (sharesType == null) {
     throw new Error('Missing required parameter : sharesType. Value : ' + sharesType);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -2524,15 +2588,15 @@ function putUserDeviceShares() {
  * The HTTP response
  */
 function getUserDeviceStatistics() {
-  var _ref40 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref40.userId,
-      deviceId = _ref40.deviceId,
-      startDate = _ref40.startDate,
-      endDate = _ref40.endDate,
-      measures = _ref40.measures,
-      patched = _ref40.patched,
-      authorization = _ref40.authorization,
-      accessToken = _ref40.accessToken;
+  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref41.userId,
+      deviceId = _ref41.deviceId,
+      startDate = _ref41.startDate,
+      endDate = _ref41.endDate,
+      measures = _ref41.measures,
+      patched = _ref41.patched,
+      authorization = _ref41.authorization,
+      accessToken = _ref41.accessToken;
 
   var options = arguments[1];
 
@@ -2542,9 +2606,6 @@ function getUserDeviceStatistics() {
   if (deviceId == null) {
     throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (startDate == null) {
     throw new Error('Missing required parameter : startDate. Value : ' + startDate);
   }
@@ -2553,6 +2614,9 @@ function getUserDeviceStatistics() {
   }
   if (measures == null) {
     throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
@@ -2607,14 +2671,14 @@ function getUserDeviceStatistics() {
  * The HTTP response
  */
 function getUserDeviceRawData() {
-  var _ref41 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref41.userId,
-      deviceId = _ref41.deviceId,
-      beforeDate = _ref41.beforeDate,
-      size = _ref41.size,
-      measures = _ref41.measures,
-      authorization = _ref41.authorization,
-      accessToken = _ref41.accessToken;
+  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref42.userId,
+      deviceId = _ref42.deviceId,
+      beforeDate = _ref42.beforeDate,
+      size = _ref42.size,
+      measures = _ref42.measures,
+      authorization = _ref42.authorization,
+      accessToken = _ref42.accessToken;
 
   var options = arguments[1];
 
@@ -2688,14 +2752,14 @@ function getUserDeviceRawData() {
  * The HTTP response
  */
 function getUserDeviceHourlyData() {
-  var _ref42 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref42.userId,
-      deviceId = _ref42.deviceId,
-      beforeDate = _ref42.beforeDate,
-      days = _ref42.days,
-      measures = _ref42.measures,
-      authorization = _ref42.authorization,
-      accessToken = _ref42.accessToken;
+  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref43.userId,
+      deviceId = _ref43.deviceId,
+      beforeDate = _ref43.beforeDate,
+      days = _ref43.days,
+      measures = _ref43.measures,
+      authorization = _ref43.authorization,
+      accessToken = _ref43.accessToken;
 
   var options = arguments[1];
 
@@ -2769,14 +2833,14 @@ function getUserDeviceHourlyData() {
  * The HTTP response
  */
 function getUserDeviceDailyData() {
-  var _ref43 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref43.userId,
-      deviceId = _ref43.deviceId,
-      beforeDate = _ref43.beforeDate,
-      days = _ref43.days,
-      measures = _ref43.measures,
-      authorization = _ref43.authorization,
-      accessToken = _ref43.accessToken;
+  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref44.userId,
+      deviceId = _ref44.deviceId,
+      beforeDate = _ref44.beforeDate,
+      days = _ref44.days,
+      measures = _ref44.measures,
+      authorization = _ref44.authorization,
+      accessToken = _ref44.accessToken;
 
   var options = arguments[1];
 
@@ -2852,92 +2916,13 @@ function getUserDeviceDailyData() {
  * The HTTP response
  */
 function getUserDeviceContinuousStatistics() {
-  var _ref44 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      userId = _ref44.userId,
-      deviceId = _ref44.deviceId,
-      startDate = _ref44.startDate,
-      endDate = _ref44.endDate,
-      measures = _ref44.measures,
-      patched = _ref44.patched,
-      authorization = _ref44.authorization,
-      accessToken = _ref44.accessToken;
-
-  var options = arguments[1];
-
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (deviceId == null) {
-    throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
-  }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
-  if (startDate == null) {
-    throw new Error('Missing required parameter : startDate. Value : ' + startDate);
-  }
-  if (endDate == null) {
-    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
-  }
-  if (measures == null) {
-    throw new Error('Missing required parameter : measures. Value : ' + measures);
-  }
-
-  var method = 'get';
-  var urlParts = ['users', userId, 'devices', deviceId, 'countinuousStatistics'];
-  var headers = {
-    Authorization: authorization
-  };
-  var qs = cleanQuery({
-    startDate: startDate,
-    endDate: endDate,
-    measures: measures,
-    patched: patched,
-    access_token: accessToken
-  });
-  var data = {}.undef;
-
-  return axios(Object.assign({
-    baseURL: 'https://api.sencrop.com/v1',
-    paramsSerializer: querystring.stringify.bind(querystring),
-    validateStatus: function validateStatus(status) {
-      return 200 <= status && 300 > status;
-    },
-    method: method,
-    url: urlParts.join('/'),
-    headers: headers,
-    params: qs,
-    data: data
-  }, options || {}));
-}
-
-/**
- * Get a user's device's degree days.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.deviceId
- * The device id,
- * @param {string} parameters.startDate
- * The statistics start date,
- * @param {string} parameters.endDate
- * The statistics end date,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getUserDeviceDegreeDays() {
   var _ref45 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       userId = _ref45.userId,
       deviceId = _ref45.deviceId,
       startDate = _ref45.startDate,
       endDate = _ref45.endDate,
+      measures = _ref45.measures,
+      patched = _ref45.patched,
       authorization = _ref45.authorization,
       accessToken = _ref45.accessToken;
 
@@ -2955,18 +2940,23 @@ function getUserDeviceDegreeDays() {
   if (endDate == null) {
     throw new Error('Missing required parameter : endDate. Value : ' + endDate);
   }
+  if (measures == null) {
+    throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
   if (authorization == null) {
     throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
-  var urlParts = ['users', userId, 'devices', deviceId, 'degreeDays'];
+  var urlParts = ['users', userId, 'devices', deviceId, 'countinuousStatistics'];
   var headers = {
     Authorization: authorization
   };
   var qs = cleanQuery({
     startDate: startDate,
     endDate: endDate,
+    measures: measures,
+    patched: patched,
     access_token: accessToken
   });
   var data = {}.undef;
@@ -3023,14 +3013,14 @@ function getUserDeviceSummary() {
   if (deviceId == null) {
     throw new Error('Missing required parameter : deviceId. Value : ' + deviceId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (date == null) {
     throw new Error('Missing required parameter : date. Value : ' + date);
   }
   if (measures == null) {
     throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
@@ -3244,9 +3234,6 @@ function getUserDailyData() {
   if (longitude == null) {
     throw new Error('Missing required parameter : longitude. Value : ' + longitude);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (beforeDate == null) {
     throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
   }
@@ -3255,6 +3242,9 @@ function getUserDailyData() {
   }
   if (measures == null) {
     throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
@@ -3333,9 +3323,6 @@ function getUserHourlyData() {
   if (longitude == null) {
     throw new Error('Missing required parameter : longitude. Value : ' + longitude);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (beforeDate == null) {
     throw new Error('Missing required parameter : beforeDate. Value : ' + beforeDate);
   }
@@ -3344,6 +3331,9 @@ function getUserHourlyData() {
   }
   if (measures == null) {
     throw new Error('Missing required parameter : measures. Value : ' + measures);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'get';
@@ -3458,11 +3448,11 @@ function putUserPreferences() {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -3572,11 +3562,11 @@ function postOrganisationOperation() {
   if (organisationId == null) {
     throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -3698,11 +3688,11 @@ function putOrganisationOperation() {
   if (operationId == null) {
     throw new Error('Missing required parameter : operationId. Value : ' + operationId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -3872,11 +3862,11 @@ function postUserAlert() {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'post';
@@ -3938,11 +3928,11 @@ function putUserAlert() {
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
-  if (authorization == null) {
-    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
-  }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'put';
@@ -4030,7 +4020,7 @@ function deleteUserAlert() {
 }
 
 /**
- * Creates a new organisation.
+ * Creates a new organisation. Highly Deprecated, will be moved soon.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {object} parameters.body
@@ -4040,7 +4030,7 @@ function deleteUserAlert() {
  * @return {Object}
  * The HTTP response
  */
-function postOrganisation() {
+function postOrganisationDeprecated() {
   var _ref62 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       body = _ref62.body;
 
@@ -4055,6 +4045,120 @@ function postOrganisation() {
   var headers = {};
   var qs = cleanQuery({});
   var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Creates a new organisation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {object} parameters.body
+ * The necessary contents to create a new organisation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisation() {
+  var _ref63 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      userId = _ref63.userId,
+      body = _ref63.body,
+      authorization = _ref63.authorization,
+      accessToken = _ref63.accessToken;
+
+  var options = arguments[1];
+
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'post';
+  var urlParts = ['users', userId, 'organisations'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Get the organisation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisation() {
+  var _ref64 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref64.organisationId,
+      authorization = _ref64.authorization,
+      accessToken = _ref64.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'get';
+  var urlParts = ['organisations', organisationId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'https://api.sencrop.com/v1',
@@ -4088,11 +4192,11 @@ function postOrganisation() {
  * The HTTP response
  */
 function putOrganisation() {
-  var _ref63 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref63.organisationId,
-      body = _ref63.body,
-      authorization = _ref63.authorization,
-      accessToken = _ref63.accessToken;
+  var _ref65 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref65.organisationId,
+      body = _ref65.body,
+      authorization = _ref65.authorization,
+      accessToken = _ref65.accessToken;
 
   var options = arguments[1];
 
@@ -4108,6 +4212,318 @@ function putOrganisation() {
 
   var method = 'put';
   var urlParts = ['organisations', organisationId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Endpoint for migration. Don't use it or use with caution !
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {object} parameters.body
+ * The necessary contents to migrate users,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationMembersMigration() {
+  var _ref66 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref66.organisationId,
+      body = _ref66.body,
+      authorization = _ref66.authorization,
+      accessToken = _ref66.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'post';
+  var urlParts = ['organisations', organisationId, 'membersMigration'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Add an user to an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.addedUserId
+ * The user id to add,
+ * @param {object} parameters.body
+ * The type of relation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putOrganisationUser() {
+  var _ref67 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref67.organisationId,
+      addedUserId = _ref67.addedUserId,
+      body = _ref67.body,
+      authorization = _ref67.authorization,
+      accessToken = _ref67.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (addedUserId == null) {
+    throw new Error('Missing required parameter : addedUserId. Value : ' + addedUserId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'put';
+  var urlParts = ['organisations', organisationId, 'users', addedUserId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Delete an user from an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.addedUserId
+ * The user id to remove,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteOrganisationUser() {
+  var _ref68 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref68.organisationId,
+      addedUserId = _ref68.addedUserId,
+      authorization = _ref68.authorization,
+      accessToken = _ref68.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (addedUserId == null) {
+    throw new Error('Missing required parameter : addedUserId. Value : ' + addedUserId);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'delete';
+  var urlParts = ['organisations', organisationId, 'users', addedUserId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = {}.undef;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Create a new place for an organisation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {object} parameters.body
+ * The necessary contents to create a new place for an organisation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationPlace() {
+  var _ref69 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref69.organisationId,
+      body = _ref69.body,
+      authorization = _ref69.authorization,
+      accessToken = _ref69.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'post';
+  var urlParts = ['organisations', organisationId, 'places'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Update a place for an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.placeId
+ * The place id,
+ * @param {object} parameters.body
+ * The necessary contents to update a place for an organisation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putOrganisationPlace() {
+  var _ref70 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref70.organisationId,
+      placeId = _ref70.placeId,
+      body = _ref70.body,
+      authorization = _ref70.authorization,
+      accessToken = _ref70.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (placeId == null) {
+    throw new Error('Missing required parameter : placeId. Value : ' + placeId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'put';
+  var urlParts = ['organisations', organisationId, 'places', placeId];
   var headers = {
     Authorization: authorization
   };
