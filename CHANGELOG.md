@@ -1,3 +1,16 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.8.0...v1.9.0) (2018-07-02)
+
+
+### Features
+
+* **build:** Throw error if required param not provided ([f0c2fbd](https://github.com/sencrop/sencrop-js-api-client/commit/f0c2fbd))
+* **organisation:** New endpoints for organisation management ([e761f1c](https://github.com/sencrop/sencrop-js-api-client/commit/e761f1c))
+* **organisations:** Adding endpoint for migration ([a959684](https://github.com/sencrop/sencrop-js-api-client/commit/a959684))
+* **Swagger:** update swagger ([76b508d](https://github.com/sencrop/sencrop-js-api-client/commit/76b508d))
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.7.0...v1.8.0) (2018-05-16)
 
