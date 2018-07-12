@@ -1,3 +1,13 @@
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.9.0...v1.10.0) (2018-07-12)
+
+
+### Features
+
+* **weather:** add live weather ([fc0d757](https://github.com/sencrop/sencrop-js-api-client/commit/fc0d757))
+
+
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.8.0...v1.9.0) (2018-07-02)
 

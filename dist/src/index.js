@@ -87,10 +87,12 @@ var API = {
   getOrganisation: getOrganisation,
   putOrganisation: putOrganisation,
   postOrganisationMembersMigration: postOrganisationMembersMigration,
+  postOrganisationUser: postOrganisationUser,
   putOrganisationUser: putOrganisationUser,
   deleteOrganisationUser: deleteOrganisationUser,
   postOrganisationPlace: postOrganisationPlace,
-  putOrganisationPlace: putOrganisationPlace
+  putOrganisationPlace: putOrganisationPlace,
+  getWeatherLive: getWeatherLive
 };
 
 /**
@@ -4300,7 +4302,73 @@ function postOrganisationMembersMigration() {
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.addedUserId
+ * @param {number} parameters.targetUserId
+ * The user id to add,
+ * @param {object} parameters.body
+ * The type of relation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationUser() {
+  var _ref67 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref67.organisationId,
+      targetUserId = _ref67.targetUserId,
+      body = _ref67.body,
+      authorization = _ref67.authorization,
+      accessToken = _ref67.accessToken;
+
+  var options = arguments[1];
+
+  if (organisationId == null) {
+    throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
+  }
+  if (targetUserId == null) {
+    throw new Error('Missing required parameter : targetUserId. Value : ' + targetUserId);
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'post';
+  var urlParts = ['organisations', organisationId, 'users', targetUserId];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    access_token: accessToken
+  });
+  var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Edit or add an user to an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.targetUserId
  * The user id to add,
  * @param {object} parameters.body
  * The type of relation,
@@ -4314,20 +4382,20 @@ function postOrganisationMembersMigration() {
  * The HTTP response
  */
 function putOrganisationUser() {
-  var _ref67 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref67.organisationId,
-      addedUserId = _ref67.addedUserId,
-      body = _ref67.body,
-      authorization = _ref67.authorization,
-      accessToken = _ref67.accessToken;
+  var _ref68 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref68.organisationId,
+      targetUserId = _ref68.targetUserId,
+      body = _ref68.body,
+      authorization = _ref68.authorization,
+      accessToken = _ref68.accessToken;
 
   var options = arguments[1];
 
   if (organisationId == null) {
     throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
   }
-  if (addedUserId == null) {
-    throw new Error('Missing required parameter : addedUserId. Value : ' + addedUserId);
+  if (targetUserId == null) {
+    throw new Error('Missing required parameter : targetUserId. Value : ' + targetUserId);
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
@@ -4337,7 +4405,7 @@ function putOrganisationUser() {
   }
 
   var method = 'put';
-  var urlParts = ['organisations', organisationId, 'users', addedUserId];
+  var urlParts = ['organisations', organisationId, 'users', targetUserId];
   var headers = {
     Authorization: authorization
   };
@@ -4366,7 +4434,7 @@ function putOrganisationUser() {
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.addedUserId
+ * @param {number} parameters.targetUserId
  * The user id to remove,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -4378,26 +4446,26 @@ function putOrganisationUser() {
  * The HTTP response
  */
 function deleteOrganisationUser() {
-  var _ref68 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref68.organisationId,
-      addedUserId = _ref68.addedUserId,
-      authorization = _ref68.authorization,
-      accessToken = _ref68.accessToken;
+  var _ref69 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref69.organisationId,
+      targetUserId = _ref69.targetUserId,
+      authorization = _ref69.authorization,
+      accessToken = _ref69.accessToken;
 
   var options = arguments[1];
 
   if (organisationId == null) {
     throw new Error('Missing required parameter : organisationId. Value : ' + organisationId);
   }
-  if (addedUserId == null) {
-    throw new Error('Missing required parameter : addedUserId. Value : ' + addedUserId);
+  if (targetUserId == null) {
+    throw new Error('Missing required parameter : targetUserId. Value : ' + targetUserId);
   }
   if (authorization == null) {
     throw new Error('Missing required parameter : authorization. Value : ' + authorization);
   }
 
   var method = 'delete';
-  var urlParts = ['organisations', organisationId, 'users', addedUserId];
+  var urlParts = ['organisations', organisationId, 'users', targetUserId];
   var headers = {
     Authorization: authorization
   };
@@ -4438,11 +4506,11 @@ function deleteOrganisationUser() {
  * The HTTP response
  */
 function postOrganisationPlace() {
-  var _ref69 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref69.organisationId,
-      body = _ref69.body,
-      authorization = _ref69.authorization,
-      accessToken = _ref69.accessToken;
+  var _ref70 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref70.organisationId,
+      body = _ref70.body,
+      authorization = _ref70.authorization,
+      accessToken = _ref70.accessToken;
 
   var options = arguments[1];
 
@@ -4500,12 +4568,12 @@ function postOrganisationPlace() {
  * The HTTP response
  */
 function putOrganisationPlace() {
-  var _ref70 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      organisationId = _ref70.organisationId,
-      placeId = _ref70.placeId,
-      body = _ref70.body,
-      authorization = _ref70.authorization,
-      accessToken = _ref70.accessToken;
+  var _ref71 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      organisationId = _ref71.organisationId,
+      placeId = _ref71.placeId,
+      body = _ref71.body,
+      authorization = _ref71.authorization,
+      accessToken = _ref71.accessToken;
 
   var options = arguments[1];
 
@@ -4531,6 +4599,82 @@ function putOrganisationPlace() {
     access_token: accessToken
   });
   var data = body;
+
+  return axios(Object.assign({
+    baseURL: 'https://api.sencrop.com/v1',
+    paramsSerializer: querystring.stringify.bind(querystring),
+    validateStatus: function validateStatus(status) {
+      return 200 <= status && 300 > status;
+    },
+    method: method,
+    url: urlParts.join('/'),
+    headers: headers,
+    params: qs,
+    data: data
+  }, options || {}));
+}
+
+/**
+ * Get last measures from devices in a given area.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.latitudeTopLeft
+ * The latitude (top left corner) of the data,
+ * @param {number} parameters.longitudeTopLeft
+ * The longitude (top left corner) of the data,
+ * @param {number} parameters.latitudeBottomRight
+ * The latitude (bottom right corner) of the data,
+ * @param {number} parameters.longitudeBottomRight
+ * The longitude (bottom right corner) of the data,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getWeatherLive() {
+  var _ref72 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      latitudeTopLeft = _ref72.latitudeTopLeft,
+      longitudeTopLeft = _ref72.longitudeTopLeft,
+      latitudeBottomRight = _ref72.latitudeBottomRight,
+      longitudeBottomRight = _ref72.longitudeBottomRight,
+      authorization = _ref72.authorization,
+      accessToken = _ref72.accessToken;
+
+  var options = arguments[1];
+
+  if (latitudeTopLeft == null) {
+    throw new Error('Missing required parameter : latitudeTopLeft. Value : ' + latitudeTopLeft);
+  }
+  if (longitudeTopLeft == null) {
+    throw new Error('Missing required parameter : longitudeTopLeft. Value : ' + longitudeTopLeft);
+  }
+  if (latitudeBottomRight == null) {
+    throw new Error('Missing required parameter : latitudeBottomRight. Value : ' + latitudeBottomRight);
+  }
+  if (longitudeBottomRight == null) {
+    throw new Error('Missing required parameter : longitudeBottomRight. Value : ' + longitudeBottomRight);
+  }
+  if (authorization == null) {
+    throw new Error('Missing required parameter : authorization. Value : ' + authorization);
+  }
+
+  var method = 'get';
+  var urlParts = ['weather', 'live'];
+  var headers = {
+    Authorization: authorization
+  };
+  var qs = cleanQuery({
+    latitudeTopLeft: latitudeTopLeft,
+    longitudeTopLeft: longitudeTopLeft,
+    latitudeBottomRight: latitudeBottomRight,
+    longitudeBottomRight: longitudeBottomRight,
+    access_token: accessToken
+  });
+  var data = {}.undef;
 
   return axios(Object.assign({
     baseURL: 'https://api.sencrop.com/v1',
