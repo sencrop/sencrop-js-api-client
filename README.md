@@ -121,10 +121,13 @@ API to consume Sencrop data
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
+    * [~postOrganisationMembersMigration(parameters, options)](#module_API..postOrganisationMembersMigration) ⇒ <code>Object</code>
+    * [~postOrganisationUser(parameters, options)](#module_API..postOrganisationUser) ⇒ <code>Object</code>
     * [~putOrganisationUser(parameters, options)](#module_API..putOrganisationUser) ⇒ <code>Object</code>
     * [~deleteOrganisationUser(parameters, options)](#module_API..deleteOrganisationUser) ⇒ <code>Object</code>
     * [~postOrganisationPlace(parameters, options)](#module_API..postOrganisationPlace) ⇒ <code>Object</code>
     * [~putOrganisationPlace(parameters, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
+    * [~getWeatherLive(parameters, options)](#module_API..getWeatherLive) ⇒ <code>Object</code>
 
 <a name="module_API..getPing"></a>
 
@@ -1296,9 +1299,26 @@ Update an organisation.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..putOrganisationUser"></a>
+<a name="module_API..postOrganisationMembersMigration"></a>
 
-### API~putOrganisationUser(parameters, options) ⇒ <code>Object</code>
+### API~postOrganisationMembersMigration(parameters, options) ⇒ <code>Object</code>
+Endpoint for migration. Don't use it or use with caution !
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.body | <code>object</code> | The necessary contents to migrate users, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationUser"></a>
+
+### API~postOrganisationUser(parameters, options) ⇒ <code>Object</code>
 Add an user to an organisation
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
@@ -1308,7 +1328,25 @@ Add an user to an organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.addedUserId | <code>number</code> | The user id to add, |
+| parameters.targetUserId | <code>number</code> | The user id to add, |
+| parameters.body | <code>object</code> | The type of relation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisationUser"></a>
+
+### API~putOrganisationUser(parameters, options) ⇒ <code>Object</code>
+Edit or add an user to an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.targetUserId | <code>number</code> | The user id to add, |
 | parameters.body | <code>object</code> | The type of relation, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
@@ -1326,7 +1364,7 @@ Delete an user from an organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.addedUserId | <code>number</code> | The user id to remove, |
+| parameters.targetUserId | <code>number</code> | The user id to remove, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1362,6 +1400,25 @@ Update a place for an organisation
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.placeId | <code>number</code> | The place id, |
 | parameters.body | <code>object</code> | The necessary contents to update a place for an organisation, |
+| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getWeatherLive"></a>
+
+### API~getWeatherLive(parameters, options) ⇒ <code>Object</code>
+Get last measures from devices in a given area.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.latitudeTopLeft | <code>number</code> | The latitude (top left corner) of the data, |
+| parameters.longitudeTopLeft | <code>number</code> | The longitude (top left corner) of the data, |
+| parameters.latitudeBottomRight | <code>number</code> | The latitude (bottom right corner) of the data, |
+| parameters.longitudeBottomRight | <code>number</code> | The longitude (bottom right corner) of the data, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |

@@ -85,10 +85,12 @@ const API = {
   getOrganisation,
   putOrganisation,
   postOrganisationMembersMigration,
+  postOrganisationUser,
   putOrganisationUser,
   deleteOrganisationUser,
   postOrganisationPlace,
   putOrganisationPlace,
+  getWeatherLive,
 };
 
 /**
@@ -4460,7 +4462,76 @@ function postOrganisationMembersMigration(
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.addedUserId
+ * @param {number} parameters.targetUserId
+ * The user id to add,
+ * @param {object} parameters.body
+ * The type of relation,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationUser(
+  { organisationId, targetUserId, body, authorization, accessToken } = {},
+  options
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId
+    );
+  }
+  if (targetUserId == null) {
+    throw new Error(
+      'Missing required parameter : targetUserId. Value : ' + targetUserId
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
+  const method = 'post';
+  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Edit or add an user to an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.targetUserId
  * The user id to add,
  * @param {object} parameters.body
  * The type of relation,
@@ -4474,7 +4545,7 @@ function postOrganisationMembersMigration(
  * The HTTP response
  */
 function putOrganisationUser(
-  { organisationId, addedUserId, body, authorization, accessToken } = {},
+  { organisationId, targetUserId, body, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -4482,9 +4553,9 @@ function putOrganisationUser(
       'Missing required parameter : organisationId. Value : ' + organisationId
     );
   }
-  if (addedUserId == null) {
+  if (targetUserId == null) {
     throw new Error(
-      'Missing required parameter : addedUserId. Value : ' + addedUserId
+      'Missing required parameter : targetUserId. Value : ' + targetUserId
     );
   }
   if (body == null) {
@@ -4497,7 +4568,7 @@ function putOrganisationUser(
   }
 
   const method = 'put';
-  let urlParts = ['organisations', organisationId, 'users', addedUserId];
+  let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = {
     Authorization: authorization,
   };
@@ -4529,7 +4600,7 @@ function putOrganisationUser(
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.addedUserId
+ * @param {number} parameters.targetUserId
  * The user id to remove,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
@@ -4541,7 +4612,7 @@ function putOrganisationUser(
  * The HTTP response
  */
 function deleteOrganisationUser(
-  { organisationId, addedUserId, authorization, accessToken } = {},
+  { organisationId, targetUserId, authorization, accessToken } = {},
   options
 ) {
   if (organisationId == null) {
@@ -4549,9 +4620,9 @@ function deleteOrganisationUser(
       'Missing required parameter : organisationId. Value : ' + organisationId
     );
   }
-  if (addedUserId == null) {
+  if (targetUserId == null) {
     throw new Error(
-      'Missing required parameter : addedUserId. Value : ' + addedUserId
+      'Missing required parameter : targetUserId. Value : ' + targetUserId
     );
   }
   if (authorization == null) {
@@ -4561,7 +4632,7 @@ function deleteOrganisationUser(
   }
 
   const method = 'delete';
-  let urlParts = ['organisations', organisationId, 'users', addedUserId];
+  let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = {
     Authorization: authorization,
   };
@@ -4698,6 +4769,98 @@ function putOrganisationPlace(
     access_token: accessToken,
   });
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {}
+    )
+  );
+}
+
+/**
+ * Get last measures from devices in a given area.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.latitudeTopLeft
+ * The latitude (top left corner) of the data,
+ * @param {number} parameters.longitudeTopLeft
+ * The longitude (top left corner) of the data,
+ * @param {number} parameters.latitudeBottomRight
+ * The latitude (bottom right corner) of the data,
+ * @param {number} parameters.longitudeBottomRight
+ * The longitude (bottom right corner) of the data,
+ * @param {string} parameters.authorization
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getWeatherLive(
+  {
+    latitudeTopLeft,
+    longitudeTopLeft,
+    latitudeBottomRight,
+    longitudeBottomRight,
+    authorization,
+    accessToken,
+  } = {},
+  options
+) {
+  if (latitudeTopLeft == null) {
+    throw new Error(
+      'Missing required parameter : latitudeTopLeft. Value : ' + latitudeTopLeft
+    );
+  }
+  if (longitudeTopLeft == null) {
+    throw new Error(
+      'Missing required parameter : longitudeTopLeft. Value : ' +
+        longitudeTopLeft
+    );
+  }
+  if (latitudeBottomRight == null) {
+    throw new Error(
+      'Missing required parameter : latitudeBottomRight. Value : ' +
+        latitudeBottomRight
+    );
+  }
+  if (longitudeBottomRight == null) {
+    throw new Error(
+      'Missing required parameter : longitudeBottomRight. Value : ' +
+        longitudeBottomRight
+    );
+  }
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['weather', 'live'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    latitudeTopLeft: latitudeTopLeft,
+    longitudeTopLeft: longitudeTopLeft,
+    latitudeBottomRight: latitudeBottomRight,
+    longitudeBottomRight: longitudeBottomRight,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
 
   return axios(
     Object.assign(

@@ -5025,9 +5025,9 @@
         ]
       }
     },
-    "/organisations/{organisationId}/users/{addedUserId}": {
-      "put": {
-        "operationId": "putOrganisationUser",
+    "/organisations/{organisationId}/users/{targetUserId}": {
+      "post": {
+        "operationId": "postOrganisationUser",
         "summary": "Add an user to an organisation",
         "tags": [
           "organisations",
@@ -5052,7 +5052,89 @@
           {
             "in": "path",
             "description": "The user id to add",
-            "name": "addedUserId",
+            "name": "targetUserId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The type of relation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "owner",
+                    "administrator",
+                    "collaborator",
+                    "guest"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user was successfully added to the organisation"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "putOrganisationUser",
+        "summary": "Edit or add an user to an organisation",
+        "tags": [
+          "organisations",
+          "users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The user id to add",
+            "name": "targetUserId",
             "type": "number",
             "pattern": "^[0-9]+$",
             "minimum": 1,
@@ -5134,7 +5216,7 @@
           {
             "in": "path",
             "description": "The user id to remove",
-            "name": "addedUserId",
+            "name": "targetUserId",
             "type": "number",
             "pattern": "^[0-9]+$",
             "minimum": 1,
@@ -5305,6 +5387,106 @@
             "description": "Place or organisation does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/weather/live": {
+      "get": {
+        "operationId": "getWeatherLive",
+        "summary": "Get last measures from devices in a given area.",
+        "tags": [],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude (top left corner) of the data",
+            "name": "latitudeTopLeft",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude (top left corner) of the data",
+            "name": "longitudeTopLeft",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude (bottom right corner) of the data",
+            "name": "latitudeBottomRight",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude (bottom right corner) of the data",
+            "name": "longitudeBottomRight",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of geohashes (small precision) with last measures",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "geohash": {
+                        "type": "string"
+                      },
+                      "lastTemperature": {
+                        "type": "number"
+                      },
+                      "lastRelativeHumidity": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
