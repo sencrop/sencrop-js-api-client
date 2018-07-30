@@ -1646,322 +1646,6 @@
         ]
       }
     },
-    "/users/{userId}/deviceGroups": {
-      "get": {
-        "operationId": "getUserDeviceGroups",
-        "summary": "Get a user's devices groups.",
-        "tags": [
-          "devices"
-        ],
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The requested user's device group",
-            "schema": {
-              "$ref": "#/definitions/DeviceGroupsItems"
-            }
-          },
-          "404": {
-            "description": "User does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      },
-      "post": {
-        "operationId": "postUserDeviceGroup",
-        "summary": "Create a user's device group.",
-        "tags": [
-          "devices"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "body",
-            "description": "The user's device group",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceGroup"
-            }
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The created user's device group",
-            "schema": {
-              "$ref": "#/definitions/DeviceGroupItem"
-            }
-          },
-          "404": {
-            "description": "User does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      }
-    },
-    "/users/{userId}/deviceGroups/{deviceGroupId}": {
-      "get": {
-        "operationId": "getUserDeviceGroup",
-        "tags": [
-          "devices"
-        ],
-        "summary": "Get a user's devices group.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The device group id",
-            "name": "deviceGroupId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The requested user's device group",
-            "schema": {
-              "$ref": "#/definitions/DeviceGroupItem"
-            }
-          },
-          "404": {
-            "description": "User does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      },
-      "put": {
-        "operationId": "putUserDeviceGroup",
-        "summary": "Update a user's device group.",
-        "tags": [
-          "devices"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The device group id",
-            "name": "deviceGroupId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "body",
-            "description": "The user's device group",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceGroup"
-            }
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "The user's device group updated",
-            "schema": {
-              "$ref": "#/definitions/DeviceGroupItem"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "deleteUserDeviceGroup",
-        "summary": "Delete a user's device group.",
-        "tags": [
-          "devices"
-        ],
-        "consumes": [],
-        "produces": [],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The user id",
-            "name": "userId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The device group id",
-            "name": "deviceGroupId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The user's device group were successfully deleted."
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      }
-    },
     "/users/{userId}/devices": {
       "get": {
         "operationId": "getUserDevices",
@@ -1999,14 +1683,20 @@
             "items": {
               "type": "string",
               "enum": [
+                "RELATIVE_HUMIDITY",
+                "TEMPERATURE",
+                "WET_TEMPERATURE",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
+                "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "TEMP_AIR_H1",
-                "WIND_MEAN",
-                "WIND_MAX",
-                "WIND_DIRECTION",
+                null,
                 "RAIN_TIC",
-                "MOVE",
-                "WET_TEMPERATURE"
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -2915,18 +2605,29 @@
             "items": {
               "type": "string",
               "enum": [
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
+                "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WIND_MEAN",
-                "WIND_MAX",
-                "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE",
-                "WET_TEMPERATURE"
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3036,16 +2737,20 @@
             "items": {
               "type": "string",
               "enum": [
-                "WIND_MAX",
-                "WIND_MEAN",
+                "RELATIVE_HUMIDITY",
+                "TEMPERATURE",
+                "WET_TEMPERATURE",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
                 "WIND_DIRECTION",
-                "RH_AIR_H1",
-                "RAIN_TIC",
-                "TEMP_AIR_H1",
                 "MOVE",
-                "LAT",
-                "LNG",
-                "ALT"
+                "RH_AIR_H1",
+                "TEMP_AIR_H1",
+                null,
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3078,16 +2783,20 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "WIND_MAX",
-                      "WIND_MEAN",
+                      "RELATIVE_HUMIDITY",
+                      "TEMPERATURE",
+                      "WET_TEMPERATURE",
+                      "RAIN_FALL",
+                      "WIND_SPEED",
+                      "WIND_GUST",
                       "WIND_DIRECTION",
+                      "MOVE",
                       "RH_AIR_H1",
-                      "RH_AIR_H1_MIN",
-                      "RH_AIR_H1_MAX",
-                      "RAIN_TIC",
                       "TEMP_AIR_H1",
-                      "TEMP_AIR_H1_MIN",
-                      "TEMP_AIR_H1_MAX"
+                      null,
+                      "RAIN_TIC",
+                      "WIND_MEAN",
+                      "WIND_MAX"
                     ]
                   },
                   "value": {
@@ -3176,17 +2885,29 @@
             "items": {
               "type": "string",
               "enum": [
-                "WIND_MAX",
-                "WIND_MEAN",
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
                 "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
-                "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WET_TEMPERATURE"
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3289,17 +3010,29 @@
             "items": {
               "type": "string",
               "enum": [
-                "WIND_MAX",
-                "WIND_MEAN",
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
                 "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
-                "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WET_TEMPERATURE"
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3397,18 +3130,29 @@
             "items": {
               "type": "string",
               "enum": [
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
+                "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WIND_MEAN",
-                "WIND_MAX",
-                "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE",
-                "WET_TEMPERATURE"
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3505,13 +3249,20 @@
             "items": {
               "type": "string",
               "enum": [
+                "RELATIVE_HUMIDITY",
+                "TEMPERATURE",
+                "WET_TEMPERATURE",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
+                "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "TEMP_AIR_H1",
-                "WIND_MEAN",
-                "WIND_MAX",
-                "WIND_DIRECTION",
+                null,
                 "RAIN_TIC",
-                "MOVE"
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3782,17 +3533,29 @@
             "items": {
               "type": "string",
               "enum": [
-                "WIND_MAX",
-                "WIND_MEAN",
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
                 "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
-                "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WET_TEMPERATURE"
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -3904,17 +3667,29 @@
             "items": {
               "type": "string",
               "enum": [
-                "WIND_MAX",
-                "WIND_MEAN",
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
                 "WIND_DIRECTION",
+                "MOVE",
                 "RH_AIR_H1",
                 "RH_AIR_H1_MIN",
                 "RH_AIR_H1_MAX",
-                "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
                 "TEMP_AIR_H1_MAX",
-                "WET_TEMPERATURE"
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
               ]
             }
           },
@@ -5402,8 +5177,10 @@
     "/weather/live": {
       "get": {
         "operationId": "getWeatherLive",
-        "summary": "Get last measures from devices in a given area.",
-        "tags": [],
+        "summary": "Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).",
+        "tags": [
+          "cache"
+        ],
         "consumes": [],
         "produces": [
           "application/json"
@@ -5412,42 +5189,24 @@
           {
             "in": "query",
             "required": true,
-            "description": "The latitude (top left corner) of the data",
-            "name": "latitudeTopLeft",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -90,
-            "maximum": 90,
-            "type": "number"
+            "description": "The geohash of the data",
+            "name": "geohash",
+            "type": "string"
           },
           {
             "in": "query",
             "required": true,
-            "description": "The longitude (top left corner) of the data",
-            "name": "longitudeTopLeft",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -180,
-            "maximum": 180,
-            "type": "number"
-          },
-          {
-            "in": "query",
-            "required": true,
-            "description": "The latitude (bottom right corner) of the data",
-            "name": "latitudeBottomRight",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -90,
-            "maximum": 90,
-            "type": "number"
-          },
-          {
-            "in": "query",
-            "required": true,
-            "description": "The longitude (bottom right corner) of the data",
-            "name": "longitudeBottomRight",
-            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
-            "minimum": -180,
-            "maximum": 180,
-            "type": "number"
+            "description": "The measures to read",
+            "name": "measureType",
+            "type": "string",
+            "enum": [
+              "RELATIVE_HUMIDITY",
+              "TEMPERATURE",
+              "WIND_SPEED",
+              "WIND_GUST",
+              "WIND_DIRECTION",
+              "RAIN_FALL"
+            ]
           },
           {
             "in": "header",
@@ -6420,10 +6179,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "RAIN_TIC",
-            "TEMP_AIR",
             "DEGREE_DAY",
-            "TEMP_COLD_HOURS"
+            "COLD_HOURS",
+            "RAIN_FALL_SUM"
           ]
         },
         "name": {
@@ -6465,28 +6223,14 @@
         "type": {
           "type": "string",
           "enum": [
-            "RAIN_TIC",
-            "TEMP_AIR_H1",
-            "TEMP_COLD_HOURS"
+            "DEGREE_DAY",
+            "COLD_HOURS",
+            "RAIN_FALL_SUM"
           ]
-        },
-        "RAIN_TIC": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "number"
-            }
-          }
-        },
-        "TEMP_AIR": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "number"
-            }
-          }
-        },
-        "TEMP_COLD_HOURS": {
+        }
+      },
+      "patternProperties": {
+        "^DEGREE_DAY|COLD_HOURS|RAIN_FALL_SUM$": {
           "type": "object",
           "properties": {
             "value": {
@@ -6501,100 +6245,6 @@
       "patternProperties": {
         "^[0-9]+$": {
           "$ref": "#/definitions/AggregationResult"
-        }
-      }
-    },
-    "DeviceGroupsItems": {
-      "type": "object",
-      "required": [
-        "items",
-        "deviceGroups"
-      ],
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "deviceGroups": {
-          "$ref": "#/definitions/DeviceGroupHash"
-        }
-      }
-    },
-    "DeviceGroupItem": {
-      "type": "object",
-      "required": [
-        "item",
-        "deviceGroups"
-      ],
-      "properties": {
-        "item": {
-          "type": "number",
-          "pattern": "^[0-9]+$",
-          "minimum": 1
-        },
-        "entry": {
-          "type": "number",
-          "pattern": "^[0-9]+$",
-          "minimum": 1,
-          "description": "Deprecated, use the `item` property instead."
-        },
-        "deviceGroups": {
-          "$ref": "#/definitions/DeviceGroupHash"
-        }
-      }
-    },
-    "DeviceGroupHash": {
-      "type": "object",
-      "patternProperties": {
-        "^[0-9]+$": {
-          "$ref": "#/definitions/DeviceGroup"
-        }
-      }
-    },
-    "DeviceGroup": {
-      "type": "object",
-      "required": [
-        "contents"
-      ],
-      "properties": {
-        "id": {
-          "type": "number",
-          "pattern": "^[0-9]+$",
-          "minimum": 1
-        },
-        "contents": {
-          "$ref": "#/definitions/DeviceGroupContents"
-        }
-      }
-    },
-    "DeviceGroupContents": {
-      "type": "object",
-      "required": [
-        "name",
-        "devicesIds"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "devicesIds": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1
-          },
-          "minItems": 1,
-          "uniqueItems": true
         }
       }
     },
@@ -7401,7 +7051,7 @@
     "DeviceSummaryItem": {
       "type": "object",
       "patternProperties": {
-        "^(RH_AIR_H1|TEMP_AIR_H1|WIND_MEAN|WIND_MAX|RAIN_TIC|MOVE)$": {
+        "^(RELATIVE_HUMIDITY|TEMPERATURE|WET_TEMPERATURE|RAIN_FALL|WIND_SPEED|WIND_GUST|WIND_DIRECTION|MOVE|RH_AIR_H1|TEMP_AIR_H1||RAIN_TIC|WIND_MEAN|WIND_MAX)$": {
           "type": "object",
           "required": [
             "lastMeasure"
@@ -7858,11 +7508,20 @@
           "items": {
             "type": "string",
             "enum": [
-              "TEMP_AIR_H1",
-              "RAIN_TIC",
+              "RELATIVE_HUMIDITY",
+              "TEMPERATURE",
+              "WET_TEMPERATURE",
+              "RAIN_FALL",
+              "WIND_SPEED",
+              "WIND_GUST",
+              "WIND_DIRECTION",
+              "MOVE",
               "RH_AIR_H1",
+              "TEMP_AIR_H1",
+              null,
+              "RAIN_TIC",
               "WIND_MEAN",
-              "WIND_DIRECTION"
+              "WIND_MAX"
             ]
           }
         }

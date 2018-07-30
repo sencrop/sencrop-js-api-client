@@ -81,11 +81,6 @@ API to consume Sencrop data
     * [~getUserAggregation(parameters, options)](#module_API..getUserAggregation) ⇒ <code>Object</code>
     * [~putUserAggregation(parameters, options)](#module_API..putUserAggregation) ⇒ <code>Object</code>
     * [~deleteUserAggregation(parameters, options)](#module_API..deleteUserAggregation) ⇒ <code>Object</code>
-    * [~getUserDeviceGroups(parameters, options)](#module_API..getUserDeviceGroups) ⇒ <code>Object</code>
-    * [~postUserDeviceGroup(parameters, options)](#module_API..postUserDeviceGroup) ⇒ <code>Object</code>
-    * [~getUserDeviceGroup(parameters, options)](#module_API..getUserDeviceGroup) ⇒ <code>Object</code>
-    * [~putUserDeviceGroup(parameters, options)](#module_API..putUserDeviceGroup) ⇒ <code>Object</code>
-    * [~deleteUserDeviceGroup(parameters, options)](#module_API..deleteUserDeviceGroup) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
     * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
@@ -580,91 +575,6 @@ Delete a user's aggregation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>number</code> | The aggregation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..getUserDeviceGroups"></a>
-
-### API~getUserDeviceGroups(parameters, options) ⇒ <code>Object</code>
-Get a user's devices groups.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..postUserDeviceGroup"></a>
-
-### API~postUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
-Create a user's device group.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.body | <code>object</code> | The user's device group, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..getUserDeviceGroup"></a>
-
-### API~getUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
-Get a user's devices group.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceGroupId | <code>number</code> | The device group id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..putUserDeviceGroup"></a>
-
-### API~putUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
-Update a user's device group.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceGroupId | <code>number</code> | The device group id, |
-| parameters.body | <code>object</code> | The user's device group, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..deleteUserDeviceGroup"></a>
-
-### API~deleteUserDeviceGroup(parameters, options) ⇒ <code>Object</code>
-Delete a user's device group.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.deviceGroupId | <code>number</code> | The device group id, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1407,7 +1317,7 @@ Update a place for an organisation
 <a name="module_API..getWeatherLive"></a>
 
 ### API~getWeatherLive(parameters, options) ⇒ <code>Object</code>
-Get last measures from devices in a given area.
+Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -1415,14 +1325,11 @@ Get last measures from devices in a given area.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.latitudeTopLeft | <code>number</code> | The latitude (top left corner) of the data, |
-| parameters.longitudeTopLeft | <code>number</code> | The longitude (top left corner) of the data, |
-| parameters.latitudeBottomRight | <code>number</code> | The latitude (bottom right corner) of the data, |
-| parameters.longitudeBottomRight | <code>number</code> | The longitude (bottom right corner) of the data, |
+| parameters.geohash | <code>string</code> | The geohash of the data, |
+| parameters.measureType | <code>string</code> | The measures to read, |
 | parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
-
 
 # License
 [MIT](https://github.com/sencrop/sencrop-js-api-client/blob/master/LICENSE.md)

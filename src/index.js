@@ -44,11 +44,6 @@ const API = {
   getUserAggregation,
   putUserAggregation,
   deleteUserAggregation,
-  getUserDeviceGroups,
-  postUserDeviceGroup,
-  getUserDeviceGroup,
-  putUserDeviceGroup,
-  deleteUserDeviceGroup,
   getUserDevices,
   postUserDevice,
   getUserDevicePositions,
@@ -1611,312 +1606,6 @@ function deleteUserAggregation(
 
   const method = 'delete';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Get a user's devices groups.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getUserDeviceGroups(
-  { userId, authorization, accessToken } = {},
-  options
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['users', userId, 'deviceGroups'];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Create a user's device group.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {object} parameters.body
- * The user's device group,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postUserDeviceGroup(
-  { userId, body, authorization, accessToken } = {},
-  options
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
-
-  const method = 'post';
-  let urlParts = ['users', userId, 'deviceGroups'];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Get a user's devices group.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.deviceGroupId
- * The device group id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getUserDeviceGroup(
-  { userId, deviceGroupId, authorization, accessToken } = {},
-  options
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (deviceGroupId == null) {
-    throw new Error(
-      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Update a user's device group.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.deviceGroupId
- * The device group id,
- * @param {object} parameters.body
- * The user's device group,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putUserDeviceGroup(
-  { userId, deviceGroupId, body, authorization, accessToken } = {},
-  options
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (deviceGroupId == null) {
-    throw new Error(
-      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
-    );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
-
-  const method = 'put';
-  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {}
-    )
-  );
-}
-
-/**
- * Delete a user's device group.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.deviceGroupId
- * The device group id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteUserDeviceGroup(
-  { userId, deviceGroupId, authorization, accessToken } = {},
-  options
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (deviceGroupId == null) {
-    throw new Error(
-      'Missing required parameter : deviceGroupId. Value : ' + deviceGroupId
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization
-    );
-  }
-
-  const method = 'delete';
-  let urlParts = ['users', userId, 'deviceGroups', deviceGroupId];
   let headers = {
     Authorization: authorization,
   };
@@ -4788,17 +4477,13 @@ function putOrganisationPlace(
 }
 
 /**
- * Get last measures from devices in a given area.
+ * Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.latitudeTopLeft
- * The latitude (top left corner) of the data,
- * @param {number} parameters.longitudeTopLeft
- * The longitude (top left corner) of the data,
- * @param {number} parameters.latitudeBottomRight
- * The latitude (bottom right corner) of the data,
- * @param {number} parameters.longitudeBottomRight
- * The longitude (bottom right corner) of the data,
+ * @param {string} parameters.geohash
+ * The geohash of the data,
+ * @param {string} parameters.measureType
+ * The measures to read,
  * @param {string} parameters.authorization
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -4809,37 +4494,15 @@ function putOrganisationPlace(
  * The HTTP response
  */
 function getWeatherLive(
-  {
-    latitudeTopLeft,
-    longitudeTopLeft,
-    latitudeBottomRight,
-    longitudeBottomRight,
-    authorization,
-    accessToken,
-  } = {},
+  { geohash, measureType, authorization, accessToken } = {},
   options
 ) {
-  if (latitudeTopLeft == null) {
-    throw new Error(
-      'Missing required parameter : latitudeTopLeft. Value : ' + latitudeTopLeft
-    );
+  if (geohash == null) {
+    throw new Error('Missing required parameter : geohash. Value : ' + geohash);
   }
-  if (longitudeTopLeft == null) {
+  if (measureType == null) {
     throw new Error(
-      'Missing required parameter : longitudeTopLeft. Value : ' +
-        longitudeTopLeft
-    );
-  }
-  if (latitudeBottomRight == null) {
-    throw new Error(
-      'Missing required parameter : latitudeBottomRight. Value : ' +
-        latitudeBottomRight
-    );
-  }
-  if (longitudeBottomRight == null) {
-    throw new Error(
-      'Missing required parameter : longitudeBottomRight. Value : ' +
-        longitudeBottomRight
+      'Missing required parameter : measureType. Value : ' + measureType
     );
   }
   if (authorization == null) {
@@ -4854,10 +4517,8 @@ function getWeatherLive(
     Authorization: authorization,
   };
   let qs = cleanQuery({
-    latitudeTopLeft: latitudeTopLeft,
-    longitudeTopLeft: longitudeTopLeft,
-    latitudeBottomRight: latitudeBottomRight,
-    longitudeBottomRight: longitudeBottomRight,
+    geohash: geohash,
+    measureType: measureType,
     access_token: accessToken,
   });
   let data = {}.undef;
