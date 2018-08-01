@@ -1,3 +1,13 @@
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.10.0...v1.11.0) (2018-08-01)
+
+
+### Features
+
+* **weatherLive:** More types + geohash ([2e1fe76](https://github.com/sencrop/sencrop-js-api-client/commit/2e1fe76))
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.9.0...v1.10.0) (2018-07-12)
 
