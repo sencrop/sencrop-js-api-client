@@ -1,3 +1,13 @@
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.11.0...v1.12.0) (2018-08-24)
+
+
+### Features
+
+* **register:** add new endpoint for trial offer ([0cdbc85](https://github.com/sencrop/sencrop-js-api-client/commit/0cdbc85))
+
+
+
 <a name="1.11.0"></a>
 # [1.11.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.10.0...v1.11.0) (2018-08-01)
 
