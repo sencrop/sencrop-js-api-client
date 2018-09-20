@@ -1841,7 +1841,7 @@
                 },
                 "activationCode": {
                   "type": "string",
-                  "pattern": "^[A-F0-9]{4,}$"
+                  "pattern": "^[A-Z0-9]{4,}$"
                 }
               }
             }
@@ -2399,6 +2399,24 @@
                       "enum": [
                         "vintel"
                       ]
+                    }
+                  }
+                },
+                {
+                  "description": "Generic Module parameters",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "code",
+                    "externalIdentifier"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+$"
+                    },
+                    "externalIdentifier": {
+                      "type": "string"
                     }
                   }
                 }
@@ -4598,6 +4616,9 @@
                 },
                 "callbackPath": {
                   "type": "string"
+                },
+                "verifyToken": {
+                  "type": "string"
                 }
               }
             }
@@ -5261,7 +5282,7 @@
     "/weather/live": {
       "get": {
         "operationId": "getWeatherLive",
-        "summary": "Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).",
+        "summary": "Get last measure (for a specific type) from devices in a given area (1 hour for RAIN_FALL).",
         "tags": [
           "cache"
         ],
@@ -6602,6 +6623,16 @@
                   "guest",
                   "collaborator",
                   "partner"
+                ]
+              },
+              "situation": {
+                "type": "string",
+                "enum": [
+                  "unknown",
+                  "greenhouse",
+                  "outdoor-covered",
+                  "outdoor-influenced",
+                  "outdoor-isolated"
                 ]
               },
               "startDate": {
