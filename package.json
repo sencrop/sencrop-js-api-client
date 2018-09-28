@@ -17,8 +17,7 @@
       "files": "'src/**/*.js' bin/*.js test/*.js",
       "testFiles": "'src/**/*.test..js'",
       "ignore": [
-        "dist",
-        "API.md"
+        "dist"
       ]
     }
   },
@@ -84,7 +83,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.2",
     "metapak": "1.0.3",
-    "metapak-sencrop": "6.2.0",
+    "metapak-sencrop": "6.3.2",
     "nock": "^10.0.0",
     "prettier": "^1.14.3",
     "sinon": "^6.3.4",
@@ -145,6 +144,10 @@
     "coverageReporters": [
       "lcov"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
   }
 }

@@ -44,4 +44,3 @@ jspm_packages
 .coveralls.yml
 # Project custom ignored file
 dist
-API.md
