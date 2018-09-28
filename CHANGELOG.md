@@ -1,3 +1,8 @@
+<a name="1.13.0"></a>
+# [1.13.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.12.0...v1.13.0) (2018-09-28)
+
+
+
 <a name="1.12.0"></a>
 # [1.12.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.11.0...v1.12.0) (2018-08-24)
 
