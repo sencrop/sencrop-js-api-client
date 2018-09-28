@@ -30,7 +30,7 @@ describe('API', () => {
             'close',
             'Transfer-Encoding',
             'chunked',
-          ]
+          ],
         );
 
       return API.getPing().then(response =>
@@ -38,7 +38,7 @@ describe('API', () => {
           status: response.status,
           headers: response.headers,
           body: response.data,
-        }).toMatchSnapshot()
+        }).toMatchSnapshot(),
       );
     });
   });
@@ -113,7 +113,7 @@ describe('API', () => {
             'close',
             'Transfer-Encoding',
             'chunked',
-          ]
+          ],
         );
 
       return API.getUserDeviceStatistics({
@@ -128,7 +128,7 @@ describe('API', () => {
           status: response.status,
           headers: response.headers,
           body: response.data,
-        }).toMatchSnapshot()
+        }).toMatchSnapshot(),
       );
     });
   });
@@ -172,7 +172,7 @@ describe('API', () => {
             'close',
             'Transfer-Encoding',
             'chunked',
-          ]
+          ],
         );
 
       return API.putUserDevice({
@@ -194,7 +194,7 @@ describe('API', () => {
           status: response.status,
           headers: response.headers,
           body: response.data,
-        }).toMatchSnapshot()
+        }).toMatchSnapshot(),
       );
     });
   });

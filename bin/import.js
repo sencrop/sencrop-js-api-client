@@ -59,7 +59,7 @@ var questions = [
 
     fs.writeFileSync(
       path.join(__dirname, '../src/swagger.api.json'),
-      JSON.stringify(api, null, 2)
+      JSON.stringify(api, null, 2),
     );
   } catch (err) {
     throw err;

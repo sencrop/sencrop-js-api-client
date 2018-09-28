@@ -1,11 +1,12 @@
 'use strict';
 
-const API = require('../dist/src/index');
-const moxios = require('moxios');
+const API = require('../src');
+const moxios = require('@anilanar/moxios').default;
+const axios = require('axios');
 
 describe('API', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(axios);
   });
 
   afterEach(() => {
@@ -25,7 +26,7 @@ describe('API', () => {
           body: {
             pong: 'pong',
           },
-        })
+        }),
       );
 
       moxios.wait(() => {
@@ -107,7 +108,7 @@ describe('API', () => {
               ],
             },
           },
-        })
+        }),
       );
 
       moxios.wait(() => {
@@ -204,7 +205,7 @@ describe('API', () => {
               role: 'owner',
             },
           },
-        })
+        }),
       );
 
       moxios.wait(() => {

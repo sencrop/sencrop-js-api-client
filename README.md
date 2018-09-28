@@ -4,9 +4,13 @@
 # place, your changes would be overriden.
 -->
 
+
 # sencrop-js-api-client
 > The Sencrop JavaScript API client
 
+
+
+[//]: # (::contents:start)
 
 The Sencrop API provides a Swagger file
  as a documentation.
@@ -43,6 +47,8 @@ npm run import
 npm run build
 npm run compile
 ```
+
+[//]: # (::contents:end)
 
 # API
 <a name="module_API"></a>

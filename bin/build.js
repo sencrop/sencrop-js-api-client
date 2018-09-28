@@ -17,7 +17,7 @@ const fs = require('fs');
 const {
   flattenSwagger,
   getSwaggerOperations,
-} = require('swagger-http-router/src/utils');
+} = require('swagger-http-router/dist/utils');
 
 flattenSwagger(require('../src/swagger.api.json'))
   .then(API => {
@@ -63,7 +63,7 @@ ${operations
  }} ${parameter.required ? `` : `[`}parameters.${camelCase(parameter.name)}${
      parameter.required ? `` : `]`
    }
- * ${parameter.description}`
+ * ${parameter.description}`,
  )}
  * @param {Object} options
  * Options to override Axios request configuration
@@ -87,7 +87,7 @@ function ${operationId}(${
       if (parameter.required) {
         return `if( ${camelCase(parameter.name)} == null) {
         throw new Error('Missing required parameter : ${camelCase(
-          parameter.name
+          parameter.name,
         )}. Value : ' +  ${camelCase(parameter.name)});
       }
       `;
@@ -115,7 +115,7 @@ function ${operationId}(${
     .filter(p => 'header' === p.in)
     .map(
       parameter => `
-    ${parameter.name}: ${camelCase(parameter.name)},`
+    ${parameter.name}: ${camelCase(parameter.name)},`,
     )
     .join('')}
   };
@@ -125,7 +125,7 @@ function ${operationId}(${
       parameter => `
     ${parameter.name}: ${camelCase(parameter.name)}${
         parameter.ordered ? '.sort(sortMultipleQuery)' : ''
-      },`
+      },`,
     )
     .join('')}
   });
