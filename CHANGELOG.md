@@ -1,3 +1,15 @@
+<a name="1.13.1"></a>
+## [1.13.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.13.0...v1.13.1) (2018-10-01)
+
+
+### Bug Fixes
+
+* **babel:** fix main file ([5effd91](https://github.com/sencrop/sencrop-js-api-client/commit/5effd91))
+* **CI:** Fix the build by fixing the Metapak CI warning ([6ff46ec](https://github.com/sencrop/sencrop-js-api-client/commit/6ff46ec))
+* **CI:** Setup the right NodeJS version ([1e85b08](https://github.com/sencrop/sencrop-js-api-client/commit/1e85b08))
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.12.0...v1.13.0) (2018-09-28)
 
