@@ -1,3 +1,13 @@
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.13.1...v1.14.0) (2018-11-16)
+
+
+### Features
+
+* **user:** add search user endpoint ([6ab1035](https://github.com/sencrop/sencrop-js-api-client/commit/6ab1035))
+
+
+
 <a name="1.13.1"></a>
 ## [1.13.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.13.0...v1.13.1) (2018-10-01)
 
