@@ -5,7 +5,7 @@ const path = require('path');
 const axios = require('axios');
 const inquirer = require('inquirer');
 
-const { getSwaggerOperations } = require('swagger-http-router/src/utils');
+const { getSwaggerOperations } = require('swagger-http-router/dist/utils');
 
 var questions = [
   {

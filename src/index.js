@@ -63,20 +63,18 @@ const API = {
   getUserDeviceSummary,
   getUserDeviceForecasts,
   getUserForecasts,
+  getUserStatistics,
   getUserDailyData,
   getUserHourlyData,
   getUserPreferences,
   putUserPreferences,
-  getOrganisationOperations,
-  postOrganisationOperation,
-  getOrganisationOperation,
-  putOrganisationOperation,
-  deleteOrganisationOperation,
+  getUserNotifications,
   getUserAlerts,
   postUserAlert,
   putUserAlert,
   deleteUserAlert,
   postOrganisationDeprecated,
+  getUserOrganisations,
   postOrganisation,
   getOrganisation,
   putOrganisation,
@@ -84,9 +82,15 @@ const API = {
   postOrganisationUser,
   putOrganisationUser,
   deleteOrganisationUser,
+  getOrganisationOperations,
+  postOrganisationOperation,
+  getOrganisationOperation,
+  putOrganisationOperation,
+  deleteOrganisationOperation,
   postOrganisationPlace,
   putOrganisationPlace,
   getWeatherLive,
+  getSearchUser,
 };
 
 /**
@@ -193,7 +197,7 @@ function getModules(_, options) {
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
+ * Authorization with Bearer mechanism,
  * @param {object} parameters.body
  * The email to check
  * @param {Object} options
@@ -396,7 +400,7 @@ function postVerify({ body } = {}, options) {
  * @param {object} parameters.body
  * Request a user token,
  * @param {string} parameters.authorization
- * Authorization with Basic mecanism
+ * Authorization with Basic mechanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -454,7 +458,7 @@ function postPartnerTokenRequest(
  * @param {object} parameters.body
  * Create a user token,
  * @param {string} parameters.authorization
- * Authorization with Basic mecanism
+ * Authorization with Basic mechanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
@@ -510,8 +514,8 @@ function postPartnerToken({ partnerId, body, authorization } = {}, options) {
  * The number of items to retrieve,
  * @param {number} parameters.start
  * The index in results,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -533,11 +537,6 @@ function getPartnerDevices(
   }
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -583,8 +582,8 @@ function getPartnerDevices(
  * The module id,
  * @param {object} parameters.body
  * The module parameters,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -626,11 +625,6 @@ function putPartnerModuleParameters(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -754,8 +748,8 @@ function postUserSimplified({ body } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -766,11 +760,6 @@ function postUserSimplified({ body } = {}, options) {
 function getUser({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -808,8 +797,8 @@ function getUser({ userId, authorization, accessToken } = {}, options) {
  * The user id,
  * @param {object} parameters.body
  * The new user,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -823,11 +812,6 @@ function putUser({ userId, body, authorization, accessToken } = {}, options) {
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -863,8 +847,8 @@ function putUser({ userId, body, authorization, accessToken } = {}, options) {
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -875,11 +859,6 @@ function putUser({ userId, body, authorization, accessToken } = {}, options) {
 function getUserGuests({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -919,8 +898,8 @@ function getUserGuests({ userId, authorization, accessToken } = {}, options) {
  * The organisation id to add the collaborator to,
  * @param {object} parameters.body
  * The user's guest,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -937,11 +916,6 @@ function postUserGuest(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -982,8 +956,8 @@ function postUserGuest(
  * The guest id,
  * @param {object} parameters.body
  * The user's guest,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1003,11 +977,6 @@ function putUserGuest(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -1047,8 +1016,8 @@ function putUserGuest(
  * The organisation id to remove the collaborator to,
  * @param {number} parameters.guestId
  * The guest id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1065,11 +1034,6 @@ function deleteUserGuest(
   }
   if (guestId == null) {
     throw new Error('Missing required parameter : guestId. Value : ' + guestId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'delete';
@@ -1106,8 +1070,8 @@ function deleteUserGuest(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1121,11 +1085,6 @@ function getUserCollaborators(
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -1165,8 +1124,8 @@ function getUserCollaborators(
  * The organisation id to add the collaborator to,
  * @param {object} parameters.body
  * The user's collaborator,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1183,11 +1142,6 @@ function postUserCollaborator(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -1228,8 +1182,8 @@ function postUserCollaborator(
  * The collaborator id,
  * @param {object} parameters.body
  * The user's collaborator,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1251,11 +1205,6 @@ function putUserCollaborator(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -1295,8 +1244,8 @@ function putUserCollaborator(
  * The organisation id to remove the collaborator to,
  * @param {number} parameters.collaboratorId
  * The collaborator id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1320,11 +1269,6 @@ function deleteUserCollaborator(
   if (collaboratorId == null) {
     throw new Error(
       'Missing required parameter : collaboratorId. Value : ' + collaboratorId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -1366,8 +1310,8 @@ function deleteUserCollaborator(
  * Wether the aggregations should be computed,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1381,11 +1325,6 @@ function getUserAggregations(
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -1425,8 +1364,8 @@ function getUserAggregations(
  * The user id,
  * @param {object} parameters.body
  * The user's aggregation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1443,11 +1382,6 @@ function postUserAggregation(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -1487,8 +1421,8 @@ function postUserAggregation(
  * The aggregation id,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1506,11 +1440,6 @@ function getUserAggregation(
   if (aggregationId == null) {
     throw new Error(
       'Missing required parameter : aggregationId. Value : ' + aggregationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -1552,8 +1481,8 @@ function getUserAggregation(
  * The aggregation id,
  * @param {object} parameters.body
  * The user's aggregation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1575,11 +1504,6 @@ function putUserAggregation(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -1617,8 +1541,8 @@ function putUserAggregation(
  * The user id,
  * @param {number} parameters.aggregationId
  * The aggregation id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1636,11 +1560,6 @@ function deleteUserAggregation(
   if (aggregationId == null) {
     throw new Error(
       'Missing required parameter : aggregationId. Value : ' + aggregationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -1677,6 +1596,8 @@ function deleteUserAggregation(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
  * @param {string} [parameters.date]
  * The status date,
  * @param {array} [parameters.measures]
@@ -1687,8 +1608,8 @@ function deleteUserAggregation(
  * The number of items to retrieve,
  * @param {number} [parameters.start]
  * The index in results,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1699,6 +1620,7 @@ function deleteUserAggregation(
 function getUserDevices(
   {
     userId,
+    includeHistory,
     date,
     measures,
     patched,
@@ -1712,11 +1634,6 @@ function getUserDevices(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices'];
@@ -1724,6 +1641,7 @@ function getUserDevices(
     Authorization: authorization,
   };
   let qs = cleanQuery({
+    includeHistory: includeHistory,
     date: date,
     measures: measures,
     patched: patched,
@@ -1758,8 +1676,8 @@ function getUserDevices(
  * The user id,
  * @param {object} parameters.body
  * The user device activation couple,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1776,11 +1694,6 @@ function postUserDevice(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -1818,8 +1731,10 @@ function postUserDevice(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1828,7 +1743,7 @@ function postUserDevice(
  * The HTTP response
  */
 function getUserDevicePositions(
-  { userId, deviceId, authorization, accessToken } = {},
+  { userId, deviceId, includeHistory, authorization, accessToken } = {},
   options,
 ) {
   if (userId == null) {
@@ -1839,11 +1754,6 @@ function getUserDevicePositions(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
@@ -1851,6 +1761,7 @@ function getUserDevicePositions(
     Authorization: authorization,
   };
   let qs = cleanQuery({
+    includeHistory: includeHistory,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -1880,8 +1791,10 @@ function getUserDevicePositions(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1890,7 +1803,7 @@ function getUserDevicePositions(
  * The HTTP response
  */
 function getUserDevice(
-  { userId, deviceId, authorization, accessToken } = {},
+  { userId, deviceId, includeHistory, authorization, accessToken } = {},
   options,
 ) {
   if (userId == null) {
@@ -1901,11 +1814,6 @@ function getUserDevice(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId];
@@ -1913,6 +1821,7 @@ function getUserDevice(
     Authorization: authorization,
   };
   let qs = cleanQuery({
+    includeHistory: includeHistory,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -1944,8 +1853,8 @@ function getUserDevice(
  * The device id,
  * @param {object} parameters.body
  * The user device,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -1967,11 +1876,6 @@ function putUserDevice(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -2009,8 +1913,8 @@ function putUserDevice(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2028,11 +1932,6 @@ function deleteUserDevice(
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -2071,8 +1970,8 @@ function deleteUserDevice(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2090,11 +1989,6 @@ function getUserDeviceModules(
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -2137,8 +2031,8 @@ function getUserDeviceModules(
  * The module id,
  * @param {object} parameters.body
  * The module settings,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2165,11 +2059,6 @@ function putUserDeviceModule(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -2209,8 +2098,8 @@ function putUserDeviceModule(
  * The device id,
  * @param {number} parameters.moduleId
  * The module id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2233,11 +2122,6 @@ function deleteUserDeviceModule(
   if (moduleId == null) {
     throw new Error(
       'Missing required parameter : moduleId. Value : ' + moduleId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -2280,8 +2164,8 @@ function deleteUserDeviceModule(
  * The shares type,
  * @param {array} parameters.body
  * The users concerned by the user's device share,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2308,11 +2192,6 @@ function putUserDeviceShares(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -2358,8 +2237,14 @@ function putUserDeviceShares(
  * The measures to read,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
+ * @param {string} [parameters.interval]
+ * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2375,6 +2260,9 @@ function getUserDeviceStatistics(
     endDate,
     measures,
     patched,
+    includeHistory,
+    timeZone,
+    interval,
     authorization,
     accessToken,
   } = {},
@@ -2401,11 +2289,6 @@ function getUserDeviceStatistics(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
@@ -2417,6 +2300,9 @@ function getUserDeviceStatistics(
     endDate: endDate,
     measures: measures,
     patched: patched,
+    includeHistory: includeHistory,
+    timeZone: timeZone,
+    interval: interval,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2448,12 +2334,14 @@ function getUserDeviceStatistics(
  * The device id,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
  * @param {number} parameters.size
  * The number of measures to retrieve,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2466,6 +2354,7 @@ function getUserDeviceRawData(
     userId,
     deviceId,
     beforeDate,
+    includeHistory,
     size,
     measures,
     authorization,
@@ -2494,11 +2383,6 @@ function getUserDeviceRawData(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
@@ -2507,6 +2391,7 @@ function getUserDeviceRawData(
   };
   let qs = cleanQuery({
     beforeDate: beforeDate,
+    includeHistory: includeHistory,
     size: size,
     measures: measures,
     access_token: accessToken,
@@ -2540,12 +2425,16 @@ function getUserDeviceRawData(
  * The device id,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
  * @param {number} parameters.days
  * The number of days to retrieve,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2558,6 +2447,8 @@ function getUserDeviceHourlyData(
     userId,
     deviceId,
     beforeDate,
+    includeHistory,
+    timeZone,
     days,
     measures,
     authorization,
@@ -2586,11 +2477,6 @@ function getUserDeviceHourlyData(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
@@ -2599,6 +2485,8 @@ function getUserDeviceHourlyData(
   };
   let qs = cleanQuery({
     beforeDate: beforeDate,
+    includeHistory: includeHistory,
+    timeZone: timeZone,
     days: days,
     measures: measures,
     access_token: accessToken,
@@ -2634,10 +2522,14 @@ function getUserDeviceHourlyData(
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2651,6 +2543,8 @@ function getUserDeviceDailyData(
     deviceId,
     beforeDate,
     days,
+    includeHistory,
+    timeZone,
     measures,
     authorization,
     accessToken,
@@ -2678,11 +2572,6 @@ function getUserDeviceDailyData(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
@@ -2692,6 +2581,8 @@ function getUserDeviceDailyData(
   let qs = cleanQuery({
     beforeDate: beforeDate,
     days: days,
+    includeHistory: includeHistory,
+    timeZone: timeZone,
     measures: measures,
     access_token: accessToken,
   });
@@ -2730,8 +2621,14 @@ function getUserDeviceDailyData(
  * The measures to read,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
+ * @param {string} [parameters.interval]
+ * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2747,6 +2644,9 @@ function getUserDeviceContinuousStatistics(
     endDate,
     measures,
     patched,
+    includeHistory,
+    timeZone,
+    interval,
     authorization,
     accessToken,
   } = {},
@@ -2773,11 +2673,6 @@ function getUserDeviceContinuousStatistics(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = [
@@ -2795,6 +2690,9 @@ function getUserDeviceContinuousStatistics(
     endDate: endDate,
     measures: measures,
     patched: patched,
+    includeHistory: includeHistory,
+    timeZone: timeZone,
+    interval: interval,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2824,12 +2722,14 @@ function getUserDeviceContinuousStatistics(
  * The user id,
  * @param {number} parameters.deviceId
  * The device id,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
  * @param {string} parameters.date
  * The summary date,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2838,7 +2738,15 @@ function getUserDeviceContinuousStatistics(
  * The HTTP response
  */
 function getUserDeviceSummary(
-  { userId, deviceId, date, measures, authorization, accessToken } = {},
+  {
+    userId,
+    deviceId,
+    includeHistory,
+    date,
+    measures,
+    authorization,
+    accessToken,
+  } = {},
   options,
 ) {
   if (userId == null) {
@@ -2857,11 +2765,6 @@ function getUserDeviceSummary(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
@@ -2869,6 +2772,7 @@ function getUserDeviceSummary(
     Authorization: authorization,
   };
   let qs = cleanQuery({
+    includeHistory: includeHistory,
     measures: measures,
     access_token: accessToken,
   });
@@ -2901,8 +2805,8 @@ function getUserDeviceSummary(
  * The device id,
  * @param {string} parameters.date
  * Date of the forecasts,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2924,11 +2828,6 @@ function getUserDeviceForecasts(
   }
   if (date == null) {
     throw new Error('Missing required parameter : date. Value : ' + date);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -2971,8 +2870,8 @@ function getUserDeviceForecasts(
  * The longitude of the data,
  * @param {string} [parameters.date]
  * Date of the forecasts,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -2997,11 +2896,6 @@ function getUserForecasts(
       'Missing required parameter : longitude. Value : ' + longitude,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'forecasts'];
@@ -3012,6 +2906,122 @@ function getUserForecasts(
     latitude: latitude,
     longitude: longitude,
     date: date,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a user's statistics for a given location.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.latitude
+ * The latitude of the data,
+ * @param {number} parameters.longitude
+ * The longitude of the data,
+ * @param {string} parameters.startDate
+ * The statistics start date,
+ * @param {string} parameters.endDate
+ * The statistics end date,
+ * @param {array} parameters.measures
+ * The measures to read,
+ * @param {array} parameters.ranges
+ * The ranges to get the data from,
+ * @param {boolean} [parameters.patched]
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {string} [parameters.interval]
+ * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserStatistics(
+  {
+    userId,
+    latitude,
+    longitude,
+    startDate,
+    endDate,
+    measures,
+    ranges,
+    patched,
+    includeHistory,
+    interval,
+    authorization,
+    accessToken,
+  } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (latitude == null) {
+    throw new Error(
+      'Missing required parameter : latitude. Value : ' + latitude,
+    );
+  }
+  if (longitude == null) {
+    throw new Error(
+      'Missing required parameter : longitude. Value : ' + longitude,
+    );
+  }
+  if (startDate == null) {
+    throw new Error(
+      'Missing required parameter : startDate. Value : ' + startDate,
+    );
+  }
+  if (endDate == null) {
+    throw new Error('Missing required parameter : endDate. Value : ' + endDate);
+  }
+  if (measures == null) {
+    throw new Error(
+      'Missing required parameter : measures. Value : ' + measures,
+    );
+  }
+  if (ranges == null) {
+    throw new Error('Missing required parameter : ranges. Value : ' + ranges);
+  }
+
+  const method = 'get';
+  let urlParts = ['users', userId, 'statistics'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude,
+    startDate: startDate,
+    endDate: endDate,
+    measures: measures,
+    ranges: ranges,
+    patched: patched,
+    includeHistory: includeHistory,
+    interval: interval,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -3047,10 +3057,14 @@ function getUserForecasts(
  * The date before which the data starts being retrieved,
  * @param {number} parameters.days
  * The number of days to retrieve,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
+ * @param {array} [parameters.ranges]
+ * The ranges to get the data from,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3065,6 +3079,8 @@ function getUserDailyData(
     longitude,
     beforeDate,
     days,
+    includeHistory,
+    ranges,
     measures,
     authorization,
     accessToken,
@@ -3097,11 +3113,6 @@ function getUserDailyData(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'daily'];
@@ -3113,6 +3124,8 @@ function getUserDailyData(
     longitude: longitude,
     beforeDate: beforeDate,
     days: days,
+    includeHistory: includeHistory,
+    ranges: ranges,
     measures: measures,
     access_token: accessToken,
   });
@@ -3147,12 +3160,16 @@ function getUserDailyData(
  * The longitude of the data,
  * @param {string} parameters.beforeDate
  * The date before which the data starts being retrieved,
+ * @param {boolean} [parameters.includeHistory]
+ * If must include device replacements or not,
  * @param {number} parameters.days
  * The number of days to retrieve,
+ * @param {array} [parameters.ranges]
+ * The ranges to get the data from,
  * @param {array} parameters.measures
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3166,7 +3183,9 @@ function getUserHourlyData(
     latitude,
     longitude,
     beforeDate,
+    includeHistory,
     days,
+    ranges,
     measures,
     authorization,
     accessToken,
@@ -3199,11 +3218,6 @@ function getUserHourlyData(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'hourly'];
@@ -3214,7 +3228,9 @@ function getUserHourlyData(
     latitude: latitude,
     longitude: longitude,
     beforeDate: beforeDate,
+    includeHistory: includeHistory,
     days: days,
+    ranges: ranges,
     measures: measures,
     access_token: accessToken,
   });
@@ -3243,8 +3259,8 @@ function getUserHourlyData(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3258,11 +3274,6 @@ function getUserPreferences(
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -3300,8 +3311,8 @@ function getUserPreferences(
  * The user id,
  * @param {object} parameters.body
  * The new user preferences,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3318,11 +3329,6 @@ function putUserPreferences(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -3353,13 +3359,17 @@ function putUserPreferences(
 }
 
 /**
- * Get a organisation's operations.
+ * Get user's notifications.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} [parameters.size]
+ * undefined,
+ * @param {string} [parameters.cursor]
+ * undefined,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3367,286 +3377,22 @@ function putUserPreferences(
  * @return {Object}
  * The HTTP response
  */
-function getOrganisationOperations(
-  { organisationId, authorization, accessToken } = {},
+function getUserNotifications(
+  { userId, size, cursor, authorization, accessToken } = {},
   options,
 ) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
 
   const method = 'get';
-  let urlParts = ['organisations', organisationId, 'operations'];
+  let urlParts = ['users', userId, 'notifications'];
   let headers = {
     Authorization: authorization,
   };
   let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {object} parameters.body
- * The operation to add,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postOrganisationOperation(
-  { organisationId, body, authorization, accessToken } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
-
-  const method = 'post';
-  let urlParts = ['organisations', organisationId, 'operations'];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Retrieve an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getOrganisationOperation(
-  { organisationId, operationId, authorization, accessToken } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Update an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {object} parameters.body
- * The operation to update,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putOrganisationOperation(
-  { organisationId, operationId, body, authorization, accessToken } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
-
-  const method = 'put';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Delete an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Access token in the query string
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteOrganisationOperation(
-  { organisationId, operationId, authorization, accessToken } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
-
-  const method = 'delete';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = {
-    Authorization: authorization,
-  };
-  let qs = cleanQuery({
+    size: size,
+    cursor: cursor,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -3674,8 +3420,8 @@ function deleteOrganisationOperation(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3686,11 +3432,6 @@ function deleteOrganisationOperation(
 function getUserAlerts({ userId, authorization, accessToken } = {}, options) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'get';
@@ -3728,8 +3469,8 @@ function getUserAlerts({ userId, authorization, accessToken } = {}, options) {
  * The user id,
  * @param {object} parameters.body
  * The user's alert,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3746,11 +3487,6 @@ function postUserAlert(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -3790,8 +3526,8 @@ function postUserAlert(
  * The alert id,
  * @param {object} parameters.body
  * The user's alert,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3811,11 +3547,6 @@ function putUserAlert(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -3853,8 +3584,8 @@ function putUserAlert(
  * The user id,
  * @param {number} parameters.alertId
  * The alert id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3871,11 +3602,6 @@ function deleteUserAlert(
   }
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'delete';
@@ -3945,6 +3671,56 @@ function postOrganisationDeprecated({ body } = {}, options) {
 }
 
 /**
+ * Get all user's organisations.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserOrganisations(
+  { userId, authorization, accessToken } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+
+  const method = 'get';
+  let urlParts = ['users', userId, 'organisations'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
  * Creates a new organisation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -3952,8 +3728,8 @@ function postOrganisationDeprecated({ body } = {}, options) {
  * The user id,
  * @param {object} parameters.body
  * The necessary contents to create a new organisation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -3970,11 +3746,6 @@ function postOrganisation(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -4010,8 +3781,8 @@ function postOrganisation(
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4026,11 +3797,6 @@ function getOrganisation(
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
     );
   }
 
@@ -4069,8 +3835,8 @@ function getOrganisation(
  * The organisation id,
  * @param {object} parameters.body
  * The modified organisation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4089,11 +3855,6 @@ function putOrganisation(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -4131,8 +3892,8 @@ function putOrganisation(
  * The organisation id,
  * @param {object} parameters.body
  * The necessary contents to migrate users,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4151,11 +3912,6 @@ function postOrganisationMembersMigration(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -4195,8 +3951,8 @@ function postOrganisationMembersMigration(
  * The user id to add,
  * @param {object} parameters.body
  * The type of relation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4220,11 +3976,6 @@ function postOrganisationUser(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -4264,8 +4015,8 @@ function postOrganisationUser(
  * The user id to add,
  * @param {object} parameters.body
  * The type of relation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4289,11 +4040,6 @@ function putOrganisationUser(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -4331,8 +4077,8 @@ function putOrganisationUser(
  * The organisation id,
  * @param {number} parameters.targetUserId
  * The user id to remove,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4354,14 +4100,300 @@ function deleteOrganisationUser(
       'Missing required parameter : targetUserId. Value : ' + targetUserId,
     );
   }
-  if (authorization == null) {
+
+  const method = 'delete';
+  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a organisation's operations.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationOperations(
+  { organisationId, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
     throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'operations'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Create an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {object} parameters.body
+ * The operation to add,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationOperation(
+  { organisationId, body, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
+  const method = 'post';
+  let urlParts = ['organisations', organisationId, 'operations'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationOperation(
+  { organisationId, operationId, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'operations', operationId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Update an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {object} parameters.body
+ * The operation to update,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putOrganisationOperation(
+  { organisationId, operationId, body, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId,
+    );
+  }
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
+  const method = 'put';
+  let urlParts = ['organisations', organisationId, 'operations', operationId];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Delete an organisation's operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.operationId
+ * The operation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteOrganisationOperation(
+  { organisationId, operationId, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (operationId == null) {
+    throw new Error(
+      'Missing required parameter : operationId. Value : ' + operationId,
     );
   }
 
   const method = 'delete';
-  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = {
     Authorization: authorization,
   };
@@ -4395,8 +4427,8 @@ function deleteOrganisationUser(
  * The organisation id,
  * @param {object} parameters.body
  * The necessary contents to create a new place for an organisation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4415,11 +4447,6 @@ function postOrganisationPlace(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'post';
@@ -4459,8 +4486,8 @@ function postOrganisationPlace(
  * The place id,
  * @param {object} parameters.body
  * The necessary contents to update a place for an organisation,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4482,11 +4509,6 @@ function putOrganisationPlace(
   }
   if (body == null) {
     throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
   }
 
   const method = 'put';
@@ -4517,15 +4539,15 @@ function putOrganisationPlace(
 }
 
 /**
- * Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).
+ * Get last measure (for a specific type) from devices in a given area (1 hour for RAIN_FALL).
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {string} parameters.geohash
  * The geohash of the data,
  * @param {string} parameters.measureType
  * The measures to read,
- * @param {string} parameters.authorization
- * Authorization with Bearer mecanism,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
  * Access token in the query string
  * @param {Object} options
@@ -4545,11 +4567,6 @@ function getWeatherLive(
       'Missing required parameter : measureType. Value : ' + measureType,
     );
   }
-  if (authorization == null) {
-    throw new Error(
-      'Missing required parameter : authorization. Value : ' + authorization,
-    );
-  }
 
   const method = 'get';
   let urlParts = ['weather', 'live'];
@@ -4559,6 +4576,54 @@ function getWeatherLive(
   let qs = cleanQuery({
     geohash: geohash,
     measureType: measureType,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Search for an user
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.email
+ * Email of the user to search,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getSearchUser({ email, authorization, accessToken } = {}, options) {
+  if (email == null) {
+    throw new Error('Missing required parameter : email. Value : ' + email);
+  }
+
+  const method = 'get';
+  let urlParts = ['search', 'users'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    email: email,
     access_token: accessToken,
   });
   let data = {}.undef;

@@ -1,9 +1,4 @@
 {
-  "host": "api.sencrop.com",
-  "basePath": "/v1",
-  "schemes": [
-    "https"
-  ],
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
@@ -104,7 +99,7 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string"
           },
           {
@@ -355,7 +350,7 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Basic mecanism",
+            "description": "Authorization with Basic mechanism",
             "type": "string",
             "required": true
           }
@@ -421,7 +416,7 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Basic mecanism",
+            "description": "Authorization with Basic mechanism",
             "type": "string",
             "required": true
           }
@@ -491,9 +486,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -587,9 +582,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -704,9 +699,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -771,9 +766,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -824,9 +819,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -907,9 +902,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -986,9 +981,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1051,9 +1046,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1102,9 +1097,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1185,9 +1180,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1263,9 +1258,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1328,9 +1323,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1391,9 +1386,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1458,9 +1453,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1532,9 +1527,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1602,9 +1597,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1659,9 +1654,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1708,6 +1703,13 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
             "description": "The status date",
             "name": "date",
             "type": "string",
@@ -1733,7 +1735,6 @@
                 "LEAF_SENSOR_CONDUCTIVITY",
                 "RH_AIR_H1",
                 "TEMP_AIR_H1",
-                null,
                 "RAIN_TIC",
                 "WIND_MEAN",
                 "WIND_MAX"
@@ -1772,9 +1773,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1849,9 +1850,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1908,11 +1909,18 @@
             "required": true
           },
           {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -1997,11 +2005,18 @@
             "required": true
           },
           {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2075,9 +2090,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2134,9 +2149,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2193,9 +2208,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2426,9 +2441,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2494,9 +2509,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2575,9 +2590,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2702,11 +2717,39 @@
             "type": "boolean"
           },
           {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
+            "in": "query",
+            "description": "The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval)",
+            "name": "interval",
+            "type": "string",
+            "enum": [
+              "1h",
+              "1d",
+              "1w",
+              "1M"
+            ]
+          },
+          {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2780,6 +2823,13 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
             "required": true,
             "description": "The number of measures to retrieve",
             "name": "size",
@@ -2813,19 +2863,22 @@
                 "LEAF_SENSOR_CONDUCTIVITY",
                 "RH_AIR_H1",
                 "TEMP_AIR_H1",
-                null,
                 "RAIN_TIC",
                 "WIND_MEAN",
-                "WIND_MAX"
+                "WIND_MAX",
+                "MOVE",
+                "LAT",
+                "LNG",
+                "ALT"
               ]
             }
           },
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -2860,7 +2913,6 @@
                       "LEAF_SENSOR_CONDUCTIVITY",
                       "RH_AIR_H1",
                       "TEMP_AIR_H1",
-                      null,
                       "RAIN_TIC",
                       "WIND_MEAN",
                       "WIND_MAX"
@@ -2931,6 +2983,22 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
+            "in": "query",
             "required": true,
             "description": "The number of days to retrieve",
             "name": "days",
@@ -2988,9 +3056,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3077,6 +3145,22 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
+            "in": "query",
             "required": true,
             "description": "The measures to read",
             "name": "measures",
@@ -3120,9 +3204,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3250,11 +3334,39 @@
             "type": "boolean"
           },
           {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
+            "in": "query",
+            "description": "The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval)",
+            "name": "interval",
+            "type": "string",
+            "enum": [
+              "1h",
+              "1d",
+              "1w",
+              "1M"
+            ]
+          },
+          {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3318,6 +3430,13 @@
             "required": true
           },
           {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
             "in": "path",
             "required": true,
             "description": "The summary date",
@@ -3347,7 +3466,6 @@
                 "LEAF_SENSOR_CONDUCTIVITY",
                 "RH_AIR_H1",
                 "TEMP_AIR_H1",
-                null,
                 "RAIN_TIC",
                 "WIND_MEAN",
                 "WIND_MAX"
@@ -3357,9 +3475,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3433,9 +3551,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3518,9 +3636,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3538,6 +3656,186 @@
           },
           "404": {
             "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/{userId}/statistics": {
+      "get": {
+        "operationId": "getUserStatistics",
+        "summary": "Get a user's statistics for a given location.",
+        "tags": [
+          "data"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the data",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the data",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics start date",
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics end date",
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RELATIVE_HUMIDITY",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "LEAF_SENSOR_CONDUCTIVITY",
+                "LEAF_SENSOR_CONDUCTIVITY_MIN",
+                "LEAF_SENSOR_CONDUCTIVITY_MAX",
+                "RAIN_FALL",
+                "WIND_SPEED",
+                "WIND_GUST",
+                "WIND_DIRECTION",
+                "MOVE",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH",
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX",
+                "RAIN_TIC",
+                "WIND_MEAN",
+                "WIND_MAX"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The ranges to get the data from",
+            "name": "ranges",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number",
+              "enum": [
+                0.3,
+                3,
+                10,
+                15,
+                40,
+                80
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "description": "The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval)",
+            "name": "interval",
+            "type": "string",
+            "enum": [
+              "1h",
+              "1d",
+              "1w",
+              "1M"
+            ]
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -3616,6 +3914,32 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The ranges to get the data from",
+            "name": "ranges",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number",
+              "enum": [
+                0.3,
+                3,
+                10,
+                15,
+                40,
+                80
+              ]
+            }
+          },
+          {
+            "in": "query",
             "required": true,
             "description": "The measures to read",
             "name": "measures",
@@ -3659,9 +3983,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3741,6 +4065,13 @@
           },
           {
             "in": "query",
+            "description": "If must include device replacements or not",
+            "name": "includeHistory",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
             "required": true,
             "description": "The number of days to retrieve",
             "name": "days",
@@ -3752,6 +4083,25 @@
               20,
               31
             ]
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The ranges to get the data from",
+            "name": "ranges",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number",
+              "enum": [
+                0.3,
+                3,
+                10,
+                15,
+                40,
+                80
+              ]
+            }
           },
           {
             "in": "query",
@@ -3798,9 +4148,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3854,9 +4204,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3919,9 +4269,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3948,13 +4298,10 @@
         "tags": []
       }
     },
-    "/organisations/{organisationId}/operations": {
+    "/users/{userId}/notifications": {
       "get": {
-        "operationId": "getOrganisationOperations",
-        "summary": "Get a organisation's operations.",
-        "tags": [
-          "operations"
-        ],
+        "operationId": "getUserNotifications",
+        "summary": "Get user's notifications.",
         "consumes": [],
         "produces": [
           "application/json"
@@ -3962,19 +4309,38 @@
         "parameters": [
           {
             "in": "path",
-            "description": "The organisation id",
-            "name": "organisationId",
+            "description": "The user id",
+            "name": "userId",
             "type": "number",
             "pattern": "^[0-9]+$",
             "minimum": 1,
             "required": true
           },
           {
+            "in": "query",
+            "required": false,
+            "name": "size",
+            "type": "number",
+            "default": 10,
+            "enum": [
+              10,
+              20,
+              50,
+              100
+            ]
+          },
+          {
+            "in": "query",
+            "required": false,
+            "name": "cursor",
+            "type": "string"
+          },
+          {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -3985,13 +4351,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested organisation's operations",
+            "description": "The user's notifications",
             "schema": {
-              "$ref": "#/definitions/OperationsItems"
+              "$ref": "#/definitions/NotificationsItems"
             }
           },
           "404": {
-            "description": "Organisation does not exists",
+            "description": "User does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -4003,273 +4369,8 @@
               "ROLE_USER"
             ]
           }
-        ]
-      },
-      "post": {
-        "operationId": "postOrganisationOperation",
-        "summary": "Create an organisation's operation.",
-        "tags": [
-          "operations"
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The organisation id",
-            "name": "organisationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "The operation to add",
-            "schema": {
-              "$ref": "#/definitions/Operation"
-            },
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The newly created organisation's operation",
-            "schema": {
-              "$ref": "#/definitions/OperationItem"
-            }
-          },
-          "404": {
-            "description": "Organisation does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      }
-    },
-    "/organisations/{organisationId}/operations/{operationId}": {
-      "get": {
-        "operationId": "getOrganisationOperation",
-        "summary": "Retrieve an organisation's operation.",
-        "tags": [
-          "operations"
-        ],
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The organisation id",
-            "name": "organisationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The operation id",
-            "name": "operationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The organisation's operation",
-            "schema": {
-              "$ref": "#/definitions/OperationItem"
-            }
-          },
-          "404": {
-            "description": "Organisation or operation does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      },
-      "put": {
-        "operationId": "putOrganisationOperation",
-        "summary": "Update an organisation's operation.",
-        "tags": [
-          "operations"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The organisation id",
-            "name": "organisationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The operation id",
-            "name": "operationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "The operation to update",
-            "schema": {
-              "$ref": "#/definitions/Operation"
-            },
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The modified organisation's operation",
-            "schema": {
-              "$ref": "#/definitions/OperationItem"
-            }
-          },
-          "404": {
-            "description": "Organisation does not exists",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "deleteOrganisationOperation",
-        "summary": "Delete an organisation's operation.",
-        "tags": [
-          "operations"
-        ],
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "description": "The organisation id",
-            "name": "organisationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "path",
-            "description": "The operation id",
-            "name": "operationId",
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "required": true
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Access token in the query string",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The organisation's operation does not exist anymore"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [
-              "ROLE_USER"
-            ]
-          }
-        ]
+        "tags": []
       }
     },
     "/users/{userId}/alerts": {
@@ -4296,9 +4397,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4363,9 +4464,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4435,9 +4536,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4492,9 +4593,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4635,6 +4736,62 @@
       }
     },
     "/users/{userId}/organisations": {
+      "get": {
+        "operationId": "getUserOrganisations",
+        "summary": "Get all user's organisations.",
+        "tags": [
+          "organisations"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's organisations",
+            "schema": {
+              "$ref": "#/definitions/OrganisationItems"
+            }
+          },
+          "404": {
+            "description": "User or organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      },
       "post": {
         "operationId": "postOrganisation",
         "summary": "Creates a new organisation.",
@@ -4669,9 +4826,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4721,9 +4878,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4788,9 +4945,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4880,9 +5037,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -4964,9 +5121,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5046,9 +5203,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5105,9 +5262,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5119,6 +5276,330 @@
         "responses": {
           "204": {
             "description": "The user was successfully deleted from the organisation."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/organisations/{organisationId}/operations": {
+      "get": {
+        "operationId": "getOrganisationOperations",
+        "summary": "Get a organisation's operations.",
+        "tags": [
+          "operations"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested organisation's operations",
+            "schema": {
+              "$ref": "#/definitions/OperationsItems"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "operationId": "postOrganisationOperation",
+        "summary": "Create an organisation's operation.",
+        "tags": [
+          "operations"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to add",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/organisations/{organisationId}/operations/{operationId}": {
+      "get": {
+        "operationId": "getOrganisationOperation",
+        "summary": "Retrieve an organisation's operation.",
+        "tags": [
+          "operations"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The operation id",
+            "name": "operationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation or operation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "operationId": "putOrganisationOperation",
+        "summary": "Update an organisation's operation.",
+        "tags": [
+          "operations"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The operation id",
+            "name": "operationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to update",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The modified organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteOrganisationOperation",
+        "summary": "Delete an organisation's operation.",
+        "tags": [
+          "operations"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The operation id",
+            "name": "operationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The organisation's operation does not exist anymore"
           }
         },
         "security": [
@@ -5166,9 +5647,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5245,9 +5726,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5316,9 +5797,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
+            "description": "Authorization with Bearer mechanism",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -5351,6 +5832,58 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/search/users": {
+      "get": {
+        "operationId": "getSearchUser",
+        "summary": "Search for an user",
+        "tags": [
+          "search",
+          "users"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "required": true,
+            "description": "Email of the user to search",
+            "name": "email",
+            "type": "string",
+            "format": "email"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Users that match the search",
+            "schema": {
+              "$ref": "#/definitions/UserItem"
             }
           }
         },
@@ -5510,6 +6043,26 @@
           "type": "number",
           "pattern": "^[0-9]+$",
           "minimum": 1
+        },
+        "organisations": {
+          "$ref": "#/definitions/OrganisationHash"
+        }
+      }
+    },
+    "OrganisationItems": {
+      "type": "object",
+      "required": [
+        "items",
+        "organisations"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
         },
         "organisations": {
           "$ref": "#/definitions/OrganisationHash"
@@ -6836,8 +7389,7 @@
         "type": {
           "type": "string",
           "enum": [
-            "data",
-            "schedule",
+            "email",
             "ftp",
             "partner"
           ]
@@ -7068,6 +7620,153 @@
         }
       }
     },
+    "Notification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "app",
+            "user",
+            "partner",
+            "module",
+            "alert",
+            "device"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "message": {
+          "type": "string"
+        },
+        "read": {
+          "type": "boolean"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "url"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Anchor text"
+              },
+              "tooltip": {
+                "type": "string",
+                "description": "Anchor tooltip text"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "operationId",
+              "parameters"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Button text"
+              },
+              "tooltip": {
+                "type": "string",
+                "description": "Button tooltip text"
+              },
+              "operationId": {
+                "type": "string",
+                "description": "Operation id binded to the action"
+              },
+              "parameters": {
+                "type": "string",
+                "description": "JSON payload of the action parameters"
+              }
+            }
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "url"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "operationId": {
+                "type": "string",
+                "description": "Operation id binded to the action"
+              },
+              "parameters": {
+                "type": "string",
+                "description": "JSON payload of the action parameters"
+              }
+            }
+          }
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NotificationHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$": {
+          "$ref": "#/definitions/Notification"
+        }
+      }
+    },
+    "NotificationsItems": {
+      "type": "object",
+      "required": [
+        "items",
+        "notifications",
+        "sinceCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "notifications": {
+          "$ref": "#/definitions/NotificationHash"
+        },
+        "nextCursor": {
+          "type": "string",
+          "description": "Opaque cursor you can reuse to get older items."
+        },
+        "sinceCursor": {
+          "type": "string",
+          "description": "Opaque cursor you can reuse to get fresher items."
+        }
+      }
+    },
     "Error": {
       "type": "object",
       "properties": {
@@ -7258,7 +7957,7 @@
     "DeviceSummaryItem": {
       "type": "object",
       "patternProperties": {
-        "^(RELATIVE_HUMIDITY|TEMPERATURE|WET_TEMPERATURE|RAIN_FALL|WIND_SPEED|WIND_GUST|WIND_DIRECTION|MOVE|LEAF_SENSOR_CONDUCTIVITY|RH_AIR_H1|TEMP_AIR_H1||RAIN_TIC|WIND_MEAN|WIND_MAX)$": {
+        "^(RELATIVE_HUMIDITY|TEMPERATURE|WET_TEMPERATURE|RAIN_FALL|WIND_SPEED|WIND_GUST|WIND_DIRECTION|MOVE|LEAF_SENSOR_CONDUCTIVITY|RH_AIR_H1|TEMP_AIR_H1|RAIN_TIC|WIND_MEAN|WIND_MAX)$": {
           "type": "object",
           "required": [
             "lastMeasure"
@@ -7726,7 +8425,6 @@
               "LEAF_SENSOR_CONDUCTIVITY",
               "RH_AIR_H1",
               "TEMP_AIR_H1",
-              null,
               "RAIN_TIC",
               "WIND_MEAN",
               "WIND_MAX"
@@ -7802,8 +8500,26 @@
           },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ROLE_USER",
+              "ROLE_ADMIN"
+            ]
+          }
         }
       }
     }
-  }
+  },
+  "host": "api.sencrop.com",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ]
 }

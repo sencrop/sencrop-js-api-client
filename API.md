@@ -54,20 +54,18 @@ API to consume Sencrop data
     * [~getUserDeviceSummary(parameters, options)](#module_API..getUserDeviceSummary) ⇒ <code>Object</code>
     * [~getUserDeviceForecasts(parameters, options)](#module_API..getUserDeviceForecasts) ⇒ <code>Object</code>
     * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
+    * [~getUserStatistics(parameters, options)](#module_API..getUserStatistics) ⇒ <code>Object</code>
     * [~getUserDailyData(parameters, options)](#module_API..getUserDailyData) ⇒ <code>Object</code>
     * [~getUserHourlyData(parameters, options)](#module_API..getUserHourlyData) ⇒ <code>Object</code>
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
     * [~putUserPreferences(parameters, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
-    * [~getOrganisationOperations(parameters, options)](#module_API..getOrganisationOperations) ⇒ <code>Object</code>
-    * [~postOrganisationOperation(parameters, options)](#module_API..postOrganisationOperation) ⇒ <code>Object</code>
-    * [~getOrganisationOperation(parameters, options)](#module_API..getOrganisationOperation) ⇒ <code>Object</code>
-    * [~putOrganisationOperation(parameters, options)](#module_API..putOrganisationOperation) ⇒ <code>Object</code>
-    * [~deleteOrganisationOperation(parameters, options)](#module_API..deleteOrganisationOperation) ⇒ <code>Object</code>
+    * [~getUserNotifications(parameters, options)](#module_API..getUserNotifications) ⇒ <code>Object</code>
     * [~getUserAlerts(parameters, options)](#module_API..getUserAlerts) ⇒ <code>Object</code>
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
     * [~deleteUserAlert(parameters, options)](#module_API..deleteUserAlert) ⇒ <code>Object</code>
     * [~postOrganisationDeprecated(parameters, options)](#module_API..postOrganisationDeprecated) ⇒ <code>Object</code>
+    * [~getUserOrganisations(parameters, options)](#module_API..getUserOrganisations) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
@@ -75,9 +73,15 @@ API to consume Sencrop data
     * [~postOrganisationUser(parameters, options)](#module_API..postOrganisationUser) ⇒ <code>Object</code>
     * [~putOrganisationUser(parameters, options)](#module_API..putOrganisationUser) ⇒ <code>Object</code>
     * [~deleteOrganisationUser(parameters, options)](#module_API..deleteOrganisationUser) ⇒ <code>Object</code>
+    * [~getOrganisationOperations(parameters, options)](#module_API..getOrganisationOperations) ⇒ <code>Object</code>
+    * [~postOrganisationOperation(parameters, options)](#module_API..postOrganisationOperation) ⇒ <code>Object</code>
+    * [~getOrganisationOperation(parameters, options)](#module_API..getOrganisationOperation) ⇒ <code>Object</code>
+    * [~putOrganisationOperation(parameters, options)](#module_API..putOrganisationOperation) ⇒ <code>Object</code>
+    * [~deleteOrganisationOperation(parameters, options)](#module_API..deleteOrganisationOperation) ⇒ <code>Object</code>
     * [~postOrganisationPlace(parameters, options)](#module_API..postOrganisationPlace) ⇒ <code>Object</code>
     * [~putOrganisationPlace(parameters, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
     * [~getWeatherLive(parameters, options)](#module_API..getWeatherLive) ⇒ <code>Object</code>
+    * [~getSearchUser(parameters, options)](#module_API..getSearchUser) ⇒ <code>Object</code>
 
 <a name="module_API..getPing"></a>
 
@@ -129,7 +133,7 @@ Hit the server to check the email can be used to signup.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | parameters.body | <code>object</code> | The email to check |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -202,7 +206,7 @@ Request a user token
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
 | parameters.body | <code>object</code> | Request a user token, |
-| parameters.authorization | <code>string</code> | Authorization with Basic mecanism |
+| parameters.authorization | <code>string</code> | Authorization with Basic mechanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postPartnerToken"></a>
@@ -218,7 +222,7 @@ Create a user token
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
 | parameters.body | <code>object</code> | Create a user token, |
-| parameters.authorization | <code>string</code> | Authorization with Basic mecanism |
+| parameters.authorization | <code>string</code> | Authorization with Basic mechanism |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getPartnerDevices"></a>
@@ -235,7 +239,7 @@ Retrieves the devices a partner has access to.
 | parameters.partnerId | <code>number</code> | The partner organisation id, |
 | parameters.limit | <code>number</code> | The number of items to retrieve, |
 | parameters.start | <code>number</code> | The index in results, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -255,7 +259,7 @@ Update an partner module parameters
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.moduleId | <code>number</code> | The module id, |
 | parameters.body | <code>object</code> | The module parameters, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -299,7 +303,7 @@ Get a user's profile.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -316,7 +320,7 @@ Update a user's profile.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The new user, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -332,7 +336,7 @@ Get a user's guests.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -350,7 +354,7 @@ Create a user's guest.
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.organisationIdTarget] | <code>number</code> | The organisation id to add the collaborator to, |
 | parameters.body | <code>object</code> | The user's guest, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -368,7 +372,7 @@ Update a user's guest.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.guestId | <code>number</code> | The guest id, |
 | parameters.body | <code>object</code> | The user's guest, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -386,7 +390,7 @@ Delete a user's guest.
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.organisationIdTarget] | <code>number</code> | The organisation id to remove the collaborator to, |
 | parameters.guestId | <code>number</code> | The guest id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -402,7 +406,7 @@ Get a user's collaborators.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -420,7 +424,7 @@ Create a user's collaborator.
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.organisationIdTarget] | <code>number</code> | The organisation id to add the collaborator to, |
 | parameters.body | <code>object</code> | The user's collaborator, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -438,7 +442,7 @@ Update a user's collaborator.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.collaboratorId | <code>string</code> | The collaborator id, |
 | parameters.body | <code>object</code> | The user's collaborator, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -456,7 +460,7 @@ Delete a user's collaborator.
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.organisationIdTarget] | <code>number</code> | The organisation id to remove the collaborator to, |
 | parameters.collaboratorId | <code>number</code> | The collaborator id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -474,7 +478,7 @@ Get a user's aggregations.
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.compute] | <code>boolean</code> | Wether the aggregations should be computed, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -491,7 +495,7 @@ Create a user's aggregation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The user's aggregation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -509,7 +513,7 @@ Get a single user aggregation with statistics for graphs
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>number</code> | The aggregation id, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -527,7 +531,7 @@ Update a user's aggregation.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>number</code> | The aggregation id, |
 | parameters.body | <code>object</code> | The user's aggregation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -544,7 +548,7 @@ Delete a user's aggregation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>number</code> | The aggregation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -560,12 +564,13 @@ Get a user's devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.date] | <code>string</code> | The status date, |
 | [parameters.measures] | <code>array</code> | The measures to read, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | [parameters.limit] | <code>number</code> | The number of items to retrieve, |
 | [parameters.start] | <code>number</code> | The index in results, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -582,7 +587,7 @@ Setup a user's device.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The user device activation couple, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -599,7 +604,8 @@ Get a user's device geographic positions historic.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -616,7 +622,8 @@ Get a user's device.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -634,7 +641,7 @@ Update a user's device.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.body | <code>object</code> | The user device, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -651,7 +658,7 @@ Delete a user's device access.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -668,7 +675,7 @@ Get the modules a user activated on its device
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -687,7 +694,7 @@ Add a module to a user's device
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.moduleId | <code>number</code> | The module id, |
 | parameters.body | <code>object</code> | The module settings, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -705,7 +712,7 @@ Disable a module for a user's device
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.moduleId | <code>number</code> | The module id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -724,7 +731,7 @@ Update a user's device shares.
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.sharesType | <code>string</code> | The shares type, |
 | parameters.body | <code>array</code> | The users concerned by the user's device share, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -745,7 +752,10 @@ Get a user's device's device's statistics.
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -763,9 +773,10 @@ Get a user's device's raw data.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | parameters.size | <code>number</code> | The number of measures to retrieve, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -783,9 +794,11 @@ Get a user's device's hourly data.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -804,8 +817,10 @@ Get a user's device's daily data.
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -826,7 +841,10 @@ Get a user's device's continuous device's statistics.
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -843,9 +861,10 @@ Get a user's device's summary at a given date.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | parameters.date | <code>string</code> | The summary date, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -863,7 +882,7 @@ Get a user's device's forecasts.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.date | <code>string</code> | Date of the forecasts, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -882,7 +901,32 @@ Get a user's forecasts.
 | parameters.latitude | <code>number</code> | The latitude of the data, |
 | parameters.longitude | <code>number</code> | The longitude of the data, |
 | [parameters.date] | <code>string</code> | Date of the forecasts, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserStatistics"></a>
+
+### API~getUserStatistics(parameters, options) ⇒ <code>Object</code>
+Get a user's statistics for a given location.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.latitude | <code>number</code> | The latitude of the data, |
+| parameters.longitude | <code>number</code> | The longitude of the data, |
+| parameters.startDate | <code>string</code> | The statistics start date, |
+| parameters.endDate | <code>string</code> | The statistics end date, |
+| parameters.measures | <code>array</code> | The measures to read, |
+| parameters.ranges | <code>array</code> | The ranges to get the data from, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -902,8 +946,10 @@ Get a user's daily data for a given geo location.
 | parameters.longitude | <code>number</code> | The longitude of the data, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
+| [parameters.ranges] | <code>array</code> | The ranges to get the data from, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -922,9 +968,11 @@ Get a user's hourly data for a given geo location.
 | parameters.latitude | <code>number</code> | The latitude of the data, |
 | parameters.longitude | <code>number</code> | The longitude of the data, |
 | parameters.beforeDate | <code>string</code> | The date before which the data starts being retrieved, |
+| [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
+| [parameters.ranges] | <code>array</code> | The ranges to get the data from, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -940,7 +988,7 @@ Get a user's preferences.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -957,14 +1005,14 @@ Update a user's preferences.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The new user preferences, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getOrganisationOperations"></a>
+<a name="module_API..getUserNotifications"></a>
 
-### API~getOrganisationOperations(parameters, options) ⇒ <code>Object</code>
-Get a organisation's operations.
+### API~getUserNotifications(parameters, options) ⇒ <code>Object</code>
+Get user's notifications.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -972,77 +1020,10 @@ Get a organisation's operations.
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..postOrganisationOperation"></a>
-
-### API~postOrganisationOperation(parameters, options) ⇒ <code>Object</code>
-Create an organisation's operation.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.body | <code>object</code> | The operation to add, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..getOrganisationOperation"></a>
-
-### API~getOrganisationOperation(parameters, options) ⇒ <code>Object</code>
-Retrieve an organisation's operation.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.operationId | <code>number</code> | The operation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..putOrganisationOperation"></a>
-
-### API~putOrganisationOperation(parameters, options) ⇒ <code>Object</code>
-Update an organisation's operation.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.operationId | <code>number</code> | The operation id, |
-| parameters.body | <code>object</code> | The operation to update, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Access token in the query string |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..deleteOrganisationOperation"></a>
-
-### API~deleteOrganisationOperation(parameters, options) ⇒ <code>Object</code>
-Delete an organisation's operation.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.operationId | <code>number</code> | The operation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| parameters.userId | <code>number</code> | The user id, |
+| [parameters.size] | <code>number</code> | undefined, |
+| [parameters.cursor] | <code>string</code> | undefined, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1058,7 +1039,7 @@ Get a user's alerts.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1075,7 +1056,7 @@ Create a user's alert.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The user's alert, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1093,7 +1074,7 @@ Update a user's alert.
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.alertId | <code>number</code> | The alert id, |
 | parameters.body | <code>object</code> | The user's alert, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1110,7 +1091,7 @@ Delete a user's alert.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.alertId | <code>number</code> | The alert id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1128,6 +1109,22 @@ Creates a new organisation. Highly Deprecated, will be moved soon.
 | parameters.body | <code>object</code> | The necessary contents to create a new organisation |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..getUserOrganisations"></a>
+
+### API~getUserOrganisations(parameters, options) ⇒ <code>Object</code>
+Get all user's organisations.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postOrganisation"></a>
 
 ### API~postOrganisation(parameters, options) ⇒ <code>Object</code>
@@ -1141,7 +1138,7 @@ Creates a new organisation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.body | <code>object</code> | The necessary contents to create a new organisation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1157,7 +1154,7 @@ Get the organisation.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1174,7 +1171,7 @@ Update an organisation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The modified organisation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1191,7 +1188,7 @@ Endpoint for migration. Don't use it or use with caution !
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The necessary contents to migrate users, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1209,7 +1206,7 @@ Add an user to an organisation
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.targetUserId | <code>number</code> | The user id to add, |
 | parameters.body | <code>object</code> | The type of relation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1227,7 +1224,7 @@ Edit or add an user to an organisation
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.targetUserId | <code>number</code> | The user id to add, |
 | parameters.body | <code>object</code> | The type of relation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1244,7 +1241,92 @@ Delete an user from an organisation
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.targetUserId | <code>number</code> | The user id to remove, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationOperations"></a>
+
+### API~getOrganisationOperations(parameters, options) ⇒ <code>Object</code>
+Get a organisation's operations.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationOperation"></a>
+
+### API~postOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Create an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.body | <code>object</code> | The operation to add, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationOperation"></a>
+
+### API~getOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Retrieve an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putOrganisationOperation"></a>
+
+### API~putOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Update an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| parameters.body | <code>object</code> | The operation to update, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteOrganisationOperation"></a>
+
+### API~deleteOrganisationOperation(parameters, options) ⇒ <code>Object</code>
+Delete an organisation's operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.operationId | <code>number</code> | The operation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1261,7 +1343,7 @@ Create a new place for an organisation.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The necessary contents to create a new place for an organisation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
@@ -1279,14 +1361,14 @@ Update a place for an organisation
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.placeId | <code>number</code> | The place id, |
 | parameters.body | <code>object</code> | The necessary contents to update a place for an organisation, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getWeatherLive"></a>
 
 ### API~getWeatherLive(parameters, options) ⇒ <code>Object</code>
-Get last measure (for a specific type) from devices in a given area (1hour for RAIN_TIC).
+Get last measure (for a specific type) from devices in a given area (1 hour for RAIN_FALL).
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -1296,7 +1378,23 @@ Get last measure (for a specific type) from devices in a given area (1hour for R
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.geohash | <code>string</code> | The geohash of the data, |
 | parameters.measureType | <code>string</code> | The measures to read, |
-| parameters.authorization | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getSearchUser"></a>
+
+### API~getSearchUser(parameters, options) ⇒ <code>Object</code>
+Search for an user
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.email | <code>string</code> | Email of the user to search, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
