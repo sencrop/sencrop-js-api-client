@@ -1,3 +1,13 @@
+<a name="1.15.0"></a>
+# [1.15.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.14.0...v1.15.0) (2018-11-29)
+
+
+### Features
+
+* **device:** add Live aggregate and calibration endpoint ([9a26fcb](https://github.com/sencrop/sencrop-js-api-client/commit/9a26fcb))
+
+
+
 <a name="1.14.0"></a>
 # [1.14.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.13.1...v1.14.0) (2018-11-16)
 
