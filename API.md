@@ -7,6 +7,8 @@ API to consume Sencrop data
 **Version**: 1.0.0  
 
 * [API](#module_API)
+    * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
+    * [~postOAuth2Token(parameters, options)](#module_API..postOAuth2Token) ⇒ <code>Object</code>
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
@@ -38,6 +40,8 @@ API to consume Sencrop data
     * [~deleteUserAggregation(parameters, options)](#module_API..deleteUserAggregation) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
+    * [~getUserDevicesLiveAggregates(parameters, options)](#module_API..getUserDevicesLiveAggregates) ⇒ <code>Object</code>
+    * [~putUserDeviceCalibration(parameters, options)](#module_API..putUserDeviceCalibration) ⇒ <code>Object</code>
     * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
@@ -82,6 +86,41 @@ API to consume Sencrop data
     * [~putOrganisationPlace(parameters, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
     * [~getWeatherLive(parameters, options)](#module_API..getWeatherLive) ⇒ <code>Object</code>
     * [~getSearchUser(parameters, options)](#module_API..getSearchUser) ⇒ <code>Object</code>
+
+<a name="module_API..getOAuth2Authorize"></a>
+
+### API~getOAuth2Authorize(parameters, options) ⇒ <code>Object</code>
+Implements the [Authorization Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1)
+ as defined per the OAuth2 RFC.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.responseType | <code>string</code> | undefined, |
+| parameters.clientId | <code>string</code> | undefined, |
+| [parameters.redirectUri] | <code>string</code> | undefined, |
+| [parameters.scope] | <code>string</code> | See https://tools.ietf.org/html/rfc6749#section-3.3, |
+| parameters.state | <code>string</code> | undefined |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOAuth2Token"></a>
+
+### API~postOAuth2Token(parameters, options) ⇒ <code>Object</code>
+Implements the [Token Endpoint](https://tools.ietf.org/html/rfc6749#section-3.2)
+ as defined per the OAuth2 RFC.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| [parameters.body] | <code>object</code> | undefined, |
+| parameters.authorization | <code>string</code> | Authorization with Basic mechanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getPing"></a>
 
@@ -212,7 +251,7 @@ Request a user token
 <a name="module_API..postPartnerToken"></a>
 
 ### API~postPartnerToken(parameters, options) ⇒ <code>Object</code>
-Create a user token
+Create a user token (deprecated, use OAuth2)
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -591,6 +630,48 @@ Setup a user's device.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..getUserDevicesLiveAggregates"></a>
+
+### API~getUserDevicesLiveAggregates(parameters, options) ⇒ <code>Object</code>
+Allow to run live aggregation queries against a user devices.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| [parameters.devicesIds] | <code>array</code> | List of id's of devices, |
+| parameters.aggregates | <code>array</code> | The aggregates names, |
+| [parameters.parameters] | <code>array</code> | The params to set, |
+| parameters.intervals | <code>array</code> | The intervals to retrieve, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.date] | <code>string</code> | The status date, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putUserDeviceCalibration"></a>
+
+### API~putUserDeviceCalibration(parameters, options) ⇒ <code>Object</code>
+Update a user's device calibration.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.calibrationName | <code>string</code> | Calibration to set, |
+| parameters.ratio | <code>number</code> | Ratio to set, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getUserDevicePositions"></a>
 
 ### API~getUserDevicePositions(parameters, options) ⇒ <code>Object</code>
@@ -755,6 +836,7 @@ Get a user's device's device's statistics.
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -798,6 +880,7 @@ Get a user's device's hourly data.
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | parameters.days | <code>number</code> | The number of days to retrieve, |
 | parameters.measures | <code>array</code> | The measures to read, |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -820,6 +903,7 @@ Get a user's device's daily data.
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | parameters.measures | <code>array</code> | The measures to read, |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -844,6 +928,7 @@ Get a user's device's continuous device's statistics.
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -926,6 +1011,8 @@ Get a user's statistics for a given location.
 | [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -949,6 +1036,8 @@ Get a user's daily data for a given geo location.
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.ranges] | <code>array</code> | The ranges to get the data from, |
 | parameters.measures | <code>array</code> | The measures to read, |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -972,6 +1061,8 @@ Get a user's hourly data for a given geo location.
 | parameters.days | <code>number</code> | The number of days to retrieve, |
 | [parameters.ranges] | <code>array</code> | The ranges to get the data from, |
 | parameters.measures | <code>array</code> | The measures to read, |
+| [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |

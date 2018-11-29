@@ -16,6 +16,8 @@ const {
  * @version 1.0.0
  */
 const API = {
+  getOAuth2Authorize,
+  postOAuth2Token,
   getPing,
   getCrops,
   getModules,
@@ -47,6 +49,8 @@ const API = {
   deleteUserAggregation,
   getUserDevices,
   postUserDevice,
+  getUserDevicesLiveAggregates,
+  putUserDeviceCalibration,
   getUserDevicePositions,
   getUserDevice,
   putUserDevice,
@@ -92,6 +96,119 @@ const API = {
   getWeatherLive,
   getSearchUser,
 };
+
+/**
+ * Implements the [Authorization Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1)
+ as defined per the OAuth2 RFC.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.responseType
+ * undefined,
+ * @param {string} parameters.clientId
+ * undefined,
+ * @param {string} [parameters.redirectUri]
+ * undefined,
+ * @param {string} [parameters.scope]
+ * See https://tools.ietf.org/html/rfc6749#section-3.3,
+ * @param {string} parameters.state
+ * undefined
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOAuth2Authorize(
+  { responseType, clientId, redirectUri, scope, state } = {},
+  options,
+) {
+  if (responseType == null) {
+    throw new Error(
+      'Missing required parameter : responseType. Value : ' + responseType,
+    );
+  }
+  if (clientId == null) {
+    throw new Error(
+      'Missing required parameter : clientId. Value : ' + clientId,
+    );
+  }
+  if (state == null) {
+    throw new Error('Missing required parameter : state. Value : ' + state);
+  }
+
+  const method = 'get';
+  let urlParts = ['oauth2', 'authorize'];
+  let headers = {};
+  let qs = cleanQuery({
+    response_type: responseType,
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    scope: scope,
+    state: state,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Implements the [Token Endpoint](https://tools.ietf.org/html/rfc6749#section-3.2)
+ as defined per the OAuth2 RFC.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {object} [parameters.body]
+ * undefined,
+ * @param {string} parameters.authorization
+ * Authorization with Basic mechanism
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOAuth2Token({ body, authorization } = {}, options) {
+  if (authorization == null) {
+    throw new Error(
+      'Missing required parameter : authorization. Value : ' + authorization,
+    );
+  }
+
+  const method = 'post';
+  let urlParts = ['oauth2', 'token'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({});
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
 
 /**
  * Checks API's availability.
@@ -450,7 +567,7 @@ function postPartnerTokenRequest(
 }
 
 /**
- * Create a user token
+ * Create a user token (deprecated, use OAuth2)
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.partnerId
@@ -1724,6 +1841,176 @@ function postUserDevice(
 }
 
 /**
+ * Allow to run live aggregation queries against a user devices.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {array} [parameters.devicesIds]
+ * List of id's of devices,
+ * @param {array} parameters.aggregates
+ * The aggregates names,
+ * @param {array} [parameters.parameters]
+ * The params to set,
+ * @param {array} parameters.intervals
+ * The intervals to retrieve,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
+ * @param {string} [parameters.date]
+ * The status date,
+ * @param {boolean} [parameters.patched]
+ * Wether you want to get only original data or eventually patched ones to avoid holes.,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserDevicesLiveAggregates(
+  {
+    userId,
+    devicesIds,
+    aggregates,
+    parameters,
+    intervals,
+    timeZone,
+    date,
+    patched,
+    authorization,
+    accessToken,
+  } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (aggregates == null) {
+    throw new Error(
+      'Missing required parameter : aggregates. Value : ' + aggregates,
+    );
+  }
+  if (intervals == null) {
+    throw new Error(
+      'Missing required parameter : intervals. Value : ' + intervals,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['users', userId, 'devices', 'liveAggregates'];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    devicesIds: devicesIds,
+    aggregates: aggregates,
+    parameters: parameters,
+    intervals: intervals,
+    timeZone: timeZone,
+    date: date,
+    patched: patched,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Update a user's device calibration.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.calibrationName
+ * Calibration to set,
+ * @param {number} parameters.ratio
+ * Ratio to set,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserDeviceCalibration(
+  { userId, deviceId, calibrationName, ratio, authorization, accessToken } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+  if (calibrationName == null) {
+    throw new Error(
+      'Missing required parameter : calibrationName. Value : ' +
+        calibrationName,
+    );
+  }
+  if (ratio == null) {
+    throw new Error('Missing required parameter : ratio. Value : ' + ratio);
+  }
+
+  const method = 'put';
+  let urlParts = [
+    'users',
+    userId,
+    'devices',
+    deviceId,
+    'calibration',
+    calibrationName,
+  ];
+  let headers = {
+    Authorization: authorization,
+  };
+  let qs = cleanQuery({
+    ratio: ratio,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
  * Get a user's device geographic positions historic.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -2243,6 +2530,8 @@ function putUserDeviceShares(
  * The timezone of the data,
  * @param {string} [parameters.interval]
  * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -2263,6 +2552,7 @@ function getUserDeviceStatistics(
     includeHistory,
     timeZone,
     interval,
+    withCalibration,
     authorization,
     accessToken,
   } = {},
@@ -2303,6 +2593,7 @@ function getUserDeviceStatistics(
     includeHistory: includeHistory,
     timeZone: timeZone,
     interval: interval,
+    withCalibration: withCalibration,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2433,6 +2724,8 @@ function getUserDeviceRawData(
  * The number of days to retrieve,
  * @param {array} parameters.measures
  * The measures to read,
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -2451,6 +2744,7 @@ function getUserDeviceHourlyData(
     timeZone,
     days,
     measures,
+    withCalibration,
     authorization,
     accessToken,
   } = {},
@@ -2489,6 +2783,7 @@ function getUserDeviceHourlyData(
     timeZone: timeZone,
     days: days,
     measures: measures,
+    withCalibration: withCalibration,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2528,6 +2823,8 @@ function getUserDeviceHourlyData(
  * The timezone of the data,
  * @param {array} parameters.measures
  * The measures to read,
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -2546,6 +2843,7 @@ function getUserDeviceDailyData(
     includeHistory,
     timeZone,
     measures,
+    withCalibration,
     authorization,
     accessToken,
   } = {},
@@ -2584,6 +2882,7 @@ function getUserDeviceDailyData(
     includeHistory: includeHistory,
     timeZone: timeZone,
     measures: measures,
+    withCalibration: withCalibration,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2627,6 +2926,8 @@ function getUserDeviceDailyData(
  * The timezone of the data,
  * @param {string} [parameters.interval]
  * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -2647,6 +2948,7 @@ function getUserDeviceContinuousStatistics(
     includeHistory,
     timeZone,
     interval,
+    withCalibration,
     authorization,
     accessToken,
   } = {},
@@ -2693,6 +2995,7 @@ function getUserDeviceContinuousStatistics(
     includeHistory: includeHistory,
     timeZone: timeZone,
     interval: interval,
+    withCalibration: withCalibration,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -2951,6 +3254,10 @@ function getUserForecasts(
  * If must include device replacements or not,
  * @param {string} [parameters.interval]
  * The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval),
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -2972,6 +3279,8 @@ function getUserStatistics(
     patched,
     includeHistory,
     interval,
+    withCalibration,
+    timeZone,
     authorization,
     accessToken,
   } = {},
@@ -3022,6 +3331,8 @@ function getUserStatistics(
     patched: patched,
     includeHistory: includeHistory,
     interval: interval,
+    withCalibration: withCalibration,
+    timeZone: timeZone,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -3063,6 +3374,10 @@ function getUserStatistics(
  * The ranges to get the data from,
  * @param {array} parameters.measures
  * The measures to read,
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -3082,6 +3397,8 @@ function getUserDailyData(
     includeHistory,
     ranges,
     measures,
+    withCalibration,
+    timeZone,
     authorization,
     accessToken,
   } = {},
@@ -3127,6 +3444,8 @@ function getUserDailyData(
     includeHistory: includeHistory,
     ranges: ranges,
     measures: measures,
+    withCalibration: withCalibration,
+    timeZone: timeZone,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -3168,6 +3487,10 @@ function getUserDailyData(
  * The ranges to get the data from,
  * @param {array} parameters.measures
  * The measures to read,
+ * @param {boolean} [parameters.withCalibration]
+ * Wether the calibration of rain falls must be taken in count,
+ * @param {string} [parameters.timeZone]
+ * The timezone of the data,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mechanism,
  * @param {string} [parameters.accessToken]
@@ -3187,6 +3510,8 @@ function getUserHourlyData(
     days,
     ranges,
     measures,
+    withCalibration,
+    timeZone,
     authorization,
     accessToken,
   } = {},
@@ -3232,6 +3557,8 @@ function getUserHourlyData(
     days: days,
     ranges: ranges,
     measures: measures,
+    withCalibration: withCalibration,
+    timeZone: timeZone,
     access_token: accessToken,
   });
   let data = {}.undef;

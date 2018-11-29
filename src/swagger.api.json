@@ -6,6 +6,308 @@
     "description": "API to consume Sencrop data"
   },
   "paths": {
+    "/oauth2/authorize": {
+      "get": {
+        "operationId": "getOAuth2Authorize",
+        "summary": "Implements the [Authorization Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1)\n as defined per the OAuth2 RFC.",
+        "tags": [
+          "oauth2"
+        ],
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "response_type",
+            "type": "string",
+            "enum": [
+              "code",
+              "token"
+            ],
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "client_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "redirect_uri",
+            "type": "string",
+            "format": "uri",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "scope",
+            "description": "See https://tools.ietf.org/html/rfc6749#section-3.3",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirects the user to the authorization interface."
+          }
+        }
+      }
+    },
+    "/oauth2/token": {
+      "post": {
+        "operationId": "postOAuth2Token",
+        "summary": "Implements the [Token Endpoint](https://tools.ietf.org/html/rfc6749#section-3.2)\n as defined per the OAuth2 RFC.",
+        "tags": [
+          "oauth2"
+        ],
+        "consumes": [
+          "application/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "require": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "Authorization code grant, see https://tools.ietf.org/html/rfc6749#section-4.1",
+                  "required": [
+                    "grant_type"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "authorization_code"
+                      ]
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "client_id": {
+                      "type": "string"
+                    },
+                    "redirect_uri": {
+                      "type": "string",
+                      "format": "url"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "Resource owner password credentials grant, see https://tools.ietf.org/html/rfc6749#section-4.3",
+                  "required": [
+                    "grant_type",
+                    "username",
+                    "password"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "password"
+                      ]
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "See https://tools.ietf.org/html/rfc6749#section-3.3"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "Client credentials grant, see https://tools.ietf.org/html/rfc6749#section-4.4",
+                  "required": [
+                    "grant_type"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "client_credentials"
+                      ]
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "See https://tools.ietf.org/html/rfc6749#section-3.3"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "Token refresh grant type, see https://tools.ietf.org/html/rfc6749#section-6 .",
+                  "required": [
+                    "grant_type",
+                    "refresh_token"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "refresh_token"
+                      ]
+                    },
+                    "refresh_token": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "See https://tools.ietf.org/html/rfc6749#section-3.3"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "Module grant type, see https://tools.ietf.org/html/rfc6749#section-6 .",
+                  "required": [
+                    "grant_type",
+                    "email"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "module"
+                      ]
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "See https://tools.ietf.org/html/rfc6749#section-3.3"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "description": "SMS Code request grant type, see https://tools.ietf.org/html/rfc6749#section-6 .",
+                  "required": [
+                    "grant_type",
+                    "email",
+                    "code"
+                  ],
+                  "properties": {
+                    "grant_type": {
+                      "type": "string",
+                      "enum": [
+                        "code_request"
+                      ]
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "See https://tools.ietf.org/html/rfc6749#section-3.3"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Basic mechanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token successfully issued, see https://tools.ietf.org/html/rfc6749#section-5 .",
+            "schema": {
+              "type": "object",
+              "required": [
+                "access_token",
+                "token_type"
+              ],
+              "properties": {
+                "access_token": {
+                  "type": "string"
+                },
+                "token_type": {
+                  "description": "See https://tools.ietf.org/html/rfc6749#section-7.1",
+                  "type": "string",
+                  "enum": [
+                    "bearer",
+                    "mac"
+                  ]
+                },
+                "expires_in": {
+                  "description": "The lifetime in seconds of the access token",
+                  "type": "number"
+                },
+                "refresh_token": {
+                  "description": "See https://tools.ietf.org/html/rfc6749#section-6",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Access token error response, see https://tools.ietf.org/html/rfc6749#section-5.2",
+            "schema": {
+              "type": "object",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "enum": [
+                    "invalid_request",
+                    "invalid_client",
+                    "invalid_grant",
+                    "unauthorized_client",
+                    "unsupported_grant_type",
+                    "invalid_scope"
+                  ]
+                },
+                "error_description": {
+                  "type": "string"
+                },
+                "error_uri": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": [
+              "ROLE_PARTNER"
+            ]
+          }
+        ]
+      }
+    },
     "/ping": {
       "get": {
         "operationId": "getPing",
@@ -372,9 +674,10 @@
     "/partners/{partnerId}/tokens": {
       "post": {
         "operationId": "postPartnerToken",
-        "summary": "Create a user token",
+        "summary": "Create a user token (deprecated, use OAuth2)",
         "tags": [
-          "partners"
+          "partners",
+          "deprecated"
         ],
         "consumes": [
           "application/json"
@@ -1492,8 +1795,7 @@
         "operationId": "getUserAggregation",
         "summary": "Get a single user aggregation with statistics for graphs",
         "tags": [
-          "aggregations",
-          "cache"
+          "aggregations"
         ],
         "consumes": [],
         "produces": [
@@ -1867,6 +2169,282 @@
             "schema": {
               "$ref": "#/definitions/DeviceItem"
             }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/{userId}/devices/liveAggregates": {
+      "get": {
+        "operationId": "getUserDevicesLiveAggregates",
+        "summary": "Allow to run live aggregation queries against a user devices.",
+        "tags": [
+          "data"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "query",
+            "description": "List of id's of devices",
+            "name": "devicesIds",
+            "type": "array",
+            "items": {
+              "type": "number",
+              "pattern": "^[0-9]+$",
+              "minimum": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The aggregates names",
+            "name": "aggregates",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RELATIVE_HUMIDITY_MEAN",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE_MEAN",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE_MEAN",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL_MEAN_SUM",
+                "RAIN_FALL_SUM",
+                "RAIN_FALL_MIN",
+                "RAIN_FALL_MAX",
+                "MOVE_SUM",
+                "INIT_SUM",
+                "WIND_SPEED_MEAN",
+                "WIND_SPEED_MIN",
+                "WIND_SPEED_MAX",
+                "WIND_GUST_MEAN",
+                "WIND_GUST_MIN",
+                "WIND_GUST_MAX",
+                "WIND_DIRECTION_MEAN",
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "LEAF_SENSOR_CONDUCTIVITY_MIN",
+                "LEAF_SENSOR_CONDUCTIVITY_MAX",
+                "LEAF_SENSOR_CONDUCTIVITY_MEAN",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The params to set",
+            "name": "parameters",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "((^| )fiability,withCalibration,base,ceil:[^ ]+){,4}$",
+              "example": "base:7"
+            }
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The intervals to retrieve",
+            "name": "intervals",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "last_hour",
+                "today",
+                "yesterday",
+                "this_week"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
+            "in": "query",
+            "description": "The status date",
+            "name": "date",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's data",
+            "schema": {
+              "$ref": "#/definitions/DeviceLiveAggregateItems"
+            },
+            "example": {
+              "items": [
+                209,
+                2219,
+                5149
+              ],
+              "deviceLiveAggregates": {
+                "209": {
+                  "RELATIVE_HUMIDITY_MEAN": {},
+                  "WIND_SPEED_MEAN": {}
+                },
+                "2219": {
+                  "RELATIVE_HUMIDITY_MEAN": {},
+                  "WIND_SPEED_MEAN": {
+                    "last_hour": 4.333333333333333,
+                    "this_week": 10.102888086642599
+                  }
+                },
+                "5149": {
+                  "RELATIVE_HUMIDITY_MEAN": {
+                    "last_hour": 76.55000000000001,
+                    "this_week": 85.51822916666667
+                  },
+                  "WIND_SPEED_MEAN": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "One or more devices are not owned by the user.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/calibration/{calibrationName}": {
+      "put": {
+        "operationId": "putUserDeviceCalibration",
+        "summary": "Update a user's device calibration.",
+        "tags": [
+          "devices"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The device id",
+            "name": "deviceId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "Calibration to set",
+            "name": "calibrationName",
+            "type": "string",
+            "enum": [
+              "RAIN_FALL"
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "Ratio to set",
+            "name": "ratio",
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's device calibration has been updated"
           }
         },
         "security": [
@@ -2432,6 +3010,13 @@
                     },
                     "externalIdentifier": {
                       "type": "string"
+                    },
+                    "organisationName": {
+                      "type": "string"
+                    },
+                    "userEmail": {
+                      "type": "string",
+                      "format": "email"
                     }
                   }
                 }
@@ -2745,6 +3330,13 @@
             ]
           },
           {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mechanism",
@@ -3054,6 +3646,13 @@
             }
           },
           {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mechanism",
@@ -3200,6 +3799,13 @@
                 "WIND_MAX"
               ]
             }
+          },
+          {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
           },
           {
             "in": "header",
@@ -3360,6 +3966,13 @@
               "1w",
               "1M"
             ]
+          },
+          {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
           },
           {
             "in": "header",
@@ -3814,6 +4427,22 @@
             ]
           },
           {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mechanism",
@@ -3981,6 +4610,22 @@
             }
           },
           {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mechanism",
@@ -4144,6 +4789,22 @@
                 "WIND_MAX"
               ]
             }
+          },
+          {
+            "in": "query",
+            "description": "Wether the calibration of rain falls must be taken in count",
+            "name": "withCalibration",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "query",
+            "required": false,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "type": "string",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "maxLength": 50
           },
           {
             "in": "header",
@@ -5764,9 +6425,7 @@
       "get": {
         "operationId": "getWeatherLive",
         "summary": "Get last measure (for a specific type) from devices in a given area (1 hour for RAIN_FALL).",
-        "tags": [
-          "cache"
-        ],
+        "tags": [],
         "consumes": [],
         "produces": [
           "application/json"
@@ -5895,14 +6554,6 @@
           }
         ]
       }
-    }
-  },
-  "securityDefinitions": {
-    "basicAuth": {
-      "type": "basic"
-    },
-    "bearerAuth": {
-      "type": "bearer"
     }
   },
   "definitions": {
@@ -6720,11 +7371,27 @@
           "pattern": "^[0-9]+$",
           "minimum": 1
         },
-        "lastTriggerDate": {
+        "activationDate": {
           "type": "string",
           "format": "date-time"
         },
-        "activationDate": {
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastModificationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastCheckDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastNotificationTriggerDate": {
           "type": "string",
           "format": "date-time"
         },
@@ -6737,15 +7404,57 @@
       "type": "object",
       "required": [
         "name",
-        "active",
-        "devicesIds"
+        "status",
+        "notificationTypes",
+        "numberOfNotificationPerTrigger",
+        "devicesIds",
+        "conditions"
       ],
       "properties": {
         "name": {
           "type": "string"
         },
-        "active": {
-          "type": "boolean"
+        "status": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ]
+        },
+        "notificationTypes": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "sms",
+              "email",
+              "phone",
+              "webhook",
+              "push",
+              "notification"
+            ]
+          }
+        },
+        "conditions": {
+          "$ref": "#/definitions/AlertGroupConditions"
+        },
+        "enableStartTime": {
+          "type": "string",
+          "format": "time"
+        },
+        "enableEndTime": {
+          "type": "string",
+          "format": "time"
+        },
+        "numberOfNotificationPerTrigger": {
+          "type": "number",
+          "minimum": 1
+        },
+        "renewInterval": {
+          "type": "number",
+          "description": "Cooldown before alert is armed again automatically, in second"
         },
         "devicesIds": {
           "type": "array",
@@ -6756,86 +7465,184 @@
           },
           "minItems": 1,
           "uniqueItems": true
-        },
-        "notification": {
-          "type": "number"
-        },
-        "notificationList": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "enum": [
-              "email",
-              "sms",
-              "alarm"
-            ]
+        }
+      }
+    },
+    "AlertConditions": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "ceil",
+            "type",
+            "ceilComparisonType",
+            "timespan",
+            "aggregation"
+          ],
+          "properties": {
+            "ceil": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "aggregate"
+              ]
+            },
+            "ceilComparisonType": {
+              "type": "string",
+              "enum": [
+                "lte",
+                "gte"
+              ]
+            },
+            "timespan": {
+              "type": "number"
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "RELATIVE_HUMIDITY_MEAN",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE_MEAN",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE_MEAN",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL_MEAN_SUM",
+                "RAIN_FALL_SUM",
+                "RAIN_FALL_MIN",
+                "RAIN_FALL_MAX",
+                "MOVE_SUM",
+                "INIT_SUM",
+                "WIND_SPEED_MEAN",
+                "WIND_SPEED_MIN",
+                "WIND_SPEED_MAX",
+                "WIND_GUST_MEAN",
+                "WIND_GUST_MIN",
+                "WIND_GUST_MAX",
+                "WIND_DIRECTION_MEAN",
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "LEAF_SENSOR_CONDUCTIVITY_MIN",
+                "LEAF_SENSOR_CONDUCTIVITY_MAX",
+                "LEAF_SENSOR_CONDUCTIVITY_MEAN",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            },
+            "aggregationParams": {
+              "type": "object",
+              "additionalProperties": true
+            }
           }
         },
-        "alertParameters": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "properties": {
-              "active": {
-                "type": "boolean"
-              },
-              "min": {
-                "type": "number"
-              },
-              "max": {
-                "type": "number"
-              },
-              "span": {
-                "type": "number"
-              },
-              "from": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "to": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "base": {
-                "type": "number"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "pluviometry",
-                  "pluviometryAggregate",
-                  "hygrometry",
-                  "temperature",
-                  "temperatureAggregate",
-                  "temperatureDegreeDay",
-                  "windMeanSpeed",
-                  "windGustsSpeed",
-                  "wetTemperature"
-                ]
-              },
-              "invitedUsersEmails": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "clock": {
-                "type": "object",
-                "properties": {
-                  "active": {
-                    "type": "boolean"
-                  },
-                  "start": {
-                    "type": "number"
-                  },
-                  "stop": {
-                    "type": "number"
-                  }
+        {
+          "type": "object",
+          "required": [
+            "ceil",
+            "type",
+            "ceilComparisonType",
+            "startDate",
+            "aggregation"
+          ],
+          "properties": {
+            "ceil": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "aggregate"
+              ]
+            },
+            "ceilComparisonType": {
+              "type": "string",
+              "enum": [
+                "lte",
+                "gte"
+              ]
+            },
+            "timespan": {
+              "type": "number"
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "RELATIVE_HUMIDITY_MEAN",
+                "RELATIVE_HUMIDITY_MIN",
+                "RELATIVE_HUMIDITY_MAX",
+                "TEMPERATURE_MEAN",
+                "TEMPERATURE_MIN",
+                "TEMPERATURE_MAX",
+                "WET_TEMPERATURE_MEAN",
+                "WET_TEMPERATURE_MIN",
+                "WET_TEMPERATURE_MAX",
+                "RAIN_FALL_MEAN_SUM",
+                "RAIN_FALL_SUM",
+                "RAIN_FALL_MIN",
+                "RAIN_FALL_MAX",
+                "MOVE_SUM",
+                "INIT_SUM",
+                "WIND_SPEED_MEAN",
+                "WIND_SPEED_MIN",
+                "WIND_SPEED_MAX",
+                "WIND_GUST_MEAN",
+                "WIND_GUST_MIN",
+                "WIND_GUST_MAX",
+                "WIND_DIRECTION_MEAN",
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "LEAF_SENSOR_CONDUCTIVITY_MIN",
+                "LEAF_SENSOR_CONDUCTIVITY_MAX",
+                "LEAF_SENSOR_CONDUCTIVITY_MEAN",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            },
+            "aggregationParams": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "number"
                 }
               }
             }
+          }
+        }
+      ]
+    },
+    "AlertGroupConditions": {
+      "type": "object",
+      "required": [
+        "type",
+        "tests"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "and",
+            "or"
+          ]
+        },
+        "tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/AlertConditions"
           }
         }
       }
@@ -7207,6 +8014,29 @@
           "type": "string",
           "pattern": "^(WCP?|RC|SC|UMO|LC)[0-9]{6}$"
         },
+        "calibrations": {
+          "type": "object",
+          "patternProperties": {
+            "^(RELATIVE_HUMIDITY|TEMPERATURE|WET_TEMPERATURE|RAIN_FALL|WIND_SPEED|WIND_GUST|WIND_DIRECTION|MOVE|LEAF_SENSOR_CONDUCTIVITY|RH_AIR_H1|TEMP_AIR_H1|RAIN_TIC|WIND_MEAN|WIND_MAX)$": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "lastMeasure"
+                ],
+                "properties": {
+                  "startDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ratio": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
         "serial": {
           "type": "string",
           "pattern": "^[A-Z0-9]+$"
@@ -7236,6 +8066,50 @@
       "properties": {
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "DeviceLiveAggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "RELATIVE_HUMIDITY_MEAN|RELATIVE_HUMIDITY_MIN|RELATIVE_HUMIDITY_MAX|TEMPERATURE_MEAN|TEMPERATURE_MIN|TEMPERATURE_MAX|WET_TEMPERATURE_MEAN|WET_TEMPERATURE_MIN|WET_TEMPERATURE_MAX|RAIN_FALL_MEAN_SUM|RAIN_FALL_SUM|RAIN_FALL_MIN|RAIN_FALL_MAX|MOVE_SUM|INIT_SUM|WIND_SPEED_MEAN|WIND_SPEED_MIN|WIND_SPEED_MAX|WIND_GUST_MEAN|WIND_GUST_MIN|WIND_GUST_MAX|WIND_DIRECTION_MEAN|DEGREE_DAY|COLD_HOURS|LEAF_SENSOR_CONDUCTIVITY_MIN|LEAF_SENSOR_CONDUCTIVITY_MAX|LEAF_SENSOR_CONDUCTIVITY_MEAN|LEAF_WETNESS|LEAF_WETNESS_MEDIUM|LEAF_WETNESS_HIGH": {
+          "type": "object",
+          "patternProperties": {
+            "last_hour|today|yesterday|this_week": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "DeviceLiveAggregateHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/DeviceLiveAggregate"
+        }
+      }
+    },
+    "DeviceLiveAggregateItems": {
+      "type": "object",
+      "required": [
+        "items",
+        "devicesLiveAggregates"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "devicesLiveAggregates": {
+          "$ref": "#/definitions/DeviceLiveAggregateHash"
         }
       }
     },
@@ -7493,7 +8367,10 @@
       "required": [
         "name",
         "description",
-        "isActive"
+        "isActive",
+        "scopes",
+        "grantTypes",
+        "callbackURL"
       ],
       "properties": {
         "name": {
@@ -7504,6 +8381,24 @@
         },
         "isActive": {
           "type": "boolean"
+        },
+        "scopes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "grantTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "callbackURL": {
+          "type": "string",
+          "format": "uri"
         }
       }
     },
@@ -8521,5 +9416,50 @@
   "basePath": "/v1",
   "schemes": [
     "https"
-  ]
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "query",
+      "name": "access_token"
+    },
+    "sencropOAuth2Implicit": {
+      "type": "oauth2",
+      "authorizationUrl": "/master/oauth2/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "user": "Access to the user account",
+        "organization": "Access to the user organisations",
+        "partner": "Partner access to user's devices",
+        "all": "Full access to the user's resources"
+      }
+    },
+    "sencropOAuth2Code": {
+      "type": "oauth2",
+      "authorizationUrl": "/master/oauth2/authorize",
+      "tokenUrl": "/master/oauth2/token",
+      "in": "header",
+      "flow": "accessCode",
+      "scopes": {
+        "user": "Access to the user account",
+        "organization": "Access to the user organisations",
+        "partner": "Partner access to user's devices",
+        "all": "Full access to the user's resources"
+      }
+    },
+    "sencropOAuth2Password": {
+      "type": "oauth2",
+      "tokenUrl": "/master/oauth2/token",
+      "flow": "password",
+      "scopes": {
+        "user": "Access to the user account",
+        "organization": "Access to the user organisations",
+        "partner": "Partner access to user's devices",
+        "all": "Full access to the user's resources"
+      }
+    }
+  }
 }
