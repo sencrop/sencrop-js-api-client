@@ -40,7 +40,7 @@ API to consume Sencrop data
     * [~deleteUserAggregation(parameters, options)](#module_API..deleteUserAggregation) ⇒ <code>Object</code>
     * [~getUserDevices(parameters, options)](#module_API..getUserDevices) ⇒ <code>Object</code>
     * [~postUserDevice(parameters, options)](#module_API..postUserDevice) ⇒ <code>Object</code>
-    * [~getUserDevicesLiveAggregates(parameters, options)](#module_API..getUserDevicesLiveAggregates) ⇒ <code>Object</code>
+    * [~getUserDevicesLiveAggregations(parameters, options)](#module_API..getUserDevicesLiveAggregations) ⇒ <code>Object</code>
     * [~putUserDeviceCalibration(parameters, options)](#module_API..putUserDeviceCalibration) ⇒ <code>Object</code>
     * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
@@ -630,9 +630,9 @@ Setup a user's device.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserDevicesLiveAggregates"></a>
+<a name="module_API..getUserDevicesLiveAggregations"></a>
 
-### API~getUserDevicesLiveAggregates(parameters, options) ⇒ <code>Object</code>
+### API~getUserDevicesLiveAggregations(parameters, options) ⇒ <code>Object</code>
 Allow to run live aggregation queries against a user devices.
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
@@ -642,8 +642,8 @@ Allow to run live aggregation queries against a user devices.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
-| [parameters.devicesIds] | <code>array</code> | List of id's of devices, |
-| parameters.aggregates | <code>array</code> | The aggregates names, |
+| parameters.devicesIds | <code>array</code> | List of id's of devices, |
+| parameters.aggregations | <code>array</code> | The aggregations names, |
 | [parameters.parameters] | <code>array</code> | The params to set, |
 | parameters.intervals | <code>array</code> | The intervals to retrieve, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |

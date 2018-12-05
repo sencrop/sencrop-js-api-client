@@ -49,7 +49,7 @@ const API = {
   deleteUserAggregation,
   getUserDevices,
   postUserDevice,
-  getUserDevicesLiveAggregates,
+  getUserDevicesLiveAggregations,
   putUserDeviceCalibration,
   getUserDevicePositions,
   getUserDevice,
@@ -1846,10 +1846,10 @@ function postUserDevice(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {array} [parameters.devicesIds]
+ * @param {array} parameters.devicesIds
  * List of id's of devices,
- * @param {array} parameters.aggregates
- * The aggregates names,
+ * @param {array} parameters.aggregations
+ * The aggregations names,
  * @param {array} [parameters.parameters]
  * The params to set,
  * @param {array} parameters.intervals
@@ -1869,11 +1869,11 @@ function postUserDevice(
  * @return {Object}
  * The HTTP response
  */
-function getUserDevicesLiveAggregates(
+function getUserDevicesLiveAggregations(
   {
     userId,
     devicesIds,
-    aggregates,
+    aggregations,
     parameters,
     intervals,
     timeZone,
@@ -1887,9 +1887,14 @@ function getUserDevicesLiveAggregates(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (aggregates == null) {
+  if (devicesIds == null) {
     throw new Error(
-      'Missing required parameter : aggregates. Value : ' + aggregates,
+      'Missing required parameter : devicesIds. Value : ' + devicesIds,
+    );
+  }
+  if (aggregations == null) {
+    throw new Error(
+      'Missing required parameter : aggregations. Value : ' + aggregations,
     );
   }
   if (intervals == null) {
@@ -1899,13 +1904,13 @@ function getUserDevicesLiveAggregates(
   }
 
   const method = 'get';
-  let urlParts = ['users', userId, 'devices', 'liveAggregates'];
+  let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = {
     Authorization: authorization,
   };
   let qs = cleanQuery({
     devicesIds: devicesIds,
-    aggregates: aggregates,
+    aggregations: aggregations,
     parameters: parameters,
     intervals: intervals,
     timeZone: timeZone,

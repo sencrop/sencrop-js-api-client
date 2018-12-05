@@ -2180,9 +2180,9 @@
         ]
       }
     },
-    "/users/{userId}/devices/liveAggregates": {
+    "/users/{userId}/devices/liveAggregations": {
       "get": {
-        "operationId": "getUserDevicesLiveAggregates",
+        "operationId": "getUserDevicesLiveAggregations",
         "summary": "Allow to run live aggregation queries against a user devices.",
         "tags": [
           "data"
@@ -2207,6 +2207,7 @@
             "in": "query",
             "description": "List of id's of devices",
             "name": "devicesIds",
+            "required": true,
             "type": "array",
             "items": {
               "type": "number",
@@ -2219,8 +2220,8 @@
           {
             "in": "query",
             "required": true,
-            "description": "The aggregates names",
-            "name": "aggregates",
+            "description": "The aggregations names",
+            "name": "aggregations",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -2281,10 +2282,15 @@
             "items": {
               "type": "string",
               "enum": [
-                "last_hour",
+                "current",
+                "one_hour",
+                "three_hours",
+                "one_day",
+                "one_week",
                 "today",
                 "yesterday",
-                "this_week"
+                "this_week",
+                "last_seven_days"
               ]
             }
           },
@@ -2328,7 +2334,7 @@
           "200": {
             "description": "The requested device's data",
             "schema": {
-              "$ref": "#/definitions/DeviceLiveAggregateItems"
+              "$ref": "#/definitions/DeviceLiveAggregationItems"
             },
             "example": {
               "items": [
@@ -2336,7 +2342,7 @@
                 2219,
                 5149
               ],
-              "deviceLiveAggregates": {
+              "deviceLiveAggregations": {
                 "209": {
                   "RELATIVE_HUMIDITY_MEAN": {},
                   "WIND_SPEED_MEAN": {}
@@ -7486,7 +7492,7 @@
             "type": {
               "type": "string",
               "enum": [
-                "aggregate"
+                "aggregation"
               ]
             },
             "ceilComparisonType": {
@@ -7560,7 +7566,7 @@
             "type": {
               "type": "string",
               "enum": [
-                "aggregate"
+                "aggregation"
               ]
             },
             "ceilComparisonType": {
@@ -8069,33 +8075,33 @@
         }
       }
     },
-    "DeviceLiveAggregate": {
+    "DeviceLiveAggregation": {
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
         "RELATIVE_HUMIDITY_MEAN|RELATIVE_HUMIDITY_MIN|RELATIVE_HUMIDITY_MAX|TEMPERATURE_MEAN|TEMPERATURE_MIN|TEMPERATURE_MAX|WET_TEMPERATURE_MEAN|WET_TEMPERATURE_MIN|WET_TEMPERATURE_MAX|RAIN_FALL_MEAN_SUM|RAIN_FALL_SUM|RAIN_FALL_MIN|RAIN_FALL_MAX|MOVE_SUM|INIT_SUM|WIND_SPEED_MEAN|WIND_SPEED_MIN|WIND_SPEED_MAX|WIND_GUST_MEAN|WIND_GUST_MIN|WIND_GUST_MAX|WIND_DIRECTION_MEAN|DEGREE_DAY|COLD_HOURS|LEAF_SENSOR_CONDUCTIVITY_MIN|LEAF_SENSOR_CONDUCTIVITY_MAX|LEAF_SENSOR_CONDUCTIVITY_MEAN|LEAF_WETNESS|LEAF_WETNESS_MEDIUM|LEAF_WETNESS_HIGH": {
           "type": "object",
           "patternProperties": {
-            "last_hour|today|yesterday|this_week": {
+            "current|one_hour|three_hours|one_day|one_week|today|yesterday|this_week|last_seven_days": {
               "type": "number"
             }
           }
         }
       }
     },
-    "DeviceLiveAggregateHash": {
+    "DeviceLiveAggregationHash": {
       "type": "object",
       "patternProperties": {
         "^[0-9]+$": {
-          "$ref": "#/definitions/DeviceLiveAggregate"
+          "$ref": "#/definitions/DeviceLiveAggregation"
         }
       }
     },
-    "DeviceLiveAggregateItems": {
+    "DeviceLiveAggregationItems": {
       "type": "object",
       "required": [
         "items",
-        "devicesLiveAggregates"
+        "devicesLiveAggregations"
       ],
       "properties": {
         "items": {
@@ -8108,8 +8114,8 @@
           "minItems": 0,
           "uniqueItems": true
         },
-        "devicesLiveAggregates": {
-          "$ref": "#/definitions/DeviceLiveAggregateHash"
+        "devicesLiveAggregations": {
+          "$ref": "#/definitions/DeviceLiveAggregationHash"
         }
       }
     },
