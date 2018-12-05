@@ -1,6 +1,6 @@
 {
   "name": "sencrop-js-api-client",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "The Sencrop JavaScript API client",
   "main": "dist/index.js",
   "metapak": {
