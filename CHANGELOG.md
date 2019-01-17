@@ -1,3 +1,13 @@
+<a name="1.17.0"></a>
+# [1.17.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.16.0...v1.17.0) (2019-01-17)
+
+
+### Features
+
+* **Headers:** Add SDK + API versions in headers ([51642a7](https://github.com/sencrop/sencrop-js-api-client/commit/51642a7)), closes [#9](https://github.com/sencrop/sencrop-js-api-client/issues/9)
+
+
+
 <a name="1.16.0"></a>
 # [1.16.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.15.0...v1.16.0) (2018-12-05)
 
