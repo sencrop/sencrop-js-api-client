@@ -13,11 +13,20 @@ http://insertafter.com/fr/blog/generation_api_cliente.html
 */
 
 const camelCase = require('camel-case');
+const path = require('path');
 const fs = require('fs');
 const {
   flattenSwagger,
   getSwaggerOperations,
 } = require('swagger-http-router/dist/utils');
+const buildVersion = require(path.join(__dirname, '..', 'package.json'))
+  .version;
+const apiVersion = require(path.join(
+  __dirname,
+  '..',
+  'src',
+  'swagger.api.json',
+)).info.version;
 
 flattenSwagger(require('../src/swagger.api.json'))
   .then(API => {
@@ -111,13 +120,15 @@ function ${operationId}(${
     })
     .join('')}
   ];
-  let headers = {${(parameters || [])
-    .filter(p => 'header' === p.in)
-    .map(
-      parameter => `
+  let headers = {
+    'X-API-Version': '${apiVersion}',
+    'X-SDK-Version': '${buildVersion}',${(parameters || [])
+          .filter(p => 'header' === p.in)
+          .map(
+            parameter => `
     ${parameter.name}: ${camelCase(parameter.name)},`,
-    )
-    .join('')}
+          )
+          .join('')}
   };
   let qs = cleanQuery({${(parameters || [])
     .filter(p => 'query' === p.in)
