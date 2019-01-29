@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.17.0...v1.17.1) (2019-01-29)
+
+
+### Bug Fixes
+
+* **Headers:** Send right SDK + API versions in headers ([356e5e1](https://github.com/sencrop/sencrop-js-api-client/commit/356e5e1))
+
+
+
 <a name="1.17.0"></a>
 # [1.17.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.16.0...v1.17.0) (2019-01-17)
 
