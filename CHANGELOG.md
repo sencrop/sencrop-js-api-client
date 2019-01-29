@@ -1,3 +1,12 @@
+# [1.18.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.17.1...v1.18.0) (2019-01-29)
+
+
+### Features
+
+* **Headers:** allow custom headers ([0d0c781](https://github.com/sencrop/sencrop-js-api-client/commit/0d0c781))
+
+
+
 ## [1.17.1](https://github.com/sencrop/sencrop-js-api-client/compare/v1.17.0...v1.17.1) (2019-01-29)
 
 
