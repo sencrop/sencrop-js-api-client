@@ -120,7 +120,7 @@ function ${operationId}(${
     })
     .join('')}
   ];
-  let headers = {
+  let headers = Object.assign(((options || {}).headers || {}), {
     'X-API-Version': '${apiVersion}',
     'X-SDK-Version': '${buildVersion}',${(parameters || [])
       .filter(p => 'header' === p.in)
@@ -129,7 +129,7 @@ function ${operationId}(${
     ${parameter.name}: ${camelCase(parameter.name)},`,
       )
       .join('')}
-  };
+  });
   let qs = cleanQuery({${(parameters || [])
     .filter(p => 'query' === p.in)
     .map(
