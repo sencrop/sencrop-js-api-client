@@ -54,10 +54,10 @@ const API = {
 };
 
 ${operations
-      .map(operation => {
-        const { path, method, operationId, parameters } = operation;
+  .map(operation => {
+    const { path, method, operationId, parameters } = operation;
 
-        return `
+    return `
 /**
  * ${operation.summary}
  * @param {Object} parameters
@@ -80,16 +80,16 @@ ${operations
  * The HTTP response
  */
 function ${operationId}(${
-          parameters && parameters.length
-            ? `{ ${parameters
-                .map(parameter => {
-                  const variableName = camelCase(parameter.name);
+      parameters && parameters.length
+        ? `{ ${parameters
+            .map(parameter => {
+              const variableName = camelCase(parameter.name);
 
-                  return `\n  ${variableName},`;
-                })
-                .join('')}} = {}`
-            : '_'
-        }, options) {
+              return `\n  ${variableName},`;
+            })
+            .join('')}} = {}`
+        : '_'
+    }, options) {
 
   ${(parameters || [])
     .map(parameter => {
@@ -123,12 +123,12 @@ function ${operationId}(${
   let headers = {
     'X-API-Version': '${apiVersion}',
     'X-SDK-Version': '${buildVersion}',${(parameters || [])
-          .filter(p => 'header' === p.in)
-          .map(
-            parameter => `
+      .filter(p => 'header' === p.in)
+      .map(
+        parameter => `
     ${parameter.name}: ${camelCase(parameter.name)},`,
-          )
-          .join('')}
+      )
+      .join('')}
   };
   let qs = cleanQuery({${(parameters || [])
     .filter(p => 'query' === p.in)
@@ -151,7 +151,7 @@ function ${operationId}(${
 
   return axios(Object.assign({
     baseURL: '${API.schemes[0] || 'https'}://${API.host +
-          (API.basePath || '')}',
+      (API.basePath || '')}',
     paramsSerializer: querystring.stringify.bind(querystring),
     validateStatus: status => 200 <= status && 300 > status,
     method: method,
@@ -161,8 +161,8 @@ function ${operationId}(${
     data,
   }, options || {}));
 }`;
-      })
-      .join('\n')}
+  })
+  .join('\n')}
 
 module.exports = API;
 `;
