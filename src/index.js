@@ -147,7 +147,7 @@ function getOAuth2Authorize(
   let urlParts = ['oauth2', 'authorize'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({
     response_type: responseType,
@@ -200,7 +200,7 @@ function postOAuth2Token({ body, authorization } = {}, options) {
   let urlParts = ['oauth2', 'token'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({});
@@ -237,7 +237,7 @@ function getPing(_, options) {
   let urlParts = ['ping'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = {}.undef;
@@ -273,7 +273,7 @@ function getCrops(_, options) {
   let urlParts = ['crops'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = {}.undef;
@@ -309,7 +309,7 @@ function getModules(_, options) {
   let urlParts = ['modules'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = {}.undef;
@@ -353,7 +353,7 @@ function postSignupCheck({ authorization, body } = {}, options) {
   let urlParts = ['utils', 'checkSignup'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({});
@@ -401,7 +401,7 @@ function getHubspotProperties(
   let urlParts = ['hubspot', 'properties'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -448,7 +448,7 @@ function postLostPassword({ body } = {}, options) {
   let urlParts = ['password', 'lost'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -490,7 +490,7 @@ function putPassword({ body } = {}, options) {
   let urlParts = ['password'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -532,7 +532,7 @@ function postLogin({ body } = {}, options) {
   let urlParts = ['users', 'sign_in'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -574,7 +574,7 @@ function postVerify({ body } = {}, options) {
   let urlParts = ['users', 'verify'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -633,7 +633,7 @@ function postPartnerTokenRequest(
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({});
@@ -690,7 +690,7 @@ function postPartnerToken({ partnerId, body, authorization } = {}, options) {
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({});
@@ -752,7 +752,7 @@ function getPartnerDevices(
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -852,7 +852,7 @@ function putPartnerModuleParameters(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -897,7 +897,7 @@ function postUser({ body } = {}, options) {
   let urlParts = ['users'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -943,7 +943,7 @@ function getUser({ userId, authorization, accessToken } = {}, options) {
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -997,7 +997,7 @@ function putUser({ userId, body, authorization, accessToken } = {}, options) {
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1046,7 +1046,7 @@ function getUserGuests({ userId, authorization, accessToken } = {}, options) {
   let urlParts = ['users', userId, 'guests'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1105,7 +1105,7 @@ function postUserGuest(
   let urlParts = ['users', userId, 'guests'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1168,7 +1168,7 @@ function putUserGuest(
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1227,7 +1227,7 @@ function deleteUserGuest(
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1280,7 +1280,7 @@ function getUserCollaborators(
   let urlParts = ['users', userId, 'collaborators'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1339,7 +1339,7 @@ function postUserCollaborator(
   let urlParts = ['users', userId, 'collaborators'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1404,7 +1404,7 @@ function putUserCollaborator(
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1471,7 +1471,7 @@ function deleteUserCollaborator(
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1528,7 +1528,7 @@ function getUserAggregations(
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1587,7 +1587,7 @@ function postUserAggregation(
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1648,7 +1648,7 @@ function getUserAggregation(
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1713,7 +1713,7 @@ function putUserAggregation(
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1772,7 +1772,7 @@ function deleteUserAggregation(
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1846,7 +1846,7 @@ function getUserDevices(
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -1909,7 +1909,7 @@ function postUserDevice(
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2001,7 +2001,7 @@ function getUserDevicesLiveAggregations(
   let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2087,7 +2087,7 @@ function putUserDeviceCalibration(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2149,7 +2149,7 @@ function getUserDevicePositions(
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2211,7 +2211,7 @@ function getUserDevice(
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2276,7 +2276,7 @@ function putUserDevice(
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2335,7 +2335,7 @@ function deleteUserDevice(
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2394,7 +2394,7 @@ function getUserDeviceModules(
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2465,7 +2465,7 @@ function putUserDeviceModule(
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2531,7 +2531,7 @@ function deleteUserDeviceModule(
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2602,7 +2602,7 @@ function putUserDeviceShares(
   let urlParts = ['users', userId, 'devices', deviceId, 'shares', sharesType];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2703,7 +2703,7 @@ function getUserDeviceStatistics(
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2800,7 +2800,7 @@ function getUserDeviceRawData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -2899,7 +2899,7 @@ function getUserDeviceHourlyData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3000,7 +3000,7 @@ function getUserDeviceDailyData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3113,7 +3113,7 @@ function getUserDeviceContinuousStatistics(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3202,7 +3202,7 @@ function getUserDeviceSummary(
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3268,7 +3268,7 @@ function getUserDeviceForecasts(
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3337,7 +3337,7 @@ function getUserForecasts(
   let urlParts = ['users', userId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3455,7 +3455,7 @@ function getUserStatistics(
   let urlParts = ['users', userId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3572,7 +3572,7 @@ function getUserDailyData(
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3687,7 +3687,7 @@ function getUserHourlyData(
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3748,7 +3748,7 @@ function getUserPreferences(
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3805,7 +3805,7 @@ function putUserPreferences(
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3861,7 +3861,7 @@ function getUserNotifications(
   let urlParts = ['users', userId, 'notifications'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3922,7 +3922,7 @@ function putUserNotificationRead(
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -3981,7 +3981,7 @@ function deleteUserNotificationRead(
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4030,7 +4030,7 @@ function getUserAlerts({ userId, authorization, accessToken } = {}, options) {
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4087,7 +4087,7 @@ function postUserAlert(
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4149,7 +4149,7 @@ function putUserAlert(
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4206,7 +4206,7 @@ function deleteUserAlert(
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4251,7 +4251,7 @@ function postOrganisationDeprecated({ body } = {}, options) {
   let urlParts = ['organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({});
   let data = body;
@@ -4300,7 +4300,7 @@ function getUserOrganisations(
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4357,7 +4357,7 @@ function postOrganisation(
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4411,7 +4411,7 @@ function getOrganisation(
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4470,7 +4470,7 @@ function putOrganisation(
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4529,7 +4529,7 @@ function postOrganisationMembersMigration(
   let urlParts = ['organisations', organisationId, 'membersMigration'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4583,7 +4583,7 @@ function getOrganisationUsers(
   let urlParts = ['organisations', organisationId, 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4649,7 +4649,7 @@ function postOrganisationUser(
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4715,7 +4715,7 @@ function putOrganisationUser(
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4776,7 +4776,7 @@ function deleteOrganisationUser(
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4830,7 +4830,7 @@ function getOrganisationOperations(
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4889,7 +4889,7 @@ function postOrganisationOperation(
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -4950,7 +4950,7 @@ function getOrganisationOperation(
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5016,7 +5016,7 @@ function putOrganisationOperation(
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5077,7 +5077,7 @@ function deleteOrganisationOperation(
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5136,7 +5136,7 @@ function postOrganisationPlace(
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5200,7 +5200,7 @@ function putOrganisationPlace(
   let urlParts = ['organisations', organisationId, 'places', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5259,7 +5259,7 @@ function getWeatherLive(
   let urlParts = ['weather', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5315,7 +5315,7 @@ function postCheckout(
   let urlParts = ['checkouts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5370,7 +5370,7 @@ function getCheckoutRessources(
   let urlParts = ['checkoutsRessources'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5419,7 +5419,7 @@ function postCheckoutEstimate(
   let urlParts = ['checkoutsEstimate'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
@@ -5468,7 +5468,7 @@ function getCheckout({ checkoutId, locale } = {}, options) {
   let urlParts = ['checkouts', checkoutId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({
     locale: locale,
@@ -5524,7 +5524,7 @@ function putCheckoutStatus(
   let urlParts = ['checkouts', checkoutId, 'status'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
   });
   let qs = cleanQuery({
     status: status,
@@ -5573,7 +5573,7 @@ function getSearchUser({ email, authorization, accessToken } = {}, options) {
   let urlParts = ['search', 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.29.7',
-    'X-SDK-Version': '1.18.0',
+    'X-SDK-Version': '1.19.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({

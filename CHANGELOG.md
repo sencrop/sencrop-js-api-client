@@ -1,3 +1,12 @@
+# [1.19.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.18.0...v1.19.0) (2019-02-11)
+
+
+### Features
+
+* **organisations:** Update organisation payload ([c625895](https://github.com/sencrop/sencrop-js-api-client/commit/c625895))
+
+
+
 # [1.18.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.17.1...v1.18.0) (2019-01-29)
 
 
