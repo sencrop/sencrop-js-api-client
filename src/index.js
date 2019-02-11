@@ -13,7 +13,7 @@ const {
 /**
  * API to consume Sencrop data
  * @module API
- * @version 1.0.0
+ * @version 1.29.7
  */
 const API = {
   getOAuth2Authorize,
@@ -22,6 +22,7 @@ const API = {
   getCrops,
   getModules,
   postSignupCheck,
+  getHubspotProperties,
   postLostPassword,
   putPassword,
   postLogin,
@@ -31,7 +32,6 @@ const API = {
   getPartnerDevices,
   putPartnerModuleParameters,
   postUser,
-  postUserSimplified,
   getUser,
   putUser,
   getUserGuests,
@@ -73,6 +73,8 @@ const API = {
   getUserPreferences,
   putUserPreferences,
   getUserNotifications,
+  putUserNotificationRead,
+  deleteUserNotificationRead,
   getUserAlerts,
   postUserAlert,
   putUserAlert,
@@ -83,6 +85,7 @@ const API = {
   getOrganisation,
   putOrganisation,
   postOrganisationMembersMigration,
+  getOrganisationUsers,
   postOrganisationUser,
   putOrganisationUser,
   deleteOrganisationUser,
@@ -94,6 +97,11 @@ const API = {
   postOrganisationPlace,
   putOrganisationPlace,
   getWeatherLive,
+  postCheckout,
+  getCheckoutRessources,
+  postCheckoutEstimate,
+  getCheckout,
+  putCheckoutStatus,
   getSearchUser,
 };
 
@@ -138,7 +146,7 @@ function getOAuth2Authorize(
   const method = 'get';
   let urlParts = ['oauth2', 'authorize'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({
@@ -191,7 +199,7 @@ function postOAuth2Token({ body, authorization } = {}, options) {
   const method = 'post';
   let urlParts = ['oauth2', 'token'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -228,7 +236,7 @@ function getPing(_, options) {
   const method = 'get';
   let urlParts = ['ping'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -264,7 +272,7 @@ function getCrops(_, options) {
   const method = 'get';
   let urlParts = ['crops'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -300,7 +308,7 @@ function getModules(_, options) {
   const method = 'get';
   let urlParts = ['modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -344,12 +352,64 @@ function postSignupCheck({ authorization, body } = {}, options) {
   const method = 'post';
   let urlParts = ['utils', 'checkSignup'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({});
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve all tradeshow from hubspot
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} [parameters.type]
+ * undefined,
+ * @param {string} [parameters.name]
+ * undefined,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getHubspotProperties(
+  { type, name, authorization, accessToken } = {},
+  options,
+) {
+  const method = 'get';
+  let urlParts = ['hubspot', 'properties'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    type: type,
+    name: name,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -387,7 +447,7 @@ function postLostPassword({ body } = {}, options) {
   const method = 'post';
   let urlParts = ['password', 'lost'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -429,7 +489,7 @@ function putPassword({ body } = {}, options) {
   const method = 'put';
   let urlParts = ['password'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -471,7 +531,7 @@ function postLogin({ body } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'sign_in'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -513,7 +573,7 @@ function postVerify({ body } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'verify'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -572,7 +632,7 @@ function postPartnerTokenRequest(
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -629,7 +689,7 @@ function postPartnerToken({ partnerId, body, authorization } = {}, options) {
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -691,7 +751,7 @@ function getPartnerDevices(
   const method = 'get';
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -791,7 +851,7 @@ function putPartnerModuleParameters(
     'parameters',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -836,49 +896,7 @@ function postUser({ body } = {}, options) {
   const method = 'post';
   let urlParts = ['users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
-    'X-SDK-Version': '1.18.0',
-  });
-  let qs = cleanQuery({});
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers,
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create a new user with simplified information (for meeting/showroom/...), add a demo device and connect it. Need a special code.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {object} parameters.body
- * The new user (simplified) and the special code
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postUserSimplified({ body } = {}, options) {
-  if (body == null) {
-    throw new Error('Missing required parameter : body. Value : ' + body);
-  }
-
-  const method = 'post';
-  let urlParts = ['users', 'simplified'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -924,7 +942,7 @@ function getUser({ userId, authorization, accessToken } = {}, options) {
   const method = 'get';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -978,7 +996,7 @@ function putUser({ userId, body, authorization, accessToken } = {}, options) {
   const method = 'put';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1027,7 +1045,7 @@ function getUserGuests({ userId, authorization, accessToken } = {}, options) {
   const method = 'get';
   let urlParts = ['users', userId, 'guests'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1086,7 +1104,7 @@ function postUserGuest(
   const method = 'post';
   let urlParts = ['users', userId, 'guests'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1149,7 +1167,7 @@ function putUserGuest(
   const method = 'put';
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1208,7 +1226,7 @@ function deleteUserGuest(
   const method = 'delete';
   let urlParts = ['users', userId, 'guests', guestId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1261,7 +1279,7 @@ function getUserCollaborators(
   const method = 'get';
   let urlParts = ['users', userId, 'collaborators'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1320,7 +1338,7 @@ function postUserCollaborator(
   const method = 'post';
   let urlParts = ['users', userId, 'collaborators'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1385,7 +1403,7 @@ function putUserCollaborator(
   const method = 'put';
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1452,7 +1470,7 @@ function deleteUserCollaborator(
   const method = 'delete';
   let urlParts = ['users', userId, 'collaborators', collaboratorId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1509,7 +1527,7 @@ function getUserAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1568,7 +1586,7 @@ function postUserAggregation(
   const method = 'post';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1629,7 +1647,7 @@ function getUserAggregation(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1694,7 +1712,7 @@ function putUserAggregation(
   const method = 'put';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1753,7 +1771,7 @@ function deleteUserAggregation(
   const method = 'delete';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1827,7 +1845,7 @@ function getUserDevices(
   const method = 'get';
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1890,7 +1908,7 @@ function postUserDevice(
   const method = 'post';
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -1982,7 +2000,7 @@ function getUserDevicesLiveAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2068,7 +2086,7 @@ function putUserDeviceCalibration(
     calibrationName,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2130,7 +2148,7 @@ function getUserDevicePositions(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2192,7 +2210,7 @@ function getUserDevice(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2257,7 +2275,7 @@ function putUserDevice(
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2316,7 +2334,7 @@ function deleteUserDevice(
   const method = 'delete';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2375,7 +2393,7 @@ function getUserDeviceModules(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2446,7 +2464,7 @@ function putUserDeviceModule(
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2512,7 +2530,7 @@ function deleteUserDeviceModule(
   const method = 'delete';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2583,7 +2601,7 @@ function putUserDeviceShares(
   const method = 'put';
   let urlParts = ['users', userId, 'devices', deviceId, 'shares', sharesType];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2684,7 +2702,7 @@ function getUserDeviceStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2781,7 +2799,7 @@ function getUserDeviceRawData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2880,7 +2898,7 @@ function getUserDeviceHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -2981,7 +2999,7 @@ function getUserDeviceDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3094,7 +3112,7 @@ function getUserDeviceContinuousStatistics(
     'countinuousStatistics',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3183,7 +3201,7 @@ function getUserDeviceSummary(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3249,7 +3267,7 @@ function getUserDeviceForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3318,7 +3336,7 @@ function getUserForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3436,7 +3454,7 @@ function getUserStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3553,7 +3571,7 @@ function getUserDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3668,7 +3686,7 @@ function getUserHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3729,7 +3747,7 @@ function getUserPreferences(
   const method = 'get';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3786,7 +3804,7 @@ function putUserPreferences(
   const method = 'put';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3842,13 +3860,131 @@ function getUserNotifications(
   const method = 'get';
   let urlParts = ['users', userId, 'notifications'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
   let qs = cleanQuery({
     size: size,
     cursor: cursor,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Set a user's notification as read.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.notificationId
+ * The notification uuid,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserNotificationRead(
+  { userId, notificationId, authorization, accessToken } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (notificationId == null) {
+    throw new Error(
+      'Missing required parameter : notificationId. Value : ' + notificationId,
+    );
+  }
+
+  const method = 'put';
+  let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Set a user's notification as unread.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.notificationId
+ * The notification uuid,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteUserNotificationRead(
+  { userId, notificationId, authorization, accessToken } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (notificationId == null) {
+    throw new Error(
+      'Missing required parameter : notificationId. Value : ' + notificationId,
+    );
+  }
+
+  const method = 'delete';
+  let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -3893,7 +4029,7 @@ function getUserAlerts({ userId, authorization, accessToken } = {}, options) {
   const method = 'get';
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -3950,7 +4086,7 @@ function postUserAlert(
   const method = 'post';
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4012,7 +4148,7 @@ function putUserAlert(
   const method = 'put';
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4069,7 +4205,7 @@ function deleteUserAlert(
   const method = 'delete';
   let urlParts = ['users', userId, 'alerts', alertId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4114,7 +4250,7 @@ function postOrganisationDeprecated({ body } = {}, options) {
   const method = 'post';
   let urlParts = ['organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
   });
   let qs = cleanQuery({});
@@ -4163,7 +4299,7 @@ function getUserOrganisations(
   const method = 'get';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4220,7 +4356,7 @@ function postOrganisation(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4274,7 +4410,7 @@ function getOrganisation(
   const method = 'get';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4333,7 +4469,7 @@ function putOrganisation(
   const method = 'put';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4392,7 +4528,7 @@ function postOrganisationMembersMigration(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'membersMigration'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4400,6 +4536,60 @@ function postOrganisationMembersMigration(
     access_token: accessToken,
   });
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve all users from an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationUsers(
+  { organisationId, authorization, accessToken } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'users'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -4458,7 +4648,7 @@ function postOrganisationUser(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4524,7 +4714,7 @@ function putOrganisationUser(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4585,7 +4775,7 @@ function deleteOrganisationUser(
   const method = 'delete';
   let urlParts = ['organisations', organisationId, 'users', targetUserId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4639,7 +4829,7 @@ function getOrganisationOperations(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4698,7 +4888,7 @@ function postOrganisationOperation(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'operations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4759,7 +4949,7 @@ function getOrganisationOperation(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4825,7 +5015,7 @@ function putOrganisationOperation(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4886,7 +5076,7 @@ function deleteOrganisationOperation(
   const method = 'delete';
   let urlParts = ['organisations', organisationId, 'operations', operationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -4945,7 +5135,7 @@ function postOrganisationPlace(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -5009,7 +5199,7 @@ function putOrganisationPlace(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'places', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -5068,7 +5258,7 @@ function getWeatherLive(
   const method = 'get';
   let urlParts = ['weather', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });
@@ -5076,6 +5266,269 @@ function getWeatherLive(
     geohash: geohash,
     measureType: measureType,
     access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Create a new checkout (with chargebee)
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {object} parameters.body
+ * The checkout object,
+ * @param {boolean} [parameters.generateEmail]
+ * Generate and send an email,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postCheckout(
+  { body, generateEmail, authorization, accessToken } = {},
+  options,
+) {
+  if (body == null) {
+    throw new Error('Missing required parameter : body. Value : ' + body);
+  }
+
+  const method = 'post';
+  let urlParts = ['checkouts'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    generateEmail: generateEmail,
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve all checkout ressources (plan/addons)
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.currency
+ * undefined,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getCheckoutRessources(
+  { currency, authorization, accessToken } = {},
+  options,
+) {
+  if (currency == null) {
+    throw new Error(
+      'Missing required parameter : currency. Value : ' + currency,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['checkoutsRessources'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    currency: currency,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Generates an estimate for the 'create checkout' operation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {object} [parameters.body]
+ * undefined,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mechanism,
+ * @param {string} [parameters.accessToken]
+ * Access token in the query string
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postCheckoutEstimate(
+  { body, authorization, accessToken } = {},
+  options,
+) {
+  const method = 'post';
+  let urlParts = ['checkoutsEstimate'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+    Authorization: authorization,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve a checkout
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.checkoutId
+ * The checkout id,
+ * @param {string} [parameters.locale]
+ * undefined
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getCheckout({ checkoutId, locale } = {}, options) {
+  if (checkoutId == null) {
+    throw new Error(
+      'Missing required parameter : checkoutId. Value : ' + checkoutId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['checkouts', checkoutId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+  });
+  let qs = cleanQuery({
+    locale: locale,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers,
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Change status of a checkout
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.checkoutId
+ * The checkout id,
+ * @param {string} parameters.status
+ * New status,
+ * @param {string} [parameters.chargebeeStep]
+ * New chargebee step in funnel
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putCheckoutStatus(
+  { checkoutId, status, chargebeeStep } = {},
+  options,
+) {
+  if (checkoutId == null) {
+    throw new Error(
+      'Missing required parameter : checkoutId. Value : ' + checkoutId,
+    );
+  }
+  if (status == null) {
+    throw new Error('Missing required parameter : status. Value : ' + status);
+  }
+
+  const method = 'put';
+  let urlParts = ['checkouts', checkoutId, 'status'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.29.7',
+    'X-SDK-Version': '1.18.0',
+  });
+  let qs = cleanQuery({
+    status: status,
+    chargebeeStep: chargebeeStep,
   });
   let data = {}.undef;
 
@@ -5119,7 +5572,7 @@ function getSearchUser({ email, authorization, accessToken } = {}, options) {
   const method = 'get';
   let urlParts = ['search', 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.0.0',
+    'X-API-Version': '1.29.7',
     'X-SDK-Version': '1.18.0',
     Authorization: authorization,
   });

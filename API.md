@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.0.0  
+**Version**: 1.29.7  
 
 * [API](#module_API)
     * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
@@ -13,6 +13,7 @@ API to consume Sencrop data
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
     * [~postSignupCheck(parameters, options)](#module_API..postSignupCheck) ⇒ <code>Object</code>
+    * [~getHubspotProperties(parameters, options)](#module_API..getHubspotProperties) ⇒ <code>Object</code>
     * [~postLostPassword(parameters, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~putPassword(parameters, options)](#module_API..putPassword) ⇒ <code>Object</code>
     * [~postLogin(parameters, options)](#module_API..postLogin) ⇒ <code>Object</code>
@@ -22,7 +23,6 @@ API to consume Sencrop data
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~putPartnerModuleParameters(parameters, options)](#module_API..putPartnerModuleParameters) ⇒ <code>Object</code>
     * [~postUser(parameters, options)](#module_API..postUser) ⇒ <code>Object</code>
-    * [~postUserSimplified(parameters, options)](#module_API..postUserSimplified) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, options)](#module_API..putUser) ⇒ <code>Object</code>
     * [~getUserGuests(parameters, options)](#module_API..getUserGuests) ⇒ <code>Object</code>
@@ -64,6 +64,8 @@ API to consume Sencrop data
     * [~getUserPreferences(parameters, options)](#module_API..getUserPreferences) ⇒ <code>Object</code>
     * [~putUserPreferences(parameters, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
     * [~getUserNotifications(parameters, options)](#module_API..getUserNotifications) ⇒ <code>Object</code>
+    * [~putUserNotificationRead(parameters, options)](#module_API..putUserNotificationRead) ⇒ <code>Object</code>
+    * [~deleteUserNotificationRead(parameters, options)](#module_API..deleteUserNotificationRead) ⇒ <code>Object</code>
     * [~getUserAlerts(parameters, options)](#module_API..getUserAlerts) ⇒ <code>Object</code>
     * [~postUserAlert(parameters, options)](#module_API..postUserAlert) ⇒ <code>Object</code>
     * [~putUserAlert(parameters, options)](#module_API..putUserAlert) ⇒ <code>Object</code>
@@ -74,6 +76,7 @@ API to consume Sencrop data
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
     * [~postOrganisationMembersMigration(parameters, options)](#module_API..postOrganisationMembersMigration) ⇒ <code>Object</code>
+    * [~getOrganisationUsers(parameters, options)](#module_API..getOrganisationUsers) ⇒ <code>Object</code>
     * [~postOrganisationUser(parameters, options)](#module_API..postOrganisationUser) ⇒ <code>Object</code>
     * [~putOrganisationUser(parameters, options)](#module_API..putOrganisationUser) ⇒ <code>Object</code>
     * [~deleteOrganisationUser(parameters, options)](#module_API..deleteOrganisationUser) ⇒ <code>Object</code>
@@ -85,6 +88,11 @@ API to consume Sencrop data
     * [~postOrganisationPlace(parameters, options)](#module_API..postOrganisationPlace) ⇒ <code>Object</code>
     * [~putOrganisationPlace(parameters, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
     * [~getWeatherLive(parameters, options)](#module_API..getWeatherLive) ⇒ <code>Object</code>
+    * [~postCheckout(parameters, options)](#module_API..postCheckout) ⇒ <code>Object</code>
+    * [~getCheckoutRessources(parameters, options)](#module_API..getCheckoutRessources) ⇒ <code>Object</code>
+    * [~postCheckoutEstimate(parameters, options)](#module_API..postCheckoutEstimate) ⇒ <code>Object</code>
+    * [~getCheckout(parameters, options)](#module_API..getCheckout) ⇒ <code>Object</code>
+    * [~putCheckoutStatus(parameters, options)](#module_API..putCheckoutStatus) ⇒ <code>Object</code>
     * [~getSearchUser(parameters, options)](#module_API..getSearchUser) ⇒ <code>Object</code>
 
 <a name="module_API..getOAuth2Authorize"></a>
@@ -174,6 +182,23 @@ Hit the server to check the email can be used to signup.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | parameters.body | <code>object</code> | The email to check |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getHubspotProperties"></a>
+
+### API~getHubspotProperties(parameters, options) ⇒ <code>Object</code>
+Retrieve all tradeshow from hubspot
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| [parameters.type] | <code>string</code> | undefined, |
+| [parameters.name] | <code>string</code> | undefined, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postLostPassword"></a>
@@ -314,20 +339,6 @@ Create a new user.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.body | <code>object</code> | The new user |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..postUserSimplified"></a>
-
-### API~postUserSimplified(parameters, options) ⇒ <code>Object</code>
-Create a new user with simplified information (for meeting/showroom/...), add a demo device and connect it. Need a special code.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.body | <code>object</code> | The new user (simplified) and the special code |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUser"></a>
@@ -1118,6 +1129,40 @@ Get user's notifications.
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..putUserNotificationRead"></a>
+
+### API~putUserNotificationRead(parameters, options) ⇒ <code>Object</code>
+Set a user's notification as read.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.notificationId | <code>string</code> | The notification uuid, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..deleteUserNotificationRead"></a>
+
+### API~deleteUserNotificationRead(parameters, options) ⇒ <code>Object</code>
+Set a user's notification as unread.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.notificationId | <code>string</code> | The notification uuid, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getUserAlerts"></a>
 
 ### API~getUserAlerts(parameters, options) ⇒ <code>Object</code>
@@ -1279,6 +1324,22 @@ Endpoint for migration. Don't use it or use with caution !
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.body | <code>object</code> | The necessary contents to migrate users, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationUsers"></a>
+
+### API~getOrganisationUsers(parameters, options) ⇒ <code>Object</code>
+Retrieve all users from an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1471,6 +1532,86 @@ Get last measure (for a specific type) from devices in a given area (1 hour for 
 | parameters.measureType | <code>string</code> | The measures to read, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postCheckout"></a>
+
+### API~postCheckout(parameters, options) ⇒ <code>Object</code>
+Create a new checkout (with chargebee)
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.body | <code>object</code> | The checkout object, |
+| [parameters.generateEmail] | <code>boolean</code> | Generate and send an email, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getCheckoutRessources"></a>
+
+### API~getCheckoutRessources(parameters, options) ⇒ <code>Object</code>
+Retrieve all checkout ressources (plan/addons)
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.currency | <code>string</code> | undefined, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postCheckoutEstimate"></a>
+
+### API~postCheckoutEstimate(parameters, options) ⇒ <code>Object</code>
+Generates an estimate for the 'create checkout' operation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| [parameters.body] | <code>object</code> | undefined, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getCheckout"></a>
+
+### API~getCheckout(parameters, options) ⇒ <code>Object</code>
+Retrieve a checkout
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.checkoutId | <code>string</code> | The checkout id, |
+| [parameters.locale] | <code>string</code> | undefined |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putCheckoutStatus"></a>
+
+### API~putCheckoutStatus(parameters, options) ⇒ <code>Object</code>
+Change status of a checkout
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.checkoutId | <code>string</code> | The checkout id, |
+| parameters.status | <code>string</code> | New status, |
+| [parameters.chargebeeStep] | <code>string</code> | New chargebee step in funnel |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getSearchUser"></a>

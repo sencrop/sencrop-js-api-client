@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
     "title": "Sencrop API",
-    "description": "API to consume Sencrop data"
+    "description": "API to consume Sencrop data",
+    "version": "1.29.7"
   },
   "paths": {
     "/oauth2/authorize": {
@@ -428,6 +428,62 @@
             "description": "Email can be used."
           }
         }
+      }
+    },
+    "/hubspot/properties": {
+      "get": {
+        "operationId": "getHubspotProperties",
+        "summary": "Retrieve all tradeshow from hubspot",
+        "tags": [
+          "checkout",
+          "hubspot"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "enum": [
+              "companies",
+              "contacts",
+              "deals"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hubspot tradeshow"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_TEAM"
+            ]
+          }
+        ]
       }
     },
     "/password/lost": {
@@ -937,40 +993,6 @@
         "responses": {
           "201": {
             "description": "The user were successfully created",
-            "schema": {
-              "$ref": "#/definitions/UserItem"
-            }
-          }
-        }
-      }
-    },
-    "/users/simplified": {
-      "post": {
-        "operationId": "postUserSimplified",
-        "tags": [
-          "users"
-        ],
-        "summary": "Create a new user with simplified information (for meeting/showroom/...), add a demo device and connect it. Need a special code.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "description": "The new user (simplified) and the special code",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewUserSimplified"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The user were successfully created and a new token.",
             "schema": {
               "$ref": "#/definitions/UserItem"
             }
@@ -1915,6 +1937,12 @@
             "description": "The user's aggregation updated",
             "schema": {
               "$ref": "#/definitions/AggregationItem"
+            }
+          },
+          "400": {
+            "description": "Bad aggregation contents",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         },
@@ -3012,7 +3040,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "pattern": "^[a-z0-9]+$"
+                      "pattern": "^[a-z0-9_]+$"
                     },
                     "externalIdentifier": {
                       "type": "string"
@@ -5040,6 +5068,114 @@
         "tags": []
       }
     },
+    "/users/{userId}/notifications/{notificationId}/read": {
+      "put": {
+        "operationId": "putUserNotificationRead",
+        "summary": "Set a user's notification as read.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The notification uuid",
+            "name": "notificationId",
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user's notification is read"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
+        "tags": []
+      },
+      "delete": {
+        "operationId": "deleteUserNotificationRead",
+        "summary": "Set a user's notification as unread.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The notification uuid",
+            "name": "notificationId",
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user's notification is unread"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ],
+        "tags": []
+      }
+    },
     "/users/{userId}/alerts": {
       "get": {
         "operationId": "getUserAlerts",
@@ -5718,6 +5854,58 @@
         "responses": {
           "201": {
             "description": "Members were migrated"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/organisations/{organisationId}/users": {
+      "get": {
+        "operationId": "getOrganisationUsers",
+        "summary": "Retrieve all users from an organisation",
+        "tags": [
+          "organisations"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The organisation id",
+            "name": "organisationId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Organisation users",
+            "schema": {
+              "$ref": "#/definitions/UserItems"
+            }
           }
         },
         "security": [
@@ -6509,6 +6697,318 @@
         ]
       }
     },
+    "/checkouts": {
+      "post": {
+        "operationId": "postCheckout",
+        "summary": "Create a new checkout (with chargebee)",
+        "tags": [
+          "checkout"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The checkout object",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Checkout"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Generate and send an email",
+            "name": "generateEmail",
+            "type": "boolean"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Checkout page has been created",
+            "schema": {
+              "$ref": "#/definitions/CheckoutItem"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_TEAM"
+            ]
+          }
+        ]
+      }
+    },
+    "/checkoutsRessources": {
+      "get": {
+        "operationId": "getCheckoutRessources",
+        "summary": "Retrieve all checkout ressources (plan/addons)",
+        "tags": [
+          "checkout"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "currency",
+            "type": "string",
+            "enum": [
+              "EUR",
+              "GBP"
+            ],
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Checkout ressources (plan/addons)"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_TEAM"
+            ]
+          }
+        ]
+      }
+    },
+    "/checkoutsEstimate": {
+      "post": {
+        "operationId": "postCheckoutEstimate",
+        "summary": "Generates an estimate for the 'create checkout' operation. ",
+        "tags": [
+          "checkout"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "contents"
+              ],
+              "properties": {
+                "contents": {
+                  "type": "object",
+                  "required": [
+                    "products",
+                    "currency",
+                    "delivery"
+                  ],
+                  "properties": {
+                    "currency": {
+                      "type": "string",
+                      "enum": [
+                        "EUR",
+                        "GBP"
+                      ]
+                    },
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "quantity"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "pattern": "^[0-9]+$",
+                            "minimum": 1
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "minimum": 1
+                          }
+                        }
+                      }
+                    },
+                    "delivery": {
+                      "type": "object",
+                      "required": [
+                        "type",
+                        "zone"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "sending",
+                            "onlyTripod"
+                          ]
+                        },
+                        "zone": {
+                          "type": "string",
+                          "enum": [
+                            "France",
+                            "Europe"
+                          ]
+                        }
+                      }
+                    },
+                    "couponCodeId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The estimate"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_TEAM"
+            ]
+          }
+        ]
+      }
+    },
+    "/checkouts/{checkoutId}": {
+      "get": {
+        "operationId": "getCheckout",
+        "summary": "Retrieve a checkout",
+        "tags": [
+          "checkout"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The checkout id",
+            "name": "checkoutId",
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
+            "maxLength": 5
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Checkout retrieved",
+            "schema": {
+              "$ref": "#/definitions/CheckoutItem"
+            }
+          }
+        }
+      }
+    },
+    "/checkouts/{checkoutId}/status": {
+      "put": {
+        "operationId": "putCheckoutStatus",
+        "summary": "Change status of a checkout",
+        "tags": [
+          "checkout"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The checkout id",
+            "name": "checkoutId",
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true
+          },
+          {
+            "in": "query",
+            "description": "New status",
+            "name": "status",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "viewed",
+              "clicked",
+              "ended"
+            ]
+          },
+          {
+            "in": "query",
+            "description": "New chargebee step in funnel",
+            "name": "chargebeeStep",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Checkout status has been updated"
+          }
+        }
+      }
+    },
     "/search/users": {
       "get": {
         "operationId": "getSearchUser",
@@ -6655,24 +7155,11 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "type",
         "contents"
       ],
       "properties": {
         "id": {
           "type": "number"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "farm",
-            "cooperative",
-            "interest_group",
-            "chamber_of_agriculture",
-            "company",
-            "personal",
-            "public_agency"
-          ]
         },
         "ownersIds": {
           "type": "array",
@@ -6732,7 +7219,8 @@
       "required": [
         "name",
         "locale",
-        "timeZone"
+        "timeZone",
+        "type"
       ],
       "properties": {
         "name": {
@@ -6751,6 +7239,18 @@
         "identification": {
           "type": "string"
         },
+        "type": {
+          "type": "string",
+          "enum": [
+            "farm",
+            "cooperative",
+            "interest_group",
+            "chamber_of_agriculture",
+            "company",
+            "personal",
+            "public_agency"
+          ]
+        },
         "typeFarm": {
           "type": "array",
           "items": {
@@ -6763,6 +7263,18 @@
               "apiarian"
             ]
           }
+        },
+        "area": {
+          "type": "number"
+        },
+        "crops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "irrigation": {
+          "type": "boolean"
         }
       }
     },
@@ -6893,13 +7405,7 @@
       "additionalProperties": false,
       "required": [
         "email",
-        "phone",
-        "firstname",
-        "lastname",
-        "address",
-        "zipcode",
-        "city",
-        "country"
+        "phone"
       ],
       "properties": {
         "email": {
@@ -7011,7 +7517,6 @@
           "description": "With which signup method the user has been created",
           "enum": [
             "form",
-            "simplified",
             "invitation",
             "unknown"
           ]
@@ -7033,13 +7538,14 @@
         "roles": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 2,
+          "maxItems": 3,
           "uniqueItems": true,
           "items": {
             "type": "string",
             "enum": [
               "ROLE_USER",
-              "ROLE_ADMIN"
+              "ROLE_ADMIN",
+              "ROLE_TEAM"
             ]
           }
         },
@@ -7101,7 +7607,6 @@
           "description": "With which signup method the user has been created",
           "enum": [
             "form",
-            "simplified",
             "invitation",
             "unknown"
           ]
@@ -7123,13 +7628,14 @@
         "roles": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 2,
+          "maxItems": 3,
           "uniqueItems": true,
           "items": {
             "type": "string",
             "enum": [
               "ROLE_USER",
-              "ROLE_ADMIN"
+              "ROLE_ADMIN",
+              "ROLE_TEAM"
             ]
           }
         },
@@ -7142,58 +7648,6 @@
         },
         "callbackPath": {
           "type": "string"
-        }
-      }
-    },
-    "NewUserSimplified": {
-      "type": "object",
-      "required": [
-        "password",
-        "simplifiedCode",
-        "contents"
-      ],
-      "properties": {
-        "id": {
-          "type": "number",
-          "pattern": "^[0-9]+$",
-          "minimum": 1
-        },
-        "locale": {
-          "type": "string",
-          "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
-          "maxLength": 5
-        },
-        "timeZone": {
-          "type": "string",
-          "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
-          "maxLength": 50
-        },
-        "password": {
-          "type": "string",
-          "minLength": 8
-        },
-        "simplifiedCode": {
-          "type": "string"
-        },
-        "callbackPath": {
-          "type": "string"
-        },
-        "contents": {
-          "type": "object",
-          "required": [
-            "email",
-            "phone"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "email": {
-              "type": "string",
-              "format": "email"
-            },
-            "phone": {
-              "type": "string"
-            }
-          }
         }
       }
     },
@@ -7227,6 +7681,27 @@
         },
         "users": {
           "$ref": "#/definitions/PartialUserHash"
+        }
+      }
+    },
+    "UserItems": {
+      "type": "object",
+      "required": [
+        "items",
+        "users"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "users": {
+          "$ref": "#/definitions/UserHash"
         }
       }
     },
@@ -7304,7 +7779,8 @@
             "type": "string",
             "enum": [
               "WET_TEMPERATURE",
-              "DEW_POINT"
+              "DEW_POINT",
+              "BANANA_FLOWER_CUT"
             ]
           }
         }
@@ -7394,6 +7870,10 @@
           "format": "date-time"
         },
         "lastCheckDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastTriggerDate": {
           "type": "string",
           "format": "date-time"
         },
@@ -7726,53 +8206,176 @@
       }
     },
     "AggregationContents": {
-      "type": "object",
-      "required": [
-        "type",
-        "name",
-        "devicesIds"
-      ],
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "DEGREE_DAY",
-            "COLD_HOURS",
-            "RAIN_FALL_SUM",
-            "LEAF_WETNESS",
-            "LEAF_WETNESS_MEDIUM",
-            "LEAF_WETNESS_HIGH"
-          ]
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Date resolve aggregation",
+          "required": [
+            "name",
+            "type",
+            "aggregation",
+            "ceil",
+            "devicesIds"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "date"
+              ]
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "RAIN_FALL_SUM",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            },
+            "ceil": {
+              "type": "number"
+            },
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "number"
+                }
+              }
+            },
+            "devicesIds": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
         },
-        "name": {
-          "type": "string"
+        {
+          "type": "object",
+          "description": "Time span value aggregation",
+          "required": [
+            "name",
+            "type",
+            "aggregation",
+            "timeSpan",
+            "devicesIds"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "value"
+              ]
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "RAIN_FALL_SUM",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            },
+            "timeSpan": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "number"
+                }
+              }
+            },
+            "devicesIds": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
         },
-        "from": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "to": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "span": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "base": {
-          "type": "number"
-        },
-        "devicesIds": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1
-          },
-          "minItems": 1,
-          "uniqueItems": true
+        {
+          "type": "object",
+          "description": "Date interval value aggregation",
+          "required": [
+            "name",
+            "type",
+            "aggregation",
+            "startDate",
+            "devicesIds"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "value"
+              ]
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "DEGREE_DAY",
+                "COLD_HOURS",
+                "RAIN_FALL_SUM",
+                "LEAF_WETNESS",
+                "LEAF_WETNESS_MEDIUM",
+                "LEAF_WETNESS_HIGH"
+              ]
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "number"
+                }
+              }
+            },
+            "devicesIds": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
         }
-      }
+      ]
     },
     "AggregationResult": {
       "type": "object",
@@ -8266,12 +8869,16 @@
         "code": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
         "type": {
           "type": "string",
           "enum": [
             "email",
             "ftp",
-            "partner"
+            "partner",
+            "s3"
           ]
         }
       }
@@ -8677,6 +9284,240 @@
         "code": {
           "type": "string",
           "pattern": "^E_[a-zA-Z0-9_]+$"
+        }
+      }
+    },
+    "CheckoutContents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ownerId",
+        "currency",
+        "products",
+        "customer",
+        "delivery",
+        "payment"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "created",
+            "sent",
+            "viewed",
+            "inTrial",
+            "trialEnded",
+            "clicked",
+            "ended"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "web",
+            "tradeshow"
+          ]
+        },
+        "ownerId": {
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "EUR",
+            "GBP"
+          ]
+        },
+        "hubspotDealId": {
+          "type": "string"
+        },
+        "couponCodeId": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "quantity"
+            ],
+            "properties": {
+              "id": {
+                "type": "number",
+                "pattern": "^[0-9]+$",
+                "minimum": 1
+              },
+              "quantity": {
+                "type": "number",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "customer": {
+          "type": "object",
+          "required": [
+            "locale",
+            "firstname",
+            "lastname",
+            "email"
+          ],
+          "properties": {
+            "locale": {
+              "type": "string",
+              "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
+              "maxLength": 5
+            },
+            "timeZone": {
+              "type": "string",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+              "maxLength": 50
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "country": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          }
+        },
+        "delivery": {
+          "type": "object",
+          "required": [
+            "type",
+            "zone"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "sending",
+                "onlyTripod"
+              ]
+            },
+            "zone": {
+              "type": "string",
+              "enum": [
+                "France",
+                "Europe"
+              ]
+            }
+          }
+        },
+        "tradeshow": {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+        "payment": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "immediate",
+                "delayed"
+              ]
+            },
+            "delayedDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date for delayed payment"
+            }
+          }
+        }
+      }
+    },
+    "Checkout": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "url": {
+          "type": "string"
+        },
+        "chargebeeHostedPage": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "chargebeeEstimate": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "contents": {
+          "$ref": "#/definitions/CheckoutContents"
+        }
+      }
+    },
+    "CheckoutHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$": {
+          "$ref": "#/definitions/Checkout"
+        }
+      }
+    },
+    "CheckoutItem": {
+      "type": "object",
+      "required": [
+        "item",
+        "checkouts"
+      ],
+      "properties": {
+        "item": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "checkouts": {
+          "$ref": "#/definitions/CheckoutHash"
+        }
+      }
+    },
+    "CheckoutItems": {
+      "type": "object",
+      "required": [
+        "items",
+        "checkouts"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          }
+        },
+        "checkouts": {
+          "$ref": "#/definitions/CheckoutHash"
         }
       }
     },
