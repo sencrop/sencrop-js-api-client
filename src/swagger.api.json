@@ -3,7 +3,7 @@
   "info": {
     "title": "Sencrop API",
     "description": "API to consume Sencrop data",
-    "version": "1.29.7"
+    "version": "1.30.1"
   },
   "paths": {
     "/oauth2/authorize": {
@@ -2786,6 +2786,168 @@
         ]
       }
     },
+    "/users/{userId}/devices/{deviceId}/export": {
+      "post": {
+        "operationId": "postUserDeviceExport",
+        "summary": "Create a new export job",
+        "tags": [
+          "devices",
+          "data"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The user id",
+            "name": "userId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "path",
+            "description": "The device id",
+            "name": "deviceId",
+            "type": "number",
+            "pattern": "^[0-9]+$",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The necessary contents to create an export",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "startDate",
+                "endDate",
+                "measures",
+                "interval",
+                "timeZone",
+                "fileFormat",
+                "patched"
+              ],
+              "properties": {
+                "startDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "measures": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "RELATIVE_HUMIDITY",
+                      "RELATIVE_HUMIDITY_MIN",
+                      "RELATIVE_HUMIDITY_MAX",
+                      "TEMPERATURE",
+                      "TEMPERATURE_MIN",
+                      "TEMPERATURE_MAX",
+                      "WET_TEMPERATURE",
+                      "WET_TEMPERATURE_MIN",
+                      "WET_TEMPERATURE_MAX",
+                      "LEAF_SENSOR_CONDUCTIVITY",
+                      "LEAF_SENSOR_CONDUCTIVITY_MIN",
+                      "LEAF_SENSOR_CONDUCTIVITY_MAX",
+                      "RAIN_FALL",
+                      "WIND_SPEED",
+                      "WIND_GUST",
+                      "WIND_DIRECTION",
+                      "MOVE",
+                      "LEAF_WETNESS",
+                      "LEAF_WETNESS_MEDIUM",
+                      "LEAF_WETNESS_HIGH",
+                      "RH_AIR_H1",
+                      "RH_AIR_H1_MIN",
+                      "RH_AIR_H1_MAX",
+                      "TEMP_AIR_H1",
+                      "TEMP_AIR_H1_MIN",
+                      "TEMP_AIR_H1_MAX",
+                      "RAIN_TIC",
+                      "WIND_MEAN",
+                      "WIND_MAX"
+                    ]
+                  }
+                },
+                "interval": {
+                  "description": "The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval)",
+                  "type": "string",
+                  "enum": [
+                    "15m",
+                    "1h",
+                    "1d",
+                    "1w",
+                    "1M"
+                  ]
+                },
+                "timeZone": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+                  "maxLength": 50
+                },
+                "fileFormat": {
+                  "type": "string",
+                  "enum": [
+                    "csv",
+                    "xlsx",
+                    "ods"
+                  ]
+                },
+                "patched": {
+                  "type": "boolean",
+                  "description": "Wether you want to get only original data or eventually patched ones to avoid holes."
+                }
+              }
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mechanism",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Access token in the query string",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Export job has been created"
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "ROLE_USER"
+            ]
+          }
+        ]
+      }
+    },
     "/users/{userId}/devices/{deviceId}/modules": {
       "get": {
         "operationId": "getUserDeviceModules",
@@ -3357,6 +3519,7 @@
             "name": "interval",
             "type": "string",
             "enum": [
+              "15m",
               "1h",
               "1d",
               "1w",
@@ -3995,6 +4158,7 @@
             "name": "interval",
             "type": "string",
             "enum": [
+              "15m",
               "1h",
               "1d",
               "1w",
@@ -4454,6 +4618,7 @@
             "name": "interval",
             "type": "string",
             "enum": [
+              "15m",
               "1h",
               "1d",
               "1w",

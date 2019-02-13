@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.29.7  
+**Version**: 1.30.1  
 
 * [API](#module_API)
     * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
@@ -46,6 +46,7 @@ API to consume Sencrop data
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
     * [~putUserDevice(parameters, options)](#module_API..putUserDevice) ⇒ <code>Object</code>
     * [~deleteUserDevice(parameters, options)](#module_API..deleteUserDevice) ⇒ <code>Object</code>
+    * [~postUserDeviceExport(parameters, options)](#module_API..postUserDeviceExport) ⇒ <code>Object</code>
     * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
     * [~putUserDeviceModule(parameters, options)](#module_API..putUserDeviceModule) ⇒ <code>Object</code>
     * [~deleteUserDeviceModule(parameters, options)](#module_API..deleteUserDeviceModule) ⇒ <code>Object</code>
@@ -750,6 +751,24 @@ Delete a user's device access.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.deviceId | <code>number</code> | The device id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
+| [parameters.accessToken] | <code>string</code> | Access token in the query string |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postUserDeviceExport"></a>
+
+### API~postUserDeviceExport(parameters, options) ⇒ <code>Object</code>
+Create a new export job
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.body | <code>object</code> | The necessary contents to create an export, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mechanism, |
 | [parameters.accessToken] | <code>string</code> | Access token in the query string |
 | options | <code>Object</code> | Options to override Axios request configuration |
