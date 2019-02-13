@@ -1,3 +1,13 @@
+# [1.20.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.18.0...v1.20.0) (2019-02-13)
+
+
+### Features
+
+* **devices:** Add export api for device ([6c50378](https://github.com/sencrop/sencrop-js-api-client/commit/6c50378))
+* **organisations:** Update organisation payload ([c625895](https://github.com/sencrop/sencrop-js-api-client/commit/c625895))
+
+
+
 # [1.19.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.18.0...v1.19.0) (2019-02-11)
 
 
