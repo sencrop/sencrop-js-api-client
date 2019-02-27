@@ -4,13 +4,14 @@
 #
 version: 2
 jobs:
-  build:
+  build-and-release:
     docker:
       # specify the version you desire here
       - image: circleci/node:8.12-browsers
-        env:
-          - DISPLAY=:99
-          - CHROME_BIN=/usr/bin/google-chrome
+
+    environment:
+      DISPLAY: :99
+      CHROME_BIN: /usr/bin/google-chrome
 
     working_directory: ~/repo
 
@@ -20,9 +21,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: npm install
 
@@ -36,3 +37,22 @@ jobs:
 
       # run tests!
       - run: npm t
+
+      # Decrypt ssl key for git tag push
+      - run: openssl aes-256-cbc -d -K $REPO_ENC_KEY -iv $REPO_ENC_IV -in git_deploy_key.enc -out /tmp/git_deploy_key
+      - run: chmod 600 /tmp/git_deploy_key
+      - run: echo 'echo ${SSL_PASSPHRASE}' > /tmp/askpass && chmod +x /tmp/askpass
+      - run: eval "$(ssh-agent -s)"
+      - run: DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" setsid ssh-add /tmp/git_deploy_key </dev/null
+
+      - run: npx semantic-release
+
+workflows:
+  version: 2
+  build-and-release:
+    jobs:
+      - build-and-release:
+          context: sencrop-prod
+          filters:
+            branches:
+              only: master
