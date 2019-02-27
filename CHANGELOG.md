@@ -1,3 +1,12 @@
+# [1.21.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.20.0...v1.21.0) (2019-02-27)
+
+
+### Features
+
+* **release:** automatize releases ([193af38](https://github.com/sencrop/sencrop-js-api-client/commit/193af38))
+
+
+
 # [1.20.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.18.0...v1.20.0) (2019-02-13)
 
 
