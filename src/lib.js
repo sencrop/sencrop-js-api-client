@@ -2,6 +2,7 @@
 
 module.exports = {
   cleanQuery,
+  cleanHeaders,
   sortMultipleQuery,
 };
 
@@ -12,6 +13,15 @@ function cleanQuery(query) {
     .reduce((newQuery, key) => {
       newQuery[key] = query[key];
       return newQuery;
+    }, {});
+}
+
+function cleanHeaders(headers) {
+  return Object.keys(headers)
+    .filter(key => 'undefined' !== typeof headers[key])
+    .reduce((newHeaders, key) => {
+      newHeaders[key] = headers[key];
+      return newHeaders;
     }, {});
 }
 

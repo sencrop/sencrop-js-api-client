@@ -9,7 +9,7 @@
 
 ## Generating the API
 
-Since we have a Swagger file, we are generating
+Since we have a OpenAPI file, we are generating
  the API to avoid boilerplate code.
 
 A small article (in french) about why and how
