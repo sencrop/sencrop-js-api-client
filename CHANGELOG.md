@@ -1,3 +1,12 @@
+# [1.22.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.21.0...v1.22.0) (2019-03-19)
+
+
+### Features
+
+* **generation:** switch generation to the last OpenAPI version ([b91e237](https://github.com/sencrop/sencrop-js-api-client/commit/b91e237))
+
+
+
 # [1.21.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.20.0...v1.21.0) (2019-02-27)
 
 
