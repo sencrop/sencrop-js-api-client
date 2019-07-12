@@ -1,3 +1,22 @@
+# [2.0.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.22.0...v2.0.0) (2019-07-12)
+
+
+### Bug Fixes
+
+* **test:** fix tests ([9570061](https://github.com/sencrop/sencrop-js-api-client/commit/9570061))
+
+
+### Features
+
+* **multi_organisations:** add new endpoint for multi-organisations ([25e42e8](https://github.com/sencrop/sencrop-js-api-client/commit/25e42e8))
+
+
+### BREAKING CHANGES
+
+* **multi_organisations:** user endpoint are replaced by organisation/user endpoints
+
+
+
 # [1.22.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.21.0...v1.22.0) (2019-03-19)
 
 
