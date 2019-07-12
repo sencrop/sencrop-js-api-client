@@ -14,7 +14,7 @@ const {
 /**
  * API to consume Sencrop data
  * @module API
- * @version 1.32.3
+ * @version 1.36.1
  */
 const API = {
   getPing,
@@ -24,10 +24,11 @@ const API = {
   getOrganisation,
   putOrganisation,
   postOrganisation,
+  postUserOrganisation,
   getUserOrganisations,
-  postOrganisationUser,
-  putOrganisationUser,
-  deleteOrganisationUser,
+  getOrganisationMember,
+  putUserOrganisationMember,
+  deleteUserOrganisationMember,
   postSignupCheck,
   postLostPassword,
   putPassword,
@@ -42,20 +43,23 @@ const API = {
   getUser,
   putUser,
   getUserAggregations,
-  postUserAggregation,
+  postUserOrganisationAggregation,
   getUserAggregation,
-  putUserAggregation,
-  deleteUserAggregation,
+  putUserOrganisationAggregation,
+  deleteUserOrganisationAggregation,
   getUserDevices,
-  postUserDevice,
+  getOrganisationDevices,
+  getOrganisationDevice,
+  putOrganisationDevice,
+  deleteOrganisationDevice,
+  postUserOrganisationDevice,
   getUserDevicePositions,
   getUserDevice,
-  putUserDevice,
-  deleteUserDevice,
+  deleteOrganisationNetworkDeviceAccess,
+  putOrganisationNetworkDeviceAccess,
   getUserDeviceModules,
-  putUserDeviceModule,
-  deleteUserDeviceModule,
-  putUserDeviceShares,
+  putUserOrganisationDeviceModule,
+  deleteUserOrganisationDeviceModule,
   getUserDeviceStatistics,
   getUserDeviceRawData,
   getUserDeviceHourlyData,
@@ -69,44 +73,42 @@ const API = {
   getUserHourlyData,
   getUserPreferences,
   putUserPreferences,
-  getOrganisationOperations,
-  postOrganisationOperation,
-  getOrganisationOperation,
-  putOrganisationOperation,
-  deleteOrganisationOperation,
   getUserAlerts,
-  postUserAlert,
-  putUserAlert,
-  deleteUserAlert,
+  postUserOrganisationAlert,
+  putUserOrganisationAlert,
+  deleteUserOrganisationAlert,
+  getOrganisationPlace,
+  getOrganisationPlaces,
   postOrganisationPlace,
   putOrganisationPlace,
   getWeatherLive,
   getUserNotifications,
   putUserNotificationRead,
   deleteUserNotificationRead,
+  putUserNotificationToken,
   getSearchUser,
-  putUserDeviceCalibration,
+  putOrganisationDeviceCalibration,
   getOAuth2Authorize,
   postOAuth2Token,
   getUserDevicesLiveAggregations,
-  getOrganisationUsers,
-  getCheckout,
-  postCheckout,
-  putCheckoutStatus,
-  getCheckoutRessources,
-  postCheckoutEstimate,
-  getHubspotProperties,
+  getOrganisationMembers,
+  getOrganisationShares,
+  getOrganisationShare,
+  putUserOrganisationShare,
+  deleteUserOrganisationShare,
   postUserDeviceExport,
-  getUserGuests,
-  postUserGuest,
-  putUserGuest,
-  deleteUserGuest,
-  getUserCollaborators,
-  postUserCollaborator,
-  deleteUserCollaborator,
-  putUserCollaborator,
-  postOrganisationMembersMigration,
-  postOrganisationDeprecated,
+  getOrganisationNetworkDevices,
+  getOrganisationInvitations,
+  getOrganisationInvitation,
+  postUserOrganisationInvitation,
+  putUserOrganisationInvitation,
+  deleteUserOrganisationInvitation,
+  getUserPendingInvitations,
+  getUserPendingInvitation,
+  putUserInvitationAnswer,
+  postSignatureCloudinary,
+  getOrganisationPreferences,
+  putOrganisationPreferences,
 };
 
 /**
@@ -122,7 +124,7 @@ function getPing({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['ping'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -163,7 +165,7 @@ function getOpenAPI({ authorization, accessToken, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['openAPI'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -203,7 +205,7 @@ function getCrops({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['crops'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -240,7 +242,7 @@ function getModules({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -292,7 +294,7 @@ function getOrganisation(
   const method = 'get';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -349,7 +351,7 @@ function putOrganisation(
   const method = 'put';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -382,6 +384,55 @@ function putOrganisation(
  * The parameters to provide (destructured)
   @param body The request body
 
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisation(
+  { body, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  const method = 'post';
+  let urlParts = ['organisations'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Creates a new organisation for a user (add him as owner).
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
  * @param {number} parameters.userId
  * The user id,
  * @param {string} [parameters.authorization]
@@ -393,7 +444,7 @@ function putOrganisation(
  * @return {Object}
  * The HTTP response
  */
-function postOrganisation(
+function postUserOrganisation(
   { body, userId, authorization, accessToken, xAppVersion } = {},
   options,
 ) {
@@ -404,7 +455,7 @@ function postOrganisation(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -457,7 +508,7 @@ function getUserOrganisations(
   const method = 'get';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -485,15 +536,13 @@ function getUserOrganisations(
 }
 
 /**
- * Add an user to an organisation
+ * Retrieve all members from an organisation
  * @param {Object} parameters
  * The parameters to provide (destructured)
-  @param body The request body
-
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.targetUserId
- * The user id to add,
+ * @param {number} parameters.memberId
+ * The member id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -503,15 +552,8 @@ function getUserOrganisations(
  * @return {Object}
  * The HTTP response
  */
-function postOrganisationUser(
-  {
-    body,
-    organisationId,
-    targetUserId,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
+function getOrganisationMember(
+  { organisationId, memberId, authorization, accessToken, xAppVersion } = {},
   options,
 ) {
   if (organisationId == null) {
@@ -519,16 +561,16 @@ function postOrganisationUser(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
-  if (targetUserId == null) {
+  if (memberId == null) {
     throw new Error(
-      'Missing required parameter : targetUserId. Value : ' + targetUserId,
+      'Missing required parameter : memberId. Value : ' + memberId,
     );
   }
 
-  const method = 'post';
-  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'members', memberId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -536,7 +578,7 @@ function postOrganisationUser(
   let qs = cleanQuery({
     access_token: accessToken,
   });
-  let data = body;
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -556,15 +598,17 @@ function postOrganisationUser(
 }
 
 /**
- * Edit or add an user to an organisation
+ * Add or edit an member to an organisation
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
+ * @param {number} parameters.userId
+ * The user id,
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.targetUserId
- * The user id to add,
+ * @param {number} parameters.memberId
+ * The member id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -574,32 +618,43 @@ function postOrganisationUser(
  * @return {Object}
  * The HTTP response
  */
-function putOrganisationUser(
+function putUserOrganisationMember(
   {
     body,
+    userId,
     organisationId,
-    targetUserId,
+    memberId,
     authorization,
     accessToken,
     xAppVersion,
   } = {},
   options,
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
-  if (targetUserId == null) {
+  if (memberId == null) {
     throw new Error(
-      'Missing required parameter : targetUserId. Value : ' + targetUserId,
+      'Missing required parameter : memberId. Value : ' + memberId,
     );
   }
 
   const method = 'put';
-  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'members',
+    memberId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -627,13 +682,15 @@ function putOrganisationUser(
 }
 
 /**
- * Delete an user from an organisation
+ * Delete a member from an user's organisation
  * @param {Object} parameters
  * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
  * @param {number} parameters.organisationId
  * The organisation id,
- * @param {number} parameters.targetUserId
- * The user id to remove,
+ * @param {number} parameters.memberId
+ * The member id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -643,31 +700,42 @@ function putOrganisationUser(
  * @return {Object}
  * The HTTP response
  */
-function deleteOrganisationUser(
+function deleteUserOrganisationMember(
   {
+    userId,
     organisationId,
-    targetUserId,
+    memberId,
     authorization,
     accessToken,
     xAppVersion,
   } = {},
   options,
 ) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
-  if (targetUserId == null) {
+  if (memberId == null) {
     throw new Error(
-      'Missing required parameter : targetUserId. Value : ' + targetUserId,
+      'Missing required parameter : memberId. Value : ' + memberId,
     );
   }
 
   const method = 'delete';
-  let urlParts = ['organisations', organisationId, 'users', targetUserId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'members',
+    memberId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -711,7 +779,7 @@ function postSignupCheck({ body, authorization, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['utils', 'checkSignup'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -751,7 +819,7 @@ function postLostPassword({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['password', 'lost'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -790,7 +858,7 @@ function putPassword({ body, xAppVersion } = {}, options) {
   const method = 'put';
   let urlParts = ['password'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -829,7 +897,7 @@ function postLogin({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'sign_in'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -868,7 +936,7 @@ function postVerify({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'verify'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -899,14 +967,16 @@ function postVerify({ body, xAppVersion } = {}, options) {
   @param body The request body
 
  * @param {number} parameters.partnerId
- * The partner organisation id
+ * The partner organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
 function postPartnerTokenRequest(
-  { body, partnerId, xAppVersion } = {},
+  { body, partnerId, authorization, xAppVersion } = {},
   options,
 ) {
   if (partnerId == null) {
@@ -918,8 +988,9 @@ function postPartnerTokenRequest(
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -949,13 +1020,18 @@ function postPartnerTokenRequest(
   @param body The request body
 
  * @param {number} parameters.partnerId
- * The partner organisation id
+ * The partner organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postPartnerToken({ body, partnerId, xAppVersion } = {}, options) {
+function postPartnerToken(
+  { body, partnerId, authorization, xAppVersion } = {},
+  options,
+) {
   if (partnerId == null) {
     throw new Error(
       'Missing required parameter : partnerId. Value : ' + partnerId,
@@ -965,8 +1041,9 @@ function postPartnerToken({ body, partnerId, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -1027,7 +1104,7 @@ function getPartnerDevices(
   const method = 'get';
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1126,7 +1203,7 @@ function putPartnerModuleParameters(
     'parameters',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1168,7 +1245,7 @@ function postUser({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -1209,7 +1286,7 @@ function getMySelf({ authorization, accessToken, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['me'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1262,7 +1339,7 @@ function getUser(
   const method = 'get';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1317,7 +1394,7 @@ function putUser(
   const method = 'put';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1374,7 +1451,7 @@ function getUserAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1404,13 +1481,15 @@ function getUserAggregations(
 }
 
 /**
- * Create a user's aggregation.
+ * Create a new organisation's aggregation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -1420,18 +1499,36 @@ function getUserAggregations(
  * @return {Object}
  * The HTTP response
  */
-function postUserAggregation(
-  { body, userId, authorization, accessToken, xAppVersion } = {},
+function postUserOrganisationAggregation(
+  {
+    body,
+    userId,
+    organisationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
 
   const method = 'post';
-  let urlParts = ['users', userId, 'aggregations'];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'aggregations',
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1464,7 +1561,7 @@ function postUserAggregation(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.aggregationId
+ * @param {string} parameters.aggregationId
  * The aggregation id,
  * @param {boolean} [parameters.patched]
  * Wether you want to get only original data or eventually patched ones to avoid holes.,
@@ -1500,7 +1597,7 @@ function getUserAggregation(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1529,14 +1626,16 @@ function getUserAggregation(
 }
 
 /**
- * Update a user's aggregation.
+ * Upsert an organisation's aggregation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.aggregationId
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.aggregationId
  * The aggregation id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
@@ -1547,12 +1646,25 @@ function getUserAggregation(
  * @return {Object}
  * The HTTP response
  */
-function putUserAggregation(
-  { body, userId, aggregationId, authorization, accessToken, xAppVersion } = {},
+function putUserOrganisationAggregation(
+  {
+    body,
+    userId,
+    organisationId,
+    aggregationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (aggregationId == null) {
     throw new Error(
@@ -1561,9 +1673,16 @@ function putUserAggregation(
   }
 
   const method = 'put';
-  let urlParts = ['users', userId, 'aggregations', aggregationId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'aggregations',
+    aggregationId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1596,7 +1715,9 @@ function putUserAggregation(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.aggregationId
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.aggregationId
  * The aggregation id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
@@ -1607,12 +1728,24 @@ function putUserAggregation(
  * @return {Object}
  * The HTTP response
  */
-function deleteUserAggregation(
-  { userId, aggregationId, authorization, accessToken, xAppVersion } = {},
+function deleteUserOrganisationAggregation(
+  {
+    userId,
+    organisationId,
+    aggregationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (aggregationId == null) {
     throw new Error(
@@ -1621,9 +1754,16 @@ function deleteUserAggregation(
   }
 
   const method = 'delete';
-  let urlParts = ['users', userId, 'aggregations', aggregationId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'aggregations',
+    aggregationId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1699,7 +1839,7 @@ function getUserDevices(
   const method = 'get';
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1733,11 +1873,282 @@ function getUserDevices(
 }
 
 /**
- * Setup a user's device.
+ * Get a current organisation's devices.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.limit
+ * The number of items to retrieve,
+ * @param {number} parameters.start
+ * The index in results,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationDevices(
+  {
+    organisationId,
+    limit,
+    start,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'devices'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    limit: limit,
+    start: start,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a current organisation's device.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationDevice(
+  { organisationId, deviceId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'devices', deviceId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Update an organisation's device.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putOrganisationDevice(
+  {
+    body,
+    organisationId,
+    deviceId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+
+  const method = 'put';
+  let urlParts = ['organisations', organisationId, 'devices', deviceId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Delete an organisation's device access.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteOrganisationDevice(
+  { organisationId, deviceId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+
+  const method = 'delete';
+  let urlParts = ['organisations', organisationId, 'devices', deviceId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Setup a organisation's device.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {number} parameters.userId
  * The user id,
  * @param {string} [parameters.authorization]
@@ -1749,18 +2160,30 @@ function getUserDevices(
  * @return {Object}
  * The HTTP response
  */
-function postUserDevice(
-  { body, userId, authorization, accessToken, xAppVersion } = {},
+function postUserOrganisationDevice(
+  {
+    body,
+    organisationId,
+    userId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
 
   const method = 'post';
-  let urlParts = ['users', userId, 'devices'];
+  let urlParts = ['users', userId, 'organisations', organisationId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1829,7 +2252,7 @@ function getUserDevicePositions(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1899,7 +2322,7 @@ function getUserDevice(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1928,13 +2351,13 @@ function getUserDevice(
 }
 
 /**
- * Update a user's device.
+ * Delete an organisation's network device access.
  * @param {Object} parameters
  * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.userId
- * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.networkOrganisationId
+ * The network organisation id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} [parameters.authorization]
@@ -1946,12 +2369,27 @@ function getUserDevice(
  * @return {Object}
  * The HTTP response
  */
-function putUserDevice(
-  { body, userId, deviceId, authorization, accessToken, xAppVersion } = {},
+function deleteOrganisationNetworkDeviceAccess(
+  {
+    organisationId,
+    networkOrganisationId,
+    deviceId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (networkOrganisationId == null) {
+    throw new Error(
+      'Missing required parameter : networkOrganisationId. Value : ' +
+        networkOrganisationId,
+    );
   }
   if (deviceId == null) {
     throw new Error(
@@ -1959,10 +2397,17 @@ function putUserDevice(
     );
   }
 
-  const method = 'put';
-  let urlParts = ['users', userId, 'devices', deviceId];
+  const method = 'delete';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'networks',
+    networkOrganisationId,
+    'devices',
+    deviceId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1970,7 +2415,7 @@ function putUserDevice(
   let qs = cleanQuery({
     access_token: accessToken,
   });
-  let data = body;
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -1990,11 +2435,13 @@ function putUserDevice(
 }
 
 /**
- * Delete a user's device access.
+ * Update an organisation's device.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.networkOrganisationId
+ * The network organisation id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} [parameters.authorization]
@@ -2006,12 +2453,27 @@ function putUserDevice(
  * @return {Object}
  * The HTTP response
  */
-function deleteUserDevice(
-  { userId, deviceId, authorization, accessToken, xAppVersion } = {},
+function putOrganisationNetworkDeviceAccess(
+  {
+    organisationId,
+    networkOrganisationId,
+    deviceId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (networkOrganisationId == null) {
+    throw new Error(
+      'Missing required parameter : networkOrganisationId. Value : ' +
+        networkOrganisationId,
+    );
   }
   if (deviceId == null) {
     throw new Error(
@@ -2019,10 +2481,17 @@ function deleteUserDevice(
     );
   }
 
-  const method = 'delete';
-  let urlParts = ['users', userId, 'devices', deviceId];
+  const method = 'put';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'networks',
+    networkOrganisationId,
+    'devices',
+    deviceId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2082,7 +2551,7 @@ function getUserDeviceModules(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2110,13 +2579,15 @@ function getUserDeviceModules(
 }
 
 /**
- * Add a module to a user's device
+ * Add a module to a user's organisations's device
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {number} parameters.moduleId
@@ -2130,10 +2601,11 @@ function getUserDeviceModules(
  * @return {Object}
  * The HTTP response
  */
-function putUserDeviceModule(
+function putUserOrganisationDeviceModule(
   {
     body,
     userId,
+    organisationId,
     deviceId,
     moduleId,
     authorization,
@@ -2144,6 +2616,11 @@ function putUserDeviceModule(
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (deviceId == null) {
     throw new Error(
@@ -2157,9 +2634,18 @@ function putUserDeviceModule(
   }
 
   const method = 'put';
-  let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'devices',
+    deviceId,
+    'modules',
+    moduleId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2187,11 +2673,13 @@ function putUserDeviceModule(
 }
 
 /**
- * Disable a module for a user's device
+ * Disable a module for a user's organisations's device
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {number} parameters.moduleId
@@ -2205,12 +2693,25 @@ function putUserDeviceModule(
  * @return {Object}
  * The HTTP response
  */
-function deleteUserDeviceModule(
-  { userId, deviceId, moduleId, authorization, accessToken, xAppVersion } = {},
+function deleteUserOrganisationDeviceModule(
+  {
+    userId,
+    organisationId,
+    deviceId,
+    moduleId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (deviceId == null) {
     throw new Error(
@@ -2224,9 +2725,18 @@ function deleteUserDeviceModule(
   }
 
   const method = 'delete';
-  let urlParts = ['users', userId, 'devices', deviceId, 'modules', moduleId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'devices',
+    deviceId,
+    'modules',
+    moduleId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2235,83 +2745,6 @@ function deleteUserDeviceModule(
     access_token: accessToken,
   });
   let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Update a user's device shares.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.deviceId
- * The device id,
- * @param {string} parameters.sharesType
- * The shares type,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putUserDeviceShares(
-  {
-    body,
-    userId,
-    deviceId,
-    sharesType,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (deviceId == null) {
-    throw new Error(
-      'Missing required parameter : deviceId. Value : ' + deviceId,
-    );
-  }
-  if (sharesType == null) {
-    throw new Error(
-      'Missing required parameter : sharesType. Value : ' + sharesType,
-    );
-  }
-
-  const method = 'put';
-  let urlParts = ['users', userId, 'devices', deviceId, 'shares', sharesType];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
 
   return axios(
     Object.assign(
@@ -2406,7 +2839,7 @@ function getUserDeviceStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2505,7 +2938,7 @@ function getUserDeviceRawData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2606,7 +3039,7 @@ function getUserDeviceHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2709,7 +3142,7 @@ function getUserDeviceDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2824,7 +3257,7 @@ function getUserDeviceContinuousStatistics(
     'countinuousStatistics',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2915,7 +3348,7 @@ function getUserDeviceSummary(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2982,7 +3415,7 @@ function getUserDeviceForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3060,7 +3493,7 @@ function getUserForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3180,7 +3613,7 @@ function getUserStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3299,7 +3732,7 @@ function getUserDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3416,7 +3849,7 @@ function getUserHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3453,7 +3886,7 @@ function getUserHourlyData(
 }
 
 /**
- * Get a user's preferences.
+ * Get an user's preferences.
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
@@ -3478,7 +3911,7 @@ function getUserPreferences(
   const method = 'get';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3533,7 +3966,7 @@ function putUserPreferences(
   const method = 'put';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3542,313 +3975,6 @@ function putUserPreferences(
     access_token: accessToken,
   });
   let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Get a organisation's operations.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getOrganisationOperations(
-  { organisationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['organisations', organisationId, 'operations'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postOrganisationOperation(
-  { body, organisationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-
-  const method = 'post';
-  let urlParts = ['organisations', organisationId, 'operations'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Retrieve an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getOrganisationOperation(
-  { organisationId, operationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Update an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putOrganisationOperation(
-  {
-    body,
-    organisationId,
-    operationId,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-
-  const method = 'put';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Delete an organisation's operation.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.organisationId
- * The organisation id,
- * @param {number} parameters.operationId
- * The operation id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteOrganisationOperation(
-  { organisationId, operationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (organisationId == null) {
-    throw new Error(
-      'Missing required parameter : organisationId. Value : ' + organisationId,
-    );
-  }
-  if (operationId == null) {
-    throw new Error(
-      'Missing required parameter : operationId. Value : ' + operationId,
-    );
-  }
-
-  const method = 'delete';
-  let urlParts = ['organisations', organisationId, 'operations', operationId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -3893,7 +4019,7 @@ function getUserAlerts(
   const method = 'get';
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3921,13 +4047,15 @@ function getUserAlerts(
 }
 
 /**
- * Create a user's alert.
+ * Create a new organisation's alert.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -3937,18 +4065,30 @@ function getUserAlerts(
  * @return {Object}
  * The HTTP response
  */
-function postUserAlert(
-  { body, userId, authorization, accessToken, xAppVersion } = {},
+function postUserOrganisationAlert(
+  {
+    body,
+    userId,
+    organisationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
 
   const method = 'post';
-  let urlParts = ['users', userId, 'alerts'];
+  let urlParts = ['users', userId, 'organisations', organisationId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3976,14 +4116,16 @@ function postUserAlert(
 }
 
 /**
- * Update a user's alert.
+ * Update an organisation's alert.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.alertId
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.alertId
  * The alert id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
@@ -3994,21 +4136,41 @@ function postUserAlert(
  * @return {Object}
  * The HTTP response
  */
-function putUserAlert(
-  { body, userId, alertId, authorization, accessToken, xAppVersion } = {},
+function putUserOrganisationAlert(
+  {
+    body,
+    userId,
+    organisationId,
+    alertId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
 
   const method = 'put';
-  let urlParts = ['users', userId, 'alerts', alertId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'alerts',
+    alertId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4041,7 +4203,9 @@ function putUserAlert(
  * The parameters to provide (destructured)
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.alertId
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.alertId
  * The alert id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
@@ -4052,21 +4216,155 @@ function putUserAlert(
  * @return {Object}
  * The HTTP response
  */
-function deleteUserAlert(
-  { userId, alertId, authorization, accessToken, xAppVersion } = {},
+function deleteUserOrganisationAlert(
+  {
+    userId,
+    organisationId,
+    alertId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
 
   const method = 'delete';
-  let urlParts = ['users', userId, 'alerts', alertId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'alerts',
+    alertId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a specific place for a organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.placeId
+ * The place id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationPlace(
+  { organisationId, placeId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (placeId == null) {
+    throw new Error('Missing required parameter : placeId. Value : ' + placeId);
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'place', placeId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get all places for an organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationPlaces(
+  { organisationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'places'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4123,7 +4421,7 @@ function postOrganisationPlace(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4192,7 +4490,7 @@ function putOrganisationPlace(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'places', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4224,7 +4522,7 @@ function putOrganisationPlace(
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {string} parameters.geohash
- * The geohash of the data,
+ * The geohash to lookup,
  * @param {string} parameters.measureType
  * The measures to read,
  * @param {string} [parameters.authorization]
@@ -4252,7 +4550,7 @@ function getWeatherLive(
   const method = 'get';
   let urlParts = ['weather', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4311,7 +4609,7 @@ function getUserNotifications(
   const method = 'get';
   let urlParts = ['users', userId, 'notifications'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4373,7 +4671,7 @@ function putUserNotificationRead(
   const method = 'put';
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4433,7 +4731,7 @@ function deleteUserNotificationRead(
   const method = 'delete';
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4442,6 +4740,61 @@ function deleteUserNotificationRead(
     access_token: accessToken,
   });
   let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Store new notification token
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserNotificationToken(
+  { body, userId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+
+  const method = 'put';
+  let urlParts = ['users', userId, 'notificationToken'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
 
   return axios(
     Object.assign(
@@ -4486,7 +4839,7 @@ function getSearchUser(
   const method = 'get';
   let urlParts = ['search', 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4515,11 +4868,11 @@ function getSearchUser(
 }
 
 /**
- * Update a user's device calibration.
+ * Update an organisation's device calibration.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {number} parameters.deviceId
  * The device id,
  * @param {string} parameters.calibrationName
@@ -4535,9 +4888,9 @@ function getSearchUser(
  * @return {Object}
  * The HTTP response
  */
-function putUserDeviceCalibration(
+function putOrganisationDeviceCalibration(
   {
-    userId,
+    organisationId,
     deviceId,
     calibrationName,
     ratio,
@@ -4547,8 +4900,10 @@ function putUserDeviceCalibration(
   } = {},
   options,
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
   }
   if (deviceId == null) {
     throw new Error(
@@ -4567,15 +4922,15 @@ function putUserDeviceCalibration(
 
   const method = 'put';
   let urlParts = [
-    'users',
-    userId,
+    'organisations',
+    organisationId,
     'devices',
     deviceId,
     'calibration',
     calibrationName,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4644,7 +4999,7 @@ function getOAuth2Authorize(
   const method = 'get';
   let urlParts = ['oauth2', 'authorize'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4681,17 +5036,20 @@ function getOAuth2Authorize(
  * The parameters to provide (destructured)
   @param body The request body
 
+ * @param {string} [parameters.authorization]
+ * Authorization with Basic mecanism
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postOAuth2Token({ body, xAppVersion } = {}, options) {
+function postOAuth2Token({ body, authorization, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['oauth2', 'token'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -4781,7 +5139,7 @@ function getUserDevicesLiveAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4816,7 +5174,7 @@ function getUserDevicesLiveAggregations(
 }
 
 /**
- * Retrieve all users from an organisation
+ * Retrieve all members from an organisation
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {number} parameters.organisationId
@@ -4830,7 +5188,7 @@ function getUserDevicesLiveAggregations(
  * @return {Object}
  * The HTTP response
  */
-function getOrganisationUsers(
+function getOrganisationMembers(
   { organisationId, authorization, accessToken, xAppVersion } = {},
   options,
 ) {
@@ -4841,9 +5199,9 @@ function getOrganisationUsers(
   }
 
   const method = 'get';
-  let urlParts = ['organisations', organisationId, 'users'];
+  let urlParts = ['organisations', organisationId, 'members'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4871,62 +5229,15 @@ function getOrganisationUsers(
 }
 
 /**
- * Retrieve a checkout
+ * Get an organisation's shares.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} parameters.checkoutId
- * The checkout id,
- * @param {string} [parameters.locale]
- * undefined
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getCheckout({ checkoutId, locale, xAppVersion } = {}, options) {
-  if (checkoutId == null) {
-    throw new Error(
-      'Missing required parameter : checkoutId. Value : ' + checkoutId,
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['checkouts', checkoutId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    locale: locale,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create a new checkout (with chargebee)
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {boolean} [parameters.generateEmail]
- * Generate and send an email,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.limit
+ * The number of items to retrieve,
+ * @param {number} parameters.start
+ * The index in results,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -4936,23 +5247,43 @@ function getCheckout({ checkoutId, locale, xAppVersion } = {}, options) {
  * @return {Object}
  * The HTTP response
  */
-function postCheckout(
-  { body, generateEmail, authorization, accessToken, xAppVersion } = {},
+function getOrganisationShares(
+  {
+    organisationId,
+    limit,
+    start,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
-  const method = 'post';
-  let urlParts = ['checkouts'];
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'shares'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
-    generateEmail: generateEmail,
+    limit: limit,
+    start: start,
     access_token: accessToken,
   });
-  let data = body;
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -4972,142 +5303,121 @@ function postCheckout(
 }
 
 /**
- * Change status of a checkout
+ * Get an organisation's shares.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} parameters.checkoutId
- * The checkout id,
- * @param {string} parameters.status
- * New status,
- * @param {string} [parameters.chargebeeStep]
- * New chargebee step in funnel
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.shareId
+ * The share id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function putCheckoutStatus(
-  { checkoutId, status, chargebeeStep, xAppVersion } = {},
+function getOrganisationShare(
+  { organisationId, shareId, authorization, accessToken, xAppVersion } = {},
   options,
 ) {
-  if (checkoutId == null) {
+  if (organisationId == null) {
     throw new Error(
-      'Missing required parameter : checkoutId. Value : ' + checkoutId,
+      'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
-  if (status == null) {
-    throw new Error('Missing required parameter : status. Value : ' + status);
+  if (shareId == null) {
+    throw new Error('Missing required parameter : shareId. Value : ' + shareId);
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'shares', shareId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * undefined
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.shareId
+ * The share id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserOrganisationShare(
+  {
+    body,
+    userId,
+    organisationId,
+    shareId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (shareId == null) {
+    throw new Error('Missing required parameter : shareId. Value : ' + shareId);
   }
 
   const method = 'put';
-  let urlParts = ['checkouts', checkoutId, 'status'];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'shares',
+    shareId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    status: status,
-    chargebeeStep: chargebeeStep,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Retrieve all checkout ressources (plan/addons)
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {string} parameters.currency
- * undefined,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getCheckoutRessources(
-  { currency, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (currency == null) {
-    throw new Error(
-      'Missing required parameter : currency. Value : ' + currency,
-    );
-  }
-
-  const method = 'get';
-  let urlParts = ['checkoutsRessources'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    currency: currency,
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Generates an estimate for the 'create checkout' operation. 
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postCheckoutEstimate(
-  { body, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  const method = 'post';
-  let urlParts = ['checkoutsEstimate'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5135,13 +5445,15 @@ function postCheckoutEstimate(
 }
 
 /**
- * Retrieve all tradeshow from hubspot
+ * undefined
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {string} [parameters.type]
- * undefined,
- * @param {string} [parameters.name]
- * undefined,
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.shareId
+ * The share id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -5151,21 +5463,45 @@ function postCheckoutEstimate(
  * @return {Object}
  * The HTTP response
  */
-function getHubspotProperties(
-  { type, name, authorization, accessToken, xAppVersion } = {},
+function deleteUserOrganisationShare(
+  {
+    userId,
+    organisationId,
+    shareId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
   options,
 ) {
-  const method = 'get';
-  let urlParts = ['hubspot', 'properties'];
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (shareId == null) {
+    throw new Error('Missing required parameter : shareId. Value : ' + shareId);
+  }
+
+  const method = 'delete';
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'shares',
+    shareId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
-    type: type,
-    name: name,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -5232,7 +5568,7 @@ function postUserDeviceExport(
   const method = 'post';
   let urlParts = ['users', userId, 'devices', deviceId, 'export'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5261,11 +5597,19 @@ function postUserDeviceExport(
 }
 
 /**
- * Get a user's guests.
+ * Get an organisation network.
  * @param {Object} parameters
  * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.networkOrganisationId
+ * The network organisation id,
+ * @param {number} parameters.limit
+ * The number of items to retrieve,
+ * @param {number} parameters.start
+ * The index in results,
+ * @param {string} parameters.geohash
+ * The geohash to lookup,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -5275,404 +5619,200 @@ function postUserDeviceExport(
  * @return {Object}
  * The HTTP response
  */
-function getUserGuests(
-  { userId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  const method = 'get';
-  let urlParts = ['users', userId, 'guests'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create a user's guest.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.userId
- * The user id,
- * @param {number} [parameters.organisationIdTarget]
- * The organisation id to add the collaborator to,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postUserGuest(
+function getOrganisationNetworkDevices(
   {
-    body,
-    userId,
-    organisationIdTarget,
+    organisationId,
+    networkOrganisationId,
+    limit,
+    start,
+    geohash,
     authorization,
     accessToken,
     xAppVersion,
   } = {},
   options,
 ) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  const method = 'post';
-  let urlParts = ['users', userId, 'guests'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    organisationIdTarget: organisationIdTarget,
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Update a user's guest.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.userId
- * The user id,
- * @param {number} parameters.guestId
- * The guest id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putUserGuest(
-  { body, userId, guestId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (guestId == null) {
-    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
-  }
-
-  const method = 'put';
-  let urlParts = ['users', userId, 'guests', guestId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Delete a user's guest.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} [parameters.organisationIdTarget]
- * The organisation id to remove the collaborator to,
- * @param {number} parameters.guestId
- * The guest id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteUserGuest(
-  {
-    userId,
-    organisationIdTarget,
-    guestId,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (guestId == null) {
-    throw new Error('Missing required parameter : guestId. Value : ' + guestId);
-  }
-
-  const method = 'delete';
-  let urlParts = ['users', userId, 'guests', guestId];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    organisationIdTarget: organisationIdTarget,
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Get a user's collaborators.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getUserCollaborators(
-  { userId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  const method = 'get';
-  let urlParts = ['users', userId, 'collaborators'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Create a user's collaborator.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {number} parameters.userId
- * The user id,
- * @param {number} [parameters.organisationIdTarget]
- * The organisation id to add the collaborator to,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postUserCollaborator(
-  {
-    body,
-    userId,
-    organisationIdTarget,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  const method = 'post';
-  let urlParts = ['users', userId, 'collaborators'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    organisationIdTarget: organisationIdTarget,
-    access_token: accessToken,
-  });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Delete a user's collaborator.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} [parameters.organisationIdTarget]
- * The organisation id to remove the collaborator to,
- * @param {number} parameters.collaboratorId
- * The collaborator id,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteUserCollaborator(
-  {
-    userId,
-    organisationIdTarget,
-    collaboratorId,
-    authorization,
-    accessToken,
-    xAppVersion,
-  } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-  if (collaboratorId == null) {
+  if (organisationId == null) {
     throw new Error(
-      'Missing required parameter : collaboratorId. Value : ' + collaboratorId,
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (networkOrganisationId == null) {
+    throw new Error(
+      'Missing required parameter : networkOrganisationId. Value : ' +
+        networkOrganisationId,
+    );
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+  if (geohash == null) {
+    throw new Error('Missing required parameter : geohash. Value : ' + geohash);
+  }
+
+  const method = 'get';
+  let urlParts = [
+    'organisations',
+    organisationId,
+    'networks',
+    networkOrganisationId,
+    'devices',
+  ];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    limit: limit,
+    start: start,
+    geohash: geohash,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get an organisation's invitations.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {number} parameters.limit
+ * The number of items to retrieve,
+ * @param {number} parameters.start
+ * The index in results,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationInvitations(
+  {
+    organisationId,
+    limit,
+    start,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'invitations'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    limit: limit,
+    start: start,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a user's invitation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationInvitation(
+  {
+    organisationId,
+    invitationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
     );
   }
 
-  const method = 'delete';
-  let urlParts = ['users', userId, 'collaborators'];
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
-    organisationIdTarget: organisationIdTarget,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -5695,15 +5835,15 @@ function deleteUserCollaborator(
 }
 
 /**
- * Update a user's collaborator.
+ * Create an organisation's invitation.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
 
  * @param {number} parameters.userId
  * The user id,
- * @param {number} parameters.collaboratorId
- * The collaborator id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
  * @param {string} [parameters.authorization]
  * Authorization with Bearer mecanism,
  * @param {string} [parameters.accessToken]
@@ -5713,11 +5853,11 @@ function deleteUserCollaborator(
  * @return {Object}
  * The HTTP response
  */
-function putUserCollaborator(
+function postUserOrganisationInvitation(
   {
     body,
     userId,
-    collaboratorId,
+    organisationId,
     authorization,
     accessToken,
     xAppVersion,
@@ -5727,16 +5867,106 @@ function putUserCollaborator(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
-  if (collaboratorId == null) {
+  if (organisationId == null) {
     throw new Error(
-      'Missing required parameter : collaboratorId. Value : ' + collaboratorId,
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'post';
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'invitations',
+  ];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Update an organisation's invitation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserOrganisationInvitation(
+  {
+    body,
+    userId,
+    organisationId,
+    invitationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
     );
   }
 
   const method = 'put';
-  let urlParts = ['users', userId, 'collaborators', collaboratorId];
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'invitations',
+    invitationId,
+  ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5764,7 +5994,379 @@ function putUserCollaborator(
 }
 
 /**
- * Endpoint for migration. Don't use it or use with caution !
+ * Delete a user's organisation invitation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function deleteUserOrganisationInvitation(
+  {
+    userId,
+    organisationId,
+    invitationId,
+    authorization,
+    accessToken,
+    xAppVersion,
+  } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  const method = 'delete';
+  let urlParts = [
+    'users',
+    userId,
+    'organisations',
+    organisationId,
+    'invitations',
+    invitationId,
+  ];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a user's pending invitations.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {number} parameters.limit
+ * The number of items to retrieve,
+ * @param {number} parameters.start
+ * The index in results,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserPendingInvitations(
+  { userId, limit, start, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (limit == null) {
+    throw new Error('Missing required parameter : limit. Value : ' + limit);
+  }
+  if (start == null) {
+    throw new Error('Missing required parameter : start. Value : ' + start);
+  }
+
+  const method = 'get';
+  let urlParts = ['users', userId, 'pendingInvitations'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    limit: limit,
+    start: start,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a user's pending invitation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getUserPendingInvitation(
+  { userId, invitationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['users', userId, 'pendingInvitations', invitationId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Set a user's invitation answer.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {number} parameters.userId
+ * The user id,
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function putUserInvitationAnswer(
+  { body, userId, invitationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (userId == null) {
+    throw new Error('Missing required parameter : userId. Value : ' + userId);
+  }
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  const method = 'put';
+  let urlParts = ['users', userId, 'invitations', invitationId, 'answer'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get a cloudinary signature to make a signed upload
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+  @param body The request body
+
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postSignatureCloudinary(
+  { body, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  const method = 'post';
+  let urlParts = ['cloudinary', 'signature'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get an organisation's preferences.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getOrganisationPreferences(
+  { organisationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['organisations', organisationId, 'preferences'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.36.1',
+    'X-SDK-Version': '1.22.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Update a organisation's preferences.
  * @param {Object} parameters
  * The parameters to provide (destructured)
   @param body The request body
@@ -5780,7 +6382,7 @@ function putUserCollaborator(
  * @return {Object}
  * The HTTP response
  */
-function postOrganisationMembersMigration(
+function putOrganisationPreferences(
   { body, organisationId, authorization, accessToken, xAppVersion } = {},
   options,
 ) {
@@ -5790,10 +6392,10 @@ function postOrganisationMembersMigration(
     );
   }
 
-  const method = 'post';
-  let urlParts = ['organisations', organisationId, 'membersMigration'];
+  const method = 'put';
+  let urlParts = ['organisations', organisationId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
+    'X-API-Version': '1.36.1',
     'X-SDK-Version': '1.22.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5801,45 +6403,6 @@ function postOrganisationMembersMigration(
   let qs = cleanQuery({
     access_token: accessToken,
   });
-  let data = body;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Creates a new organisation. Highly Deprecated, will be moved soon.
- * @param {Object} parameters
- * The parameters to provide (destructured)
-  @param body The request body
-
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function postOrganisationDeprecated({ body, xAppVersion } = {}, options) {
-  const method = 'post';
-  let urlParts = ['organisations'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.32.3',
-    'X-SDK-Version': '1.22.0',
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({});
   let data = body;
 
   return axios(
