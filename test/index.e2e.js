@@ -172,7 +172,8 @@ describe('API', () => {
 
   describe('with a body', () => {
     it('should work', done => {
-      const promise = API.putUserDevice({
+      const promise = API.putOrganisationDevice({
+        organisationId: 1,
         userId: 902,
         deviceId: '1B28C5',
         authorization: '902-771',

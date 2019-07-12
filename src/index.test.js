@@ -138,7 +138,7 @@ describe('API', () => {
       nock('https://api.sencrop.com', {
         encodedQueryParams: true,
       })
-        .put('/v1/users/902/devices/1B28C5', {
+        .put('/v1/organisations/1/devices/1B28C5', {
           contents: {
             serial: '1B28C5',
             identification: 'RC000117',
@@ -175,7 +175,8 @@ describe('API', () => {
           ],
         );
 
-      return API.putUserDevice({
+      return API.putOrganisationDevice({
+        organisationId: 1,
         userId: 902,
         deviceId: '1B28C5',
         authorization: 'Bearer 902-771',
