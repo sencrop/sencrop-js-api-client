@@ -4,13 +4,14 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.36.1  
+**Version**: 1.40.11  
 
 * [API](#module_API)
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getOpenAPI(parameters, options)](#module_API..getOpenAPI) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
+    * [~getNetwork(parameters, options)](#module_API..getNetwork) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, body, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, body, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
@@ -45,6 +46,7 @@ API to consume Sencrop data
     * [~postUserOrganisationDevice(parameters, body, options)](#module_API..postUserOrganisationDevice) ⇒ <code>Object</code>
     * [~getUserDevicePositions(parameters, options)](#module_API..getUserDevicePositions) ⇒ <code>Object</code>
     * [~getUserDevice(parameters, options)](#module_API..getUserDevice) ⇒ <code>Object</code>
+    * [~putOrganisationDeviceSettings(parameters, body, options)](#module_API..putOrganisationDeviceSettings) ⇒ <code>Object</code>
     * [~deleteOrganisationNetworkDeviceAccess(parameters, options)](#module_API..deleteOrganisationNetworkDeviceAccess) ⇒ <code>Object</code>
     * [~putOrganisationNetworkDeviceAccess(parameters, options)](#module_API..putOrganisationNetworkDeviceAccess) ⇒ <code>Object</code>
     * [~getUserDeviceModules(parameters, options)](#module_API..getUserDeviceModules) ⇒ <code>Object</code>
@@ -80,6 +82,7 @@ API to consume Sencrop data
     * [~putOrganisationDeviceCalibration(parameters, options)](#module_API..putOrganisationDeviceCalibration) ⇒ <code>Object</code>
     * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
     * [~postOAuth2Token(parameters, body, options)](#module_API..postOAuth2Token) ⇒ <code>Object</code>
+    * [~getOrganisationDevicesLiveAggregations(parameters, options)](#module_API..getOrganisationDevicesLiveAggregations) ⇒ <code>Object</code>
     * [~getUserDevicesLiveAggregations(parameters, options)](#module_API..getUserDevicesLiveAggregations) ⇒ <code>Object</code>
     * [~getOrganisationMembers(parameters, options)](#module_API..getOrganisationMembers) ⇒ <code>Object</code>
     * [~getOrganisationShares(parameters, options)](#module_API..getOrganisationShares) ⇒ <code>Object</code>
@@ -152,6 +155,20 @@ Get the modules
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getNetwork"></a>
+
+### API~getNetwork(parameters, options) ⇒ <code>Object</code>
+Get the network.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.networkId | <code>string</code> | The network id |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getOrganisation"></a>
@@ -730,6 +747,24 @@ Get a user's device.
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..putOrganisationDeviceSettings"></a>
+
+### API~putOrganisationDeviceSettings(parameters, body, options) ⇒ <code>Object</code>
+Update an organisation's device's settings.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..deleteOrganisationNetworkDeviceAccess"></a>
 
 ### API~deleteOrganisationNetworkDeviceAccess(parameters, options) ⇒ <code>Object</code>
@@ -742,7 +777,7 @@ Delete an organisation's network device access.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.networkOrganisationId | <code>number</code> | The network organisation id, |
+| parameters.networkId | <code>string</code> | The network id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
@@ -760,7 +795,7 @@ Update an organisation's device.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.networkOrganisationId | <code>number</code> | The network organisation id, |
+| parameters.networkId | <code>string</code> | The network id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
@@ -1258,6 +1293,7 @@ Get last measure (for a specific type) from devices in a given area (1 hour for 
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.geohash | <code>string</code> | The geohash to lookup, |
 | parameters.measureType | <code>string</code> | The measures to read, |
+| [parameters.timeFrame] | <code>string</code> | The aggregatable measure, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1399,6 +1435,29 @@ Implements the [Token Endpoint](https://tools.ietf.org/html/rfc6749#section-3.2)
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
 | [parameters.authorization] | <code>string</code> | Authorization with Basic mecanism |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationDevicesLiveAggregations"></a>
+
+### API~getOrganisationDevicesLiveAggregations(parameters, options) ⇒ <code>Object</code>
+Allow to run live aggregation queries against an organisation's devices.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.devicesIds | <code>array</code> | List of id's of devices, |
+| parameters.aggregations | <code>array</code> | The aggregations names, |
+| [parameters.parameters] | <code>array</code> | The params to set, |
+| parameters.intervals | <code>array</code> | The intervals to retrieve, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.date] | <code>string</code> | The status date, |
+| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUserDevicesLiveAggregations"></a>
@@ -1543,7 +1602,7 @@ Get an organisation network.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
-| parameters.networkOrganisationId | <code>number</code> | The network organisation id, |
+| parameters.networkId | <code>string</code> | The network id, |
 | parameters.limit | <code>number</code> | The number of items to retrieve, |
 | parameters.start | <code>number</code> | The index in results, |
 | parameters.geohash | <code>string</code> | The geohash to lookup, |
