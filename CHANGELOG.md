@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.0.0...v2.1.0) (2019-10-02)
+
+
+### Features
+
+* **api:** update the swagger file ([71ceea6](https://github.com/sencrop/sencrop-js-api-client/commit/71ceea6))
+
+
+
 # [2.0.0](https://github.com/sencrop/sencrop-js-api-client/compare/v1.22.0...v2.0.0) (2019-07-12)
 
 
