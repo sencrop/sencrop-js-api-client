@@ -5,11 +5,6 @@
 
 const querystring = require('querystring');
 const axios = require('axios');
-const {
-  cleanHeaders,
-  cleanQuery,
-  sortMultipleQuery, // eslint-disable-line
-} = require('./lib');
 
 /**
  * API to consume Sencrop data
@@ -609,6 +604,7 @@ function getOrganisationMember(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (memberId == null) {
     throw new Error(
       'Missing required parameter : memberId. Value : ' + memberId,
@@ -681,11 +677,13 @@ function putUserOrganisationMember(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (memberId == null) {
     throw new Error(
       'Missing required parameter : memberId. Value : ' + memberId,
@@ -762,11 +760,13 @@ function deleteUserOrganisationMember(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (memberId == null) {
     throw new Error(
       'Missing required parameter : memberId. Value : ' + memberId,
@@ -1142,9 +1142,11 @@ function getPartnerDevices(
       'Missing required parameter : partnerId. Value : ' + partnerId,
     );
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
@@ -1222,16 +1224,19 @@ function putPartnerModuleParameters(
       'Missing required parameter : partnerId. Value : ' + partnerId,
     );
   }
+
   if (partnerUserId == null) {
     throw new Error(
       'Missing required parameter : partnerUserId. Value : ' + partnerUserId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (moduleId == null) {
     throw new Error(
       'Missing required parameter : moduleId. Value : ' + moduleId,
@@ -1561,6 +1566,7 @@ function postUserOrganisationAggregation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
@@ -1636,6 +1642,7 @@ function getUserAggregation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (aggregationId == null) {
     throw new Error(
       'Missing required parameter : aggregationId. Value : ' + aggregationId,
@@ -1709,11 +1716,13 @@ function putUserOrganisationAggregation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (aggregationId == null) {
     throw new Error(
       'Missing required parameter : aggregationId. Value : ' + aggregationId,
@@ -1790,11 +1799,13 @@ function deleteUserOrganisationAggregation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (aggregationId == null) {
     throw new Error(
       'Missing required parameter : aggregationId. Value : ' + aggregationId,
@@ -1955,9 +1966,11 @@ function getOrganisationDevices(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
@@ -2020,6 +2033,7 @@ function getOrganisationDevice(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2091,6 +2105,7 @@ function putOrganisationDevice(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2153,6 +2168,7 @@ function deleteOrganisationDevice(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2224,6 +2240,7 @@ function postUserOrganisationDevice(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
@@ -2291,6 +2308,7 @@ function getUserDevicePositions(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2361,6 +2379,7 @@ function getUserDevice(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2433,6 +2452,7 @@ function putOrganisationDeviceSettings(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2510,11 +2530,13 @@ function deleteOrganisationNetworkDeviceAccess(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (networkId == null) {
     throw new Error(
       'Missing required parameter : networkId. Value : ' + networkId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2593,11 +2615,13 @@ function putOrganisationNetworkDeviceAccess(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (networkId == null) {
     throw new Error(
       'Missing required parameter : networkId. Value : ' + networkId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2665,6 +2689,7 @@ function getUserDeviceModules(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -2740,16 +2765,19 @@ function putUserOrganisationDeviceModule(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (moduleId == null) {
     throw new Error(
       'Missing required parameter : moduleId. Value : ' + moduleId,
@@ -2831,16 +2859,19 @@ function deleteUserOrganisationDeviceModule(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (moduleId == null) {
     throw new Error(
       'Missing required parameter : moduleId. Value : ' + moduleId,
@@ -2940,19 +2971,23 @@ function getUserDeviceStatistics(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (startDate == null) {
     throw new Error(
       'Missing required parameter : startDate. Value : ' + startDate,
     );
   }
+
   if (endDate == null) {
     throw new Error('Missing required parameter : endDate. Value : ' + endDate);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3039,19 +3074,23 @@ function getUserDeviceRawData(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate,
     );
   }
+
   if (size == null) {
     throw new Error('Missing required parameter : size. Value : ' + size);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3140,19 +3179,23 @@ function getUserDeviceHourlyData(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate,
     );
   }
+
   if (days == null) {
     throw new Error('Missing required parameter : days. Value : ' + days);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3243,19 +3286,23 @@ function getUserDeviceDailyData(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate,
     );
   }
+
   if (days == null) {
     throw new Error('Missing required parameter : days. Value : ' + days);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3352,19 +3399,23 @@ function getUserDeviceContinuousStatistics(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (startDate == null) {
     throw new Error(
       'Missing required parameter : startDate. Value : ' + startDate,
     );
   }
+
   if (endDate == null) {
     throw new Error('Missing required parameter : endDate. Value : ' + endDate);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3454,14 +3505,17 @@ function getUserDeviceSummary(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (date == null) {
     throw new Error('Missing required parameter : date. Value : ' + date);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3526,11 +3580,13 @@ function getUserDeviceForecasts(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (date == null) {
     throw new Error('Missing required parameter : date. Value : ' + date);
   }
@@ -3602,11 +3658,13 @@ function getUserForecasts(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (latitude == null) {
     throw new Error(
       'Missing required parameter : latitude. Value : ' + latitude,
     );
   }
+
   if (longitude == null) {
     throw new Error(
       'Missing required parameter : longitude. Value : ' + longitude,
@@ -3706,29 +3764,35 @@ function getUserStatistics(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (latitude == null) {
     throw new Error(
       'Missing required parameter : latitude. Value : ' + latitude,
     );
   }
+
   if (longitude == null) {
     throw new Error(
       'Missing required parameter : longitude. Value : ' + longitude,
     );
   }
+
   if (startDate == null) {
     throw new Error(
       'Missing required parameter : startDate. Value : ' + startDate,
     );
   }
+
   if (endDate == null) {
     throw new Error('Missing required parameter : endDate. Value : ' + endDate);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
     );
   }
+
   if (ranges == null) {
     throw new Error('Missing required parameter : ranges. Value : ' + ranges);
   }
@@ -3828,24 +3892,29 @@ function getUserDailyData(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (latitude == null) {
     throw new Error(
       'Missing required parameter : latitude. Value : ' + latitude,
     );
   }
+
   if (longitude == null) {
     throw new Error(
       'Missing required parameter : longitude. Value : ' + longitude,
     );
   }
+
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate,
     );
   }
+
   if (days == null) {
     throw new Error('Missing required parameter : days. Value : ' + days);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -3945,24 +4014,29 @@ function getUserHourlyData(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (latitude == null) {
     throw new Error(
       'Missing required parameter : latitude. Value : ' + latitude,
     );
   }
+
   if (longitude == null) {
     throw new Error(
       'Missing required parameter : longitude. Value : ' + longitude,
     );
   }
+
   if (beforeDate == null) {
     throw new Error(
       'Missing required parameter : beforeDate. Value : ' + beforeDate,
     );
   }
+
   if (days == null) {
     throw new Error('Missing required parameter : days. Value : ' + days);
   }
+
   if (measures == null) {
     throw new Error(
       'Missing required parameter : measures. Value : ' + measures,
@@ -4202,6 +4276,7 @@ function postUserOrganisationAlert(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
@@ -4274,11 +4349,13 @@ function putUserOrganisationAlert(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
@@ -4353,11 +4430,13 @@ function deleteUserOrganisationAlert(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (alertId == null) {
     throw new Error('Missing required parameter : alertId. Value : ' + alertId);
   }
@@ -4425,6 +4504,7 @@ function getOrganisationPlace(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (placeId == null) {
     throw new Error('Missing required parameter : placeId. Value : ' + placeId);
   }
@@ -4606,6 +4686,7 @@ function putOrganisationPlace(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (placeId == null) {
     throw new Error('Missing required parameter : placeId. Value : ' + placeId);
   }
@@ -4673,6 +4754,7 @@ function getWeatherLive(
   if (geohash == null) {
     throw new Error('Missing required parameter : geohash. Value : ' + geohash);
   }
+
   if (measureType == null) {
     throw new Error(
       'Missing required parameter : measureType. Value : ' + measureType,
@@ -4795,6 +4877,7 @@ function putUserNotificationRead(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (notificationId == null) {
     throw new Error(
       'Missing required parameter : notificationId. Value : ' + notificationId,
@@ -4855,6 +4938,7 @@ function deleteUserNotificationRead(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (notificationId == null) {
     throw new Error(
       'Missing required parameter : notificationId. Value : ' + notificationId,
@@ -5038,17 +5122,20 @@ function putOrganisationDeviceCalibration(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
     );
   }
+
   if (calibrationName == null) {
     throw new Error(
       'Missing required parameter : calibrationName. Value : ' +
         calibrationName,
     );
   }
+
   if (ratio == null) {
     throw new Error('Missing required parameter : ratio. Value : ' + ratio);
   }
@@ -5120,11 +5207,13 @@ function getOAuth2Authorize(
       'Missing required parameter : responseType. Value : ' + responseType,
     );
   }
+
   if (clientId == null) {
     throw new Error(
       'Missing required parameter : clientId. Value : ' + clientId,
     );
   }
+
   if (state == null) {
     throw new Error('Missing required parameter : state. Value : ' + state);
   }
@@ -5255,16 +5344,19 @@ function getOrganisationDevicesLiveAggregations(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (devicesIds == null) {
     throw new Error(
       'Missing required parameter : devicesIds. Value : ' + devicesIds,
     );
   }
+
   if (aggregations == null) {
     throw new Error(
       'Missing required parameter : aggregations. Value : ' + aggregations,
     );
   }
+
   if (intervals == null) {
     throw new Error(
       'Missing required parameter : intervals. Value : ' + intervals,
@@ -5361,16 +5453,19 @@ function getUserDevicesLiveAggregations(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (devicesIds == null) {
     throw new Error(
       'Missing required parameter : devicesIds. Value : ' + devicesIds,
     );
   }
+
   if (aggregations == null) {
     throw new Error(
       'Missing required parameter : aggregations. Value : ' + aggregations,
     );
   }
+
   if (intervals == null) {
     throw new Error(
       'Missing required parameter : intervals. Value : ' + intervals,
@@ -5504,9 +5599,11 @@ function getOrganisationShares(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
@@ -5569,6 +5666,7 @@ function getOrganisationShare(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (shareId == null) {
     throw new Error('Missing required parameter : shareId. Value : ' + shareId);
   }
@@ -5639,11 +5737,13 @@ function putUserOrganisationShare(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (shareId == null) {
     throw new Error('Missing required parameter : shareId. Value : ' + shareId);
   }
@@ -5718,11 +5818,13 @@ function deleteUserOrganisationShare(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (shareId == null) {
     throw new Error('Missing required parameter : shareId. Value : ' + shareId);
   }
@@ -5800,6 +5902,7 @@ function postUserDeviceExport(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (deviceId == null) {
     throw new Error(
       'Missing required parameter : deviceId. Value : ' + deviceId,
@@ -5878,17 +5981,21 @@ function getOrganisationNetworkDevices(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (networkId == null) {
     throw new Error(
       'Missing required parameter : networkId. Value : ' + networkId,
     );
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
+
   if (geohash == null) {
     throw new Error('Missing required parameter : geohash. Value : ' + geohash);
   }
@@ -5967,9 +6074,11 @@ function getOrganisationInvitations(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
@@ -6038,6 +6147,7 @@ function getOrganisationInvitation(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (invitationId == null) {
     throw new Error(
       'Missing required parameter : invitationId. Value : ' + invitationId,
@@ -6107,6 +6217,7 @@ function postUserOrganisationInvitation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
@@ -6185,11 +6296,13 @@ function putUserOrganisationInvitation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (invitationId == null) {
     throw new Error(
       'Missing required parameter : invitationId. Value : ' + invitationId,
@@ -6266,11 +6379,13 @@ function deleteUserOrganisationInvitation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (organisationId == null) {
     throw new Error(
       'Missing required parameter : organisationId. Value : ' + organisationId,
     );
   }
+
   if (invitationId == null) {
     throw new Error(
       'Missing required parameter : invitationId. Value : ' + invitationId,
@@ -6340,9 +6455,11 @@ function getUserPendingInvitations(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (limit == null) {
     throw new Error('Missing required parameter : limit. Value : ' + limit);
   }
+
   if (start == null) {
     throw new Error('Missing required parameter : start. Value : ' + start);
   }
@@ -6403,6 +6520,7 @@ function getUserPendingInvitation(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (invitationId == null) {
     throw new Error(
       'Missing required parameter : invitationId. Value : ' + invitationId,
@@ -6465,6 +6583,7 @@ function putUserInvitationAnswer(
   if (userId == null) {
     throw new Error('Missing required parameter : userId. Value : ' + userId);
   }
+
   if (invitationId == null) {
     throw new Error(
       'Missing required parameter : invitationId. Value : ' + invitationId,
@@ -6660,6 +6779,29 @@ function putOrganisationPreferences(
       options || {},
     ),
   );
+}
+
+function cleanQuery(query) {
+  return Object.keys(query)
+    .filter(key => 'undefined' !== typeof query[key])
+    .filter(key => !(query[key] instanceof Array) || 0 !== query[key].length)
+    .reduce((newQuery, key) => {
+      newQuery[key] = query[key];
+      return newQuery;
+    }, {});
+}
+
+function cleanHeaders(headers) {
+  return Object.keys(headers)
+    .filter(key => 'undefined' !== typeof headers[key])
+    .reduce((newHeaders, key) => {
+      newHeaders[key] = headers[key];
+      return newHeaders;
+    }, {});
+}
+
+function sortMultipleQuery(a, b) {
+  return a > b ? 1 : -1;
 }
 
 module.exports = API;
