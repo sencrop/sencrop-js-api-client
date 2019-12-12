@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.40.11  
+**Version**: 1.44.5  
 
 * [API](#module_API)
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
@@ -12,6 +12,7 @@ API to consume Sencrop data
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
     * [~getNetwork(parameters, options)](#module_API..getNetwork) ⇒ <code>Object</code>
+    * [~getOrganisationNetworks(parameters, options)](#module_API..getOrganisationNetworks) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, body, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, body, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
@@ -23,6 +24,7 @@ API to consume Sencrop data
     * [~postSignupCheck(parameters, body, options)](#module_API..postSignupCheck) ⇒ <code>Object</code>
     * [~postLostPassword(parameters, body, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~putPassword(parameters, body, options)](#module_API..putPassword) ⇒ <code>Object</code>
+    * [~postUserPassword(parameters, body, options)](#module_API..postUserPassword) ⇒ <code>Object</code>
     * [~postLogin(parameters, body, options)](#module_API..postLogin) ⇒ <code>Object</code>
     * [~postVerify(parameters, body, options)](#module_API..postVerify) ⇒ <code>Object</code>
     * [~postPartnerTokenRequest(parameters, body, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
@@ -91,6 +93,7 @@ API to consume Sencrop data
     * [~deleteUserOrganisationShare(parameters, options)](#module_API..deleteUserOrganisationShare) ⇒ <code>Object</code>
     * [~postUserDeviceExport(parameters, body, options)](#module_API..postUserDeviceExport) ⇒ <code>Object</code>
     * [~getOrganisationNetworkDevices(parameters, options)](#module_API..getOrganisationNetworkDevices) ⇒ <code>Object</code>
+    * [~postUserNetworkInvitation(parameters, body, options)](#module_API..postUserNetworkInvitation) ⇒ <code>Object</code>
     * [~getOrganisationInvitations(parameters, options)](#module_API..getOrganisationInvitations) ⇒ <code>Object</code>
     * [~getOrganisationInvitation(parameters, options)](#module_API..getOrganisationInvitation) ⇒ <code>Object</code>
     * [~postUserOrganisationInvitation(parameters, body, options)](#module_API..postUserOrganisationInvitation) ⇒ <code>Object</code>
@@ -102,6 +105,11 @@ API to consume Sencrop data
     * [~postSignatureCloudinary(parameters, body, options)](#module_API..postSignatureCloudinary) ⇒ <code>Object</code>
     * [~getOrganisationPreferences(parameters, options)](#module_API..getOrganisationPreferences) ⇒ <code>Object</code>
     * [~putOrganisationPreferences(parameters, body, options)](#module_API..putOrganisationPreferences) ⇒ <code>Object</code>
+    * [~putUserOrganisationOpenNetworkMembership(parameters, options)](#module_API..putUserOrganisationOpenNetworkMembership) ⇒ <code>Object</code>
+    * [~getQuoteHostedPage(parameters, options)](#module_API..getQuoteHostedPage) ⇒ <code>Object</code>
+    * [~getOrganisationChargebeePortalSession(parameters, options)](#module_API..getOrganisationChargebeePortalSession) ⇒ <code>Object</code>
+    * [~getQuote(parameters, options)](#module_API..getQuote) ⇒ <code>Object</code>
+    * [~getSearchDevices(parameters, options)](#module_API..getSearchDevices) ⇒ <code>Object</code>
 
 <a name="module_API..getPing"></a>
 
@@ -169,6 +177,24 @@ Get the network.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.networkId | <code>string</code> | The network id |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationNetworks"></a>
+
+### API~getOrganisationNetworks(parameters, options) ⇒ <code>Object</code>
+Get the networks an organisation has access to.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.limit | <code>number</code> | The number of items to retrieve, |
+| parameters.start | <code>number</code> | The index in results, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getOrganisation"></a>
@@ -350,6 +376,21 @@ Change a user password
 | body |  | The request body |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postUserPassword"></a>
+
+### API~postUserPassword(parameters, body, options) ⇒ <code>Object</code>
+Update user password
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.userId | <code>number</code> | The user id |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postLogin"></a>
 
 ### API~postLogin(parameters, body, options) ⇒ <code>Object</code>
@@ -523,7 +564,7 @@ Get a user's aggregations.
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | [parameters.compute] | <code>boolean</code> | Wether the aggregations should be computed, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -559,7 +600,7 @@ Get a single user aggregation with statistics for graphs
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.aggregationId | <code>string</code> | The aggregation id, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -616,7 +657,7 @@ Get a user's devices.
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.date] | <code>string</code> | The status date, |
 | [parameters.measures] | <code>array</code> | The measures to read, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.limit] | <code>number</code> | The number of items to retrieve, |
 | [parameters.start] | <code>number</code> | The index in results, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
@@ -873,7 +914,7 @@ Get a user's device's device's statistics.
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
@@ -922,6 +963,7 @@ Get a user's device's hourly data.
 | parameters.days | <code>number</code> | The number of days to retrieve, |
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -945,6 +987,7 @@ Get a user's device's daily data.
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -965,7 +1008,7 @@ Get a user's device's continuous device's statistics.
 | parameters.startDate | <code>string</code> | The statistics start date, |
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
@@ -1049,7 +1092,7 @@ Get a user's statistics for a given location.
 | parameters.endDate | <code>string</code> | The statistics end date, |
 | parameters.measures | <code>array</code> | The measures to read, |
 | parameters.ranges | <code>array</code> | The ranges to get the data from, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.includeHistory] | <code>boolean</code> | If must include device replacements or not, |
 | [parameters.interval] | <code>string</code> | The interval of data (Accepted value : 31 days for 1h interval, 1 year for 1d interval, 5y for 1w interval), |
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
@@ -1079,6 +1122,7 @@ Get a user's daily data for a given geo location.
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1104,6 +1148,7 @@ Get a user's hourly data for a given geo location.
 | parameters.measures | <code>array</code> | The measures to read, |
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1455,7 +1500,7 @@ Allow to run live aggregation queries against an organisation's devices.
 | parameters.intervals | <code>array</code> | The intervals to retrieve, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.date] | <code>string</code> | The status date, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1478,7 +1523,7 @@ Allow to run live aggregation queries against a user devices.
 | parameters.intervals | <code>array</code> | The intervals to retrieve, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.date] | <code>string</code> | The status date, |
-| [parameters.patched] | <code>boolean</code> | Wether you want to get only original data or eventually patched ones to avoid holes., |
+| [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1605,9 +1650,25 @@ Get an organisation network.
 | parameters.networkId | <code>string</code> | The network id, |
 | parameters.limit | <code>number</code> | The number of items to retrieve, |
 | parameters.start | <code>number</code> | The index in results, |
-| parameters.geohash | <code>string</code> | The geohash to lookup, |
+| [parameters.geohash] | <code>string</code> | The geohash to lookup, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postUserNetworkInvitation"></a>
+
+### API~postUserNetworkInvitation(parameters, body, options) ⇒ <code>Object</code>
+Invite a user to reach the Network page
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.networkId | <code>string</code> | The network id |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getOrganisationInvitations"></a>
@@ -1800,5 +1861,85 @@ Update a organisation's preferences.
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putUserOrganisationOpenNetworkMembership"></a>
+
+### API~putUserOrganisationOpenNetworkMembership(parameters, options) ⇒ <code>Object</code>
+Allow an organisation to join an open network
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.networkId | <code>string</code> | The network id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getQuoteHostedPage"></a>
+
+### API~getQuoteHostedPage(parameters, options) ⇒ <code>Object</code>
+Create a chargebee hosted page for quote
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.quoteId | <code>string</code> | The quote id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationChargebeePortalSession"></a>
+
+### API~getOrganisationChargebeePortalSession(parameters, options) ⇒ <code>Object</code>
+Create a chargebee portal session
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getQuote"></a>
+
+### API~getQuote(parameters, options) ⇒ <code>Object</code>
+Get a quote
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.quoteId | <code>string</code> | The quote id |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getSearchDevices"></a>
+
+### API~getSearchDevices(parameters, options) ⇒ <code>Object</code>
+Search devices around a geopoint
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.latitude | <code>number</code> | The latitude of the data, |
+| parameters.longitude | <code>number</code> | The longitude of the data |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
