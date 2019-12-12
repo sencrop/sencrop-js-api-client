@@ -1,3 +1,22 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.1.0...v2.2.0) (2019-12-12)
+
+
+### Bug Fixes
+
+* **build:** remove preversion ([6cdbcc4](https://github.com/sencrop/sencrop-js-api-client/commit/6cdbcc4))
+* **build:** remove useless try catch ([2488aae](https://github.com/sencrop/sencrop-js-api-client/commit/2488aae))
+* **build:** use scoped org openapi builder ([140dccb](https://github.com/sencrop/sencrop-js-api-client/commit/140dccb))
+* **ci:** use github token ([d43fc95](https://github.com/sencrop/sencrop-js-api-client/commit/d43fc95))
+* **ci:** use injected github token ([0352e93](https://github.com/sencrop/sencrop-js-api-client/commit/0352e93))
+
+
+### Features
+
+* **api:** update swagger file ([22e81e7](https://github.com/sencrop/sencrop-js-api-client/commit/22e81e7))
+
+
+
 # [2.1.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.0.0...v2.1.0) (2019-10-02)
 
 
