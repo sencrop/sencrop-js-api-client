@@ -1,0 +1,38 @@
+name: Build & publish on npm
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v1
+
+      - name: Use Node.js v10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      # Skip post-install scripts here, as a malicious
+      # script could steal NODE_AUTH_TOKEN.
+      - name: NPM install
+        run: npm install --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # `npm rebuild` will run all those post-install scritps for us.
+      - run: npm rebuild && npm run prepare --if-present
+      - run: npm run build
+      - run: npm t
+
+      # Release
+      - name : run release 
+        run: npx semantic-release
+        env: 
+          NPM_TOKEN:  ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN:  ${{ secrets.GH_TOKEN }}

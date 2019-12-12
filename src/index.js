@@ -7298,4 +7298,9 @@ function cleanHeaders(headers) {
     }, {});
 }
 
+//eslint-disable-next-line
+function sortMultipleQuery(a, b) {
+  return a > b ? 1 : -1;
+}
+
 module.exports = API;
