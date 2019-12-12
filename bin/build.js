@@ -12,7 +12,7 @@ http://insertafter.com/fr/blog/generation_api_cliente.html
 
 */
 
-const { generateSDKFromOpenAPI } = require('openapi-js-sdk-builder');
+const { generateSDKFromOpenAPI } = require('@sencrop/openapi-js-sdk-builder');
 const path = require('path');
 const fs = require('fs');
 const buildVersion = require(path.join(__dirname, '..', 'package.json'))

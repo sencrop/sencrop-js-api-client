@@ -7298,7 +7298,7 @@ function cleanHeaders(headers) {
     }, {});
 }
 
-//eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 function sortMultipleQuery(a, b) {
   return a > b ? 1 : -1;
 }
