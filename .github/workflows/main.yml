@@ -26,6 +26,7 @@ jobs:
       # `npm rebuild` will run all those post-install scritps for us.
       - run: npm rebuild && npm run prepare --if-present
       - run: npm run build
+      - run: npm run compile
       - run: npm t
 
       # Release

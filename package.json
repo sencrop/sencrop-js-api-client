@@ -40,7 +40,6 @@
     "lint": "eslint 'src/**/*.js' bin/*.js test/*.js",
     "metapak": "metapak",
     "prettier": "prettier --write 'src/**/*.js' bin/*.js test/*.js",
-    "preversion": "npm run compile && npm run lint && npm t && npm run metapak -- -s",
     "test": "npm run compile && npm run jest && karma start karma.conf.js",
     "version": "npm run changelog && npm run build && npm run compile && git add src/index.js"
   },
