@@ -1,3 +1,13 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.2.0...v2.3.0) (2020-02-04)
+
+
+### Features
+
+* **handlers:** add new handlers ([89293d9](https://github.com/sencrop/sencrop-js-api-client/commit/89293d9))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.1.0...v2.2.0) (2019-12-12)
 
