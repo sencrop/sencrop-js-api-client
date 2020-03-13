@@ -1343,6 +1343,102 @@
                     }
                   },
                   {
+                    "description": "VitiMeteo parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "vitimeteo"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "description": "Agrovision parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "agrovision"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "description": "Corhize parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "corhize"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "description": "Fruition parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "fruition"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "description": "PCA parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "pca"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "description": "NIAB parameters",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "required": [
+                      "code"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "niab"
+                        ]
+                      }
+                    }
+                  },
+                  {
                     "description": "Generic Module parameters",
                     "type": "object",
                     "additionalProperties": true,
@@ -2174,6 +2270,17 @@
           }
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "mutedParameters",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
           {
             "in": "header",
             "name": "Authorization",
@@ -3048,6 +3155,147 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/hostedPage": {
+      "get": {
+        "operationId": "getOrganisationHostedPage",
+        "summary": "Create a chargebee hosted page for an organisation",
+        "tags": [
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "query",
+            "name": "redirectUrl",
+            "description": "Specifies the callback url for chargebee hosted page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "planId",
+            "required": true,
+            "description": "Plan id related to chargebee plans",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "plan-essential",
+                "plan-essential-gbp",
+                "plan-pro",
+                "plan-pro-gbp",
+                "plan-plus",
+                "plan-plus-gbp"
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The hosted page created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "embed": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "number"
+                    },
+                    "expires_at": {
+                      "type": "number"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "object": {
+                      "type": "string"
+                    },
+                    "resource_version": {
+                      "type": "number"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -4634,6 +4882,222 @@
         ]
       }
     },
+    "/weather/public/live": {
+      "get": {
+        "operationId": "getPublicWeatherLive",
+        "summary": "Get last measure (for a specific type) from devices in a given area .",
+        "tags": [
+          "data"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "team"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "team"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "description": "X coordinate of the top left corner of the map",
+            "name": "topLeftBoxX",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Y coordinate of the top left corner of the map",
+            "name": "topLeftBoxY",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "description": "X coordinate of the bottom right corner of the map",
+            "name": "bottomRightBoxX",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Y coordinate of the bottom right corner of the map",
+            "name": "bottomRightBoxY",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "description": "The type of measure to retrieve",
+            "name": "measureType",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "RAIN_FALL",
+                "TEMPERATURE",
+                "RELATIVE_HUMIDITY"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "description": "The type of aggregation",
+            "name": "aggregationType",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "avg",
+                "min",
+                "max"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "description": "The precision of the map",
+            "name": "precision",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 6,
+              "maximum": 12
+            }
+          },
+          {
+            "in": "query",
+            "description": "The aggregatable measure",
+            "name": "timeFrame",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "now",
+              "enum": [
+                "now",
+                "1h",
+                "1d",
+                "1w"
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of geohashes with last measures",
+            "content": {
+              "application/json": {
+                "example": {
+                  "items": [
+                    {
+                      "lat": 50.13066048241509,
+                      "lon": 2.9270209449867375,
+                      "value": 5.33,
+                      "count": 182730
+                    },
+                    {
+                      "lat": 47.68156846255694,
+                      "lon": 2.868032825266157,
+                      "value": 4.12,
+                      "count": 174244
+                    },
+                    {
+                      "lat": 46.591571260040155,
+                      "lon": -0.8916227009702788,
+                      "value": 5.93,
+                      "count": 65862
+                    }
+                  ]
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "lat": {
+                            "type": "number"
+                          },
+                          "lon": {
+                            "type": "number"
+                          },
+                          "value": {
+                            "type": "number"
+                          },
+                          "count": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/quotes/{quoteId}": {
       "get": {
         "operationId": "getQuote",
@@ -5617,6 +6081,8 @@
                   "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
                   "LEAF_SENSOR_CONDUCTIVITY_LAST",
                   "RAIN_FALL",
+                  "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "WIND_SPEED",
                   "WIND_GUST",
                   "WIND_DIRECTION",
@@ -6018,6 +6484,8 @@
                   "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
                   "LEAF_SENSOR_CONDUCTIVITY_LAST",
                   "RAIN_FALL",
+                  "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "WIND_SPEED",
                   "WIND_GUST",
                   "WIND_DIRECTION",
@@ -6314,6 +6782,8 @@
                   "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
                   "LEAF_SENSOR_CONDUCTIVITY_LAST",
                   "RAIN_FALL",
+                  "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "WIND_SPEED",
                   "WIND_GUST",
                   "WIND_DIRECTION",
@@ -7602,6 +8072,8 @@
                   "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
                   "LEAF_SENSOR_CONDUCTIVITY_LAST",
                   "RAIN_FALL",
+                  "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "WIND_SPEED",
                   "WIND_GUST",
                   "WIND_DIRECTION",
@@ -9529,6 +10001,113 @@
         ]
       }
     },
+    "/organisations/{organisationId}/paymentComplete": {
+      "post": {
+        "operationId": "postOrganisationPaymentComplete",
+        "summary": "Complete the payment flow of an organisation, if chargebee hook is delayed",
+        "tags": [
+          "billing"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "requestBody": {
+          "description": "The plan settings",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "planId"
+                ],
+                "properties": {
+                  "planId": {
+                    "type": "string",
+                    "enum": [
+                      "plan-essential",
+                      "plan-pro",
+                      "plan-plus",
+                      "plan-essential-gbp",
+                      "plan-pro-gbp",
+                      "plan-plus-gbp"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organisation plan has been succesfully updated"
+          },
+          "404": {
+            "description": "Organisation not found / with an active plan"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/partners/{partnerId}/tokens": {
       "post": {
         "operationId": "postPartnerToken",
@@ -9969,6 +10548,111 @@
         }
       }
     },
+    "/socialImage": {
+      "post": {
+        "operationId": "postSocialImage",
+        "summary": "Generate a new image to share it on social media",
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "requestBody": {
+          "description": "The params to generate the image",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  },
+                  "template": {
+                    "type": "string"
+                  },
+                  "format": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The requested image"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ]
+      }
+    },
     "/users": {
       "post": {
         "operationId": "postUser",
@@ -10165,6 +10849,8 @@
                         "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
                         "LEAF_SENSOR_CONDUCTIVITY_LAST",
                         "RAIN_FALL",
+                        "RAIN_FALL_MEAN_SUM",
+                        "RAIN_FALL_MEAN_SUM_ADJUSTED",
                         "WIND_SPEED",
                         "WIND_GUST",
                         "WIND_DIRECTION",
@@ -12542,7 +13228,8 @@
             "enum": [
               "unknown",
               "promoting_farmer",
-              "replacement"
+              "replacement",
+              "spare_parts"
             ]
           },
           "hubspotTicketId": {
@@ -12783,6 +13470,20 @@
               "type": "string"
             }
           },
+          "itemsManuals": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "itemsChargebee": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
           "orders": {
             "$ref": "#/components/schemas/OrderHash"
           }
@@ -12794,7 +13495,7 @@
           "id": {
             "type": "string"
           },
-          "expirationDate": {
+          "trialEndDate": {
             "type": "string",
             "format": "date-time"
           },
@@ -12808,6 +13509,37 @@
               "cancelled",
               "deleted"
             ]
+          },
+          "renewalDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrganisationLimits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxDevices": {
+            "type": "number"
+          },
+          "maxDevicesNetworkOverride": {
+            "type": "number"
+          },
+          "maxHistoryAccessPeriod": {
+            "type": "string"
+          },
+          "maxExportPeriod": {
+            "type": "string"
+          },
+          "maxRainfallRange": {
+            "type": "string"
+          },
+          "dst": {
+            "type": "boolean"
+          },
+          "maxMembersOrganisation": {
+            "type": "number"
           }
         }
       },
@@ -12943,6 +13675,9 @@
           },
           "plan": {
             "$ref": "#/components/schemas/OrganisationPlan"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/OrganisationLimits"
           }
         }
       },
@@ -12997,7 +13732,7 @@
         "type": "object",
         "additionalProperties": false,
         "patternProperties": {
-          "RELATIVE_HUMIDITY_MEAN|RELATIVE_HUMIDITY_MIN|RELATIVE_HUMIDITY_MAX|RELATIVE_HUMIDITY_INTERPOLATED|RELATIVE_HUMIDITY_LAST|TEMPERATURE_MEAN|TEMPERATURE_MIN|TEMPERATURE_MAX|TEMPERATURE_INTERPOLATED|TEMPERATURE_LAST|WET_TEMPERATURE_MEAN|WET_TEMPERATURE_MIN|WET_TEMPERATURE_MAX|WET_TEMPERATURE_INTERPOLATED|WET_TEMPERATURE_LAST|RAIN_FALL_MEAN_SUM|RAIN_FALL_SUM|RAIN_FALL_MIN|RAIN_FALL_MIN_SUM|RAIN_FALL_MAX|RAIN_FALL_MAX_SUM|MOVE_SUM|INIT_SUM|WIND_SPEED_MEAN|WIND_SPEED_MIN|WIND_SPEED_MAX|WIND_SPEED_INTERPOLATED|WIND_SPEED_LAST|WIND_GUST_MEAN|WIND_GUST_MIN|WIND_GUST_MAX|WIND_GUST_INTERPOLATED|WIND_GUST_LAST|WIND_DIRECTION_MEAN|DEGREE_DAY|COLD_HOURS|LEAF_SENSOR_CONDUCTIVITY_MIN|LEAF_SENSOR_CONDUCTIVITY_MAX|LEAF_SENSOR_CONDUCTIVITY_MEAN|LEAF_WETNESS|LEAF_WETNESS_MEDIUM|LEAF_WETNESS_HIGH": {
+          "RELATIVE_HUMIDITY_MEAN|RELATIVE_HUMIDITY_MIN|RELATIVE_HUMIDITY_MAX|RELATIVE_HUMIDITY_INTERPOLATED|RELATIVE_HUMIDITY_LAST|TEMPERATURE_MEAN|TEMPERATURE_MIN|TEMPERATURE_MAX|TEMPERATURE_INTERPOLATED|TEMPERATURE_LAST|WET_TEMPERATURE_MEAN|WET_TEMPERATURE_MIN|WET_TEMPERATURE_MAX|WET_TEMPERATURE_INTERPOLATED|WET_TEMPERATURE_LAST|RAIN_FALL_MEAN_SUM|RAIN_FALL_MEAN_SUM_ADJUSTED|RAIN_FALL_SUM|RAIN_FALL_MIN|RAIN_FALL_MIN_SUM|RAIN_FALL_MAX|RAIN_FALL_MAX_SUM|MOVE_SUM|INIT_SUM|WIND_SPEED_MEAN|WIND_SPEED_MIN|WIND_SPEED_MAX|WIND_SPEED_INTERPOLATED|WIND_SPEED_LAST|WIND_GUST_MEAN|WIND_GUST_MIN|WIND_GUST_MAX|WIND_GUST_INTERPOLATED|WIND_GUST_LAST|WIND_DIRECTION_MEAN|DEGREE_DAY|COLD_HOURS|LEAF_SENSOR_CONDUCTIVITY_MIN|LEAF_SENSOR_CONDUCTIVITY_MAX|LEAF_SENSOR_CONDUCTIVITY_MEAN|LEAF_WETNESS|LEAF_WETNESS_MEDIUM|LEAF_WETNESS_HIGH": {
             "type": "object",
             "patternProperties": {
               "current|one_hour|three_hours|one_day|one_week|today|yesterday|this_week|last_seven_days": {
@@ -14494,6 +15229,7 @@
                   "WET_TEMPERATURE_INTERPOLATED",
                   "WET_TEMPERATURE_LAST",
                   "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "RAIN_FALL_SUM",
                   "RAIN_FALL_MIN",
                   "RAIN_FALL_MIN_SUM",
@@ -14580,6 +15316,7 @@
                   "WET_TEMPERATURE_INTERPOLATED",
                   "WET_TEMPERATURE_LAST",
                   "RAIN_FALL_MEAN_SUM",
+                  "RAIN_FALL_MEAN_SUM_ADJUSTED",
                   "RAIN_FALL_SUM",
                   "RAIN_FALL_MIN",
                   "RAIN_FALL_MIN_SUM",
@@ -15816,6 +16553,8 @@
               "LEAF_SENSOR_CONDUCTIVITY_INTERPOLATED",
               "LEAF_SENSOR_CONDUCTIVITY_LAST",
               "RAIN_FALL",
+              "RAIN_FALL_MEAN_SUM",
+              "RAIN_FALL_MEAN_SUM_ADJUSTED",
               "WIND_SPEED",
               "WIND_GUST",
               "WIND_DIRECTION",
@@ -16017,6 +16756,7 @@
               "WET_TEMPERATURE_INTERPOLATED",
               "WET_TEMPERATURE_LAST",
               "RAIN_FALL_MEAN_SUM",
+              "RAIN_FALL_MEAN_SUM_ADJUSTED",
               "RAIN_FALL_SUM",
               "RAIN_FALL_MIN",
               "RAIN_FALL_MIN_SUM",
@@ -16121,8 +16861,8 @@
           "items": {
             "type": "string",
             "enum": [
-              "set",
-              "select"
+              "member",
+              "share"
             ]
           }
         }
@@ -16436,7 +17176,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.47.3",
+    "version": "1.48.4",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },
@@ -16445,12 +17185,56 @@
   ],
   "tags": [
     {
-      "name": "system",
-      "description": "System endpoints, to be use by Sencrop's teams only."
+      "name": "aggregations",
+      "description": "Endpoints related to aggregations."
+    },
+    {
+      "name": "alerts",
+      "description": "Endpoints related to alerts."
+    },
+    {
+      "name": "billing",
+      "description": "Endpoints related to billing operations."
+    },
+    {
+      "name": "buckets",
+      "description": "Endpoints related to buckets (management of device remplacement)."
     },
     {
       "name": "CORS",
       "description": "Endpoints related to CORS."
+    },
+    {
+      "name": "cotations",
+      "description": "Endpoints related to cotations."
+    },
+    {
+      "name": "data",
+      "description": "Endpoints allowing to access to devices's data."
+    },
+    {
+      "name": "devices",
+      "description": "Endpoints related to devices."
+    },
+    {
+      "name": "forecasts",
+      "description": "Endpoints related to forecasts."
+    },
+    {
+      "name": "graphql",
+      "description": "Endpoints allowing to execute GraphQL queries."
+    },
+    {
+      "name": "hubspot",
+      "description": "Endpoints related to HubSpot."
+    },
+    {
+      "name": "invitations",
+      "description": "Endpoints related to invitations (invite users with extra side effects)."
+    },
+    {
+      "name": "members",
+      "description": "Endpoints related to organisation's users."
     },
     {
       "name": "miscellaneous",
@@ -16461,104 +17245,64 @@
       "description": "Endpoint related to the Sencrop's modules."
     },
     {
-      "name": "partners",
-      "description": "[Partners's API](https://developer.sencrop.com/partners/) endpoints."
-    },
-    {
-      "name": "organisations",
-      "description": "Endpoints related to organisations."
-    },
-    {
-      "name": "users",
-      "description": "Endpoints related to users."
-    },
-    {
-      "name": "members",
-      "description": "Endpoints related to organisation's users."
-    },
-    {
-      "name": "devices",
-      "description": "Endpoints related to devices."
-    },
-    {
-      "name": "partnerAccess",
-      "description": "Endpoints partners can access."
-    },
-    {
-      "name": "aggregations",
-      "description": "Endpoints related to aggregations."
-    },
-    {
-      "name": "data",
-      "description": "Endpoints allowing to access to devices's data."
-    },
-    {
-      "name": "forecasts",
-      "description": "Endpoints related to forecasts."
-    },
-    {
-      "name": "alerts",
-      "description": "Endpoints related to alerts."
-    },
-    {
-      "name": "graphql",
-      "description": "Endpoints allowing to execute GraphQL queries."
-    },
-    {
-      "name": "places",
-      "description": "Endpoints related to places."
-    },
-    {
-      "name": "support",
-      "description": "Endpoints available for support teams."
-    },
-    {
-      "name": "search",
-      "description": "Endpoints allowing to discover entities through the API."
-    },
-    {
-      "name": "oauth2",
-      "description": "Endpoints relative to the [OAuth2](https://tools.ietf.org/html/rfc6749) implementation at Sencrop (still a work in progress)."
-    },
-    {
-      "name": "quotes",
-      "description": "Endpoints related to quote and quotator."
-    },
-    {
-      "name": "hubspot",
-      "description": "Endpoints related to HubSpot."
-    },
-    {
-      "name": "cotations",
-      "description": "Endpoints related to cotations."
-    },
-    {
-      "name": "shares",
-      "description": "Endpoints related to organisations shared devices."
+      "name": "monitoring",
+      "description": "Endpoints related to monitoring of factory/devices activities."
     },
     {
       "name": "network",
       "description": "Endpoints related to organisations networks."
     },
     {
-      "name": "buckets",
-      "description": "Endpoints related to buckets (management of device remplacement)."
-    },
-    {
-      "name": "invitations",
-      "description": "Endpoints related to invitations (invite users with extra side effects)."
-    },
-    {
-      "name": "preferences",
-      "description": "Endpoints related to preferences of the application."
+      "name": "oauth2",
+      "description": "Endpoints relative to the [OAuth2](https://tools.ietf.org/html/rfc6749) implementation at Sencrop (still a work in progress)."
     },
     {
       "name": "orders",
       "description": "Endpoints related to manual and chargebee orders."
     },
     {
-      "name": "monitoring",
-      "description": "Endpoints related to monitoring of factory/devices activities."
+      "name": "organisations",
+      "description": "Endpoints related to organisations."
+    },
+    {
+      "name": "partnerAccess",
+      "description": "Endpoints partners can access."
+    },
+    {
+      "name": "partners",
+      "description": "[Partners's API](https://developer.sencrop.com/partners/) endpoints."
+    },
+    {
+      "name": "places",
+      "description": "Endpoints related to places."
+    },
+    {
+      "name": "preferences",
+      "description": "Endpoints related to preferences of the application."
+    },
+    {
+      "name": "quotes",
+      "description": "Endpoints related to quote and quotator."
+    },
+    {
+      "name": "search",
+      "description": "Endpoints allowing to discover entities through the API."
+    },
+    {
+      "name": "shares",
+      "description": "Endpoints related to organisations shared devices."
+    },
+    {
+      "name": "support",
+      "description": "Endpoints available for support teams."
+    },
+    {
+      "name": "system",
+      "description": "System endpoints, to be use by Sencrop's teams only."
+    },
+    {
+      "name": "users",
+      "description": "Endpoints related to users."
     }
   ]
 }
