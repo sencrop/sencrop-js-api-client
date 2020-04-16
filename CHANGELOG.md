@@ -1,3 +1,14 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.4.0...v2.5.0) (2020-04-16)
+
+
+### Features
+
+* **users:** add postUserOrganisationMember ([bfb5e29](https://github.com/sencrop/sencrop-js-api-client/commit/bfb5e29))
+* **users:** add postUserOrganisationMember ([499e922](https://github.com/sencrop/sencrop-js-api-client/commit/499e922))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.3.0...v2.4.0) (2020-03-13)
 
