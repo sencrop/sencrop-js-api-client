@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.48.4  
+**Version**: 1.49.6  
 
 * [API](#module_API)
     * [~deleteOrganisationDevice(parameters, options)](#module_API..deleteOrganisationDevice) ⇒ <code>Object</code>
@@ -108,6 +108,7 @@ API to consume Sencrop data
     * [~postUserOrganisationAlert(parameters, body, options)](#module_API..postUserOrganisationAlert) ⇒ <code>Object</code>
     * [~postUserOrganisationDevice(parameters, body, options)](#module_API..postUserOrganisationDevice) ⇒ <code>Object</code>
     * [~postUserOrganisationInvitation(parameters, body, options)](#module_API..postUserOrganisationInvitation) ⇒ <code>Object</code>
+    * [~postUserOrganisationMember(parameters, body, options)](#module_API..postUserOrganisationMember) ⇒ <code>Object</code>
     * [~postUserPassword(parameters, body, options)](#module_API..postUserPassword) ⇒ <code>Object</code>
     * [~postVerify(parameters, body, options)](#module_API..postVerify) ⇒ <code>Object</code>
     * [~putOrganisationDeviceCalibration(parameters, options)](#module_API..putOrganisationDeviceCalibration) ⇒ <code>Object</code>
@@ -116,6 +117,8 @@ API to consume Sencrop data
     * [~putPartnerModuleParameters(parameters, body, options)](#module_API..putPartnerModuleParameters) ⇒ <code>Object</code>
     * [~putPassword(parameters, body, options)](#module_API..putPassword) ⇒ <code>Object</code>
     * [~putUserInvitationAnswer(parameters, body, options)](#module_API..putUserInvitationAnswer) ⇒ <code>Object</code>
+    * [~getGraphQL(parameters, options)](#module_API..getGraphQL) ⇒ <code>Object</code>
+    * [~postGraphQL(parameters, body, options)](#module_API..postGraphQL) ⇒ <code>Object</code>
 
 <a name="module_API..deleteOrganisationDevice"></a>
 
@@ -1933,6 +1936,24 @@ Create an organisation's invitation.
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postUserOrganisationMember"></a>
+
+### API~postUserOrganisationMember(parameters, body, options) ⇒ <code>Object</code>
+Add an member to an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postUserPassword"></a>
 
 ### API~postUserPassword(parameters, body, options) ⇒ <code>Object</code>
@@ -2065,6 +2086,40 @@ Set a user's invitation answer.
 | body |  | The request body |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.invitationId | <code>string</code> | The invitation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getGraphQL"></a>
+
+### API~getGraphQL(parameters, options) ⇒ <code>Object</code>
+Graphql endpoint
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.query | <code>string</code> | The GraphQL query, |
+| [parameters.variables] | <code>string</code> | The GraphQL variables, |
+| [parameters.operationName] | <code>string</code> | The GraphQL operation name, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postGraphQL"></a>
+
+### API~postGraphQL(parameters, body, options) ⇒ <code>Object</code>
+Graphql endpoint
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
