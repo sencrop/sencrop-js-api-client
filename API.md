@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.49.6  
+**Version**: 1.49.9  
 
 * [API](#module_API)
     * [~deleteOrganisationDevice(parameters, options)](#module_API..deleteOrganisationDevice) ⇒ <code>Object</code>
@@ -98,6 +98,7 @@ API to consume Sencrop data
     * [~postPartnerToken(parameters, body, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~postPartnerTokenRequest(parameters, body, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
     * [~postQuoteOffline(parameters, options)](#module_API..postQuoteOffline) ⇒ <code>Object</code>
+    * [~postRegister(parameters, body, options)](#module_API..postRegister) ⇒ <code>Object</code>
     * [~postSignatureCloudinary(parameters, body, options)](#module_API..postSignatureCloudinary) ⇒ <code>Object</code>
     * [~postSignupCheck(parameters, body, options)](#module_API..postSignupCheck) ⇒ <code>Object</code>
     * [~postSocialImage(parameters, body, options)](#module_API..postSocialImage) ⇒ <code>Object</code>
@@ -1764,6 +1765,22 @@ Set offline mode for a quote
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.userId | <code>number</code> | The user id, |
 | parameters.quoteId | <code>string</code> | The quote id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postRegister"></a>
+
+### API~postRegister(parameters, body, options) ⇒ <code>Object</code>
+Register a new user and his organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
