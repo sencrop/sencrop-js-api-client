@@ -1,3 +1,14 @@
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.5.0...v2.6.0) (2020-04-27)
+
+
+### Features
+
+* **register:** add new register endpoint ([634b1c2](https://github.com/sencrop/sencrop-js-api-client/commit/634b1c2))
+* **register:** add new register endpoint ([79cf6f6](https://github.com/sencrop/sencrop-js-api-client/commit/79cf6f6))
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.4.0...v2.5.0) (2020-04-16)
 
