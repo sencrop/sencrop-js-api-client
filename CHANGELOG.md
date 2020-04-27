@@ -1,3 +1,13 @@
+<a name="2.6.1"></a>
+## [2.6.1](https://github.com/sencrop/sencrop-js-api-client/compare/v2.6.0...v2.6.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* **register:** fix register endpoint ([14be20c](https://github.com/sencrop/sencrop-js-api-client/commit/14be20c))
+
+
+
 <a name="2.6.0"></a>
 # [2.6.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.5.0...v2.6.0) (2020-04-27)
 
