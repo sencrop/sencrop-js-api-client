@@ -10451,23 +10451,6 @@
           "users",
           "organisations"
         ],
-        "security": [
-          {
-            "bearerAuth": [
-              "user"
-            ]
-          },
-          {
-            "accessTokenAuth": [
-              "user"
-            ]
-          },
-          {
-            "fakeAuth": [
-              "admin"
-            ]
-          }
-        ],
         "requestBody": {
           "description": "The user / organisation / organisationPlace infos",
           "required": true,
@@ -10598,24 +10581,6 @@
           }
         },
         "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "schema": {
-              "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Token provided through query parameters",
-            "schema": {
-              "type": "string",
-              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
           {
             "$ref": "#/components/parameters/xApiVersion"
           },
@@ -14601,7 +14566,7 @@
                 ]
               },
               "recipient": {
-                "$ref": "#/components/schemas/PartialUser"
+                "$ref": "#/components/schemas/User"
               }
             }
           },
@@ -14622,7 +14587,7 @@
                 ]
               },
               "recipient": {
-                "$ref": "#/components/schemas/PartialUser"
+                "$ref": "#/components/schemas/User"
               },
               "data": {
                 "type": "object",
@@ -15220,8 +15185,7 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "email",
-          "phone"
+          "email"
         ],
         "properties": {
           "email": {
@@ -15364,7 +15328,7 @@
             "minimum": 1
           },
           "users": {
-            "$ref": "#/components/schemas/PartialUserHash"
+            "$ref": "#/components/schemas/UserHash"
           }
         }
       },
@@ -15386,111 +15350,6 @@
           },
           "users": {
             "$ref": "#/components/schemas/UserHash"
-          }
-        }
-      },
-      "PartialUserContents": {
-        "description": "A user that may only have an email",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/UserContents"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "email"
-            ],
-            "properties": {
-              "email": {
-                "type": "string",
-                "format": "email"
-              },
-              "phone": {
-                "type": "string"
-              },
-              "firstname": {
-                "type": "string"
-              },
-              "lastname": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 2,
-                "pattern": "[A-Z]{2}"
-              },
-              "crops": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "wheat",
-                    "potato",
-                    "corn",
-                    "beet",
-                    "colza",
-                    "linen",
-                    "bean",
-                    "barley",
-                    "other-agri",
-                    "wine",
-                    "apple",
-                    "other-tree",
-                    "garden",
-                    "greenhouse",
-                    "banana"
-                  ]
-                }
-              },
-              "locale": {
-                "type": "string",
-                "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
-                "maxLength": 5
-              },
-              "timeZone": {
-                "type": "string",
-                "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
-                "maxLength": 50
-              }
-            }
-          }
-        ]
-      },
-      "PartialUser": {
-        "type": "object",
-        "required": [
-          "contents"
-        ],
-        "properties": {
-          "id": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1
-          },
-          "locale": {
-            "type": "string",
-            "pattern": "^[a-z]{2}(-[A-Z]{2,3})?$",
-            "maxLength": 5,
-            "description": "Will be removed, use locale in contents instead"
-          },
-          "timeZone": {
-            "type": "string",
-            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
-            "maxLength": 50,
-            "description": "Will be removed, use timeZone in contents instead"
-          },
-          "contents": {
-            "$ref": "#/components/schemas/PartialUserContents"
-          }
-        }
-      },
-      "PartialUserHash": {
-        "type": "object",
-        "patternProperties": {
-          "^[0-9]+$": {
-            "$ref": "#/components/schemas/PartialUser"
           }
         }
       },

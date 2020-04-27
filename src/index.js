@@ -6663,30 +6663,20 @@ function postQuoteOffline(
  * The parameters to provide (destructured)
   @param body The request body
 
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postRegister(
-  { body, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
+function postRegister({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['register'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
     'X-SDK-Version': '2.6.0',
-    Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
+  let qs = cleanQuery({});
   let data = body;
 
   return axios(
