@@ -1,3 +1,13 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.6.1...v2.7.0) (2020-05-04)
+
+
+### Features
+
+* **devicesliveagg:** add device live measure ([6eac4a4](https://github.com/sencrop/sencrop-js-api-client/commit/6eac4a4))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/sencrop/sencrop-js-api-client/compare/v2.6.0...v2.6.1) (2020-04-27)
 
