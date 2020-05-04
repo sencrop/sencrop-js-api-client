@@ -2556,6 +2556,97 @@
         }
       }
     },
+    "/networks/{networkId}/devices/{deviceId}/liveAggregations": {
+      "get": {
+        "operationId": "getNetworkDeviceLiveAggregations",
+        "summary": "Retrieve last measures for a given device from a network",
+        "tags": [
+          "network",
+          "data"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/networkId"
+          },
+          {
+            "$ref": "#/components/parameters/deviceId"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+              "maxLength": 50
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The requested device's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceLiveAggregationItems"
+                },
+                "example": {
+                  "items": [
+                    209,
+                    2219,
+                    5149
+                  ],
+                  "deviceLiveAggregations": {
+                    "209": {
+                      "RELATIVE_HUMIDITY_MEAN": {},
+                      "WIND_SPEED_MEAN": {}
+                    },
+                    "2219": {
+                      "RELATIVE_HUMIDITY_MEAN": {},
+                      "WIND_SPEED_MEAN": {
+                        "last_hour": 4.333333333333333,
+                        "this_week": 10.102888086642599
+                      }
+                    },
+                    "5149": {
+                      "RELATIVE_HUMIDITY_MEAN": {
+                        "last_hour": 76.55000000000001,
+                        "this_week": 85.51822916666667
+                      },
+                      "WIND_SPEED_MEAN": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/oauth2/authorize": {
       "get": {
         "operationId": "getOAuth2Authorize",

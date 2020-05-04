@@ -1781,8 +1781,6 @@ Register a new user and his organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postSignatureCloudinary"></a>

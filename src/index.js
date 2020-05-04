@@ -37,6 +37,7 @@ const API = {
   getModules,
   getMySelf,
   getNetwork,
+  getNetworkDeviceLiveAggregations,
   getOAuth2Authorize,
   getOrganisation,
   putOrganisation,
@@ -1922,6 +1923,78 @@ function getNetwork({ networkId, xAppVersion } = {}, options) {
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve last measures for a given device from a network
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.networkId
+ * The network id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.timeZone
+ * The timezone of the data
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getNetworkDeviceLiveAggregations(
+  { networkId, deviceId, timeZone, xAppVersion } = {},
+  options,
+) {
+  if (networkId == null) {
+    throw new Error(
+      'Missing required parameter : networkId. Value : ' + networkId,
+    );
+  }
+
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+
+  if (timeZone == null) {
+    throw new Error(
+      'Missing required parameter : timeZone. Value : ' + timeZone,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = [
+    'networks',
+    networkId,
+    'devices',
+    deviceId,
+    'liveAggregations',
+  ];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.49.9',
+    'X-SDK-Version': '2.6.1',
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    timeZone: timeZone,
+  });
   let data = {}.undef;
 
   return axios(
