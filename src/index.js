@@ -64,6 +64,7 @@ const API = {
   getQuote,
   getQuoteHostedPage,
   getSearchDevices,
+  getSearchNetworkDevices,
   getSearchUser,
   getUser,
   putUser,
@@ -3801,6 +3802,73 @@ function getSearchDevices({ latitude, longitude, xAppVersion } = {}, options) {
 }
 
 /**
+ * Search devices around a geopoint for a network
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.latitude
+ * The latitude of the data,
+ * @param {number} parameters.longitude
+ * The longitude of the data,
+ * @param {string} parameters.networkId
+ * The network id
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getSearchNetworkDevices(
+  { latitude, longitude, networkId, xAppVersion } = {},
+  options,
+) {
+  if (latitude == null) {
+    throw new Error(
+      'Missing required parameter : latitude. Value : ' + latitude,
+    );
+  }
+
+  if (longitude == null) {
+    throw new Error(
+      'Missing required parameter : longitude. Value : ' + longitude,
+    );
+  }
+
+  if (networkId == null) {
+    throw new Error(
+      'Missing required parameter : networkId. Value : ' + networkId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['search', 'networks', networkId, 'devices'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.49.9',
+    'X-SDK-Version': '2.7.0',
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    latitude: latitude,
+    longitude: longitude,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
  * Search for an user
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -6736,12 +6804,14 @@ function postQuoteOffline(
  * The parameters to provide (destructured)
   @param body The request body
 
+ * @param {boolean} [parameters.noTrial]
+ * Parameter use for sponsored network (cause subscription is managed by the network)
  * @param {Object} options
  * Options to override Axios request configuration
  * @return {Object}
  * The HTTP response
  */
-function postRegister({ body, xAppVersion } = {}, options) {
+function postRegister({ body, noTrial, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['register'];
   let headers = Object.assign((options || {}).headers || {}, {
@@ -6749,7 +6819,9 @@ function postRegister({ body, xAppVersion } = {}, options) {
     'X-SDK-Version': '2.7.0',
     'X-APP-Version': xAppVersion,
   });
-  let qs = cleanQuery({});
+  let qs = cleanQuery({
+    noTrial: noTrial,
+  });
   let data = body;
 
   return axios(

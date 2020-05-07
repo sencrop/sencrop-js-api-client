@@ -454,7 +454,7 @@
         "operationId": "putOrganisationNetworkDeviceAccess",
         "summary": "Update an organisation's device.",
         "tags": [
-          "network"
+          "networks"
         ],
         "security": [
           {
@@ -1926,7 +1926,7 @@
         "operationId": "putUserOrganisationOpenNetworkMembership",
         "summary": "Allow an organisation to join an open network",
         "tags": [
-          "network"
+          "networks"
         ],
         "security": [
           {
@@ -2502,7 +2502,7 @@
         "operationId": "getNetwork",
         "summary": "Get the network.",
         "tags": [
-          "network"
+          "networks"
         ],
         "parameters": [
           {
@@ -2561,7 +2561,7 @@
         "operationId": "getNetworkDeviceLiveAggregations",
         "summary": "Retrieve last measures for a given device from a network",
         "tags": [
-          "network",
+          "networks",
           "data"
         ],
         "parameters": [
@@ -3886,7 +3886,7 @@
         "operationId": "getOrganisationNetworkDevices",
         "summary": "Get an organisation network.",
         "tags": [
-          "network"
+          "networks"
         ],
         "security": [
           {
@@ -4003,7 +4003,7 @@
         "operationId": "getOrganisationNetworks",
         "summary": "Get the networks an organisation has access to.",
         "tags": [
-          "network"
+          "networks"
         ],
         "security": [
           {
@@ -5455,6 +5455,85 @@
           },
           {
             "$ref": "#/components/parameters/longitude"
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devices around the position",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "items",
+                    "devices"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "pattern": "^[0-9]+$",
+                        "minimum": 1
+                      },
+                      "minItems": 0,
+                      "uniqueItems": true
+                    },
+                    "devices": {
+                      "$ref": "#/components/schemas/GenericDeviceHash"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/networks/{networkId}/devices": {
+      "get": {
+        "operationId": "getSearchNetworkDevices",
+        "summary": "Search devices around a geopoint for a network",
+        "tags": [
+          "search",
+          "devices",
+          "networks"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/latitude"
+          },
+          {
+            "$ref": "#/components/parameters/longitude"
+          },
+          {
+            "$ref": "#/components/parameters/networkId"
           },
           {
             "$ref": "#/components/parameters/xApiVersion"
@@ -10542,6 +10621,26 @@
           "users",
           "organisations"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "description": "Parameter use for sponsored network (cause subscription is managed by the network)",
+            "name": "noTrial",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
         "requestBody": {
           "description": "The user / organisation / organisationPlace infos",
           "required": true,
@@ -10670,18 +10769,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/xApiVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xSdkVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xAppVersion"
-          }
-        ]
+        }
       }
     },
     "/cloudinary/signature": {
@@ -11240,7 +11328,7 @@
         "operationId": "postUserNetworkInvitation",
         "summary": "Invite a user to reach the Network page",
         "tags": [
-          "network"
+          "networks"
         ],
         "parameters": [
           {
@@ -16900,6 +16988,10 @@
           "referral": {
             "$ref": "#/components/schemas/Referral"
           },
+          "mustBeInTrial": {
+            "type": "boolean",
+            "description": "Not used anymore, will be removed in next version"
+          },
           "callbackURL": {
             "type": "string",
             "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
@@ -17794,7 +17886,7 @@
       "description": "Endpoints related to monitoring of factory/devices activities."
     },
     {
-      "name": "network",
+      "name": "networks",
       "description": "Endpoints related to organisations networks."
     },
     {
