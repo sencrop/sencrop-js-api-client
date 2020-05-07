@@ -1,3 +1,13 @@
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.7.0...v2.8.0) (2020-05-07)
+
+
+### Features
+
+* **invitation:** use mailjet for invitation email ([94ba98d](https://github.com/sencrop/sencrop-js-api-client/commit/94ba98d))
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.6.1...v2.7.0) (2020-05-04)
 

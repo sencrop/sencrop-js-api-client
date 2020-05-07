@@ -166,7 +166,7 @@ function deleteOrganisationDevice(
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -229,7 +229,7 @@ function getOrganisationDevice(
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -301,7 +301,7 @@ function putOrganisationDevice(
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -386,7 +386,7 @@ function deleteOrganisationNetworkDeviceAccess(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -471,7 +471,7 @@ function putOrganisationNetworkDeviceAccess(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -532,7 +532,7 @@ function deleteUserNotificationRead(
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -593,7 +593,7 @@ function putUserNotificationRead(
   let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -676,7 +676,7 @@ function deleteUserOrganisationAggregation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -762,7 +762,7 @@ function putUserOrganisationAggregation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -843,7 +843,7 @@ function deleteUserOrganisationAlert(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -927,7 +927,7 @@ function putUserOrganisationAlert(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1021,7 +1021,7 @@ function deleteUserOrganisationDeviceModule(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1118,7 +1118,7 @@ function putUserOrganisationDeviceModule(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1201,7 +1201,7 @@ function deleteUserOrganisationInvitation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1287,7 +1287,7 @@ function putUserOrganisationInvitation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1370,7 +1370,7 @@ function deleteUserOrganisationMember(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1456,7 +1456,7 @@ function putUserOrganisationMember(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1539,7 +1539,7 @@ function putUserOrganisationOpenNetworkMembership(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1620,7 +1620,7 @@ function deleteUserOrganisationShare(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1704,7 +1704,7 @@ function putUserOrganisationShare(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1753,7 +1753,7 @@ function getOpenAPI(
   let urlParts = ['openAPI'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1794,7 +1794,7 @@ function getCrops({ xAppVersion } = {}, options) {
   let urlParts = ['crops'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -1831,7 +1831,7 @@ function getModules({ xAppVersion } = {}, options) {
   let urlParts = ['modules'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -1872,7 +1872,7 @@ function getMySelf({ authorization, accessToken, xAppVersion } = {}, options) {
   let urlParts = ['me'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -1920,7 +1920,7 @@ function getNetwork({ networkId, xAppVersion } = {}, options) {
   let urlParts = ['networks', networkId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -1990,7 +1990,7 @@ function getNetworkDeviceLiveAggregations(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
@@ -2059,7 +2059,7 @@ function getOAuth2Authorize(
   let urlParts = ['oauth2', 'authorize'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
@@ -2117,7 +2117,7 @@ function getOrganisation(
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2174,7 +2174,7 @@ function putOrganisation(
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2234,7 +2234,7 @@ function getOrganisationChargebeePortalSession(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2308,7 +2308,7 @@ function getOrganisationDevices(
   let urlParts = ['organisations', organisationId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2414,7 +2414,7 @@ function getOrganisationDevicesLiveAggregations(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2491,7 +2491,7 @@ function getOrganisationHostedPage(
   let urlParts = ['organisations', organisationId, 'hostedPage'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2562,7 +2562,7 @@ function getOrganisationInvitation(
   let urlParts = ['organisations', organisationId, 'invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2642,7 +2642,7 @@ function getOrganisationInvitations(
   let urlParts = ['organisations', organisationId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2709,7 +2709,7 @@ function getOrganisationMember(
   let urlParts = ['organisations', organisationId, 'members', memberId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2764,7 +2764,7 @@ function getOrganisationMembers(
   let urlParts = ['organisations', organisationId, 'members'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2856,7 +2856,7 @@ function getOrganisationNetworkDevices(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2933,7 +2933,7 @@ function getOrganisationNetworks(
   let urlParts = ['organisations', organisationId, 'networks'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -2996,7 +2996,7 @@ function getOrganisationPlace(
   let urlParts = ['organisations', organisationId, 'place', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3051,7 +3051,7 @@ function getOrganisationPlaces(
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3108,7 +3108,7 @@ function postOrganisationPlace(
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3163,7 +3163,7 @@ function getOrganisationPreferences(
   let urlParts = ['organisations', organisationId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3220,7 +3220,7 @@ function putOrganisationPreferences(
   let urlParts = ['organisations', organisationId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3281,7 +3281,7 @@ function getOrganisationShare(
   let urlParts = ['organisations', organisationId, 'shares', shareId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3364,7 +3364,7 @@ function getOrganisationShares(
   let urlParts = ['organisations', organisationId, 'shares'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3436,7 +3436,7 @@ function getPartnerDevices(
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3478,7 +3478,7 @@ function getPing({ xAppVersion } = {}, options) {
   let urlParts = ['ping'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -3595,7 +3595,7 @@ function getPublicWeatherLive(
   let urlParts = ['weather', 'public', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3649,7 +3649,7 @@ function getQuote({ quoteId, xAppVersion } = {}, options) {
   let urlParts = ['quotes', quoteId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -3717,7 +3717,7 @@ function getQuoteHostedPage(
   let urlParts = ['users', userId, 'quotes', quoteId, 'hostedPage'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3775,7 +3775,7 @@ function getSearchDevices({ latitude, longitude, xAppVersion } = {}, options) {
   let urlParts = ['search', 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
@@ -3842,7 +3842,7 @@ function getSearchNetworkDevices(
   let urlParts = ['search', 'networks', networkId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
@@ -3895,7 +3895,7 @@ function getSearchUser(
   let urlParts = ['search', 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -3949,7 +3949,7 @@ function getUser(
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4004,7 +4004,7 @@ function putUser(
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4074,7 +4074,7 @@ function getUserAggregation(
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4132,7 +4132,7 @@ function getUserAggregations(
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4187,7 +4187,7 @@ function getUserAlerts(
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4303,7 +4303,7 @@ function getUserDailyData(
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4383,7 +4383,7 @@ function getUserDevice(
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4497,7 +4497,7 @@ function getUserDeviceContinuousStatistics(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4609,7 +4609,7 @@ function getUserDeviceDailyData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4683,7 +4683,7 @@ function getUserDeviceForecasts(
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4788,7 +4788,7 @@ function getUserDeviceHourlyData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4856,7 +4856,7 @@ function getUserDeviceModules(
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -4926,7 +4926,7 @@ function getUserDevicePositions(
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5022,7 +5022,7 @@ function getUserDeviceRawData(
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5133,7 +5133,7 @@ function getUserDeviceStatistics(
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5227,7 +5227,7 @@ function getUserDeviceSummary(
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5305,7 +5305,7 @@ function getUserDevices(
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5408,7 +5408,7 @@ function getUserDevicesLiveAggregations(
   let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5494,7 +5494,7 @@ function getUserForecasts(
   let urlParts = ['users', userId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5613,7 +5613,7 @@ function getUserHourlyData(
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5684,7 +5684,7 @@ function getUserInvitation(
   let urlParts = ['users', userId, 'invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5765,7 +5765,7 @@ function getUserInvitations(
   let urlParts = ['users', userId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5827,7 +5827,7 @@ function getUserNotifications(
   let urlParts = ['users', userId, 'notifications'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5882,7 +5882,7 @@ function getUserOrganisations(
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5937,7 +5937,7 @@ function postUserOrganisation(
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -5998,7 +5998,7 @@ function getUserPendingInvitation(
   let urlParts = ['users', userId, 'pendingInvitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6063,7 +6063,7 @@ function getUserPendingInvitations(
   let urlParts = ['users', userId, 'pendingInvitations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6118,7 +6118,7 @@ function getUserPreferences(
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6173,7 +6173,7 @@ function putUserPreferences(
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6296,7 +6296,7 @@ function getUserStatistics(
   let urlParts = ['users', userId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6377,7 +6377,7 @@ function getWeatherLive(
   let urlParts = ['weather', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6422,7 +6422,7 @@ function postLogin({ body, xAppVersion } = {}, options) {
   let urlParts = ['users', 'sign_in'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -6461,7 +6461,7 @@ function postLostPassword({ body, xAppVersion } = {}, options) {
   let urlParts = ['password', 'lost'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -6503,7 +6503,7 @@ function postOAuth2Token({ body, authorization, xAppVersion } = {}, options) {
   let urlParts = ['oauth2', 'token'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6550,7 +6550,7 @@ function postOrganisation(
   let urlParts = ['organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6607,7 +6607,7 @@ function postOrganisationPaymentComplete(
   let urlParts = ['organisations', organisationId, 'paymentComplete'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6662,7 +6662,7 @@ function postPartnerToken(
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6715,7 +6715,7 @@ function postPartnerTokenRequest(
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6772,7 +6772,7 @@ function postQuoteOffline(
   let urlParts = ['users', userId, 'quotes', quoteId, 'offline'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6816,7 +6816,7 @@ function postRegister({ body, noTrial, xAppVersion } = {}, options) {
   let urlParts = ['register'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({
@@ -6864,7 +6864,7 @@ function postSignatureCloudinary(
   let urlParts = ['cloudinary', 'signature'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6908,7 +6908,7 @@ function postSignupCheck({ body, authorization, xAppVersion } = {}, options) {
   let urlParts = ['utils', 'checkSignup'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6955,7 +6955,7 @@ function postSocialImage(
   let urlParts = ['socialImage'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -6997,7 +6997,7 @@ function postUser({ body, xAppVersion } = {}, options) {
   let urlParts = ['users'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -7067,7 +7067,7 @@ function postUserDeviceExport(
   let urlParts = ['users', userId, 'devices', deviceId, 'export'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7127,7 +7127,7 @@ function postUserNetworkInvitation(
   let urlParts = ['users', userId, 'networks', networkId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -7200,7 +7200,7 @@ function postUserOrganisationAggregation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7270,7 +7270,7 @@ function postUserOrganisationAlert(
   let urlParts = ['users', userId, 'organisations', organisationId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7340,7 +7340,7 @@ function postUserOrganisationDevice(
   let urlParts = ['users', userId, 'organisations', organisationId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7416,7 +7416,7 @@ function postUserOrganisationInvitation(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7486,7 +7486,7 @@ function postUserOrganisationMember(
   let urlParts = ['users', userId, 'organisations', organisationId, 'members'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7534,7 +7534,7 @@ function postUserPassword({ body, userId, xAppVersion } = {}, options) {
   let urlParts = ['users', userId, 'password'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -7573,7 +7573,7 @@ function postVerify({ body, xAppVersion } = {}, options) {
   let urlParts = ['users', 'verify'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -7663,7 +7663,7 @@ function putOrganisationDeviceCalibration(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7742,7 +7742,7 @@ function putOrganisationDeviceSettings(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7812,7 +7812,7 @@ function putOrganisationPlace(
   let urlParts = ['organisations', organisationId, 'places', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7912,7 +7912,7 @@ function putPartnerModuleParameters(
   ];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -7954,7 +7954,7 @@ function putPassword({ body, xAppVersion } = {}, options) {
   let urlParts = ['password'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
@@ -8014,7 +8014,7 @@ function putUserInvitationAnswer(
   let urlParts = ['users', userId, 'invitations', invitationId, 'answer'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -8078,7 +8078,7 @@ function getGraphQL(
   let urlParts = ['graphql'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
@@ -8130,7 +8130,7 @@ function postGraphQL(
   let urlParts = ['graphql'];
   let headers = Object.assign((options || {}).headers || {}, {
     'X-API-Version': '1.49.9',
-    'X-SDK-Version': '2.7.0',
+    'X-SDK-Version': '2.8.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
   });
