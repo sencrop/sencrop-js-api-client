@@ -1,3 +1,13 @@
+<a name="2.9.0"></a>
+# [2.9.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.8.0...v2.9.0) (2020-05-14)
+
+
+### Features
+
+* **invit:** added getInvitation getinvitatindeviceliveagg endpoints ([3d1da29](https://github.com/sencrop/sencrop-js-api-client/commit/3d1da29))
+
+
+
 <a name="2.8.0"></a>
 # [2.8.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.7.0...v2.8.0) (2020-05-07)
 
