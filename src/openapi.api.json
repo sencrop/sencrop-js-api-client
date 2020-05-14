@@ -2375,6 +2375,189 @@
         ]
       }
     },
+    "/invitations/{invitationId}": {
+      "get": {
+        "operationId": "getInvitation",
+        "summary": "Get an invitation.",
+        "tags": [
+          "invitations"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/invitationId"
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The invitation",
+            "content": {
+              "application/json": {
+                "example": {
+                  "item": "abbacaca-abba-abba-caca",
+                  "invitations": {
+                    "abbacaca-abba-abba-caca": {
+                      "id": "abbacaca-abba-abba-caca",
+                      "organisationId": 1,
+                      "authordId": 1,
+                      "status": "pending",
+                      "completionDate": "2019-01-01T00:00:00Z",
+                      "creationDate": "2019-01-01T00:00:00Z",
+                      "modificationDate": "2019-01-01T00:00:00Z",
+                      "contents": {
+                        "recipientId": 3,
+                        "type": "share",
+                        "data": {
+                          "type": "select",
+                          "message": "Here are the stations we talk about",
+                          "transmittable": false,
+                          "devicesIds": [
+                            301,
+                            404
+                          ],
+                          "allowedDevicesIds": [
+                            301,
+                            404,
+                            500
+                          ],
+                          "maximumSharedAccesses": 2
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The invitation does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invitations/{invitationId}/devices/{deviceId}/liveAggregations": {
+      "get": {
+        "operationId": "getInvitationDeviceLiveAggregations",
+        "summary": "Retrieve last measures for a given device from an invitation",
+        "tags": [
+          "invitations",
+          "data"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/invitationId"
+          },
+          {
+            "$ref": "#/components/parameters/deviceId"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The timezone of the data",
+            "name": "timeZone",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+              "maxLength": 50
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The requested device's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceLiveAggregationItems"
+                },
+                "example": {
+                  "items": [
+                    209,
+                    2219,
+                    5149
+                  ],
+                  "deviceLiveAggregations": {
+                    "209": {
+                      "RELATIVE_HUMIDITY_MEAN": {},
+                      "WIND_SPEED_MEAN": {}
+                    },
+                    "2219": {
+                      "RELATIVE_HUMIDITY_MEAN": {},
+                      "WIND_SPEED_MEAN": {
+                        "last_hour": 4.333333333333333,
+                        "this_week": 10.102888086642599
+                      }
+                    },
+                    "5149": {
+                      "RELATIVE_HUMIDITY_MEAN": {
+                        "last_hour": 76.55000000000001,
+                        "this_week": 85.51822916666667
+                      },
+                      "WIND_SPEED_MEAN": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/modules": {
       "get": {
         "operationId": "getModules",
@@ -6233,6 +6416,7 @@
             "description": "The ranges to get the data from",
             "name": "ranges",
             "required": false,
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -6252,6 +6436,7 @@
           {
             "in": "query",
             "required": true,
+            "explode": false,
             "description": "The measures to read",
             "name": "measures",
             "schema": {
@@ -6657,6 +6842,7 @@
             "required": true,
             "description": "The measures to read",
             "name": "measures",
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -6953,6 +7139,7 @@
           {
             "in": "query",
             "required": true,
+            "explode": false,
             "description": "The measures to read",
             "name": "measures",
             "schema": {
@@ -7352,6 +7539,7 @@
             "required": true,
             "description": "The measures to read",
             "name": "measures",
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -7650,6 +7838,7 @@
             "required": true,
             "description": "The measures to read",
             "name": "measures",
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -7785,6 +7974,7 @@
             "in": "query",
             "description": "The measures to read",
             "name": "measures",
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -8224,6 +8414,7 @@
             "description": "The ranges to get the data from",
             "name": "ranges",
             "required": false,
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -8245,6 +8436,7 @@
             "required": true,
             "description": "The measures to read",
             "name": "measures",
+            "explode": false,
             "schema": {
               "type": "array",
               "minItems": 1,
@@ -17163,6 +17355,7 @@
         "description": "The measures to read",
         "name": "measures",
         "required": true,
+        "explode": false,
         "schema": {
           "type": "array",
           "minItems": 1,
@@ -17217,6 +17410,7 @@
         "description": "The ranges to get the data from",
         "name": "ranges",
         "required": true,
+        "explode": false,
         "schema": {
           "type": "array",
           "minItems": 1,
@@ -17310,6 +17504,7 @@
         "description": "List of id's of devices",
         "name": "devicesIds",
         "required": true,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17369,6 +17564,7 @@
       "aggregations": {
         "in": "query",
         "required": true,
+        "explode": false,
         "description": "The aggregations names",
         "name": "aggregations",
         "schema": {
@@ -17427,6 +17623,7 @@
       "intervals": {
         "in": "query",
         "required": true,
+        "explode": false,
         "description": "The intervals to retrieve",
         "name": "intervals",
         "schema": {
@@ -17456,6 +17653,7 @@
         "example": [
           "base:7"
         ],
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17477,6 +17675,7 @@
         "in": "query",
         "name": "withStatuses",
         "required": false,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17493,6 +17692,7 @@
         "in": "query",
         "name": "withTypes",
         "required": false,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17519,6 +17719,7 @@
         "in": "query",
         "name": "withTypes",
         "required": false,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17542,6 +17743,7 @@
         "in": "query",
         "name": "withModes",
         "required": false,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {
@@ -17619,6 +17821,7 @@
         "in": "query",
         "name": "withModes",
         "required": false,
+        "explode": false,
         "schema": {
           "type": "array",
           "items": {

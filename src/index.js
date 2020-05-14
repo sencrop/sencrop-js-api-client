@@ -34,6 +34,8 @@ const API = {
   putUserOrganisationShare,
   getOpenAPI,
   getCrops,
+  getInvitation,
+  getInvitationDeviceLiveAggregations,
   getModules,
   getMySelf,
   getNetwork,
@@ -1798,6 +1800,123 @@ function getCrops({ xAppVersion } = {}, options) {
     'X-APP-Version': xAppVersion,
   });
   let qs = cleanQuery({});
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get an invitation.
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.invitationId
+ * The invitation id
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getInvitation({ invitationId, xAppVersion } = {}, options) {
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['invitations', invitationId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.49.9',
+    'X-SDK-Version': '2.8.0',
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({});
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Retrieve last measures for a given device from an invitation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {number} parameters.deviceId
+ * The device id,
+ * @param {string} parameters.timeZone
+ * The timezone of the data
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getInvitationDeviceLiveAggregations(
+  { invitationId, deviceId, timeZone, xAppVersion } = {},
+  options,
+) {
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  if (deviceId == null) {
+    throw new Error(
+      'Missing required parameter : deviceId. Value : ' + deviceId,
+    );
+  }
+
+  if (timeZone == null) {
+    throw new Error(
+      'Missing required parameter : timeZone. Value : ' + timeZone,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = [
+    'invitations',
+    invitationId,
+    'devices',
+    deviceId,
+    'liveAggregations',
+  ];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.49.9',
+    'X-SDK-Version': '2.8.0',
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    timeZone: timeZone,
+  });
   let data = {}.undef;
 
   return axios(

@@ -32,6 +32,7 @@ API to consume Sencrop data
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
     * [~getMySelf(parameters, options)](#module_API..getMySelf) ⇒ <code>Object</code>
     * [~getNetwork(parameters, options)](#module_API..getNetwork) ⇒ <code>Object</code>
+    * [~getNetworkDeviceLiveAggregations(parameters, options)](#module_API..getNetworkDeviceLiveAggregations) ⇒ <code>Object</code>
     * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, body, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
@@ -554,6 +555,22 @@ Get the network.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.networkId | <code>string</code> | The network id |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getNetworkDeviceLiveAggregations"></a>
+
+### API~getNetworkDeviceLiveAggregations(parameters, options) ⇒ <code>Object</code>
+Retrieve last measures for a given device from a network
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.networkId | <code>string</code> | The network id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.timeZone | <code>string</code> | The timezone of the data |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getOAuth2Authorize"></a>
