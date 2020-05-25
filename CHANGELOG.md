@@ -1,3 +1,13 @@
+<a name="2.10.0"></a>
+# [2.10.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.9.0...v2.10.0) (2020-05-25)
+
+
+### Features
+
+* **devices:** return devices for network ([4cd3020](https://github.com/sencrop/sencrop-js-api-client/commit/4cd3020))
+
+
+
 <a name="2.9.0"></a>
 # [2.9.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.8.0...v2.9.0) (2020-05-14)
 
