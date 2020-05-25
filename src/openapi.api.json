@@ -2489,7 +2489,7 @@
             "name": "timeZone",
             "schema": {
               "type": "string",
-              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
               "maxLength": 50
             }
           },
@@ -2761,7 +2761,7 @@
             "name": "timeZone",
             "schema": {
               "type": "string",
-              "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+              "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
               "maxLength": 50
             }
           },
@@ -2807,6 +2807,78 @@
                         "this_week": 85.51822916666667
                       },
                       "WIND_SPEED_MEAN": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/networks/{networkId}/devices": {
+      "get": {
+        "operationId": "getNetworkDevices",
+        "tags": [
+          "devices",
+          "networks"
+        ],
+        "summary": "Get devices for a network",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/networkId"
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devices for a network",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "items",
+                    "devices"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "pattern": "^[0-9]+$",
+                        "minimum": 1
+                      },
+                      "minItems": 0,
+                      "uniqueItems": true
+                    },
+                    "devices": {
+                      "$ref": "#/components/schemas/GenericDeviceHash"
                     }
                   }
                 }
@@ -10873,7 +10945,7 @@
                       },
                       "timeZone": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+                        "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
                         "maxLength": 50
                       },
                       "referral": {
@@ -11464,7 +11536,7 @@
                   },
                   "timeZone": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+                    "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
                     "maxLength": 50
                   },
                   "fileFormat": {
@@ -14497,7 +14569,7 @@
           },
           "timeZone": {
             "type": "string",
-            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
             "maxLength": 50
           },
           "identification": {
@@ -15608,7 +15680,7 @@
           },
           "timeZone": {
             "type": "string",
-            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
             "maxLength": 50
           }
         }
@@ -15645,7 +15717,7 @@
           },
           "timeZone": {
             "type": "string",
-            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
             "maxLength": 50,
             "description": "Will be removed, use timeZone in contents instead"
           },
@@ -17142,7 +17214,7 @@
           },
           "timeZone": {
             "type": "string",
-            "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+            "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
             "maxLength": 50,
             "description": "Will be removed, use timeZone in contents instead"
           },
@@ -17467,7 +17539,7 @@
         "name": "timeZone",
         "schema": {
           "type": "string",
-          "pattern": "^[a-zA-Z]+/[a-zA-Z]+$",
+          "pattern": "^[a-zA-Z]+/[a-zA-Z]+|UTC|GMT$",
           "maxLength": 50
         }
       },

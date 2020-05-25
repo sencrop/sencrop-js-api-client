@@ -40,6 +40,7 @@ const API = {
   getMySelf,
   getNetwork,
   getNetworkDeviceLiveAggregations,
+  getNetworkDevices,
   getOAuth2Authorize,
   getOrganisation,
   putOrganisation,
@@ -2115,6 +2116,51 @@ function getNetworkDeviceLiveAggregations(
   let qs = cleanQuery({
     timeZone: timeZone,
   });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Get devices for a network
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.networkId
+ * The network id
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getNetworkDevices({ networkId, xAppVersion } = {}, options) {
+  if (networkId == null) {
+    throw new Error(
+      'Missing required parameter : networkId. Value : ' + networkId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['networks', networkId, 'devices'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.49.9',
+    'X-SDK-Version': '2.9.0',
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({});
   let data = {}.undef;
 
   return axios(
