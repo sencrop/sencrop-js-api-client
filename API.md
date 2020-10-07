@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.49.9  
+**Version**: 1.53.0  
 
 * [API](#module_API)
     * [~deleteOrganisationDevice(parameters, options)](#module_API..deleteOrganisationDevice) ⇒ <code>Object</code>
@@ -29,10 +29,15 @@ API to consume Sencrop data
     * [~putUserOrganisationShare(parameters, body, options)](#module_API..putUserOrganisationShare) ⇒ <code>Object</code>
     * [~getOpenAPI(parameters, options)](#module_API..getOpenAPI) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
+    * [~getFactorySigfoxStatus(parameters, options)](#module_API..getFactorySigfoxStatus) ⇒ <code>Object</code>
+    * [~getHubSpotQuotatorCard(parameters, options)](#module_API..getHubSpotQuotatorCard) ⇒ <code>Object</code>
+    * [~getInvitation(parameters, options)](#module_API..getInvitation) ⇒ <code>Object</code>
+    * [~getInvitationDeviceLiveAggregations(parameters, options)](#module_API..getInvitationDeviceLiveAggregations) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
     * [~getMySelf(parameters, options)](#module_API..getMySelf) ⇒ <code>Object</code>
     * [~getNetwork(parameters, options)](#module_API..getNetwork) ⇒ <code>Object</code>
     * [~getNetworkDeviceLiveAggregations(parameters, options)](#module_API..getNetworkDeviceLiveAggregations) ⇒ <code>Object</code>
+    * [~getNetworkDevices(parameters, options)](#module_API..getNetworkDevices) ⇒ <code>Object</code>
     * [~getOAuth2Authorize(parameters, options)](#module_API..getOAuth2Authorize) ⇒ <code>Object</code>
     * [~getOrganisation(parameters, options)](#module_API..getOrganisation) ⇒ <code>Object</code>
     * [~putOrganisation(parameters, body, options)](#module_API..putOrganisation) ⇒ <code>Object</code>
@@ -56,9 +61,11 @@ API to consume Sencrop data
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getPublicWeatherLive(parameters, options)](#module_API..getPublicWeatherLive) ⇒ <code>Object</code>
+    * [~getPublicWeatherLiveAggregations(parameters, options)](#module_API..getPublicWeatherLiveAggregations) ⇒ <code>Object</code>
     * [~getQuote(parameters, options)](#module_API..getQuote) ⇒ <code>Object</code>
     * [~getQuoteHostedPage(parameters, options)](#module_API..getQuoteHostedPage) ⇒ <code>Object</code>
     * [~getSearchDevices(parameters, options)](#module_API..getSearchDevices) ⇒ <code>Object</code>
+    * [~getSearchNetworkDevices(parameters, options)](#module_API..getSearchNetworkDevices) ⇒ <code>Object</code>
     * [~getSearchUser(parameters, options)](#module_API..getSearchUser) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, body, options)](#module_API..putUser) ⇒ <code>Object</code>
@@ -95,7 +102,10 @@ API to consume Sencrop data
     * [~postLostPassword(parameters, body, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~postOAuth2Token(parameters, body, options)](#module_API..postOAuth2Token) ⇒ <code>Object</code>
     * [~postOrganisation(parameters, body, options)](#module_API..postOrganisation) ⇒ <code>Object</code>
+    * [~postOrganisationEndTrialSupport(parameters, options)](#module_API..postOrganisationEndTrialSupport) ⇒ <code>Object</code>
+    * [~postOrganisationNetworkMemberPlan(parameters, body, options)](#module_API..postOrganisationNetworkMemberPlan) ⇒ <code>Object</code>
     * [~postOrganisationPaymentComplete(parameters, body, options)](#module_API..postOrganisationPaymentComplete) ⇒ <code>Object</code>
+    * [~postOrganisationToNetworkSupport(parameters, body, options)](#module_API..postOrganisationToNetworkSupport) ⇒ <code>Object</code>
     * [~postPartnerToken(parameters, body, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~postPartnerTokenRequest(parameters, body, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
     * [~postQuoteOffline(parameters, options)](#module_API..postQuoteOffline) ⇒ <code>Object</code>
@@ -498,6 +508,9 @@ Get API documentation.
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | [parameters.mutedParameters] | <code>array</code> | undefined, |
+| [parameters.mutedMethods] | <code>array</code> | undefined, |
+| [parameters.tags] | <code>array</code> | undefined, |
+| [parameters.authenticated] | <code>boolean</code> | undefined, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -513,6 +526,71 @@ Get the crops
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getFactorySigfoxStatus"></a>
+
+### API~getFactorySigfoxStatus(parameters, options) ⇒ <code>Object</code>
+Get sigfox statuses for devices in production line tests
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.serial | <code>string</code> | Sigfox serial from a device, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getHubSpotQuotatorCard"></a>
+
+### API~getHubSpotQuotatorCard(parameters, options) ⇒ <code>Object</code>
+Get quotator crm card for hubspot
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| [parameters.userId] | <code>string</code> | undefined, |
+| [parameters.userEmail] | <code>string</code> | undefined, |
+| [parameters.associatedObjectId] | <code>number</code> | undefined, |
+| [parameters.associatedObjectType] | <code>string</code> | undefined, |
+| [parameters.portalId] | <code>number</code> | undefined, |
+| [parameters.hsObjectId] | <code>number</code> | undefined |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getInvitation"></a>
+
+### API~getInvitation(parameters, options) ⇒ <code>Object</code>
+Get an invitation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.invitationId | <code>string</code> | The invitation id |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getInvitationDeviceLiveAggregations"></a>
+
+### API~getInvitationDeviceLiveAggregations(parameters, options) ⇒ <code>Object</code>
+Retrieve last measures for a given device from an invitation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.invitationId | <code>string</code> | The invitation id, |
+| parameters.deviceId | <code>number</code> | The device id, |
+| parameters.timeZone | <code>string</code> | The timezone of the data |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getModules"></a>
@@ -571,6 +649,20 @@ Retrieve last measures for a given device from a network
 | parameters.networkId | <code>string</code> | The network id, |
 | parameters.deviceId | <code>number</code> | The device id, |
 | parameters.timeZone | <code>string</code> | The timezone of the data |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getNetworkDevices"></a>
+
+### API~getNetworkDevices(parameters, options) ⇒ <code>Object</code>
+Get devices for a network
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.networkId | <code>string</code> | The network id |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getOAuth2Authorize"></a>
@@ -983,6 +1075,25 @@ Get last measure (for a specific type) from devices in a given area .
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..getPublicWeatherLiveAggregations"></a>
+
+### API~getPublicWeatherLiveAggregations(parameters, options) ⇒ <code>Object</code>
+Get last measure (for a specifics measures and interval) from devices in a given area .
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.geohash | <code>string</code> | The geohash to lookup, |
+| parameters.aggregations | <code>array</code> | The aggregations names, |
+| parameters.interval | <code>string</code> | The interval to retrieve, |
+| [parameters.timeZone] | <code>string</code> | The timezone of the data, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getQuote"></a>
 
 ### API~getQuote(parameters, options) ⇒ <code>Object</code>
@@ -1029,6 +1140,22 @@ Search devices around a geopoint
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.latitude | <code>number</code> | The latitude of the data, |
 | parameters.longitude | <code>number</code> | The longitude of the data |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getSearchNetworkDevices"></a>
+
+### API~getSearchNetworkDevices(parameters, options) ⇒ <code>Object</code>
+Search devices around a geopoint for a network
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.latitude | <code>number</code> | The latitude of the data, |
+| parameters.longitude | <code>number</code> | The longitude of the data, |
+| parameters.networkId | <code>string</code> | The network id |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getSearchUser"></a>
@@ -1720,10 +1847,61 @@ Creates a new organisation.
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..postOrganisationEndTrialSupport"></a>
+
+### API~postOrganisationEndTrialSupport(parameters, options) ⇒ <code>Object</code>
+Remove the trial of an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationNetworkMemberPlan"></a>
+
+### API~postOrganisationNetworkMemberPlan(parameters, body, options) ⇒ <code>Object</code>
+Add a plan to a organisation of a sponsored network
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| parameters.networkMemberId | <code>number</code> | The organisation id of the network member, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..postOrganisationPaymentComplete"></a>
 
 ### API~postOrganisationPaymentComplete(parameters, body, options) ⇒ <code>Object</code>
 Complete the payment flow of an organisation, if chargebee hook is delayed
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationToNetworkSupport"></a>
+
+### API~postOrganisationToNetworkSupport(parameters, body, options) ⇒ <code>Object</code>
+Convert an organisation to a network
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -1798,6 +1976,7 @@ Register a new user and his organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
+| [parameters.noTrial] | <code>boolean</code> | Parameter use for sponsored network (cause subscription is managed by the network) |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postSignatureCloudinary"></a>
