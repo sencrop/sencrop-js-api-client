@@ -3938,14 +3938,14 @@ function getPublicWeatherLive(
 }
 
 /**
- * Get last measure (for a specifics measures and interval) from devices in a given area .
+ * Get last measure (for a specifics measures and interval) from devices in a given area
  * @param {Object} parameters
  * The parameters to provide (destructured)
  * @param {string} parameters.geohash
  * The geohash to lookup,
  * @param {array} parameters.aggregations
  * The aggregations names,
- * @param {string} parameters.interval
+ * @param {string} parameters.liveInterval
  * The interval to retrieve,
  * @param {string} [parameters.timeZone]
  * The timezone of the data,
@@ -3962,7 +3962,7 @@ function getPublicWeatherLiveAggregations(
   {
     geohash,
     aggregations,
-    interval,
+    liveInterval,
     timeZone,
     authorization,
     accessToken,
@@ -3980,9 +3980,9 @@ function getPublicWeatherLiveAggregations(
     );
   }
 
-  if (interval == null) {
+  if (liveInterval == null) {
     throw new Error(
-      'Missing required parameter : interval. Value : ' + interval,
+      'Missing required parameter : liveInterval. Value : ' + liveInterval,
     );
   }
 
@@ -3997,7 +3997,7 @@ function getPublicWeatherLiveAggregations(
   let qs = cleanQuery({
     geohash: geohash,
     aggregations: aggregations,
-    interval: interval,
+    liveInterval: liveInterval,
     timeZone: timeZone,
     access_token: accessToken,
   });

@@ -5766,10 +5766,7 @@
     "/weather/public/liveAggregations": {
       "get": {
         "operationId": "getPublicWeatherLiveAggregations",
-        "summary": "Get last measure (for a specifics measures and interval) from devices in a given area .",
-        "tags": [
-          "data"
-        ],
+        "summary": "Get last measure (for a specifics measures and interval) from devices in a given area",
         "security": [
           {
             "bearerAuth": [
@@ -18753,7 +18750,7 @@
         "required": true,
         "explode": false,
         "description": "The interval to retrieve",
-        "name": "interval",
+        "name": "liveInterval",
         "schema": {
           "type": "string",
           "enum": [

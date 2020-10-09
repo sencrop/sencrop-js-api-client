@@ -1078,7 +1078,7 @@ Get last measure (for a specific type) from devices in a given area .
 <a name="module_API..getPublicWeatherLiveAggregations"></a>
 
 ### API~getPublicWeatherLiveAggregations(parameters, options) ⇒ <code>Object</code>
-Get last measure (for a specifics measures and interval) from devices in a given area .
+Get last measure (for a specifics measures and interval) from devices in a given area
 
 **Kind**: inner method of [<code>API</code>](#module_API)  
 **Returns**: <code>Object</code> - The HTTP response  
@@ -1088,7 +1088,7 @@ Get last measure (for a specifics measures and interval) from devices in a given
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.geohash | <code>string</code> | The geohash to lookup, |
 | parameters.aggregations | <code>array</code> | The aggregations names, |
-| parameters.interval | <code>string</code> | The interval to retrieve, |
+| parameters.liveInterval | <code>string</code> | The interval to retrieve, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
