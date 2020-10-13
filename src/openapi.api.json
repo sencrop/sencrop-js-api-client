@@ -2557,113 +2557,6 @@
         }
       }
     },
-    "/hubspot/quotator": {
-      "get": {
-        "operationId": "getHubSpotQuotatorCard",
-        "summary": "Get quotator crm card for hubspot",
-        "parameters": [
-          {
-            "in": "query",
-            "required": false,
-            "name": "userId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "required": false,
-            "name": "userEmail",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "required": false,
-            "name": "associatedObjectId",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "in": "query",
-            "required": false,
-            "name": "associatedObjectType",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "required": false,
-            "name": "portalId",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "in": "query",
-            "required": false,
-            "name": "hs_object_id",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/xApiVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xSdkVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xAppVersion"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Hubspot CRM card",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "results": {
-                      "type": "object",
-                      "properties": {
-                        "objectId": {
-                          "type": "number"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "link": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "API error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "code": "E_UNEXPECTED",
-                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/invitations/{invitationId}": {
       "get": {
         "operationId": "getInvitation",
@@ -5379,6 +5272,114 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/trialOperations": {
+      "get": {
+        "operationId": "getOrganisationsTrialOperations",
+        "summary": "Get an organisation's trial operation",
+        "tags": [
+          "organisations",
+          "trial"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested organisation's trial operations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "total",
+                    "items",
+                    "operations"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "minimum": 1
+                      },
+                      "minItems": 0,
+                      "uniqueItems": true
+                    },
+                    "operations": {
+                      "$ref": "#/components/schemas/TrialOperationHash"
+                    }
+                  }
                 }
               }
             }
@@ -10586,7 +10587,7 @@
                   },
                   "callbackURL": {
                     "type": "string",
-                    "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
+                    "pattern": "http:\\/\\/localhost:.*\\/.+"
                   },
                   "callbackPath": {
                     "type": "string",
@@ -11635,6 +11636,9 @@
             }
           },
           {
+            "$ref": "#/components/parameters/trialOperationId"
+          },
+          {
             "$ref": "#/components/parameters/xApiVersion"
           },
           {
@@ -12341,6 +12345,9 @@
             "$ref": "#/components/parameters/networkId"
           },
           {
+            "$ref": "#/components/parameters/trialOperationId"
+          },
+          {
             "$ref": "#/components/parameters/xApiVersion"
           },
           {
@@ -12367,7 +12374,7 @@
                   },
                   "callbackURL": {
                     "type": "string",
-                    "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
+                    "pattern": "http:\\/\\/localhost:.*\\/.+"
                   }
                 }
               }
@@ -16251,6 +16258,64 @@
           }
         }
       },
+      "TrialOperationContents": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TrialOperation": {
+        "type": "object",
+        "required": [
+          "id",
+          "creationDate",
+          "lastModificationDate",
+          "contents"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModificationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "organisation": {
+            "type": "number"
+          },
+          "contents": {
+            "$ref": "#/components/schemas/TrialOperationContents"
+          }
+        }
+      },
+      "TrialOperationHash": {
+        "type": "object",
+        "patternProperties": {
+          "undefined": {
+            "$ref": "#/components/schemas/TrialOperation"
+          }
+        }
+      },
       "PartnerDevicesItems": {
         "type": "object",
         "required": [
@@ -18173,7 +18238,7 @@
           },
           "callbackURL": {
             "type": "string",
-            "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
+            "pattern": "http:\\/\\/localhost:.*\\/.+"
           }
         }
       },
@@ -18924,6 +18989,15 @@
           "minimum": 1
         }
       },
+      "trialOperationId": {
+        "in": "query",
+        "description": "Operation trial id used to compute trialEndDate of organisation",
+        "name": "trialOperationId",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
       "bucketDeviceId": {
         "in": "path",
         "description": "The bucket device id",
@@ -19046,7 +19120,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.53.0",
+    "version": "1.53.1",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },
@@ -19169,6 +19243,10 @@
     {
       "name": "system",
       "description": "System endpoints, to be use by Sencrop's teams only."
+    },
+    {
+      "name": "trial",
+      "description": "Endpoints related to the trial."
     },
     {
       "name": "users",

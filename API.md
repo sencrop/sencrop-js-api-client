@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.53.0  
+**Version**: 1.53.1  
 
 * [API](#module_API)
     * [~deleteOrganisationDevice(parameters, options)](#module_API..deleteOrganisationDevice) ⇒ <code>Object</code>
@@ -30,7 +30,6 @@ API to consume Sencrop data
     * [~getOpenAPI(parameters, options)](#module_API..getOpenAPI) ⇒ <code>Object</code>
     * [~getCrops(parameters, options)](#module_API..getCrops) ⇒ <code>Object</code>
     * [~getFactorySigfoxStatus(parameters, options)](#module_API..getFactorySigfoxStatus) ⇒ <code>Object</code>
-    * [~getHubSpotQuotatorCard(parameters, options)](#module_API..getHubSpotQuotatorCard) ⇒ <code>Object</code>
     * [~getInvitation(parameters, options)](#module_API..getInvitation) ⇒ <code>Object</code>
     * [~getInvitationDeviceLiveAggregations(parameters, options)](#module_API..getInvitationDeviceLiveAggregations) ⇒ <code>Object</code>
     * [~getModules(parameters, options)](#module_API..getModules) ⇒ <code>Object</code>
@@ -58,6 +57,7 @@ API to consume Sencrop data
     * [~putOrganisationPreferences(parameters, body, options)](#module_API..putOrganisationPreferences) ⇒ <code>Object</code>
     * [~getOrganisationShare(parameters, options)](#module_API..getOrganisationShare) ⇒ <code>Object</code>
     * [~getOrganisationShares(parameters, options)](#module_API..getOrganisationShares) ⇒ <code>Object</code>
+    * [~getOrganisationsTrialOperations(parameters, options)](#module_API..getOrganisationsTrialOperations) ⇒ <code>Object</code>
     * [~getPartnerDevices(parameters, options)](#module_API..getPartnerDevices) ⇒ <code>Object</code>
     * [~getPing(parameters, options)](#module_API..getPing) ⇒ <code>Object</code>
     * [~getPublicWeatherLive(parameters, options)](#module_API..getPublicWeatherLive) ⇒ <code>Object</code>
@@ -544,25 +544,6 @@ Get sigfox statuses for devices in production line tests
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getHubSpotQuotatorCard"></a>
-
-### API~getHubSpotQuotatorCard(parameters, options) ⇒ <code>Object</code>
-Get quotator crm card for hubspot
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| [parameters.userId] | <code>string</code> | undefined, |
-| [parameters.userEmail] | <code>string</code> | undefined, |
-| [parameters.associatedObjectId] | <code>number</code> | undefined, |
-| [parameters.associatedObjectType] | <code>string</code> | undefined, |
-| [parameters.portalId] | <code>number</code> | undefined, |
-| [parameters.hsObjectId] | <code>number</code> | undefined |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
 <a name="module_API..getInvitation"></a>
 
 ### API~getInvitation(parameters, options) ⇒ <code>Object</code>
@@ -1017,6 +998,22 @@ Get an organisation's shares.
 | [parameters.withTypes] | <code>array</code> | undefined, |
 | [parameters.isTransmittable] | <code>boolean</code> | undefined, |
 | [parameters.withModes] | <code>array</code> | undefined, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getOrganisationsTrialOperations"></a>
+
+### API~getOrganisationsTrialOperations(parameters, options) ⇒ <code>Object</code>
+Get an organisation's trial operation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1976,7 +1973,8 @@ Register a new user and his organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
-| [parameters.noTrial] | <code>boolean</code> | Parameter use for sponsored network (cause subscription is managed by the network) |
+| [parameters.noTrial] | <code>boolean</code> | Parameter use for sponsored network (cause subscription is managed by the network), |
+| [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postSignatureCloudinary"></a>
@@ -2072,7 +2070,8 @@ Invite a user to reach the Network page
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
 | parameters.userId | <code>number</code> | The user id, |
-| parameters.networkId | <code>string</code> | The network id |
+| parameters.networkId | <code>string</code> | The network id, |
+| [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postUserOrganisationAggregation"></a>
