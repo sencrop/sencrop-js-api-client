@@ -72,6 +72,7 @@ const API = {
   getSearchDevices,
   getSearchNetworkDevices,
   getSearchUser,
+  getTrialOperation,
   getUser,
   putUser,
   getUserAggregation,
@@ -4302,6 +4303,62 @@ function getSearchUser(
 }
 
 /**
+ * Get a trial operation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.trialOperationId
+ * The trial operation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function getTrialOperation(
+  { trialOperationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (trialOperationId == null) {
+    throw new Error(
+      'Missing required parameter : trialOperationId. Value : ' +
+        trialOperationId,
+    );
+  }
+
+  const method = 'get';
+  let urlParts = ['trialOperations', trialOperationId];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.53.1',
+    'X-SDK-Version': '2.12.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
  * Get a user's profile.
  * @param {Object} parameters
  * The parameters to provide (destructured)
@@ -7375,7 +7432,7 @@ function postQuoteOffline(
   @param body The request body
 
  * @param {boolean} [parameters.noTrial]
- * Parameter use for sponsored network (cause subscription is managed by the network),
+ * Deprecated, not used anymore,
  * @param {string} [parameters.trialOperationId]
  * Operation trial id used to compute trialEndDate of organisation
  * @param {Object} options

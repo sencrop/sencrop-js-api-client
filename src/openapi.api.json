@@ -5355,31 +5355,26 @@
             "description": "The requested organisation's trial operations",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "total",
-                    "items",
-                    "operations"
+                "example": {
+                  "items": [
+                    "abbacaca-abba-abba-caca"
                   ],
-                  "properties": {
-                    "total": {
-                      "type": "number"
-                    },
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "number",
-                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-                        "minimum": 1
-                      },
-                      "minItems": 0,
-                      "uniqueItems": true
-                    },
-                    "operations": {
-                      "$ref": "#/components/schemas/TrialOperationHash"
+                  "trialOperations": {
+                    "abbacaca-abba-abba-caca": {
+                      "id": "abbacaca-abba-abba-caca",
+                      "creationDate": "2019-01-01T00:00:00Z",
+                      "lastModificationDate": "2019-01-01T00:00:00Z",
+                      "organisation": 1,
+                      "contents": {
+                        "title": "Trial operation",
+                        "endDate": "2019-01-01T00:00:00Z",
+                        "expirationDate": "2018-12-15T00:00:00Z"
+                      }
                     }
                   }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/TrialOperationItems"
                 }
               }
             }
@@ -6354,6 +6349,103 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserItem"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trialOperations/{trialOperationId}": {
+      "get": {
+        "operationId": "getTrialOperation",
+        "summary": "Get a trial operation",
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/trialOperationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested organisation's trial operations",
+            "content": {
+              "application/json": {
+                "example": {
+                  "item": "abbacaca-abba-abba-caca",
+                  "trialOperations": {
+                    "abbacaca-abba-abba-caca": {
+                      "id": "abbacaca-abba-abba-caca",
+                      "creationDate": "2019-01-01T00:00:00Z",
+                      "lastModificationDate": "2019-01-01T00:00:00Z",
+                      "organisation": 1,
+                      "contents": {
+                        "title": "Trial operation",
+                        "endDate": "2019-01-01T00:00:00Z",
+                        "expirationDate": "2018-12-15T00:00:00Z"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/TrialOperationItem"
                 }
               }
             }
@@ -11628,7 +11720,7 @@
         "parameters": [
           {
             "in": "query",
-            "description": "Parameter use for sponsored network (cause subscription is managed by the network)",
+            "description": "Deprecated, not used anymore",
             "name": "noTrial",
             "required": false,
             "schema": {
@@ -11636,7 +11728,13 @@
             }
           },
           {
-            "$ref": "#/components/parameters/trialOperationId"
+            "in": "query",
+            "description": "Operation trial id used to compute trialEndDate of organisation",
+            "name": "trialOperationId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "$ref": "#/components/parameters/xApiVersion"
@@ -12345,7 +12443,13 @@
             "$ref": "#/components/parameters/networkId"
           },
           {
-            "$ref": "#/components/parameters/trialOperationId"
+            "in": "query",
+            "description": "Operation trial id used to compute trialEndDate of organisation",
+            "name": "trialOperationId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "$ref": "#/components/parameters/xApiVersion"
@@ -12365,16 +12469,15 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "email",
-                  "callbackURL"
+                  "email"
                 ],
                 "properties": {
                   "email": {
                     "type": "string"
                   },
                   "callbackURL": {
-                    "type": "string",
-                    "pattern": "http:\\/\\/localhost:.*\\/.+"
+                    "description": "Deprecated, not used anymore",
+                    "type": "string"
                   }
                 }
               }
@@ -15369,6 +15472,7 @@
                 "corn",
                 "beet",
                 "colza",
+                "rapeseed",
                 "linen",
                 "bean",
                 "barley",
@@ -16258,64 +16362,6 @@
           }
         }
       },
-      "TrialOperationContents": {
-        "type": "object",
-        "required": [
-          "title"
-        ],
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "duration": {
-            "type": "number"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TrialOperation": {
-        "type": "object",
-        "required": [
-          "id",
-          "creationDate",
-          "lastModificationDate",
-          "contents"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "lastModificationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "organisation": {
-            "type": "number"
-          },
-          "contents": {
-            "$ref": "#/components/schemas/TrialOperationContents"
-          }
-        }
-      },
-      "TrialOperationHash": {
-        "type": "object",
-        "patternProperties": {
-          "undefined": {
-            "$ref": "#/components/schemas/TrialOperation"
-          }
-        }
-      },
       "PartnerDevicesItems": {
         "type": "object",
         "required": [
@@ -16481,6 +16527,107 @@
           }
         }
       },
+      "TrialOperationContents": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TrialOperation": {
+        "type": "object",
+        "required": [
+          "id",
+          "creationDate",
+          "lastModificationDate",
+          "contents"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModificationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "organisation": {
+            "type": "number"
+          },
+          "contents": {
+            "$ref": "#/components/schemas/TrialOperationContents"
+          }
+        }
+      },
+      "TrialOperationHash": {
+        "type": "object",
+        "patternProperties": {
+          "undefined": {
+            "$ref": "#/components/schemas/TrialOperation"
+          }
+        }
+      },
+      "TrialOperationItem": {
+        "type": "object",
+        "required": [
+          "item",
+          "trialOperations"
+        ],
+        "properties": {
+          "item": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "minimum": 1
+          },
+          "trialOperations": {
+            "$ref": "#/components/schemas/TrialOperationHash"
+          }
+        }
+      },
+      "TrialOperationItems": {
+        "type": "object",
+        "required": [
+          "items",
+          "trialOperations"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "minimum": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "trialOperations": {
+            "$ref": "#/components/schemas/TrialOperationHash"
+          }
+        }
+      },
       "UserContents": {
         "type": "object",
         "additionalProperties": false,
@@ -16517,6 +16664,7 @@
                 "corn",
                 "beet",
                 "colza",
+                "rapeseed",
                 "linen",
                 "bean",
                 "barley",
@@ -16642,8 +16790,9 @@
           "items": {
             "type": "array",
             "items": {
-              "type": "string",
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+              "type": "number",
+              "pattern": "^[0-9]+$",
+              "minimum": 1
             },
             "minItems": 0,
             "uniqueItems": true
@@ -18849,6 +18998,17 @@
           "type": "number"
         }
       },
+      "trialOperationId": {
+        "in": "path",
+        "description": "The trial operation id",
+        "name": "trialOperationId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "minimum": 1
+        }
+      },
       "userId": {
         "in": "path",
         "description": "The user id",
@@ -18987,15 +19147,6 @@
           "type": "number",
           "pattern": "^[0-9]+$",
           "minimum": 1
-        }
-      },
-      "trialOperationId": {
-        "in": "query",
-        "description": "Operation trial id used to compute trialEndDate of organisation",
-        "name": "trialOperationId",
-        "required": false,
-        "schema": {
-          "type": "string"
         }
       },
       "bucketDeviceId": {
