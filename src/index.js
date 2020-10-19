@@ -190,7 +190,7 @@ function deleteOrganisationDevice(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -253,7 +253,7 @@ function getOrganisationDevice(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -325,7 +325,7 @@ function putOrganisationDevice(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -410,7 +410,7 @@ function deleteOrganisationNetworkDeviceAccess(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -495,7 +495,7 @@ function putOrganisationNetworkDeviceAccess(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -556,7 +556,7 @@ function deleteUserNotificationRead(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -617,7 +617,7 @@ function putUserNotificationRead(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -700,7 +700,7 @@ function deleteUserOrganisationAggregation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -786,7 +786,7 @@ function putUserOrganisationAggregation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -867,7 +867,7 @@ function deleteUserOrganisationAlert(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -951,7 +951,7 @@ function putUserOrganisationAlert(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1045,7 +1045,7 @@ function deleteUserOrganisationDeviceModule(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1142,7 +1142,7 @@ function putUserOrganisationDeviceModule(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1225,7 +1225,7 @@ function deleteUserOrganisationInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1311,7 +1311,7 @@ function putUserOrganisationInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1394,7 +1394,7 @@ function deleteUserOrganisationMember(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1480,7 +1480,7 @@ function putUserOrganisationMember(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1563,7 +1563,7 @@ function putUserOrganisationOpenNetworkMembership(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1644,7 +1644,7 @@ function deleteUserOrganisationShare(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1728,7 +1728,7 @@ function putUserOrganisationShare(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1795,7 +1795,7 @@ function getOpenAPI(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1832,7 +1832,7 @@ function getCrops({ xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1885,7 +1885,7 @@ function getFactorySigfoxStatus(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -1930,7 +1930,7 @@ function getInvitation({ invitationId, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2002,7 +2002,7 @@ function getInvitationDeviceLiveAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2039,7 +2039,7 @@ function getModules({ xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2083,7 +2083,7 @@ function getMySelf({ authorization, accessToken, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2128,7 +2128,7 @@ function getNetwork({ networkId, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2200,7 +2200,7 @@ function getNetworkDeviceLiveAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2245,7 +2245,7 @@ function getNetworkDevices({ networkId, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2318,7 +2318,7 @@ function getOAuth2Authorize(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2373,7 +2373,7 @@ function getOrganisation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2430,7 +2430,7 @@ function putOrganisation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2490,7 +2490,7 @@ function getOrganisationChargebeePortalSession(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2566,7 +2566,7 @@ function getOrganisationDevices(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2677,7 +2677,7 @@ function getOrganisationDevicesLiveAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2749,7 +2749,7 @@ function getOrganisationHostedPage(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2818,7 +2818,7 @@ function getOrganisationInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2902,7 +2902,7 @@ function getOrganisationInvitations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -2965,7 +2965,7 @@ function getOrganisationMember(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3020,7 +3020,7 @@ function getOrganisationMembers(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3115,7 +3115,7 @@ function getOrganisationNetworkDevices(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3191,7 +3191,7 @@ function getOrganisationNetworks(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3252,7 +3252,7 @@ function getOrganisationPlace(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3307,7 +3307,7 @@ function getOrganisationPlaces(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3364,7 +3364,7 @@ function postOrganisationPlace(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3419,7 +3419,7 @@ function getOrganisationPreferences(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3476,7 +3476,7 @@ function putOrganisationPreferences(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3537,7 +3537,7 @@ function getOrganisationShare(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3625,7 +3625,7 @@ function getOrganisationShares(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3680,7 +3680,7 @@ function getOrganisationsTrialOperations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3749,7 +3749,7 @@ function getPartnerDevices(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3786,7 +3786,7 @@ function getPing({ xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3914,7 +3914,7 @@ function getPublicWeatherLive(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -3997,7 +3997,7 @@ function getPublicWeatherLiveAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4040,7 +4040,7 @@ function getQuote({ quoteId, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4113,7 +4113,7 @@ function getQuoteHostedPage(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4169,7 +4169,7 @@ function getSearchDevices({ latitude, longitude, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4236,7 +4236,7 @@ function getSearchNetworkDevices(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4290,7 +4290,7 @@ function getSearchUser(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4346,7 +4346,7 @@ function getTrialOperation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4399,7 +4399,7 @@ function getUser(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4454,7 +4454,7 @@ function putUser(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4525,7 +4525,7 @@ function getUserAggregation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4584,7 +4584,7 @@ function getUserAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4637,7 +4637,7 @@ function getUserAlerts(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4763,7 +4763,7 @@ function getUserDailyData(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4834,7 +4834,7 @@ function getUserDevice(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -4955,7 +4955,7 @@ function getUserDeviceContinuousStatistics(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5066,7 +5066,7 @@ function getUserDeviceDailyData(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5134,7 +5134,7 @@ function getUserDeviceForecasts(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5245,7 +5245,7 @@ function getUserDeviceHourlyData(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5306,7 +5306,7 @@ function getUserDeviceModules(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5377,7 +5377,7 @@ function getUserDevicePositions(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5476,7 +5476,7 @@ function getUserDeviceRawData(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5591,7 +5591,7 @@ function getUserDeviceStatistics(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5679,7 +5679,7 @@ function getUserDeviceSummary(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5761,7 +5761,7 @@ function getUserDevices(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5865,7 +5865,7 @@ function getUserDevicesLiveAggregations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -5947,7 +5947,7 @@ function getUserForecasts(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6073,7 +6073,7 @@ function getUserHourlyData(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6134,7 +6134,7 @@ function getUserInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6220,7 +6220,7 @@ function getUserInvitations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6279,7 +6279,7 @@ function getUserNotifications(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6332,7 +6332,7 @@ function getUserOrganisations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6387,7 +6387,7 @@ function postUserOrganisation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6448,7 +6448,7 @@ function getUserPendingInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6515,7 +6515,7 @@ function getUserPendingInvitations(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6568,7 +6568,7 @@ function getUserPreferences(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6623,7 +6623,7 @@ function putUserPreferences(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6757,7 +6757,7 @@ function getUserStatistics(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6830,7 +6830,7 @@ function getWeatherLive(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6869,7 +6869,7 @@ function postLogin({ body, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6908,7 +6908,7 @@ function postLostPassword({ body, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -6951,7 +6951,7 @@ function postOAuth2Token({ body, authorization, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7000,7 +7000,7 @@ function postOrganisation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7055,7 +7055,7 @@ function postOrganisationEndTrialSupport(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7134,7 +7134,7 @@ function postOrganisationNetworkMemberPlan(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7191,7 +7191,7 @@ function postOrganisationPaymentComplete(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7248,7 +7248,7 @@ function postOrganisationToNetworkSupport(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7301,7 +7301,7 @@ function postPartnerToken(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7354,7 +7354,7 @@ function postPartnerTokenRequest(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7413,7 +7413,7 @@ function postQuoteOffline(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7462,7 +7462,7 @@ function postRegister(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7511,7 +7511,7 @@ function postSignatureCloudinary(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7553,7 +7553,7 @@ function postSignupCheck({ body, authorization, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7602,7 +7602,7 @@ function postSocialImage(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7641,7 +7641,7 @@ function postUser({ body, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7715,7 +7715,7 @@ function postUserDeviceExport(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7775,7 +7775,7 @@ function postUserNetworkInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7851,7 +7851,7 @@ function postUserOrganisationAggregation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7921,7 +7921,7 @@ function postUserOrganisationAlert(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -7991,7 +7991,7 @@ function postUserOrganisationDevice(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8067,7 +8067,7 @@ function postUserOrganisationInvitation(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8137,7 +8137,7 @@ function postUserOrganisationMember(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8182,7 +8182,7 @@ function postUserPassword({ body, userId, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8221,7 +8221,7 @@ function postVerify({ body, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8315,7 +8315,7 @@ function putOrganisationDeviceCalibration(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8393,7 +8393,7 @@ function putOrganisationDeviceSettings(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8463,7 +8463,7 @@ function putOrganisationPlace(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8563,7 +8563,7 @@ function putPartnerModuleParameters(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8602,7 +8602,7 @@ function putPassword({ body, xAppVersion } = {}, options) {
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8665,7 +8665,7 @@ function putUserInvitationAnswer(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8732,7 +8732,7 @@ function getGraphQL(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8781,7 +8781,7 @@ function postGraphQL(
       {
         baseURL: 'https://api.sencrop.com/v1',
         paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
+        validateStatus: (status) => 200 <= status && 300 > status,
         method: method,
         url: urlParts.join('/'),
         headers: cleanHeaders(headers),
@@ -8795,8 +8795,8 @@ function postGraphQL(
 
 function cleanQuery(query) {
   return Object.keys(query)
-    .filter(key => 'undefined' !== typeof query[key])
-    .filter(key => !(query[key] instanceof Array) || 0 !== query[key].length)
+    .filter((key) => 'undefined' !== typeof query[key])
+    .filter((key) => !(query[key] instanceof Array) || 0 !== query[key].length)
     .reduce((newQuery, key) => {
       newQuery[key] = query[key];
       return newQuery;
@@ -8805,7 +8805,7 @@ function cleanQuery(query) {
 
 function cleanHeaders(headers) {
   return Object.keys(headers)
-    .filter(key => 'undefined' !== typeof headers[key])
+    .filter((key) => 'undefined' !== typeof headers[key])
     .reduce((newHeaders, key) => {
       newHeaders[key] = headers[key];
       return newHeaders;

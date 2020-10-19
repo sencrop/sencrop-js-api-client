@@ -33,7 +33,7 @@ describe('API', () => {
           ],
         );
 
-      return API.getPing().then(response =>
+      return API.getPing().then((response) =>
         expect({
           status: response.status,
           headers: response.headers,
@@ -123,7 +123,7 @@ describe('API', () => {
         endDate: new Date('2017-07-21T00:00:00.000Z').getTime(),
         authorization: 'Bearer 902-771',
         measures: ['RH_AIR_H1', 'TEMP_AIR_H1'],
-      }).then(response =>
+      }).then((response) =>
         expect({
           status: response.status,
           headers: response.headers,
@@ -190,7 +190,7 @@ describe('API', () => {
             role: 'owner',
           },
         },
-      }).then(response =>
+      }).then((response) =>
         expect({
           status: response.status,
           headers: response.headers,

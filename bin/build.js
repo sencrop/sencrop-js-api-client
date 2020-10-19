@@ -22,9 +22,9 @@ generateSDKFromOpenAPI(
   JSON.stringify(require('../src/openapi.api.json')),
   buildVersion,
 )
-  .then(content => {
+  .then((content) => {
     return new Promise((resolve, reject) => {
-      fs.writeFile('src/index.js', content, err => {
+      fs.writeFile('src/index.js', content, (err) => {
         if (err) {
           reject(err);
           return;
@@ -33,7 +33,7 @@ generateSDKFromOpenAPI(
       });
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err.stack);
     process.exit(1);
   });
