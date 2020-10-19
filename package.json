@@ -83,7 +83,7 @@
     "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
-    "inquirer": "^6.2.0",
+    "inquirer": "^7.3.3",
     "jasmine-core": "^3.6.0",
     "jest": "^24.9.0",
     "jsarch": "^2.0.3",
