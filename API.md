@@ -67,6 +67,7 @@ API to consume Sencrop data
     * [~getSearchDevices(parameters, options)](#module_API..getSearchDevices) ⇒ <code>Object</code>
     * [~getSearchNetworkDevices(parameters, options)](#module_API..getSearchNetworkDevices) ⇒ <code>Object</code>
     * [~getSearchUser(parameters, options)](#module_API..getSearchUser) ⇒ <code>Object</code>
+    * [~getTrialOperation(parameters, options)](#module_API..getTrialOperation) ⇒ <code>Object</code>
     * [~getUser(parameters, options)](#module_API..getUser) ⇒ <code>Object</code>
     * [~putUser(parameters, body, options)](#module_API..putUser) ⇒ <code>Object</code>
     * [~getUserAggregation(parameters, options)](#module_API..getUserAggregation) ⇒ <code>Object</code>
@@ -1171,6 +1172,22 @@ Search for an user
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..getTrialOperation"></a>
+
+### API~getTrialOperation(parameters, options) ⇒ <code>Object</code>
+Get a trial operation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.trialOperationId | <code>string</code> | The trial operation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..getUser"></a>
 
 ### API~getUser(parameters, options) ⇒ <code>Object</code>
@@ -1973,7 +1990,7 @@ Register a new user and his organisation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
-| [parameters.noTrial] | <code>boolean</code> | Parameter use for sponsored network (cause subscription is managed by the network), |
+| [parameters.noTrial] | <code>boolean</code> | Deprecated, not used anymore, |
 | [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
