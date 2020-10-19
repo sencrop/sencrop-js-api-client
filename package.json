@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/sencrop/sencrop-js-api-client#readme",
   "dependencies": {
-    "axios": "0.19.0"
+    "axios": "0.20.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
