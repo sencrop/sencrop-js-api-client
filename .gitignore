@@ -145,3 +145,4 @@ yarn-error.log*
 # End of react app .gitignore
 # Project custom ignored file
 dist
+.idea
