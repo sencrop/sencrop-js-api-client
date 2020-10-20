@@ -1,3 +1,13 @@
+<a name="2.14.0"></a>
+# [2.14.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.13.0...v2.14.0) (2020-10-20)
+
+
+### Features
+
+* add getTrialOperation function ([00d8673](https://github.com/sencrop/sencrop-js-api-client/commit/00d8673))
+
+
+
 <a name="2.13.0"></a>
 # [2.13.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.12.0...v2.13.0) (2020-10-14)
 
