@@ -20,7 +20,7 @@ This project aims to provide a JavaScript API
 
 # Usage
 
-```sh
+```js
 import API from 'sencrop-js-api-client';
 
 API.getUserDeviceStatistics({
