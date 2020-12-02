@@ -4,9 +4,11 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.53.1  
+**Version**: 1.56.1  
 
 * [API](#module_API)
+    * [~deleteOrganisationChargebeeId(parameters, options)](#module_API..deleteOrganisationChargebeeId) ⇒ <code>Object</code>
+    * [~postOrganisationChargebeeId(parameters, body, options)](#module_API..postOrganisationChargebeeId) ⇒ <code>Object</code>
     * [~deleteOrganisationDevice(parameters, options)](#module_API..deleteOrganisationDevice) ⇒ <code>Object</code>
     * [~getOrganisationDevice(parameters, options)](#module_API..getOrganisationDevice) ⇒ <code>Object</code>
     * [~putOrganisationDevice(parameters, body, options)](#module_API..putOrganisationDevice) ⇒ <code>Object</code>
@@ -88,6 +90,7 @@ API to consume Sencrop data
     * [~getUserDevicesLiveAggregations(parameters, options)](#module_API..getUserDevicesLiveAggregations) ⇒ <code>Object</code>
     * [~getUserForecasts(parameters, options)](#module_API..getUserForecasts) ⇒ <code>Object</code>
     * [~getUserHourlyData(parameters, options)](#module_API..getUserHourlyData) ⇒ <code>Object</code>
+    * [~getUserIntercomHash(parameters, options)](#module_API..getUserIntercomHash) ⇒ <code>Object</code>
     * [~getUserInvitation(parameters, options)](#module_API..getUserInvitation) ⇒ <code>Object</code>
     * [~getUserInvitations(parameters, options)](#module_API..getUserInvitations) ⇒ <code>Object</code>
     * [~getUserNotifications(parameters, options)](#module_API..getUserNotifications) ⇒ <code>Object</code>
@@ -127,11 +130,46 @@ API to consume Sencrop data
     * [~putOrganisationDeviceCalibration(parameters, options)](#module_API..putOrganisationDeviceCalibration) ⇒ <code>Object</code>
     * [~putOrganisationDeviceSettings(parameters, body, options)](#module_API..putOrganisationDeviceSettings) ⇒ <code>Object</code>
     * [~putOrganisationPlace(parameters, body, options)](#module_API..putOrganisationPlace) ⇒ <code>Object</code>
+    * [~putOrganisationTrial(parameters, body, options)](#module_API..putOrganisationTrial) ⇒ <code>Object</code>
     * [~putPartnerModuleParameters(parameters, body, options)](#module_API..putPartnerModuleParameters) ⇒ <code>Object</code>
     * [~putPassword(parameters, body, options)](#module_API..putPassword) ⇒ <code>Object</code>
+    * [~putUserFCMToken(parameters, body, options)](#module_API..putUserFCMToken) ⇒ <code>Object</code>
     * [~putUserInvitationAnswer(parameters, body, options)](#module_API..putUserInvitationAnswer) ⇒ <code>Object</code>
     * [~getGraphQL(parameters, options)](#module_API..getGraphQL) ⇒ <code>Object</code>
     * [~postGraphQL(parameters, body, options)](#module_API..postGraphQL) ⇒ <code>Object</code>
+
+<a name="module_API..deleteOrganisationChargebeeId"></a>
+
+### API~deleteOrganisationChargebeeId(parameters, options) ⇒ <code>Object</code>
+Remove chargebeeId from the organisation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationChargebeeId"></a>
+
+### API~postOrganisationChargebeeId(parameters, body, options) ⇒ <code>Object</code>
+Add chargebeeId for an organisation.
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..deleteOrganisationDevice"></a>
 
@@ -1015,6 +1053,7 @@ Get an organisation's trial operation
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.active] | <code>boolean</code> | If true, returns only active trial operations (not ended and not expired), |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1183,9 +1222,7 @@ Get a trial operation
 | Param | Type | Description |
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.trialOperationId | <code>string</code> | The trial operation id, |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| parameters.trialOperationId | <code>string</code> | The trial operation id |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..getUser"></a>
@@ -1595,6 +1632,23 @@ Get a user's hourly data for a given geo location.
 | [parameters.withCalibration] | <code>boolean</code> | Wether the calibration of rain falls must be taken in count, |
 | [parameters.timeZone] | <code>string</code> | The timezone of the data, |
 | [parameters.patched] | <code>boolean</code> | Patched data are augmented data with internal algorithms. Setting patched to false, will return raw data from device only., |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..getUserIntercomHash"></a>
+
+### API~getUserIntercomHash(parameters, options) ⇒ <code>Object</code>
+HMAC Digest for the userId, used for the identity verification of intercom
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.userId | <code>number</code> | The user id, |
+| parameters.platform | <code>string</code> | Type of the platform, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -2265,6 +2319,23 @@ Update a place for an organisation
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
+<a name="module_API..putOrganisationTrial"></a>
+
+### API~putOrganisationTrial(parameters, body, options) ⇒ <code>Object</code>
+Change trial for an organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
 <a name="module_API..putPartnerModuleParameters"></a>
 
 ### API~putPartnerModuleParameters(parameters, body, options) ⇒ <code>Object</code>
@@ -2297,6 +2368,23 @@ Change a user password
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..putUserFCMToken"></a>
+
+### API~putUserFCMToken(parameters, body, options) ⇒ <code>Object</code>
+Update Firebase Cloud Messaging token for an user
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| body |  | The request body |
+| parameters.userId | <code>number</code> | The user id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..putUserInvitationAnswer"></a>

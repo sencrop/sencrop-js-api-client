@@ -1,5 +1,177 @@
 {
   "paths": {
+    "/organisations/{organisationId}/chargebeeId": {
+      "delete": {
+        "operationId": "deleteOrganisationChargebeeId",
+        "summary": "Remove chargebeeId from the organisation.",
+        "tags": [
+          "organisations"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The organisation's chargebeeId was successfully deleted."
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postOrganisationChargebeeId",
+        "summary": "Add chargebeeId for an organisation.",
+        "tags": [
+          "organisations"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "requestBody": {
+          "description": "Add chargebee id payload",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "chargebeeId"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "chargebeeId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Chargebee id has been added and plan will be synced."
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/organisations/{organisationId}/devices/{deviceId}": {
       "delete": {
         "operationId": "deleteOrganisationDevice",
@@ -17,6 +189,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -32,7 +209,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -41,7 +218,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -91,6 +268,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -106,7 +288,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -115,7 +297,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -181,6 +363,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -196,7 +383,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -205,7 +392,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -369,6 +556,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -387,7 +579,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -396,7 +588,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -445,6 +637,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -463,7 +660,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -472,7 +669,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -520,6 +717,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -535,7 +737,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -544,7 +746,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -590,6 +792,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -605,7 +812,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -614,7 +821,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -665,6 +872,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -683,7 +895,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -692,7 +904,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -741,6 +953,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -759,7 +976,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -768,7 +985,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -847,6 +1064,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -865,7 +1087,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -874,7 +1096,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -923,6 +1145,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -941,7 +1168,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -950,7 +1177,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1020,6 +1247,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1041,7 +1273,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1050,7 +1282,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1100,6 +1332,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1121,7 +1358,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1130,7 +1367,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1490,6 +1727,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1508,7 +1750,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1517,7 +1759,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1566,6 +1808,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1584,7 +1831,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1593,7 +1840,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1691,6 +1938,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1709,7 +1961,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1718,7 +1970,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1775,6 +2027,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1793,7 +2050,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1802,7 +2059,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1884,6 +2141,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1902,7 +2164,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1911,7 +2173,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1961,6 +2223,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -1979,7 +2246,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -1988,7 +2255,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2036,6 +2303,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -2054,7 +2326,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2063,7 +2335,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2185,6 +2457,11 @@
             "accessTokenAuth": [
               "admin"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -2235,7 +2512,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2244,7 +2521,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2348,6 +2625,11 @@
             "accessTokenAuth": [
               "manufacturer"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -2367,7 +2649,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2376,7 +2658,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2695,6 +2977,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -2704,7 +2991,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -2713,7 +3000,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3071,6 +3358,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3083,7 +3375,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3092,7 +3384,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3158,6 +3450,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3170,7 +3467,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3179,7 +3476,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3289,6 +3586,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3301,7 +3603,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3310,7 +3612,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3368,6 +3670,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3386,7 +3693,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3395,7 +3702,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3463,6 +3770,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3496,7 +3808,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3505,7 +3817,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3610,6 +3922,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3647,7 +3964,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3656,7 +3973,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3746,6 +4063,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3761,7 +4083,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3770,7 +4092,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3871,6 +4193,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -3895,7 +4222,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -3904,7 +4231,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4004,6 +4331,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "tags": [
@@ -4023,7 +4355,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4032,7 +4364,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4087,6 +4419,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "tags": [
@@ -4102,7 +4439,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4111,7 +4448,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4169,6 +4506,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4214,7 +4556,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4223,7 +4565,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4281,6 +4623,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4299,7 +4646,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4308,7 +4655,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4385,6 +4732,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4400,7 +4752,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4409,7 +4761,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4478,6 +4830,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4490,7 +4847,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4499,7 +4856,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4566,6 +4923,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4578,7 +4940,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4587,7 +4949,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4666,6 +5028,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4678,7 +5045,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4687,7 +5054,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4753,6 +5120,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4765,7 +5137,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4774,7 +5146,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4843,6 +5215,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4858,7 +5235,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4867,7 +5244,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -4964,6 +5341,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -4991,7 +5373,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5000,7 +5382,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5101,6 +5483,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -5122,7 +5509,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5131,7 +5518,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5208,6 +5595,11 @@
             "accessTokenAuth": [
               "partner"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -5226,7 +5618,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5235,7 +5627,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5349,6 +5741,11 @@
             "accessTokenAuth": [
               "team"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -5449,7 +5846,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5458,7 +5855,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5557,6 +5954,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -5578,7 +5980,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5587,7 +5989,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5811,6 +6213,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -5847,7 +6254,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -5856,7 +6263,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6070,6 +6477,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6089,7 +6501,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6098,7 +6510,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6219,6 +6631,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6231,7 +6648,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6240,7 +6657,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6266,9 +6683,9 @@
                       "contents": {
                         "email": "dennis.ritchie@heaven.org",
                         "phone": "+33666666666",
+                        "country": "FR",
                         "firstname": "Dennis",
                         "lastname": "Ritchie",
-                        "country": "FR",
                         "crops": [
                           "garden"
                         ],
@@ -6326,6 +6743,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6338,7 +6760,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6347,7 +6769,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6416,6 +6838,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6434,7 +6861,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6443,7 +6870,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6501,6 +6928,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6526,7 +6958,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6535,7 +6967,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6603,6 +7035,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6615,7 +7052,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6624,7 +7061,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6692,6 +7129,11 @@
           {
             "accessTokenAuth": [
               "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -6813,7 +7255,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6822,7 +7264,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6891,6 +7333,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -6909,7 +7356,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6918,7 +7365,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -6988,6 +7435,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7027,7 +7479,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7036,7 +7488,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7104,6 +7556,11 @@
           {
             "accessTokenAuth": [
               "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -7199,7 +7656,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7208,7 +7665,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7277,6 +7734,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7302,7 +7764,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7311,7 +7773,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7379,6 +7841,11 @@
           {
             "accessTokenAuth": [
               "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -7487,7 +7954,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7496,7 +7963,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7565,6 +8032,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7580,7 +8052,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7589,7 +8061,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7647,6 +8119,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7665,7 +8142,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7674,7 +8151,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7765,6 +8242,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7835,7 +8317,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7844,7 +8326,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7944,6 +8426,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -7983,7 +8470,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -7992,7 +8479,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8061,6 +8548,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -8120,7 +8612,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8129,7 +8621,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8197,6 +8689,11 @@
           {
             "accessTokenAuth": [
               "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -8281,7 +8778,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8290,7 +8787,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8359,6 +8856,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -8392,7 +8894,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8401,7 +8903,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8506,6 +9008,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -8533,7 +9040,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8542,7 +9049,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8606,6 +9113,11 @@
           {
             "accessTokenAuth": [
               "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -8740,7 +9252,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8749,7 +9261,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8800,6 +9312,106 @@
         }
       }
     },
+    "/users/{userId}/intercomHash": {
+      "get": {
+        "operationId": "getUserIntercomHash",
+        "summary": "HMAC Digest for the userId, used for the identity verification of intercom",
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userId"
+          },
+          {
+            "in": "query",
+            "description": "Type of the platform",
+            "name": "platform",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "android",
+                "ios",
+                "web"
+              ]
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The HMAC",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hmac": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{userId}/invitations/{invitationId}": {
       "get": {
         "operationId": "getUserInvitation",
@@ -8817,6 +9429,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -8832,7 +9449,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8841,7 +9458,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8942,6 +9559,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -8969,7 +9591,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -8978,7 +9600,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9078,6 +9700,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9096,7 +9723,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9105,7 +9732,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9238,6 +9865,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9250,7 +9882,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9259,7 +9891,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9345,6 +9977,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9357,7 +9994,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9366,7 +10003,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9467,6 +10104,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9482,7 +10124,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9491,7 +10133,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9593,6 +10235,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9611,7 +10258,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9620,7 +10267,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9723,6 +10370,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9735,7 +10387,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9744,7 +10396,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9810,6 +10462,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9822,7 +10479,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9831,7 +10488,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9900,6 +10557,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -9945,7 +10607,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -9954,7 +10616,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10022,6 +10684,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -10053,7 +10720,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10062,7 +10729,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10258,7 +10925,7 @@
                   },
                   "callbackURL": {
                     "type": "string",
-                    "pattern": "^https://\\w+\\.sencrop\\.com(/[^?]*)?$"
+                    "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
                   },
                   "callbackPath": {
                     "type": "string",
@@ -10313,6 +10980,11 @@
           {
             "basicAuth": [
               "partner"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -10491,6 +11163,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "requestBody": {
@@ -10568,7 +11245,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10577,7 +11254,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10609,6 +11286,11 @@
             "accessTokenAuth": [
               "team"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -10621,7 +11303,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10630,7 +11312,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10694,6 +11376,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -10709,7 +11396,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10718,7 +11405,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10791,6 +11478,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -10803,7 +11495,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10812,7 +11504,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10894,6 +11586,11 @@
             "accessTokenAuth": [
               "team"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -10906,7 +11603,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10915,7 +11612,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -10995,6 +11692,11 @@
           {
             "basicAuth": [
               "partner"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -11102,6 +11804,11 @@
             "basicAuth": [
               "partner"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -11185,6 +11892,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -11200,7 +11912,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11209,7 +11921,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11428,6 +12140,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "requestBody": {
@@ -11480,7 +12197,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11489,7 +12206,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11588,6 +12305,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "requestBody": {
@@ -11647,7 +12369,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11656,7 +12378,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11688,9 +12410,9 @@
                 "contents": {
                   "email": "dennis.ritchie@heaven.org",
                   "phone": "+33666666666",
+                  "country": "FR",
                   "firstname": "Dennis",
                   "lastname": "Ritchie",
-                  "country": "FR",
                   "crops": [
                     "garden"
                   ],
@@ -11762,6 +12484,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -11787,7 +12514,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11796,7 +12523,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -11994,6 +12721,9 @@
                   "email": {
                     "type": "string"
                   },
+                  "planId": {
+                    "type": "string"
+                  },
                   "callbackURL": {
                     "description": "Deprecated, not used anymore",
                     "type": "string"
@@ -12048,6 +12778,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12063,7 +12798,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12072,7 +12807,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12151,6 +12886,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12166,7 +12906,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12175,7 +12915,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12244,6 +12984,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12259,7 +13004,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12268,7 +13013,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12413,6 +13158,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12428,7 +13178,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12437,7 +13187,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12535,6 +13285,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12550,7 +13305,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12559,7 +13314,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12804,6 +13559,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12841,7 +13601,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12850,7 +13610,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12901,6 +13661,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -12916,7 +13681,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -12925,7 +13690,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13001,6 +13766,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -13016,7 +13786,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13025,7 +13795,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13087,6 +13857,118 @@
         }
       }
     },
+    "/organisations/{organisationId}/trial": {
+      "put": {
+        "operationId": "putOrganisationTrial",
+        "summary": "Change trial for an organisation",
+        "tags": [
+          "organisations"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "requestBody": {
+          "description": "Edit of the trial payload",
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "reason": "He is a very kind farmer"
+              },
+              "schema": {
+                "type": "object",
+                "required": [
+                  "endDate",
+                  "type"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "TRIAL_END_TERM_UPDATED",
+                      "TRIAL_REACTIVATED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organisation trial has been updated"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/partners/{partnerId}/users/{partnerUserId}/devices/{deviceId}/modules/{moduleId}/parameters": {
       "put": {
         "operationId": "putPartnerModuleParameters",
@@ -13104,6 +13986,11 @@
           {
             "accessTokenAuth": [
               "partner"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
             ]
           }
         ],
@@ -13134,7 +14021,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13143,7 +14030,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13264,6 +14151,106 @@
         ]
       }
     },
+    "/users/{userId}/FCMToken": {
+      "put": {
+        "operationId": "putUserFCMToken",
+        "summary": "Update Firebase Cloud Messaging token for an user",
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "requestBody": {
+          "description": "The FCM token",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "FCMToken",
+                  "device"
+                ],
+                "properties": {
+                  "FCMToken": {
+                    "type": "string"
+                  },
+                  "device": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully updated the FCM token for this user"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{userId}/invitations/{invitationId}/answer": {
       "put": {
         "operationId": "putUserInvitationAnswer",
@@ -13281,6 +14268,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ],
         "parameters": [
@@ -13296,7 +14288,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13305,7 +14297,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13413,7 +14405,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13422,7 +14414,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13472,6 +14464,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ]
       },
@@ -13488,7 +14485,7 @@
             "description": "Authorization with Bearer mecanism",
             "schema": {
               "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13497,7 +14494,7 @@
             "description": "Token provided through query parameters",
             "schema": {
               "type": "string",
-              "pattern": "^((?:[0-9a-zA-Z]+)|(?:[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
             }
           },
           {
@@ -13564,6 +14561,11 @@
             "accessTokenAuth": [
               "user"
             ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
           }
         ]
       }
@@ -13620,12 +14622,6 @@
             "pattern": "^[0-9]+$",
             "minimum": 1
           },
-          "entry": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "description": "Deprecated, use the `item` property instead."
-          },
           "crops": {
             "$ref": "#/components/schemas/CropHash"
           }
@@ -13668,13 +14664,7 @@
           },
           "item": {
             "type": "string",
-            "pattern": "^[0-9]+$",
-            "description": "Deprecated, use the `item` property instead."
-          },
-          "entry": {
-            "type": "string",
-            "pattern": "^[0-9]+$",
-            "description": "Deprecated, use the `item` property instead."
+            "pattern": "^[0-9]+$"
           },
           "measures": {
             "type": "array",
@@ -14475,12 +15465,6 @@
             "pattern": "^[0-9]+$",
             "minimum": 1
           },
-          "entry": {
-            "type": "number",
-            "pattern": "^[0-9]+$",
-            "minimum": 1,
-            "description": "Deprecated, use the `item` property instead."
-          },
           "modules": {
             "$ref": "#/components/schemas/ModuleHash"
           },
@@ -14926,22 +15910,38 @@
             "items": {
               "type": "string",
               "enum": [
-                "wheat",
-                "potato",
-                "corn",
-                "beet",
-                "colza",
-                "rapeseed",
-                "linen",
-                "bean",
-                "barley",
-                "other-agri",
-                "wine",
                 "apple",
-                "other-tree",
+                "banana",
+                "barley",
+                "bean",
+                "beet",
+                "cabbage",
+                "carrot",
+                "colza",
+                "corn",
                 "garden",
+                "garlic",
                 "greenhouse",
-                "banana"
+                "lettuce",
+                "linen",
+                "oat",
+                "onion",
+                "other_fruits",
+                "other_vegetables",
+                "other-agri",
+                "other-tree",
+                "pea",
+                "peach",
+                "pear",
+                "potato",
+                "potatoes",
+                "rapeseed",
+                "rye",
+                "sunflower",
+                "tomato",
+                "vine",
+                "wheat",
+                "wine"
               ]
             }
           },
@@ -15152,6 +16152,9 @@
                         "minItems": 1,
                         "uniqueItems": true,
                         "description": "List of devices shared"
+                      },
+                      "planId": {
+                        "type": "string"
                       }
                     }
                   },
@@ -15205,6 +16208,9 @@
                         "description": "Number of devices permitted. No value means unlimited.",
                         "type": "number",
                         "minimum": 1
+                      },
+                      "planId": {
+                        "type": "string"
                       }
                     }
                   }
@@ -15269,6 +16275,9 @@
                         "minItems": 1,
                         "uniqueItems": true,
                         "description": "List of devices shared"
+                      },
+                      "planId": {
+                        "type": "string"
                       }
                     }
                   },
@@ -15322,6 +16331,9 @@
                         "description": "Number of devices permitted. No value means unlimited.",
                         "type": "number",
                         "minimum": 1
+                      },
+                      "planId": {
+                        "type": "string"
                       }
                     }
                   }
@@ -16111,29 +17123,46 @@
             "type": "string",
             "minLength": 2,
             "maxLength": 2,
-            "pattern": "[A-Z]{2}"
+            "pattern": "[A-Z]{2}",
+            "description": "Deprecated: not used anymore"
           },
           "crops": {
             "type": "array",
             "items": {
               "type": "string",
               "enum": [
-                "wheat",
-                "potato",
-                "corn",
-                "beet",
-                "colza",
-                "rapeseed",
-                "linen",
-                "bean",
-                "barley",
-                "other-agri",
-                "wine",
                 "apple",
-                "other-tree",
+                "banana",
+                "barley",
+                "bean",
+                "beet",
+                "cabbage",
+                "carrot",
+                "colza",
+                "corn",
                 "garden",
+                "garlic",
                 "greenhouse",
-                "banana"
+                "lettuce",
+                "linen",
+                "oat",
+                "onion",
+                "other_fruits",
+                "other_vegetables",
+                "other-agri",
+                "other-tree",
+                "pea",
+                "peach",
+                "pear",
+                "potato",
+                "potatoes",
+                "rapeseed",
+                "rye",
+                "sunflower",
+                "tomato",
+                "vine",
+                "wheat",
+                "wine"
               ]
             }
           },
@@ -16902,11 +17931,6 @@
             "type": "string",
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           },
-          "entry": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "description": "Deprecated, use the `item` property instead."
-          },
           "alerts": {
             "$ref": "#/components/schemas/AlertHash"
           }
@@ -17502,11 +18526,6 @@
             "type": "string",
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           },
-          "entry": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "description": "Deprecated, use the `item` property instead."
-          },
           "applications": {
             "$ref": "#/components/schemas/ApplicationHash"
           }
@@ -17667,6 +18686,12 @@
               },
               "organisationPlace": {
                 "$ref": "#/components/schemas/PlaceContents"
+              },
+              "country": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2,
+                "pattern": "[A-Z]{2}"
               }
             }
           },
@@ -17846,7 +18871,7 @@
           },
           "callbackURL": {
             "type": "string",
-            "pattern": "^https://\\w+\\.sencrop\\.com(/[^?]*)?$"
+            "pattern": "^https://(\\w+\\.)+sencrop\\.com(/[^?]*)?$"
           }
         }
       },
@@ -18692,39 +19717,45 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "/v1/oauth2/authorize",
-            "tokenUrl": "/v1/oauth2/token",
-            "refreshUrl": "/v1/oauth2/token",
+            "authorizationUrl": "/master/oauth2/authorize",
+            "tokenUrl": "/master/oauth2/token",
+            "refreshUrl": "/master/oauth2/token",
             "scopes": {
               "user": "Access to the user account"
             }
           },
           "implicit": {
-            "authorizationUrl": "/v1/oauth2/authorize",
+            "authorizationUrl": "/master/oauth2/authorize",
             "scopes": {
               "user": "Access to the user account"
             }
           },
           "password": {
-            "tokenUrl": "/v1/oauth2/token",
+            "tokenUrl": "/master/oauth2/token",
             "scopes": {
               "user": "Access to the user account",
               "partner": "Partner access to user's devices"
             }
           },
           "clientCredentials": {
-            "tokenUrl": "/v1/oauth2/token",
+            "tokenUrl": "/master/oauth2/token",
             "scopes": {
               "partner": "Partner access to user's devices"
             }
           }
         }
+      },
+      "fakeAuth": {
+        "description": "A fake authentication for development purpose.",
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
       }
     }
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.54.0",
+    "version": "1.56.1",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },
