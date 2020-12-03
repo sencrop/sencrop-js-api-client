@@ -1,3 +1,13 @@
+<a name="2.16.0"></a>
+# [2.16.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.15.0...v2.16.0) (2020-12-03)
+
+
+### Features
+
+* **endpoint:** update endpoint ([8186ca0](https://github.com/sencrop/sencrop-js-api-client/commit/8186ca0))
+
+
+
 <a name="2.15.0"></a>
 # [2.15.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.14.0...v2.15.0) (2020-12-02)
 
