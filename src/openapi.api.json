@@ -10804,6 +10804,83 @@
         }
       }
     },
+    "/invitations/{invitationId}/resend": {
+      "post": {
+        "operationId": "postInvitationResend",
+        "summary": "Resend the invitation",
+        "tags": [
+          "invitations"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/invitationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The invitation email has been sended again"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/sign_in": {
       "post": {
         "operationId": "postLogin",

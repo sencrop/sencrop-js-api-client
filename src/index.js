@@ -107,6 +107,7 @@ const API = {
   putUserPreferences,
   getUserStatistics,
   getWeatherLive,
+  postInvitationResend,
   postLogin,
   postLostPassword,
   postOAuth2Token,
@@ -6993,6 +6994,61 @@ function getWeatherLive(
     geohash: geohash,
     measureType: measureType,
     timeFrame: timeFrame,
+    access_token: accessToken,
+  });
+  let data = {}.undef;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Resend the invitation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {string} parameters.invitationId
+ * The invitation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postInvitationResend(
+  { invitationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (invitationId == null) {
+    throw new Error(
+      'Missing required parameter : invitationId. Value : ' + invitationId,
+    );
+  }
+
+  const method = 'post';
+  let urlParts = ['invitations', invitationId, 'resend'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.56.1',
+    'X-SDK-Version': '2.15.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
     access_token: accessToken,
   });
   let data = {}.undef;
