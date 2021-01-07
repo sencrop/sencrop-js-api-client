@@ -703,158 +703,6 @@
         }
       }
     },
-    "/users/{userId}/notifications/{notificationId}/read": {
-      "delete": {
-        "operationId": "deleteUserNotificationRead",
-        "summary": "Set a user's notification as unread.",
-        "security": [
-          {
-            "bearerAuth": [
-              "user"
-            ]
-          },
-          {
-            "accessTokenAuth": [
-              "user"
-            ]
-          },
-          {
-            "fakeAuth": [
-              "admin"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/userId"
-          },
-          {
-            "$ref": "#/components/parameters/notificationId"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "schema": {
-              "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Token provided through query parameters",
-            "schema": {
-              "type": "string",
-              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/xApiVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xSdkVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xAppVersion"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The user's notification is unread"
-          },
-          "default": {
-            "description": "API error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "code": "E_UNEXPECTED",
-                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "putUserNotificationRead",
-        "summary": "Set a user's notification as read.",
-        "security": [
-          {
-            "bearerAuth": [
-              "user"
-            ]
-          },
-          {
-            "accessTokenAuth": [
-              "user"
-            ]
-          },
-          {
-            "fakeAuth": [
-              "admin"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/userId"
-          },
-          {
-            "$ref": "#/components/parameters/notificationId"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "schema": {
-              "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Token provided through query parameters",
-            "schema": {
-              "type": "string",
-              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/xApiVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xSdkVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xAppVersion"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "The user's notification is read"
-          },
-          "default": {
-            "description": "API error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "code": "E_UNEXPECTED",
-                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/{userId}/organisations/{organisationId}/aggregations/{aggregationId}": {
       "delete": {
         "operationId": "deleteUserOrganisationAggregation",
@@ -9686,168 +9534,6 @@
         }
       }
     },
-    "/users/{userId}/notifications": {
-      "get": {
-        "operationId": "getUserNotifications",
-        "summary": "Get user's notifications.",
-        "security": [
-          {
-            "bearerAuth": [
-              "user"
-            ]
-          },
-          {
-            "accessTokenAuth": [
-              "user"
-            ]
-          },
-          {
-            "fakeAuth": [
-              "admin"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/userId"
-          },
-          {
-            "$ref": "#/components/parameters/size"
-          },
-          {
-            "$ref": "#/components/parameters/cursor"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "schema": {
-              "type": "string",
-              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access_token",
-            "description": "Token provided through query parameters",
-            "schema": {
-              "type": "string",
-              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/xApiVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xSdkVersion"
-          },
-          {
-            "$ref": "#/components/parameters/xAppVersion"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The user's notifications",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationsItems"
-                },
-                "example": {
-                  "items": [
-                    "dcf929b5-bf72-4fff-95b6-6cd0b44b3dcd",
-                    "36dca342-fbc4-4aa4-95ca-5ab2301f9953"
-                  ],
-                  "notifications": {
-                    "dcf929b5-bf72-4fff-95b6-6cd0b44b3dcd": {
-                      "id": "dcf929b5-bf72-4fff-95b6-6cd0b44b3dcd",
-                      "source": "app",
-                      "type": "WELCOME",
-                      "message": "translations.welcome",
-                      "data": {
-                        "translations": {
-                          "welcome": {
-                            "fr": "La nouvelle application Sencrop est lancée! 🚜",
-                            "en": "The new Sencrop app is launched! 🚜",
-                            "nl": "De nieuwe Sencrop app is gelanceerd! 🚜",
-                            "de": "Die neue Sencrop-App wird gestartet! 🚜",
-                            "es": "Se lanza la nueva aplicación Sencrop! 🚜"
-                          },
-                          "linkDownload": {
-                            "fr": "Télécharger l'app",
-                            "en": "Download the app",
-                            "nl": "Download de app",
-                            "de": "Laden Sie die App herunter",
-                            "es": "Descarga la aplicación"
-                          }
-                        }
-                      },
-                      "links": {
-                        "message": "translations.linkDownload",
-                        "url": "http://localhost/welcome"
-                      }
-                    },
-                    "36dca342-fbc4-4aa4-95ca-5ab2301f9953": {
-                      "id": "36dca342-fbc4-4aa4-95ca-5ab2301f9953",
-                      "source": "alert",
-                      "message": "notifications.alert.triggered",
-                      "data": {
-                        "alert_id": 1815,
-                        "alert_name": "alerte gel humide",
-                        "user_locale": "fr-FR",
-                        "user_timeZone": "Europe/Paris",
-                        "user_name": "thibault cozon",
-                        "check_date": "2019-02-13T00:10:00.000Z"
-                      },
-                      "links": [
-                        {
-                          "label": "alerts.title",
-                          "url": "/alerts"
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "label": "alerts.delete",
-                          "operationId": "deleteUserAlert",
-                          "parameters": {
-                            "userId": 2910,
-                            "alertId": 1815
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User does not exists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "API error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "code": "E_UNEXPECTED",
-                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/{userId}/organisations": {
       "get": {
         "operationId": "getUserOrganisations",
@@ -11738,6 +11424,83 @@
         "responses": {
           "200": {
             "description": "Organisation has been converted"
+          },
+          "default": {
+            "description": "API error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "E_UNEXPECTED",
+                  "transactionId": "abbacaca-abba-caca-abba-cacaabbacaca"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/trialReactivation": {
+      "post": {
+        "operationId": "postOrganisationTrialReactivation",
+        "summary": "Reactivate a trial organisation",
+        "tags": [
+          "organisations"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "user"
+            ]
+          },
+          {
+            "accessTokenAuth": [
+              "user"
+            ]
+          },
+          {
+            "fakeAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "schema": {
+              "type": "string",
+              "pattern": "^((B|b)earer|Once) ((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access_token",
+            "description": "Token provided through query parameters",
+            "schema": {
+              "type": "string",
+              "pattern": "^((?:\\d+-\\d+-[A-Z_]+)|(?:[0-9a-zA-Z]+)|([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*))$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/xApiVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xSdkVersion"
+          },
+          {
+            "$ref": "#/components/parameters/xAppVersion"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Organisation trial has been updated"
           },
           "default": {
             "description": "API error",
@@ -13944,12 +13707,12 @@
         "security": [
           {
             "bearerAuth": [
-              "user"
+              "team"
             ]
           },
           {
             "accessTokenAuth": [
-              "user"
+              "team"
             ]
           },
           {
@@ -18039,252 +17802,9 @@
           }
         }
       },
-      "Notification": {
-        "type": "object",
-        "required": [
-          "message",
-          "type"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          },
-          "source": {
-            "description": "Source of the notification",
-            "type": "string",
-            "enum": [
-              "app",
-              "user",
-              "partner",
-              "module",
-              "alert",
-              "device",
-              "mixpanel"
-            ]
-          },
-          "type": {
-            "description": "Can be use to differentiate notification with the same source",
-            "type": "string"
-          },
-          "message": {
-            "description": "Message key (if key begins with 'translations.' , translations will be in data object)",
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": true
-          },
-          "read": {
-            "type": "boolean"
-          },
-          "links": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "label",
-                "url"
-              ],
-              "properties": {
-                "label": {
-                  "description": "Label key (if key begins with 'translations.' , translations will be in data object)",
-                  "type": "string"
-                },
-                "tooltip": {
-                  "description": "Tooltip key (same as label)",
-                  "type": "string"
-                },
-                "type": {
-                  "description": "Type of the link (example: error, warning, ...)",
-                  "type": "string"
-                },
-                "url": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "actions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "label",
-                "operationId",
-                "parameters"
-              ],
-              "properties": {
-                "label": {
-                  "description": "Label key (if key begins with 'translations.' , translations will be in data object)",
-                  "type": "string"
-                },
-                "tooltip": {
-                  "description": "Tooltip key (same as label)",
-                  "type": "string"
-                },
-                "type": {
-                  "description": "Type of the action (example: error, warning, ...)",
-                  "type": "string"
-                },
-                "operationId": {
-                  "type": "string",
-                  "description": "Operation id binded to the action"
-                },
-                "parameters": {
-                  "type": "string",
-                  "description": "JSON payload of the action parameters"
-                }
-              }
-            }
-          },
-          "attachments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "label",
-                "href"
-              ],
-              "properties": {
-                "label": {
-                  "description": "Label key (if key begins with 'translations.' , translations will be in data object)",
-                  "type": "string"
-                },
-                "tooltip": {
-                  "description": "Tooltip key (same as label)",
-                  "type": "string"
-                },
-                "href": {
-                  "description": "Can be a pointer to the element to download, or data itself (blob: , data: , filesystem: )",
-                  "type": "string"
-                },
-                "downloadType": {
-                  "description": "Specifies the media type in the form of a MIME type for the linked URL. It is purely advisory, with no built-in functionality.",
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NotificationHash": {
-        "type": "object",
-        "patternProperties": {
-          "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$": {
-            "$ref": "#/components/schemas/Notification"
-          }
-        }
-      },
-      "NotificationsItems": {
-        "type": "object",
-        "required": [
-          "items",
-          "notifications",
-          "sinceCursor"
-        ],
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          },
-          "notifications": {
-            "$ref": "#/components/schemas/NotificationHash"
-          },
-          "nextCursor": {
-            "type": "string",
-            "description": "Opaque cursor you can reuse to get older items."
-          },
-          "sinceCursor": {
-            "type": "string",
-            "description": "Opaque cursor you can reuse to get fresher items."
-          }
-        }
-      },
       "UserPreferences": {
         "type": "object",
-        "additionalProperties": true,
-        "required": [
-          "areasUnit",
-          "precipitationsUnit",
-          "smallVolumesUnit",
-          "speedsUnit",
-          "temperaturesUnit",
-          "volumesUnit",
-          "weightsUnit"
-        ],
-        "properties": {
-          "areasUnit": {
-            "type": "string",
-            "enum": [
-              "HA",
-              "A"
-            ]
-          },
-          "precipitationsUnit": {
-            "type": "string",
-            "enum": [
-              "MM",
-              "INCH"
-            ]
-          },
-          "smallVolumesUnit": {
-            "type": "string",
-            "enum": [
-              "L",
-              "GAL_US"
-            ]
-          },
-          "speedsUnit": {
-            "type": "string",
-            "enum": [
-              "KPH",
-              "MPH"
-            ]
-          },
-          "temperaturesUnit": {
-            "type": "string",
-            "enum": [
-              "C",
-              "F"
-            ]
-          },
-          "volumesUnit": {
-            "type": "string",
-            "enum": [
-              "M3",
-              "CU_YD"
-            ]
-          },
-          "weightsUnit": {
-            "type": "string",
-            "enum": [
-              "T",
-              "SH_TN"
-            ]
-          },
-          "optionalMeasures": {
-            "type": "array",
-            "minItems": 0,
-            "items": {
-              "type": "string",
-              "enum": [
-                "WET_TEMPERATURE",
-                "DEW_POINT",
-                "BANANA_FLOWER_CUT"
-              ]
-            }
-          }
-        }
+        "additionalProperties": true
       },
       "Session": {
         "type": "object",
@@ -19030,16 +18550,6 @@
           "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|[0-9]+$"
         }
       },
-      "notificationId": {
-        "in": "path",
-        "description": "The notification uuid",
-        "name": "notificationId",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-        }
-      },
       "alertId": {
         "in": "path",
         "description": "The alert id",
@@ -19637,29 +19147,6 @@
           }
         }
       },
-      "size": {
-        "in": "query",
-        "name": "size",
-        "required": false,
-        "schema": {
-          "type": "number",
-          "default": 10,
-          "enum": [
-            10,
-            20,
-            50,
-            100
-          ]
-        }
-      },
-      "cursor": {
-        "in": "query",
-        "required": false,
-        "name": "cursor",
-        "schema": {
-          "type": "string"
-        }
-      },
       "geohash": {
         "in": "query",
         "description": "The geohash to lookup",
@@ -19832,7 +19319,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.56.1",
+    "version": "1.60.1",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },

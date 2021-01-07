@@ -9,7 +9,7 @@ const axios = require('axios');
 /**
  * API to consume Sencrop data
  * @module API
- * @version 1.56.1
+ * @version 1.60.1
  */
 const API = {
   deleteOrganisationChargebeeId,
@@ -19,8 +19,6 @@ const API = {
   putOrganisationDevice,
   deleteOrganisationNetworkDeviceAccess,
   putOrganisationNetworkDeviceAccess,
-  deleteUserNotificationRead,
-  putUserNotificationRead,
   deleteUserOrganisationAggregation,
   putUserOrganisationAggregation,
   deleteUserOrganisationAlert,
@@ -98,7 +96,6 @@ const API = {
   getUserIntercomHash,
   getUserInvitation,
   getUserInvitations,
-  getUserNotifications,
   getUserOrganisations,
   postUserOrganisation,
   getUserPendingInvitation,
@@ -116,6 +113,7 @@ const API = {
   postOrganisationNetworkMemberPlan,
   postOrganisationPaymentComplete,
   postOrganisationToNetworkSupport,
+  postOrganisationTrialReactivation,
   postPartnerToken,
   postPartnerTokenRequest,
   postQuoteOffline,
@@ -173,7 +171,7 @@ function deleteOrganisationChargebeeId(
   const method = 'delete';
   let urlParts = ['organisations', organisationId, 'chargebeeId'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -230,7 +228,7 @@ function postOrganisationChargebeeId(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'chargebeeId'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -293,7 +291,7 @@ function deleteOrganisationDevice(
   const method = 'delete';
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -356,7 +354,7 @@ function getOrganisationDevice(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -428,7 +426,7 @@ function putOrganisationDevice(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -513,7 +511,7 @@ function deleteOrganisationNetworkDeviceAccess(
     deviceId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -598,129 +596,7 @@ function putOrganisationNetworkDeviceAccess(
     deviceId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
-    'X-SDK-Version': '2.16.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Set a user's notification as unread.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {string} parameters.notificationId
- * The notification uuid,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function deleteUserNotificationRead(
-  { userId, notificationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  if (notificationId == null) {
-    throw new Error(
-      'Missing required parameter : notificationId. Value : ' + notificationId,
-    );
-  }
-
-  const method = 'delete';
-  let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
-    'X-SDK-Version': '2.16.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Set a user's notification as read.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {string} parameters.notificationId
- * The notification uuid,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function putUserNotificationRead(
-  { userId, notificationId, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  if (notificationId == null) {
-    throw new Error(
-      'Missing required parameter : notificationId. Value : ' + notificationId,
-    );
-  }
-
-  const method = 'put';
-  let urlParts = ['users', userId, 'notifications', notificationId, 'read'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -803,7 +679,7 @@ function deleteUserOrganisationAggregation(
     aggregationId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -889,7 +765,7 @@ function putUserOrganisationAggregation(
     aggregationId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -970,7 +846,7 @@ function deleteUserOrganisationAlert(
     alertId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1054,7 +930,7 @@ function putUserOrganisationAlert(
     alertId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1148,7 +1024,7 @@ function deleteUserOrganisationDeviceModule(
     moduleId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1245,7 +1121,7 @@ function putUserOrganisationDeviceModule(
     moduleId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1328,7 +1204,7 @@ function deleteUserOrganisationInvitation(
     invitationId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1414,7 +1290,7 @@ function putUserOrganisationInvitation(
     invitationId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1497,7 +1373,7 @@ function deleteUserOrganisationMember(
     memberId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1583,7 +1459,7 @@ function putUserOrganisationMember(
     memberId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1666,7 +1542,7 @@ function putUserOrganisationOpenNetworkMembership(
     networkId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1747,7 +1623,7 @@ function deleteUserOrganisationShare(
     shareId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1831,7 +1707,7 @@ function putUserOrganisationShare(
     shareId,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1894,7 +1770,7 @@ function getOpenAPI(
   const method = 'get';
   let urlParts = ['openAPI'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -1938,7 +1814,7 @@ function getCrops({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['crops'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -1988,7 +1864,7 @@ function getFactorySigfoxStatus(
   const method = 'get';
   let urlParts = ['factory', 'sigfox', 'status', serial];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2036,7 +1912,7 @@ function getInvitation({ invitationId, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2106,7 +1982,7 @@ function getInvitationDeviceLiveAggregations(
     'liveAggregations',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2145,7 +2021,7 @@ function getModules({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2186,7 +2062,7 @@ function getMySelf({ authorization, accessToken, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['me'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2234,7 +2110,7 @@ function getNetwork({ networkId, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['networks', networkId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2304,7 +2180,7 @@ function getNetworkDeviceLiveAggregations(
     'liveAggregations',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2351,7 +2227,7 @@ function getNetworkDevices({ networkId, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['networks', networkId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2418,7 +2294,7 @@ function getOAuth2Authorize(
   const method = 'get';
   let urlParts = ['oauth2', 'authorize'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -2476,7 +2352,7 @@ function getOrganisation(
   const method = 'get';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2533,7 +2409,7 @@ function putOrganisation(
   const method = 'put';
   let urlParts = ['organisations', organisationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2593,7 +2469,7 @@ function getOrganisationChargebeePortalSession(
     'portal_sessions',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2667,7 +2543,7 @@ function getOrganisationDevices(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2773,7 +2649,7 @@ function getOrganisationDevicesLiveAggregations(
     'liveAggregations',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2850,7 +2726,7 @@ function getOrganisationHostedPage(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'hostedPage'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -2921,7 +2797,7 @@ function getOrganisationInvitation(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3001,7 +2877,7 @@ function getOrganisationInvitations(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3068,7 +2944,7 @@ function getOrganisationMember(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'members', memberId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3123,7 +2999,7 @@ function getOrganisationMembers(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'members'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3215,7 +3091,7 @@ function getOrganisationNetworkDevices(
     'devices',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3292,7 +3168,7 @@ function getOrganisationNetworks(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'networks'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3355,7 +3231,7 @@ function getOrganisationPlace(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'place', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3410,7 +3286,7 @@ function getOrganisationPlaces(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3467,7 +3343,7 @@ function postOrganisationPlace(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'places'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3522,7 +3398,7 @@ function getOrganisationPreferences(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3579,7 +3455,7 @@ function putOrganisationPreferences(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3640,7 +3516,7 @@ function getOrganisationShare(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'shares', shareId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3723,7 +3599,7 @@ function getOrganisationShares(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'shares'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3785,7 +3661,7 @@ function getOrganisationsTrialOperations(
   const method = 'get';
   let urlParts = ['organisations', organisationId, 'trialOperations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3853,7 +3729,7 @@ function getPartnerDevices(
   const method = 'get';
   let urlParts = ['partners', partnerId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -3895,7 +3771,7 @@ function getPing({ xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['ping'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4012,7 +3888,7 @@ function getPublicWeatherLive(
   const method = 'get';
   let urlParts = ['weather', 'public', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4099,7 +3975,7 @@ function getPublicWeatherLiveAggregations(
   const method = 'get';
   let urlParts = ['weather', 'public', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4149,7 +4025,7 @@ function getQuote({ quoteId, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['quotes', quoteId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4217,7 +4093,7 @@ function getQuoteHostedPage(
   const method = 'get';
   let urlParts = ['users', userId, 'quotes', quoteId, 'hostedPage'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4275,7 +4151,7 @@ function getSearchDevices({ latitude, longitude, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['search', 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4342,7 +4218,7 @@ function getSearchNetworkDevices(
   const method = 'get';
   let urlParts = ['search', 'networks', networkId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4395,7 +4271,7 @@ function getSearchUser(
   const method = 'get';
   let urlParts = ['search', 'users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4445,7 +4321,7 @@ function getTrialOperation({ trialOperationId, xAppVersion } = {}, options) {
   const method = 'get';
   let urlParts = ['trialOperations', trialOperationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -4495,7 +4371,7 @@ function getUser(
   const method = 'get';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4550,7 +4426,7 @@ function putUser(
   const method = 'put';
   let urlParts = ['users', userId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4620,7 +4496,7 @@ function getUserAggregation(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations', aggregationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4678,7 +4554,7 @@ function getUserAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'aggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4733,7 +4609,7 @@ function getUserAlerts(
   const method = 'get';
   let urlParts = ['users', userId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4849,7 +4725,7 @@ function getUserDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -4929,7 +4805,7 @@ function getUserDevice(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5043,7 +4919,7 @@ function getUserDeviceContinuousStatistics(
     'countinuousStatistics',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5155,7 +5031,7 @@ function getUserDeviceDailyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'daily'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5229,7 +5105,7 @@ function getUserDeviceForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5334,7 +5210,7 @@ function getUserDeviceHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5402,7 +5278,7 @@ function getUserDeviceModules(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'modules'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5472,7 +5348,7 @@ function getUserDevicePositions(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'positions'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5568,7 +5444,7 @@ function getUserDeviceRawData(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'data', 'raw'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5679,7 +5555,7 @@ function getUserDeviceStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5773,7 +5649,7 @@ function getUserDeviceSummary(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', deviceId, 'summaries', date];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5851,7 +5727,7 @@ function getUserDevices(
   const method = 'get';
   let urlParts = ['users', userId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -5954,7 +5830,7 @@ function getUserDevicesLiveAggregations(
   const method = 'get';
   let urlParts = ['users', userId, 'devices', 'liveAggregations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6040,7 +5916,7 @@ function getUserForecasts(
   const method = 'get';
   let urlParts = ['users', userId, 'forecasts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6159,7 +6035,7 @@ function getUserHourlyData(
   const method = 'get';
   let urlParts = ['users', userId, 'data', 'hourly'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6230,7 +6106,7 @@ function getUserIntercomHash(
   const method = 'get';
   let urlParts = ['users', userId, 'intercomHash'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6292,7 +6168,7 @@ function getUserInvitation(
   const method = 'get';
   let urlParts = ['users', userId, 'invitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6373,7 +6249,7 @@ function getUserInvitations(
   const method = 'get';
   let urlParts = ['users', userId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6384,65 +6260,6 @@ function getUserInvitations(
     withTypes: withTypes,
     withStatuses: withStatuses,
     withModes: withModes,
-    access_token: accessToken,
-  });
-  let data = {}.undef;
-
-  return axios(
-    Object.assign(
-      {
-        baseURL: 'https://api.sencrop.com/v1',
-        paramsSerializer: querystring.stringify.bind(querystring),
-        validateStatus: status => 200 <= status && 300 > status,
-        method: method,
-        url: urlParts.join('/'),
-        headers: cleanHeaders(headers),
-        params: qs,
-        data,
-      },
-      options || {},
-    ),
-  );
-}
-
-/**
- * Get user's notifications.
- * @param {Object} parameters
- * The parameters to provide (destructured)
- * @param {number} parameters.userId
- * The user id,
- * @param {number} [parameters.size]
- * undefined,
- * @param {string} [parameters.cursor]
- * undefined,
- * @param {string} [parameters.authorization]
- * Authorization with Bearer mecanism,
- * @param {string} [parameters.accessToken]
- * Token provided through query parameters
- * @param {Object} options
- * Options to override Axios request configuration
- * @return {Object}
- * The HTTP response
- */
-function getUserNotifications(
-  { userId, size, cursor, authorization, accessToken, xAppVersion } = {},
-  options,
-) {
-  if (userId == null) {
-    throw new Error('Missing required parameter : userId. Value : ' + userId);
-  }
-
-  const method = 'get';
-  let urlParts = ['users', userId, 'notifications'];
-  let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
-    'X-SDK-Version': '2.16.0',
-    Authorization: authorization,
-    'X-APP-Version': xAppVersion,
-  });
-  let qs = cleanQuery({
-    size: size,
-    cursor: cursor,
     access_token: accessToken,
   });
   let data = {}.undef;
@@ -6490,7 +6307,7 @@ function getUserOrganisations(
   const method = 'get';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6545,7 +6362,7 @@ function postUserOrganisation(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6606,7 +6423,7 @@ function getUserPendingInvitation(
   const method = 'get';
   let urlParts = ['users', userId, 'pendingInvitations', invitationId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6671,7 +6488,7 @@ function getUserPendingInvitations(
   const method = 'get';
   let urlParts = ['users', userId, 'pendingInvitations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6726,7 +6543,7 @@ function getUserPreferences(
   const method = 'get';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6781,7 +6598,7 @@ function putUserPreferences(
   const method = 'put';
   let urlParts = ['users', userId, 'preferences'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6904,7 +6721,7 @@ function getUserStatistics(
   const method = 'get';
   let urlParts = ['users', userId, 'statistics'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -6985,7 +6802,7 @@ function getWeatherLive(
   const method = 'get';
   let urlParts = ['weather', 'live'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7043,7 +6860,7 @@ function postInvitationResend(
   const method = 'post';
   let urlParts = ['invitations', invitationId, 'resend'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7085,7 +6902,7 @@ function postLogin({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'sign_in'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -7124,7 +6941,7 @@ function postLostPassword({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['password', 'lost'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -7166,7 +6983,7 @@ function postOAuth2Token({ body, authorization, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['oauth2', 'token'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7213,7 +7030,7 @@ function postOrganisation(
   const method = 'post';
   let urlParts = ['organisations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7268,7 +7085,7 @@ function postOrganisationEndTrialSupport(
   const method = 'post';
   let urlParts = ['support', 'organisations', organisationId, 'endTrial'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7347,7 +7164,7 @@ function postOrganisationNetworkMemberPlan(
     'plan',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7404,7 +7221,7 @@ function postOrganisationPaymentComplete(
   const method = 'post';
   let urlParts = ['organisations', organisationId, 'paymentComplete'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7461,7 +7278,7 @@ function postOrganisationToNetworkSupport(
   const method = 'post';
   let urlParts = ['support', 'organisations', organisationId, 'toNetwork'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7470,6 +7287,61 @@ function postOrganisationToNetworkSupport(
     access_token: accessToken,
   });
   let data = body;
+
+  return axios(
+    Object.assign(
+      {
+        baseURL: 'https://api.sencrop.com/v1',
+        paramsSerializer: querystring.stringify.bind(querystring),
+        validateStatus: status => 200 <= status && 300 > status,
+        method: method,
+        url: urlParts.join('/'),
+        headers: cleanHeaders(headers),
+        params: qs,
+        data,
+      },
+      options || {},
+    ),
+  );
+}
+
+/**
+ * Reactivate a trial organisation
+ * @param {Object} parameters
+ * The parameters to provide (destructured)
+ * @param {number} parameters.organisationId
+ * The organisation id,
+ * @param {string} [parameters.authorization]
+ * Authorization with Bearer mecanism,
+ * @param {string} [parameters.accessToken]
+ * Token provided through query parameters
+ * @param {Object} options
+ * Options to override Axios request configuration
+ * @return {Object}
+ * The HTTP response
+ */
+function postOrganisationTrialReactivation(
+  { organisationId, authorization, accessToken, xAppVersion } = {},
+  options,
+) {
+  if (organisationId == null) {
+    throw new Error(
+      'Missing required parameter : organisationId. Value : ' + organisationId,
+    );
+  }
+
+  const method = 'post';
+  let urlParts = ['organisations', organisationId, 'trialReactivation'];
+  let headers = Object.assign((options || {}).headers || {}, {
+    'X-API-Version': '1.60.1',
+    'X-SDK-Version': '2.16.0',
+    Authorization: authorization,
+    'X-APP-Version': xAppVersion,
+  });
+  let qs = cleanQuery({
+    access_token: accessToken,
+  });
+  let data = {}.undef;
 
   return axios(
     Object.assign(
@@ -7516,7 +7388,7 @@ function postPartnerToken(
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokens'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7569,7 +7441,7 @@ function postPartnerTokenRequest(
   const method = 'post';
   let urlParts = ['partners', partnerId, 'tokenRequests'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7626,7 +7498,7 @@ function postQuoteOffline(
   const method = 'post';
   let urlParts = ['users', userId, 'quotes', quoteId, 'offline'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7675,7 +7547,7 @@ function postRegister(
   const method = 'post';
   let urlParts = ['register'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -7724,7 +7596,7 @@ function postSignatureCloudinary(
   const method = 'post';
   let urlParts = ['cloudinary', 'signature'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7768,7 +7640,7 @@ function postSignupCheck({ body, authorization, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['utils', 'checkSignup'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7815,7 +7687,7 @@ function postSocialImage(
   const method = 'post';
   let urlParts = ['socialImage'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7857,7 +7729,7 @@ function postUser({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -7927,7 +7799,7 @@ function postUserDeviceExport(
   const method = 'post';
   let urlParts = ['users', userId, 'devices', deviceId, 'export'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -7989,7 +7861,7 @@ function postUserNetworkInvitation(
   const method = 'post';
   let urlParts = ['users', userId, 'networks', networkId, 'invitations'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -8064,7 +7936,7 @@ function postUserOrganisationAggregation(
     'aggregations',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8134,7 +8006,7 @@ function postUserOrganisationAlert(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations', organisationId, 'alerts'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8204,7 +8076,7 @@ function postUserOrganisationDevice(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations', organisationId, 'devices'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8280,7 +8152,7 @@ function postUserOrganisationInvitation(
     'invitations',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8350,7 +8222,7 @@ function postUserOrganisationMember(
   const method = 'post';
   let urlParts = ['users', userId, 'organisations', organisationId, 'members'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8398,7 +8270,7 @@ function postUserPassword({ body, userId, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users', userId, 'password'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -8437,7 +8309,7 @@ function postVerify({ body, xAppVersion } = {}, options) {
   const method = 'post';
   let urlParts = ['users', 'verify'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -8527,7 +8399,7 @@ function putOrganisationDeviceCalibration(
     calibrationName,
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8606,7 +8478,7 @@ function putOrganisationDeviceSettings(
     'settings',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8676,7 +8548,7 @@ function putOrganisationPlace(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'places', placeId];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8733,7 +8605,7 @@ function putOrganisationTrial(
   const method = 'put';
   let urlParts = ['organisations', organisationId, 'trial'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8833,7 +8705,7 @@ function putPartnerModuleParameters(
     'parameters',
   ];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8875,7 +8747,7 @@ function putPassword({ body, xAppVersion } = {}, options) {
   const method = 'put';
   let urlParts = ['password'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     'X-APP-Version': xAppVersion,
   });
@@ -8927,7 +8799,7 @@ function putUserFCMToken(
   const method = 'put';
   let urlParts = ['users', userId, 'FCMToken'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -8990,7 +8862,7 @@ function putUserInvitationAnswer(
   const method = 'put';
   let urlParts = ['users', userId, 'invitations', invitationId, 'answer'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -9054,7 +8926,7 @@ function getGraphQL(
   const method = 'get';
   let urlParts = ['graphql'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
@@ -9106,7 +8978,7 @@ function postGraphQL(
   const method = 'post';
   let urlParts = ['graphql'];
   let headers = Object.assign((options || {}).headers || {}, {
-    'X-API-Version': '1.56.1',
+    'X-API-Version': '1.60.1',
     'X-SDK-Version': '2.16.0',
     Authorization: authorization,
     'X-APP-Version': xAppVersion,
