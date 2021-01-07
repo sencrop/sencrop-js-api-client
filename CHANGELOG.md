@@ -1,3 +1,21 @@
+# [2.17.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.16.0...v2.17.0) (2021-01-07)
+
+
+### Bug Fixes
+
+* **build:** fix semantic release build ([c7230a7](https://github.com/sencrop/sencrop-js-api-client/commit/c7230a7a65b1cf9d7633472481eb421fda92b93d))
+* **build:** fix semantic release build ([ccb6624](https://github.com/sencrop/sencrop-js-api-client/commit/ccb66241b8f3c476563892d235e5a2b3727ac414))
+* **deps:** run npm run audit ([db22b1e](https://github.com/sencrop/sencrop-js-api-client/commit/db22b1e40171b4dcce5bcec99dfadffda5f3ed02))
+* **deps:** run npm run audit ([70ce88d](https://github.com/sencrop/sencrop-js-api-client/commit/70ce88dc004a956d82b3d5fb01b428e78343b444))
+
+
+### Features
+
+* **endpoints:** update api ([c1a1df9](https://github.com/sencrop/sencrop-js-api-client/commit/c1a1df918bd0f6345bab15a17d3604aa4f7d556e))
+* **endpoints:** update api ([7d0a2a7](https://github.com/sencrop/sencrop-js-api-client/commit/7d0a2a7113f4011bb0bcc6ffd890317cd1b595b3))
+
+
+
 <a name="2.16.0"></a>
 # [2.16.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.15.0...v2.16.0) (2020-12-03)
 
