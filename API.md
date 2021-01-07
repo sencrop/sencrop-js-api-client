@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.56.1  
+**Version**: 1.60.1  
 
 * [API](#module_API)
     * [~deleteOrganisationChargebeeId(parameters, options)](#module_API..deleteOrganisationChargebeeId) ⇒ <code>Object</code>
@@ -14,8 +14,6 @@ API to consume Sencrop data
     * [~putOrganisationDevice(parameters, body, options)](#module_API..putOrganisationDevice) ⇒ <code>Object</code>
     * [~deleteOrganisationNetworkDeviceAccess(parameters, options)](#module_API..deleteOrganisationNetworkDeviceAccess) ⇒ <code>Object</code>
     * [~putOrganisationNetworkDeviceAccess(parameters, options)](#module_API..putOrganisationNetworkDeviceAccess) ⇒ <code>Object</code>
-    * [~deleteUserNotificationRead(parameters, options)](#module_API..deleteUserNotificationRead) ⇒ <code>Object</code>
-    * [~putUserNotificationRead(parameters, options)](#module_API..putUserNotificationRead) ⇒ <code>Object</code>
     * [~deleteUserOrganisationAggregation(parameters, options)](#module_API..deleteUserOrganisationAggregation) ⇒ <code>Object</code>
     * [~putUserOrganisationAggregation(parameters, body, options)](#module_API..putUserOrganisationAggregation) ⇒ <code>Object</code>
     * [~deleteUserOrganisationAlert(parameters, options)](#module_API..deleteUserOrganisationAlert) ⇒ <code>Object</code>
@@ -93,7 +91,6 @@ API to consume Sencrop data
     * [~getUserIntercomHash(parameters, options)](#module_API..getUserIntercomHash) ⇒ <code>Object</code>
     * [~getUserInvitation(parameters, options)](#module_API..getUserInvitation) ⇒ <code>Object</code>
     * [~getUserInvitations(parameters, options)](#module_API..getUserInvitations) ⇒ <code>Object</code>
-    * [~getUserNotifications(parameters, options)](#module_API..getUserNotifications) ⇒ <code>Object</code>
     * [~getUserOrganisations(parameters, options)](#module_API..getUserOrganisations) ⇒ <code>Object</code>
     * [~postUserOrganisation(parameters, body, options)](#module_API..postUserOrganisation) ⇒ <code>Object</code>
     * [~getUserPendingInvitation(parameters, options)](#module_API..getUserPendingInvitation) ⇒ <code>Object</code>
@@ -111,6 +108,7 @@ API to consume Sencrop data
     * [~postOrganisationNetworkMemberPlan(parameters, body, options)](#module_API..postOrganisationNetworkMemberPlan) ⇒ <code>Object</code>
     * [~postOrganisationPaymentComplete(parameters, body, options)](#module_API..postOrganisationPaymentComplete) ⇒ <code>Object</code>
     * [~postOrganisationToNetworkSupport(parameters, body, options)](#module_API..postOrganisationToNetworkSupport) ⇒ <code>Object</code>
+    * [~postOrganisationTrialReactivation(parameters, options)](#module_API..postOrganisationTrialReactivation) ⇒ <code>Object</code>
     * [~postPartnerToken(parameters, body, options)](#module_API..postPartnerToken) ⇒ <code>Object</code>
     * [~postPartnerTokenRequest(parameters, body, options)](#module_API..postPartnerTokenRequest) ⇒ <code>Object</code>
     * [~postQuoteOffline(parameters, options)](#module_API..postQuoteOffline) ⇒ <code>Object</code>
@@ -256,40 +254,6 @@ Update an organisation's device.
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | parameters.networkId | <code>string</code> | The network id, |
 | parameters.deviceId | <code>number</code> | The device id, |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..deleteUserNotificationRead"></a>
-
-### API~deleteUserNotificationRead(parameters, options) ⇒ <code>Object</code>
-Set a user's notification as unread.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.notificationId | <code>string</code> | The notification uuid, |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
-<a name="module_API..putUserNotificationRead"></a>
-
-### API~putUserNotificationRead(parameters, options) ⇒ <code>Object</code>
-Set a user's notification as read.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| parameters.notificationId | <code>string</code> | The notification uuid, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
@@ -1692,24 +1656,6 @@ Get a user's invitations.
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
-<a name="module_API..getUserNotifications"></a>
-
-### API~getUserNotifications(parameters, options) ⇒ <code>Object</code>
-Get user's notifications.
-
-**Kind**: inner method of [<code>API</code>](#module_API)  
-**Returns**: <code>Object</code> - The HTTP response  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parameters | <code>Object</code> | The parameters to provide (destructured) |
-| parameters.userId | <code>number</code> | The user id, |
-| [parameters.size] | <code>number</code> | undefined, |
-| [parameters.cursor] | <code>string</code> | undefined, |
-| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
-| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
-| options | <code>Object</code> | Options to override Axios request configuration |
-
 <a name="module_API..getUserOrganisations"></a>
 
 ### API~getUserOrganisations(parameters, options) ⇒ <code>Object</code>
@@ -1995,6 +1941,22 @@ Convert an organisation to a network
 | --- | --- | --- |
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
+| parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postOrganisationTrialReactivation"></a>
+
+### API~postOrganisationTrialReactivation(parameters, options) ⇒ <code>Object</code>
+Reactivate a trial organisation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
 | parameters.organisationId | <code>number</code> | The organisation id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
