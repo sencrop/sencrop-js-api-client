@@ -102,6 +102,7 @@ API to consume Sencrop data
     * [~putUserPreferences(parameters, body, options)](#module_API..putUserPreferences) ⇒ <code>Object</code>
     * [~getUserStatistics(parameters, options)](#module_API..getUserStatistics) ⇒ <code>Object</code>
     * [~getWeatherLive(parameters, options)](#module_API..getWeatherLive) ⇒ <code>Object</code>
+    * [~postInvitationResend(parameters, options)](#module_API..postInvitationResend) ⇒ <code>Object</code>
     * [~postLogin(parameters, body, options)](#module_API..postLogin) ⇒ <code>Object</code>
     * [~postLostPassword(parameters, body, options)](#module_API..postLostPassword) ⇒ <code>Object</code>
     * [~postOAuth2Token(parameters, body, options)](#module_API..postOAuth2Token) ⇒ <code>Object</code>
@@ -1851,6 +1852,22 @@ Get last measure (for a specific type) from devices in a given area (1 hour for 
 | parameters.geohash | <code>string</code> | The geohash to lookup, |
 | parameters.measureType | <code>string</code> | The measures to read, |
 | [parameters.timeFrame] | <code>string</code> | The aggregatable measure, |
+| [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
+| [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
+| options | <code>Object</code> | Options to override Axios request configuration |
+
+<a name="module_API..postInvitationResend"></a>
+
+### API~postInvitationResend(parameters, options) ⇒ <code>Object</code>
+Resend the invitation
+
+**Kind**: inner method of [<code>API</code>](#module_API)  
+**Returns**: <code>Object</code> - The HTTP response  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parameters | <code>Object</code> | The parameters to provide (destructured) |
+| parameters.invitationId | <code>string</code> | The invitation id, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |
