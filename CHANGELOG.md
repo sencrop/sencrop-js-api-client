@@ -1,3 +1,12 @@
+# [2.18.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.17.0...v2.18.0) (2021-02-03)
+
+
+### Features
+
+* **endpoints:** update api ([d54955c](https://github.com/sencrop/sencrop-js-api-client/commit/d54955cd305dd2f2eee1fee6a4b85ebcd668c5f5))
+
+
+
 # [2.17.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.16.0...v2.17.0) (2021-01-07)
 
 
