@@ -11823,6 +11823,15 @@
             }
           },
           {
+            "in": "query",
+            "description": "UUID of the godfather organisation (through a referral program)",
+            "name": "referralId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "$ref": "#/components/parameters/xApiVersion"
           },
           {
@@ -13759,13 +13768,13 @@
           "content": {
             "application/json": {
               "example": {
+                "endDate": "2021-01-29T00:00:00.0000",
                 "reason": "He is a very kind farmer"
               },
               "schema": {
                 "type": "object",
                 "required": [
-                  "endDate",
-                  "type"
+                  "endDate"
                 ],
                 "additionalProperties": false,
                 "properties": {
@@ -13775,13 +13784,6 @@
                   "endDate": {
                     "type": "string",
                     "format": "date-time"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "TRIAL_END_TERM_UPDATED",
-                      "TRIAL_REACTIVATED"
-                    ]
                   }
                 }
               }
@@ -15313,34 +15315,6 @@
           }
         }
       },
-      "DeviceMoves": {
-        "type": "object",
-        "required": [
-          "count",
-          "dates"
-        ],
-        "properties": {
-          "count": {
-            "type": "number"
-          },
-          "dates": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        }
-      },
-      "DeviceMovesHash": {
-        "type": "object",
-        "patternProperties": {
-          "^[0-9]+$": {
-            "$ref": "#/components/schemas/DeviceMoves"
-          }
-        }
-      },
       "OrderContents": {
         "type": "object",
         "additionalProperties": false,
@@ -15373,7 +15347,8 @@
               "mono_point",
               "functional_demo_stations",
               "non_functional_demo_stations",
-              "remote_stock"
+              "remote_stock",
+              "leafcrop_recall"
             ]
           },
           "hubspotTicketId": {
@@ -19319,7 +19294,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.60.1",
+    "version": "1.60.4",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },

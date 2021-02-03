@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.60.1  
+**Version**: 1.60.4  
 
 * [API](#module_API)
     * [~deleteOrganisationChargebeeId(parameters, options)](#module_API..deleteOrganisationChargebeeId) ⇒ <code>Object</code>
@@ -2024,7 +2024,8 @@ Register a new user and his organisation
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
 | [parameters.noTrial] | <code>boolean</code> | Deprecated, not used anymore, |
-| [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation |
+| [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation, |
+| [parameters.referralId] | <code>string</code> | UUID of the godfather organisation (through a referral program) |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postSignatureCloudinary"></a>
