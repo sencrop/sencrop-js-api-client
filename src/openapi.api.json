@@ -11832,6 +11832,15 @@
             }
           },
           {
+            "in": "query",
+            "description": "ID of the godfather user (through a referral program)",
+            "name": "referralAuthorId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "$ref": "#/components/parameters/xApiVersion"
           },
           {
@@ -15819,6 +15828,13 @@
           },
           "limits": {
             "$ref": "#/components/schemas/OrganisationLimits"
+          },
+          "referralStatus": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "VALIDATED"
+            ]
           }
         }
       },
@@ -19294,7 +19310,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.60.4",
+    "version": "1.60.7",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },
