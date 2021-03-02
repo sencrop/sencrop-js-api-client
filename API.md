@@ -4,7 +4,7 @@
 ## API
 API to consume Sencrop data
 
-**Version**: 1.60.7  
+**Version**: 1.60.11  
 
 * [API](#module_API)
     * [~deleteOrganisationChargebeeId(parameters, options)](#module_API..deleteOrganisationChargebeeId) ⇒ <code>Object</code>
@@ -2026,7 +2026,8 @@ Register a new user and his organisation
 | [parameters.noTrial] | <code>boolean</code> | Deprecated, not used anymore, |
 | [parameters.trialOperationId] | <code>string</code> | Operation trial id used to compute trialEndDate of organisation, |
 | [parameters.referralId] | <code>string</code> | UUID of the godfather organisation (through a referral program), |
-| [parameters.referralAuthorId] | <code>string</code> | ID of the godfather user (through a referral program) |
+| [parameters.referralAuthorId] | <code>string</code> | ID of the godfather user (through a referral program), |
+| [parameters.marketingOptin] | <code>boolean</code> | ID of the godfather user (through a referral program) |
 | options | <code>Object</code> | Options to override Axios request configuration |
 
 <a name="module_API..postSignatureCloudinary"></a>
@@ -2313,6 +2314,7 @@ Change trial for an organisation
 | parameters | <code>Object</code> | The parameters to provide (destructured) |
 | body |  | The request body |
 | parameters.organisationId | <code>number</code> | The organisation id, |
+| [parameters.sendEmail] | <code>boolean</code> | If a trial reactivation should send an email, |
 | [parameters.authorization] | <code>string</code> | Authorization with Bearer mecanism, |
 | [parameters.accessToken] | <code>string</code> | Token provided through query parameters |
 | options | <code>Object</code> | Options to override Axios request configuration |

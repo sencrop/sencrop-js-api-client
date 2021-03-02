@@ -11841,6 +11841,15 @@
             }
           },
           {
+            "in": "query",
+            "description": "ID of the godfather user (through a referral program)",
+            "name": "marketingOptin",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "$ref": "#/components/parameters/xApiVersion"
           },
           {
@@ -13742,6 +13751,14 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/organisationId"
+          },
+          {
+            "name": "sendEmail",
+            "in": "query",
+            "description": "If a trial reactivation should send an email",
+            "schema": {
+              "type": "boolean"
+            }
           },
           {
             "in": "header",
@@ -19310,7 +19327,7 @@
   },
   "openapi": "3.0.2",
   "info": {
-    "version": "1.60.7",
+    "version": "1.60.11",
     "title": "Sencrop API",
     "description": "API to consume Sencrop data"
   },
