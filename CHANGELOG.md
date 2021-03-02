@@ -1,3 +1,17 @@
+# [2.20.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.19.0...v2.20.0) (2021-03-02)
+
+
+### Bug Fixes
+
+* **deps:** bump deps and nodejs ([c65d1b7](https://github.com/sencrop/sencrop-js-api-client/commit/c65d1b72ad9d786c966bfca219c293bdc1b43989))
+
+
+### Features
+
+* **endpoints:** update api ([de67180](https://github.com/sencrop/sencrop-js-api-client/commit/de6718015a93f48be6d348324e7d82844af93885))
+
+
+
 # [2.19.0](https://github.com/sencrop/sencrop-js-api-client/compare/v2.18.0...v2.19.0) (2021-02-18)
 
 
